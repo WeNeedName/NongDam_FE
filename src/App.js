@@ -3,11 +3,14 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
 //js파일
+
 import Main from "./pages/Main";
 import Analysis from "./pages/Analysis";
 import AccountBook from "./pages/AccountBook";
 import MarketPrice from "./pages/MarketPrice";
 import AccountWrite from "./components/accountbook/AccountWrite";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -19,6 +22,8 @@ function App() {
         <Route path="/accountbook" element={<AccountBook />} />
         <Route path="/accountwrite" element={<AccountWrite />} />
         <Route path="/marketprice" element={<MarketPrice />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </>
   );
