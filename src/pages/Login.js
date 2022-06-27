@@ -18,11 +18,11 @@ const Login = () => {
 
   const logIn = () => {
     console.log(id, pw);
-    const data = {
+    const userInfo = {
       email: id,
       password: pw,
     };
-    dispatch(logInDB(data));
+    dispatch(logInDB(userInfo));
   };
 
   // useEffect(()=>{
