@@ -3,12 +3,21 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
 //js파일
+import Main from "./pages/Main";
+import Analysis from "./pages/Analysis";
+import AccountBook from "./pages/AccountBook";
+import MarketPrice from "./pages/MarketPrice";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <div>App파일입니다!</div>;
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/analysis" element={<Analysis />} />
+        <Route path="/accountbook" element={<AccountBook />} />
+        <Route path="/marketprice" element={<MarketPrice />} />
+      </Routes>
     </>
   );
 }
