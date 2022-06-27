@@ -58,9 +58,8 @@ export const apis = {
     api.post(`/api/comment/${comment.postId}`, { comment: comment.comment }),
   deleteComment: (id) => api.delete(`/api/comment/${id}`),
 
-
   // user
   logIn: (data) => api.post("/member/login", data),
-  signUp: (data) => api.post("/member", data ),
+  signUp: (data) => api.post("/member", data),
   signout: () => api.post("/member/logout"),
 };

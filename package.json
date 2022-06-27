@@ -3,12 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/core": "^0.79.0",
+    "@nivo/line": "^0.79.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "apexcharts": "^3.35.3",
     "axios": "^0.27.2",
+    "json-server": "^0.17.0",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.3",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-calendar": "^3.7.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-router": "^6.3.0",
@@ -43,5 +50,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/WeNeedName/FarmProject_FE",
+  "author": "SonshineLiveinEarth <yoonjooson8@gmail.com>",
+  "license": "MIT"
 }
