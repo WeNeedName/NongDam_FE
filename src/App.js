@@ -3,12 +3,18 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
 //js파일
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <div>App파일입니다!</div>;
+      <Routes>
+      <Route path = "/login" element ={<Login />} />
+      <Route path = "/signup" element ={<Signup />} />
+      </Routes>
     </>
   );
 }
