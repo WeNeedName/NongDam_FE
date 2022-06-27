@@ -7,12 +7,16 @@ import Profile from "../images/Profile.png";
 
 // js파일
 import Header from "../components/Header";
+import Sales from "../components/analysis/Sales";
+import TotalHarvest from "../components/analysis/TotalHarvest";
 
 const Analysis = () => {
   return (
     <div>
       <Header />
-      <div>통계페이지입니다.</div>
+      <h3>내 농장 현황</h3>
+      <Sales />
+      <TotalHarvest />
     </div>
   );
 };

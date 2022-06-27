@@ -7,6 +7,7 @@ import Main from "./pages/Main";
 import Analysis from "./pages/Analysis";
 import AccountBook from "./pages/AccountBook";
 import MarketPrice from "./pages/MarketPrice";
+import AccountWrite from "./components/accountbook/AccountWrite";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/analysis" element={<Analysis />} />
         <Route path="/accountbook" element={<AccountBook />} />
+        <Route path="/accountwrite" element={<AccountWrite />} />
         <Route path="/marketprice" element={<MarketPrice />} />
       </Routes>
     </>
