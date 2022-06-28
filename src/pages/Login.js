@@ -1,6 +1,7 @@
 import { React, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import {useNavigate} from "react-router-dom"
 import Signup from "./Signup";
 import { logInDB } from "../redux/modules/users";
 
@@ -8,108 +9,97 @@ const Login = () => {
   const idRef = useRef();
   const errRef = useRef();
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userSignIn = useSelector((state) => state.users.users);
+  // const userSignIn = useSelector((state) => state.users.users);
 
-  const logIn = () => {
-    console.log(id, pw);
+  const logIn = (email, pw) => {
+    //console.log(email, pw);
+    console.log("로그인 시도")
+    if (email === ""|| pw === "") {
+      console.log("빈칸 채워줘야죠")
+      window.alert("빈칸을 모두 채워주세요");
+      return;
+    }
     const userInfo = {
-      email: id,
+      email: email,
       password: pw,
     };
     dispatch(logInDB(userInfo));
   };
 
-  // useEffect(()=>{
-  //     idRef.current.focus();
+  useEffect(()=>{
+      idRef.current.focus();
 
-  // },[userSignIn])
-
+  },[])
   useEffect(() => {
     setErrMsg("");
-  }, [id, pw]);
+  }, [email, pw]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setId();
-    setPw();
-    setSuccess(true);
+    // setEmail();
+    // setPw();
+    // setSuccess(true);
   };
 
   return (
     <>
-      {success ? (
-        <section>
-          <h1>로그인 성공</h1>
-          <br />
-          <p>
-            <a href="#">메인으로 가기</a>
-          </p>
-        </section>
-      ) : (
         <section>
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
+            // aria-live="assertive"
           >
             {" "}
             {errMsg}
           </p>
           <h1>로그인페이지</h1>
 
-          <form onSubmit={handleSubmit}>
-            <IdBox>
+          {/* <form onSubmit={handleSubmit}> */}
+            <EmailBox>
               {" "}
-              <label className="id">ID</label>
-              <input
+              <label className="id">이메일</label>
+              <InputEmail
                 type="text"
-                className="inputId"
-                id="id"
                 ref={idRef}
                 autoComplete="off"
-                onChange={(e) => setId(e.target.value)}
-                value={id}
-                required
+                onChange={(e) => setEmail(e.target.value)}
+                
+                placeholder="이메일을 입력해주세요"
               />
-            </IdBox>
+            </EmailBox>
 
             <PwBox>
               {" "}
               <label className="pw">PW</label>
-              <input
+              <InputPw
                 type="text"
                 className="inputPw"
                 id="pw"
                 onChange={(e) => setPw(e.target.value)}
-                value={pw}
-                required
+                placeholder="비밀번호를 입력해주세요"
               />
             </PwBox>
-            <button
+            <LoginBtn
               style={{ width: "100px" }}
+              type="submit"
               onClick={() => {
-                logIn();
+                logIn(email, pw)
+                navigate("/");
               }}
             >
               {" "}
               로그인
-            </button>
-          </form>
-          {/* <p>회원이 아니시라면? <br/>
-                <span className="line">
-                    <Signup />
-                    <a href="#"> 회원가입</a>
-                </span>
-            </p> */}
+            </LoginBtn>
+          {/* </form> */}
         </section>
-      )}
+
     </>
   );
 };
@@ -126,12 +116,15 @@ const InputBoxes = styled.div`
   }
 `;
 
-const IdBox = styled.div`
+const EmailBox = styled.div`
   display: flex;
 `;
+const InputEmail = styled.input``
+
 
 const PwBox = styled.div`
   display: flex;
 `;
-
+const InputPw = styled.input``
+const LoginBtn = styled.button``
 export default Login;

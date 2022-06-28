@@ -62,4 +62,5 @@ export const apis = {
   logIn: (data) => api.post("/member/login", data),
   signUp: (data) => api.post("/member", data),
   signout: () => api.post("/member/logout"),
+  
 };

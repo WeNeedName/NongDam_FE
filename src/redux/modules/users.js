@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 //actions
 const LOGIN_USER = "LOGIN_USER";
 // const SIGNOUT = 'users/SIGNOUT'
-// const SIGNUP = 'users/SIGNUP'
+const SIGNUP_USER = "SIGNUP_USER"
 
 //initial state
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
 };
 
 //action creator
-// const getUser = createAction(GET_USER, (user) => ({ user }));
+const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
 // const logOut = createAction(LOG_OUT, (user) => ({ user }));
@@ -32,11 +32,12 @@ const logIn = createAction(LOGIN_USER, (user) => ({ user }));
 //middleware
 //Signup
 export const signUpDB = (userInfo) => {
-  return async (dispatch) => {
+  return async function(dispatch){
     await apis
       .signUp(userInfo)
       .then((res) => {
         console.log(res);
+        dispatch(signUp(userInfo))
       })
       .catch((err) => {
         console.log(err);
@@ -68,9 +69,14 @@ export const logInDB = (userInfo) => {
       })
       .catch((err) => {
         console.log(err);
+        window.alert("잘못된 회원정보입니다.")
       });
   };
 };
+
+
+
+
 
 //reducer
 export default handleActions(
@@ -84,10 +90,11 @@ export default handleActions(
         //   draft.uploading = false;
         console.log("리듀서로 적용 완료", state, action.payload);
       }),
-    //   [GET_USER]: (state, action) =>
-    //     produce(state, (draft) => {
-    //       return { message: action.data };
-    //     }),
+      [SIGNUP_USER]: (state, action) =>
+        produce(state, (draft) => {
+          //console.log(state, action)
+          draft.user=action.payload.user
+        })
     //   [LOAD_NICKNAME]: (state, action) =>
     //     produce(state, (draft) => {
     //       console.log(action.payload.user);
