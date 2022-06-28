@@ -11,6 +11,7 @@ import MarketPrice from "./pages/MarketPrice";
 import AccountWrite from "./components/accountbook/AccountWrite";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import OauthFilter from "./pages/OauthFilter";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/marketprice" element={<MarketPrice />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path='/code/auth' element={<OauthFilter />}/>
       </Routes>
     </>
   );
