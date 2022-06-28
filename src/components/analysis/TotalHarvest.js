@@ -2,38 +2,108 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 // 차트 라이브러리
-import { ResponsiveLine } from "@nivo/line";
-// import data from "./data.json";
-import axios from "axios";
+import ApexCharts from "react-apexcharts";
+
+import moment from "moment";
+import "moment/locale/ko";
 
 const TotalHarvest = () => {
   const [data, setData] = useState(null);
 
-  //   React.useEffect(() => {
-  //     return () => {
-  //       axios({
-  //         method: "get",
-  //         url: "http://localhost:5001/data",
-  //         headers: {
-  //           "content-type": "application/json;charset=UTF-8",
-  //           accept: "application/json,",
-  //         },
-  //       }).then((res) => {
-  //         setData(res.data);
-  //       });
-  //     };
-  //   }, []);
+  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
+  console.log(nowTime);
 
-  axios({
-    method: "get",
-    url: "http://localhost:5001/data",
-    headers: {
-      "content-type": "application/json;charset=UTF-8",
-      accept: "application/json,",
+  const state = {
+    defaultLocale: "ko",
+    locales: [
+      {
+        name: "ko",
+        options: {
+          months: [
+            "1월",
+            "2월",
+            "3월",
+            "4월",
+            "5월",
+            "6월",
+            "7월",
+            "8월",
+            "9월",
+            "10월",
+            "11월",
+            "12월",
+          ],
+          shortDays: ["월", "화", "수", "목", "금", "토", "일"],
+          toolbar: {
+            download: ["Download SVG", "Download PNG", "Download CSV"],
+            selection: "Selection",
+            selectionZoom: "Selection Zoom",
+            zoomIn: "Zoom In",
+            zoomOut: "Zoom Out",
+            pan: "Panning",
+            reset: "Reset Zoom",
+          },
+        },
+      },
+    ],
+    series: [
+      {
+        name: "복숭아",
+        data: [31, 40, 28, 51, 42, 109, 100],
+      },
+      {
+        name: "사과",
+        data: [11, 32, 45, 32, 34, 52, 41],
+      },
+      {
+        name: "감",
+        data: [5, 10, 15, 20, 11, 8, 4],
+      },
+    ],
+    colors: ["#2E93fA", "#66DA26", "#546E7A", "#E91E63", "#FF9800"],
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      //   yaxis: {
+      //     title: {
+      //       text: "thousands",
+      //     },
+      //   },
+      xaxis: {
+        type: "datetime",
+        categories: [
+          "2022-01-19T00:00:00.000Z",
+          "2022-02-19T01:30:00.000Z",
+          "2022-03-19T02:30:00.000Z",
+          "2022-04-19T03:30:00.000Z",
+          "2022-05-19T04:30:00.000Z",
+          "2022-06-19T05:30:00.000Z",
+        ],
+      },
+      fill: {
+        opacity: 0,
+        colors: ["#2E93fA", "#66DA26", "#E91E63"],
+      },
+      //   markers: {
+      //     colors: ["#F44336", "#E91E63", "#9C27B0"],
+      //   },
+
+      tooltip: {
+        x: {
+          //   format: "dd/MM/yy HH:mm",
+          format: "MM월",
+        },
+      },
     },
-  }).then((res) => {
-    return setData(res.data);
-  });
+  };
 
   return (
     <Wrap>
@@ -41,71 +111,11 @@ const TotalHarvest = () => {
         <h3>수확량</h3>
         <span>기간선택</span>
       </TopWrap>
-      <ResponsiveLine
-        data={data !== null ? data : null}
-        margin={{ top: 10, right: 70, bottom: 100, left: 60 }}
-        xScale={{ type: "point" }}
-        yScale={{
-          type: "linear",
-          min: "auto",
-          max: "auto",
-          stacked: true,
-          reverse: false,
-          enableArea: true,
-        }}
-        yFormat=" >-.2f"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          orient: "bottom",
-          tickSize: 10,
-          tickPadding: 10,
-          tickRotation: 0,
-          legend: "transportation",
-          legendOffset: 36,
-          legendPosition: "middle",
-        }}
-        axisLeft={{
-          orient: "left",
-          tickSize: 10,
-          tickPadding: 10,
-          tickRotation: 0,
-          legend: "count",
-          legendOffset: -50,
-          legendPosition: "middle",
-        }}
-        pointSize={5}
-        pointColor={{ theme: "background" }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: "serieColor" }}
-        pointLabelYOffset={-12}
-        useMesh={true}
-        legends={[
-          {
-            anchor: "bottom-right",
-            direction: "column",
-            justify: false,
-            translateX: 100,
-            translateY: 0,
-            itemsSpacing: 0,
-            itemDirection: "left-to-right",
-            itemWidth: 80,
-            itemHeight: 20,
-            itemOpacity: 0.75,
-            symbolSize: 12,
-            symbolShape: "circle",
-            symbolBorderColor: "rgba(0, 0, 0, .5)",
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemBackground: "rgba(0, 0, 0, .03)",
-                  itemOpacity: 1,
-                },
-              },
-            ],
-          },
-        ]}
+      <ApexCharts
+        options={state.options}
+        series={state.series}
+        type="area"
+        height={250}
       />
     </Wrap>
   );
@@ -113,7 +123,7 @@ const TotalHarvest = () => {
 
 const Wrap = styled.div`
   width: 500px;
-  height: 300px;
+  height: 340px;
   border: none;
   border-radius: 18px;
   box-shadow: 0px 3px 6px #00000029;
