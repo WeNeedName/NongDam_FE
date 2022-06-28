@@ -2,6 +2,14 @@ import axios from "axios";
 
 const token = localStorage.getItem("jwtToken");
 
+const apiTest = axios.create({
+  baseURL: "http://localhost:5001",
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
+});
+
 const api = axios.create({
   baseURL: "http://idontcare.shop",
   headers: {
@@ -29,37 +37,25 @@ formApi.interceptors.request.use(function (config) {
 });
 
 export const apis = {
-  // post
-  loadPage: (page) => api.get(`api/posts?page=${page}`),
-  loadPostList: () => api.get("/api/posts"),
-  loadPost: (postId) => api.get(`/api/post/${postId}`),
-  loadRanking: () => api.get("/api/post/ranking"),
+  //오늘날씨
+  loadWeather: () => api.get("/weather"),
 
-  addPost: (post) => formApi.post("/api/post", post),
-  editPost: (id, post) => formApi.put(`api/post/${id}`, post),
-  deletePost: (id) => api.delete(`/api/post/${id}`),
-
-  //마이페이지
-  loadUserPost: () => api.get("/api/post/mypage/picture"),
-  loadUserPostList: () => api.get("/api/post/mypage/pictures"),
-  loadUserInfoList: () => api.get("/api/post/mypage/information"),
-
-  // 게시글 좋아요
-  addHeart: (postId) => api.post(`/api/postHeart/${postId}`),
-  //댓글 좋아요
-  addHeartComment: (postId) => api.post(`/api/commentHeart/${postId}`),
-
-  // 북마크
-  bookmark: (postId) => api.post(`/api/bookmark/${postId}`),
-
-  // comment
-  loadCommentList: (postId) => api.get(`/api/comment/${postId}`),
-  createComment: (comment) =>
-    api.post(`/api/comment/${comment.postId}`, { comment: comment.comment }),
-  deleteComment: (id) => api.delete(`/api/comment/${id}`),
+  // 매출통계
+  loadSales: () => apiTest.get("/data"),
 
   // user
-  logIn: (data) => api.post("/member/login", data),
-  signUp: (data) => api.post("/member", data),
-  signout: () => api.post("/member/logout"),
+  logIn: (id, pw) => api.post("/user/login", { username: id, password: pw }),
+  nicknameCheck: (userNickname) =>
+    api.get(`/api/user/nicknameCheck/${userNickname}`, { userNickname }),
+
+  signup: (username, password, userNickname) =>
+    api.post("/user/signup", {
+      username: username,
+      password: password,
+      userNickname: userNickname,
+    }),
+
+  logout: () => api.post("/"),
+  loadnickname: () => api.get("/user/nickname"),
+  userInfo: () => api.get(`/api/userData`),
 };
