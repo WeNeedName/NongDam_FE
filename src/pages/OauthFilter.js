@@ -1,7 +1,9 @@
-import React from "react";
+import { React, useEffect } from "react";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-import { getAccessToken, getUserInfo } from "../shared/KakaoOauth";
+import { getUserInfo } from "../shared/KakaoOauth";
+import { kakaoLogInDB } from "../redux/modules/users";
+import { useDispatch } from "react-redux";
 
 const OauthFilter = () => {
   const navigate = useNavigate();
@@ -23,22 +25,10 @@ const OauthFilter = () => {
     date.setMinutes(date.getMinutes() + 20);
     cookies.set("code", token, { path: "/" });
   };
-  const setToken = () => {
-    console.log("check parameter");
-    // if (memberParam !== null) {
-    //     new Promise(() => {
-    //         setJwtCookie(memberParam);
-    //     }).then(() => {
-    //        console.log('set cookie')
-    //     });
-    // }
-    // navigate('/');
-    // getUserToken(memberParam);
-  };
 
-  React.useEffect(() => {
-    setToken();
-  }, []);
+  //   React.useEffect(() => {
+  //     setToken();
+  //   }, []);
 
   return <div></div>;
 };

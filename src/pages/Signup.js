@@ -14,10 +14,9 @@ const Signup = () =>{
     const[pwCheck, setPwCheck] = useState('');
     const[userNickname, setUserNickname] = useState('');
     const[userName, setUserName] = useState('');
-    const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
   
-    // const userSignUp = useSelector((state) => state.users.users);
+   const userSignUp = useSelector((state) => state.users.users);
 
     //const userId = email + "@" +userMail
     //이메일 검사
@@ -84,12 +83,10 @@ const Signup = () =>{
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
         // userId;
         // setPw();
         setSuccess(true);
       };
-
       useEffect(()=>{
         emailRef.current.focus();
   
@@ -97,7 +94,7 @@ const Signup = () =>{
         return(
             <>
             <h1>회원가입</h1>
-            <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit}> */}
                 <InputBoxes>
                     <EmailWrap>
                         <LabelE>이메일</LabelE>
@@ -105,7 +102,7 @@ const Signup = () =>{
                         ref={emailRef}
                         className = "inputId"
                         type="email"
-                        userIdErr={userIdErr}
+                        //userIdErr={userIdErr}
                         placeholder="이메일을 입력해주세요"
                         onChange={(e) => {onChangeUserId(e)}}
                         /> 
@@ -181,6 +178,7 @@ const Signup = () =>{
                 </InputBoxes>
             
             <SignUpBtn
+            type="submit"
             onClick={() => {
                 signUp(email, pw, userName, userNickname)}}
             disabled={
@@ -192,7 +190,7 @@ const Signup = () =>{
                 ? true: false
             }
             > 회원가입</SignUpBtn>
-        </form>
+        {/* </form> */}
         </>
     )
 }
@@ -211,6 +209,9 @@ margin: 10px;`
 const SelectEM = styled.select``
 
 const LabelE = styled.label`
+color: rgb(
+    ${(props) => (props.nickNameErr ? "255, 119, 119" : "41, 41, 41")}
+  );
 `
 const EmailErr = styled.div``
 
@@ -220,6 +221,9 @@ display: flex;
 margin: 10px;`
 
 const LabelP = styled.label`
+color: rgb(
+    ${(props) => (props.nickNameErr ? "255, 119, 119" : "41, 41, 41")}
+  );
 `
 const Info = styled.p``
 const InputPw = styled.input``
@@ -230,21 +234,30 @@ const PwCheckWrap = styled.div`
 display: flex;
 margin: 10px;
 `
-const LabelPC = styled.label``
+const LabelPC = styled.label`
+color: rgb(
+    ${(props) => (props.nickNameErr ? "255, 119, 119" : "41, 41, 41")}
+  );`
 const InputPwCheck = styled.input``
 
 //이름 스타일드 컴포넌트
 const NameWrap = styled.div`
 display: flex;
 margin: 10px;`
-const LabelN = styled.label``
+const LabelN = styled.label`
+color: rgb(
+    ${(props) => (props.nickNameErr ? "255, 119, 119" : "41, 41, 41")}
+  );`
 const InputName = styled.input``
 
 //닉네임 스타일드 컴포넌트
 const NicknameWrap = styled.div`
 display: flex;
 margin: 10px;`
-const LabelNN = styled.label``
+const LabelNN = styled.label`
+color: rgb(
+    ${(props) => (props.nickNameErr ? "255, 119, 119" : "41, 41, 41")}
+  );`
 const InputNickname = styled.input``
 
 const SignUpBtn = styled.button``

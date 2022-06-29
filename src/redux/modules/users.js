@@ -6,7 +6,8 @@ import jwt_decode from "jwt-decode";
 //actions
 const LOGIN_USER = "LOGIN_USER";
 // const SIGNOUT = 'users/SIGNOUT'
-// const SIGNUP = 'users/SIGNUP'
+const SIGNUP_USER= 'SIGNUP_USER'
+const KAKAO_LOGIN= 'KAKAO_LOGIN'
 
 //initial state
 const initialState = {
@@ -14,8 +15,9 @@ const initialState = {
 };
 
 //action creator
-// const getUser = createAction(GET_USER, (user) => ({ user }));
+const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
+const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({user}));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
 // const logOut = createAction(LOG_OUT, (user) => ({ user }));
 
@@ -29,14 +31,14 @@ const logIn = createAction(LOGIN_USER, (user) => ({ user }));
 //     return {type:SIGNUP, userInfo}
 // }
 
-//middleware
-//Signup
+//미들웨어
+//회원가입
 export const signUpDB = (userInfo) => {
-  return async (dispatch) => {
-    await apis
-      .signUp(userInfo)
+  return async function(dispatch){
+    await apis.signUp(userInfo)
       .then((res) => {
         console.log(res);
+        dispatch(signUp(userInfo))
       })
       .catch((err) => {
         console.log(err);
@@ -44,7 +46,7 @@ export const signUpDB = (userInfo) => {
   };
 };
 
-//login
+//로그인
 export const logInDB = (userInfo) => {
   return function (dispatch) {
     console.log(userInfo);
@@ -67,36 +69,58 @@ export const logInDB = (userInfo) => {
         );
       })
       .catch((err) => {
+        window.alert("잘못된 로그인 정보 입니다.")
         console.log(err);
       });
   };
 };
+
+//소셜로그인
+export const kakaoLogInDB = (data) => {
+  return function (dispatch) {
+    apis.KakaoLogIn(data)
+    .then((res) => {
+      console.log(res);
+      dispatch(kakaoLogIn(data))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
 
 //reducer
 export default handleActions(
   {
     [LOGIN_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action, state);
         draft.user = action.payload.user;
         //   draft.is_login = true;
         //   console.log(draft.user.username);
         //   draft.uploading = false;
         console.log("리듀서로 적용 완료", state, action.payload);
       }),
-    //   [GET_USER]: (state, action) =>
-    //     produce(state, (draft) => {
-    //       return { message: action.data };
-    //     }),
-    //   [LOAD_NICKNAME]: (state, action) =>
-    //     produce(state, (draft) => {
-    //       console.log(action.payload.user);
-    //       return { nickname: action.payload.user };
-    //     }),
-    //   [GET_NICKNAME]: (state, action) =>
-    //     produce(state, (draft) => {
-    //       return { user: action.data };
-    //     }),
+    [SIGNUP_USER]: (state, action) =>
+      produce(state, (draft) => {
+        console.log(state)
+        draft.user=action.payload.user
+      }),
+
+    [KAKAO_LOGIN]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user=action.payload.user
+      })
+
+
+  //   [LOAD_NICKNAME]: (state, action) =>
+  //     produce(state, (draft) => {
+  //       console.log(action.payload.user);
+  //       return { nickname: action.payload.user };
+  //     }),
+  //   [GET_NICKNAME]: (state, action) =>
+  //     produce(state, (draft) => {
+  //       return { user: action.data };
+  //     }),
   },
   initialState
 );
