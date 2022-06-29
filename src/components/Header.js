@@ -34,7 +34,14 @@ const Haeder = () => {
           >
             도매시세
           </Menu>
-          <Menu>농장일정</Menu>
+          <Menu 
+          onClick={() => {
+            navigate("/schedule");
+          }}
+          >농장일정
+
+
+          </Menu>
           <Menu
             onClick={() => {
               navigate("/accountbook");

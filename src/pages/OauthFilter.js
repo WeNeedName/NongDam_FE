@@ -20,9 +20,10 @@ const OauthFilter = () => {
     // }
     let memberParam = getParameter("code");
     
-    useEffect(async () => {
-        await dispatch(kakaoLogInDB(memberParam));
-      }, []);
+    useEffect( () => {
+        return () => {
+             dispatch(kakaoLogInDB(memberParam));
+      }}, []);
     
 
     const setJwtCookie = (token) => {
@@ -45,9 +46,9 @@ const OauthFilter = () => {
     }
 
 
-    React.useEffect(() => {
-        setToken();
-    }, []);
+    // React.useEffect(() => {
+    //     setToken();
+    // }, []);
 
 
     return (
