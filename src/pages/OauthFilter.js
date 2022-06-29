@@ -1,20 +1,29 @@
-import React from 'react';
+import {React, useEffect} from 'react';
 import Cookies from "universal-cookie";
 import {useNavigate} from "react-router-dom";
-import {getAccessToken,getUserInfo} from "../shared/oauth";
+import { getUserInfo } from "../shared/KakaoOauth";
+import { kakaoLogInDB } from "../redux/modules/users";
+import { useDispatch } from 'react-redux';
+
 const OauthFilter = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const getParameter = (key) => {
         return new URLSearchParams(window.location.search).get(key);
     };
-    const getUserToken=(code)=>{
-        getAccessToken(code).then(response=>{
-            let accssToken = response.data.access_token
-            console.log(accssToken);
-            getUserInfo(accssToken);
-        });
-    }
+    // const getUserToken=(code)=>{
+    //     getAccessToken(code).then(response=>{
+    //         let accssToken = response.data.access_token
+    //         console.log(accssToken);
+    //         getUserInfo(accssToken);
+    //     });
+    // }
     let memberParam = getParameter("code");
+    
+    useEffect(async () => {
+        await dispatch(kakaoLogInDB(memberParam));
+      }, []);
+    
 
     const setJwtCookie = (token) => {
         const cookies = new Cookies();
@@ -32,7 +41,7 @@ const OauthFilter = () => {
         //     });
         // }
         // navigate('/');
-        getUserToken(memberParam)
+        // getUserToken(memberParam)
     }
 
 

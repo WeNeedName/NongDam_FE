@@ -44,18 +44,14 @@ export const apis = {
   loadSales: () => apiTest.get("/data"),
 
   // user
-  logIn: (id, pw) => api.post("/user/login", { username: id, password: pw }),
-  nicknameCheck: (userNickname) =>
-    api.get(`/api/user/nicknameCheck/${userNickname}`, { userNickname }),
+  logIn: (data) => api.post("/member/login", data),
+  // nicknameCheck: (userNickname) =>
+  //   api.get(`/api/user/nicknameCheck/${userNickname}`, { userNickname }),
 
-  signup: (username, password, userNickname) =>
-    api.post("/user/signup", {
-      username: username,
-      password: password,
-      userNickname: userNickname,
-    }),
-
+  signUp: (data) => api.post("/member", data),
+  KakaoLogIn : (data) => api.post("/member/auth", data),
   logout: () => api.post("/"),
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get(`/api/userData`),
+  
 };
