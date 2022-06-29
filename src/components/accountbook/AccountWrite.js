@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { addAccountDB } from "../../redux/modules/account";
+// 날짜 라이브러리
+import moment from "moment";
+import "moment/locale/ko";
 
 const AccountWrite = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [price, setPrice] = useState(0);
   const [checkedInputs, setCheckedInputs] = useState("");
   const [category, setCategory] = useState(null);
@@ -31,7 +39,32 @@ const AccountWrite = () => {
       setCheckedInputs(e.target.id);
     }
   };
-  console.log(realPrice, checkedInputs, category, memo);
+
+  const nowTime = moment().format("YYYY-MM-DD");
+  console.log(nowTime);
+  //   console.log(realPrice, checkedInputs, category, memo);
+
+  const addAccount = () => {
+    // if (commentText.current.value === "") {
+    //   window.alert("댓글을 작성해주세요!");
+    // } else if (!isLogin) {
+    //   window.alert("로그인 후 댓글을 남기실 수 있습니다.");
+    // } else {
+    // api에 데이터 추가하기!
+    dispatch(
+      addAccountDB({
+        // postId: params.id,
+        // comment: commentText.current.value,
+        type: Number(category),
+        price: realPrice,
+        memo: memo,
+        date: nowTime,
+      })
+    );
+    // }
+  };
+  console.log(Number(category), realPrice, memo, nowTime);
+
   return (
     <Back>
       <Wrap>
@@ -43,13 +76,13 @@ const AccountWrite = () => {
           }}
           placeholder="0원"
         />
-        <ClearBtn
+        {/* <ClearBtn
           onClick={() => {
             setPrice(0);
           }}
         >
           x
-        </ClearBtn>
+        </ClearBtn> */}
 
         <CategoryBigWrap>
           <span>분류</span>
@@ -88,25 +121,25 @@ const AccountWrite = () => {
             {checkedInputs === "수입" && (
               <Selec onChange={(e) => setCategory(e.target.value)}>
                 <option value="">품목을 선택해주세요</option>
-                <option value="농산물 판매">농산물 판매</option>
-                <option value="정부보조금">정부보조금</option>
-                <option value="기타수입">기타수입</option>
+                <option value="0">농산물 판매</option>
+                <option value="1">정부보조금</option>
+                <option value="2">기타수입</option>
               </Selec>
             )}
 
             {checkedInputs === "지출" && (
               <Selec onChange={(e) => setCategory(e.target.value)}>
                 <option value="">품목을 선택해주세요</option>
-                <option value="비료">비료</option>
-                <option value="종자/종묘">종자/종묘</option>
-                <option value="농약">농약</option>
-                <option value="농기계">농기계</option>
-                <option value="기타 농자재">기타 농자재</option>
-                <option value="유통비 및 판매 경비">유통비 및 판매 경비</option>
-                <option value="고용노동비">고용노동비</option>
-                <option value="임차료">임차료</option>
-                <option value="수도광열비">수도광열비</option>
-                <option value="기타 지출">기타 지출</option>
+                <option value="3">비료</option>
+                <option value="4">종자/종묘</option>
+                <option value="5">농약</option>
+                <option value="6">농기계</option>
+                <option value="7">기타 농자재</option>
+                <option value="8">유통비 및 판매 경비</option>
+                <option value="9">고용노동비</option>
+                <option value="10">임차료</option>
+                <option value="11">수도광열비</option>
+                <option value="12">기타 지출</option>
               </Selec>
             )}
           </div>
@@ -118,7 +151,14 @@ const AccountWrite = () => {
             placeholder="내용을 여기에 입력하세요"
           />
         </CategoryBigWrapSub>
-        <DoneBtn>작성완료</DoneBtn>
+        <DoneBtn
+          onClick={() => {
+            addAccount();
+            // navigate("/accountbook");
+          }}
+        >
+          작성완료
+        </DoneBtn>
       </Wrap>
     </Back>
   );
@@ -133,7 +173,7 @@ const Back = styled.div`
   justify-content: center;
 `;
 
-const Wrap = styled.form`
+const Wrap = styled.div`
   width: 600px;
   height: 400px;
   display: flex;

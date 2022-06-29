@@ -41,7 +41,14 @@ export const apis = {
   loadWeather: () => api.get("/weather"),
 
   // 매출통계
-  loadSales: () => apiTest.get("/data"),
+  loadSales: () => api.get("/data"),
+
+  //장부
+  loadAccountBook: () => api.get("/accountbook/{year}-{month}"),
+  loadCurrentAccount: () => api.get("/accountbook"),
+  addAccount: (account) => api.post("/accountbook", account),
+  editAccount: (id) => api.put(`/accountbook/${id}`),
+  deleteAccount: (id) => api.delete(`/accountbook/${id}`),
 
   // user
   logIn: (data) => api.post("/member/login", data),
@@ -49,9 +56,8 @@ export const apis = {
   //   api.get(`/api/user/nicknameCheck/${userNickname}`, { userNickname }),
 
   signUp: (data) => api.post("/member", data),
-  KakaoLogIn : (data) => api.post("/member/auth", data),
+  KakaoLogIn: (data) => api.post("/member/auth", data),
   logout: () => api.post("/"),
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get(`/api/userData`),
-  
 };
