@@ -12,6 +12,8 @@ import AccountWrite from "./components/accountbook/AccountWrite";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import OauthFilter from "./pages/OauthFilter";
+import Schedule from "./pages/Schedule"
+import ScheduleWrite from "./components/schedule/ScheduleWrite";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/marketprice" element={<MarketPrice />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/schedulewrite" element={<ScheduleWrite />} />
         <Route path='/code/auth' element={<OauthFilter />}/>
       </Routes>
     </>
