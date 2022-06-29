@@ -19,7 +19,7 @@ const AccountCalender = () => {
   ];
 
   return (
-    <div>
+    <Wrap>
       <Calendar
         onChange={onChange}
         value={value}
@@ -37,16 +37,13 @@ const AccountCalender = () => {
         }}
       />
       {moment(value).format("YYYY년 MM월 DD일")}
-    </div>
+    </Wrap>
   );
 };
 
-const Nav = styled.div`
+const Wrap = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
+  flex-direction: column;
 `;
 
 export default AccountCalender;

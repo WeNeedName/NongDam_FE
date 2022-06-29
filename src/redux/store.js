@@ -1,7 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import users from "./modules/users";
-import data from "./modules/data";
+import main from "./modules/main";
+import account from "./modules/account";
 import { createBrowserHistory } from "history";
 
 export const history = createBrowserHistory();
@@ -9,7 +10,8 @@ export const history = createBrowserHistory();
 // 나중에 리듀서를 여러개 만들게 되면 여기에 하나씩 추가해주는 거예요!
 const rootReducer = combineReducers({
   users,
-  data,
+  main,
+  account,
   //   post,
   //   comment,
 });
