@@ -26,6 +26,7 @@
     "redux-actions": "^2.6.5",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
