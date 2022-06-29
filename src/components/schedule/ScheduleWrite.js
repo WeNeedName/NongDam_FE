@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-
+//ㅇㅇ
 const ScheduleWrite = () => {
   const [todo, setTodo] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
