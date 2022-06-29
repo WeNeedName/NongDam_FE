@@ -17,7 +17,7 @@ const initalize = () =>{
     }
 }
 
-const getUserInfo = (code)=>{
+export const getUserInfo = (code)=>{
     const requestUrl = `/oauth/token?grant_type=authorization_code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&code=${code}`
     kakaoAuth.post(requestUrl).then(response=>{
         let accessToken = response.data.access_token;
