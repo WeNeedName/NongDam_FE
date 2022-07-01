@@ -6,12 +6,10 @@ import { logInDB } from "../redux/modules/users";
 
 import KakaoLogin from "../images/kakao_login_medium_narrow.png"
 import {KAKAO_AUTH_URL} from "../shared/KakaoOauth"
-import { useNavigate } from "react-router";
+
 
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const idRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
@@ -23,29 +21,17 @@ const Login = () => {
   const dispatch = useDispatch();
   const userSignIn = useSelector((state) => state.users.users);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   setId();
-  //   setPw();
-  //   setSuccess(true);
-  // };
-
-  const logIn = () => {
+  const logIn = (email, pw) => {
     if (email === "" || pw === "") {
       window.alert("빈칸 다 채워줘요");
       return;
     }
-
-   
       dispatch(logInDB({
         email: email,
         password: pw,
       }
       ));
-
-    };
-    dispatch(logInDB(userInfo)).then(navigate("/"));
+    dispatch(logInDB(email, password)).then(navigate("/"));
   };
 
   useEffect(() => {
@@ -54,7 +40,6 @@ const Login = () => {
 
   return (
     <>
-
         <section>
           <h1>로그인페이지</h1>
 
