@@ -19,7 +19,9 @@ const AccountWeek = () => {
   const currentAccount_list = useSelector(
     (state) => state.account.currentAccount
   );
+  const yearMonth = useSelector((state) => state.account.yearMonth);
   console.log(currentAccount_list);
+  console.log(yearMonth);
 
   // 항목(전체, 수입, 지출) 필터링
   const filteredCategory =
@@ -95,8 +97,17 @@ const AccountWeek = () => {
 
                   <span>
                     {list.category === "수입"
-                      ? "+" + list.price
-                      : "-" + list.price}
+                      ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
+                        "+" +
+                        String(list.price).replace(
+                          /(\d)(?=(?:\d{3})+(?!\d))/g,
+                          "$1,"
+                        )
+                      : "-" +
+                        String(list.price).replace(
+                          /(\d)(?=(?:\d{3})+(?!\d))/g,
+                          "$1,"
+                        )}
                   </span>
                 </BottomWrap>
               </AccountBox>
@@ -136,8 +147,17 @@ const AccountWeek = () => {
 
                   <span>
                     {list.category === "수입"
-                      ? "+" + list.price
-                      : "-" + list.price}
+                      ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
+                        "+" +
+                        String(list.price).replace(
+                          /(\d)(?=(?:\d{3})+(?!\d))/g,
+                          "$1,"
+                        )
+                      : "-" +
+                        String(list.price).replace(
+                          /(\d)(?=(?:\d{3})+(?!\d))/g,
+                          "$1,"
+                        )}
                   </span>
                 </BottomWrap>
               </AccountBox>

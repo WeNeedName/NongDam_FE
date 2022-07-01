@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "../../Calendar.css";
 
-const AccountCalender = () => {
+const ScheduleCalender = () => {
   const [value, onChange] = useState(new Date());
   const moment = require("moment");
   // 기록이 있는 날 리스트
@@ -19,7 +19,7 @@ const AccountCalender = () => {
   ];
 
   return (
-    <Wrap>
+    <div>
       <Calendar
         onChange={onChange}
         value={value}
@@ -32,27 +32,21 @@ const AccountCalender = () => {
         // 일정이 있는 날 하이라이트
         tileClassName={({ date, view }) => {
           if (marks.find((x) => x === moment(date).format("DD-MM-YYYY"))) {
-            // return <Text>-5,000원</Text>;
             return "highlight";
           }
         }}
       />
       {moment(value).format("YYYY년 MM월 DD일")}
-      {/* {marks.find((x) => x === moment(value).format("DD-MM-YYYY")) ? (
-        <Text>-5,000원</Text>
-      ) : null} */}
-    </Wrap>
+    </div>
   );
 };
 
-const Wrap = styled.div`
+const Nav = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
 `;
 
-const Text = styled.span`
-  color: black;
-  z-index: 10;
-`;
-
-export default AccountCalender;
+export default ScheduleCalender;

@@ -8,6 +8,8 @@ const GET_ACCOUNT = "GET_ACCOUNT";
 const CREATE_ACCOUNT = "CREATE_ACCOUNT";
 const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 
+const GET_YEAR_MONTH = "GET_YEAR_MONTH";
+
 // Action Creator
 const getAccountList = createAction(GET_ACCOUNT_LIST, (list) => ({ list }));
 const getAccount = createAction(GET_ACCOUNT, (currentAccount) => ({
@@ -16,15 +18,28 @@ const getAccount = createAction(GET_ACCOUNT, (currentAccount) => ({
 const createAccount = createAction(CREATE_ACCOUNT, (account) => ({ account }));
 const deleteAccount = createAction(DELETE_ACCOUNT, (id) => ({ id }));
 
+const getYearMonth = createAction(GET_YEAR_MONTH, (data) => ({ data }));
+
 // InitialState
 const initialState = {
   accountList: [],
   currentAccount: [],
+  yearMonth: null,
 };
 
 // Middleware
+
+// 선택한 년도, 월 설정
+export const getYearMonthDB = (date) => {
+  console.log(date);
+  return async function (dispatch) {
+    dispatch(getYearMonth(date));
+  };
+};
+
 //월별 장부리스트 불러오기
 export const getAccountListDB = (date) => {
+  console.log(date);
   return async function (dispatch) {
     apis
       .loadAccountBook(date)
@@ -85,16 +100,24 @@ export const deleteAccountDB = (id) => {
 // Reducer
 export default handleActions(
   {
+    [GET_YEAR_MONTH]: (state, { payload }) =>
+      produce(state, (draft) => {
+        console.log(state, payload);
+        draft.yearMonth = payload.data;
+      }),
+
     [GET_ACCOUNT_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(state, payload);
-        // draft.accountList = payload.accountList;
+        draft.accountList = payload.list;
       }),
+
     [GET_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(state, payload);
         draft.currentAccount = payload.currentAccount;
       }),
+
     [CREATE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(state, payload);

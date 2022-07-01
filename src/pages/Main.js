@@ -12,6 +12,7 @@ import MarketPriceCard from "../components/main/MarketPriceCard";
 import TodayTodo from "../components/main/TodayTodo";
 import SalesCard from "../components/main/SalesCard";
 
+
 const Main = () => {
   return (
     <div>
