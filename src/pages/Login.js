@@ -4,10 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logInDB } from "../redux/modules/users";
 
-import KakaoLogin from "../images/kakao_login_medium_narrow.png"
-import {KAKAO_AUTH_URL} from "../shared/KakaoOauth"
-
-
+import KakaoLogin from "../images/kakao_login_medium_narrow.png";
+import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
 
 const Login = () => {
   const idRef = useRef();
@@ -26,12 +24,13 @@ const Login = () => {
       window.alert("빈칸 다 채워줘요");
       return;
     }
-      dispatch(logInDB({
+    dispatch(
+      logInDB({
         email: email,
         password: pw,
-      }
-      ));
-    dispatch(logInDB(email, password)).then(navigate("/"));
+      })
+    );
+    dispatch(logInDB(email, pw)).then(navigate("/"));
   };
 
   useEffect(() => {
@@ -40,46 +39,48 @@ const Login = () => {
 
   return (
     <>
-        <section>
-          <h1>로그인페이지</h1>
+      <section>
+        <h1>로그인페이지</h1>
 
-          {/* <form onSubmit={handleSubmit}> */}
-            <IdBox>
-              {" "}
-              <label className="id">ID</label>
-              <input
-                ref={idRef}
-                autoComplete="off"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </IdBox>
+        {/* <form onSubmit={handleSubmit}> */}
+        <IdBox>
+          {" "}
+          <label className="id">ID</label>
+          <input
+            ref={idRef}
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </IdBox>
 
-            <PwBox>
-              {" "}
-              <label className="pw">PW</label>
-              <input
-                type="text"
-                onChange={(e) => setPw(e.target.value)}
-                value={pw}
-                required
-              />
-            </PwBox>
-            <p><LoginBtn
-              type="submit"
-              style={{ width: "100px" }}
-              onClick={() => {
-                logIn()
-                navigate("/");
-              }}
-            >
-              {" "}
-              로그인
-            </LoginBtn></p>
+        <PwBox>
+          {" "}
+          <label className="pw">PW</label>
+          <input
+            type="text"
+            onChange={(e) => setPw(e.target.value)}
+            value={pw}
+            required
+          />
+        </PwBox>
+        <p>
+          <LoginBtn
+            type="submit"
+            style={{ width: "100px" }}
+            onClick={() => {
+              logIn();
+              navigate("/");
+            }}
+          >
+            {" "}
+            로그인
+          </LoginBtn>
+        </p>
 
-            <p><SocialBtn
-             onClick={() => {
-
+        <p>
+          <SocialBtn
+            onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
             }}
             src={KakaoLogin}
@@ -100,7 +101,6 @@ const Login = () => {
 const InputBoxes = styled.div`
   display: flex;
   flex-direction: column;
-
   .inputId {
     margin: 10px;
   }
