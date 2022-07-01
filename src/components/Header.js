@@ -9,6 +9,9 @@ import Profile from "../images/Profile.png";
 const Haeder = () => {
   const navigate = useNavigate();
 
+  const isLogin = localStorage.getItem("jwtToken");
+  console.log();
+
   return (
     <div>
       <Nav>
@@ -34,13 +37,12 @@ const Haeder = () => {
           >
             도매시세
           </Menu>
-          <Menu 
-          onClick={() => {
-            navigate("/schedule");
-          }}
-          >농장일정
-
-
+          <Menu
+            onClick={() => {
+              navigate("/schedule");
+            }}
+          >
+            농장일정
           </Menu>
           <Menu
             onClick={() => {
@@ -50,10 +52,29 @@ const Haeder = () => {
             농장장부
           </Menu>
         </div>
-        <UserProfile src={Profile} alt="프로필사진"
-        onClick={() => {
-          navigate("/mypage")
-        }} />
+
+        <ProfileWrap>
+          {isLogin ? (
+            <Menu
+              onClick={() => {
+                // navigate("/login");
+              }}
+            >
+              로그아웃
+            </Menu>
+          ) : (
+            <Menu
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              로그인
+            </Menu>
+          )}
+
+          <UserProfile src={Profile} alt="프로필사진" />
+        </ProfileWrap>
+
       </Nav>
     </div>
   );
@@ -74,6 +95,12 @@ const Menu = styled.span`
 
 const UserProfile = styled.img`
   width: 40px;
+`;
+
+const ProfileWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export default Haeder;

@@ -10,6 +10,7 @@ const SIGNUP_USER= 'SIGNUP_USER'
 const KAKAO_LOGIN= 'KAKAO_LOGIN'
 const GET_INFO = "GET_INFO"
 
+
 //initial state
 const initialState = {
   user: null,
@@ -18,8 +19,10 @@ const initialState = {
 //action creator
 const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
+
 const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({user}));
 const getInfo = createAction(GET_INFO, () => ({}));
+
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 
@@ -28,11 +31,12 @@ const logOut = createAction(LOGOUT, (user) => ({ user }));
 //미들웨어
 //회원가입
 export const signUpDB = (userInfo) => {
-  return async function(dispatch){
-    await apis.signUp(userInfo)
+  return async function (dispatch) {
+    await apis
+      .signUp(userInfo)
       .then((res) => {
         console.log(res);
-        dispatch(signUp(userInfo))
+        dispatch(signUp(userInfo));
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +56,7 @@ export const logInDB = (email, password) => {
         console.log(DecodedToken);
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
+
         // window.location.assign("/");
         // dispatch(
         //   logIn(
@@ -63,9 +68,10 @@ export const logInDB = (email, password) => {
         // );
         // localStorage.setItem("email", email);
         // localStorage.setItem("nickname", DecodedToken.nickname);
+
       })
       .catch((err) => {
-        window.alert("잘못된 로그인 정보 입니다.")
+        window.alert("잘못된 로그인 정보 입니다.");
         console.log(err);
       });
   };
@@ -74,6 +80,7 @@ export const logInDB = (email, password) => {
 //소셜로그인
 export const kakaoLogInDB = (data) => {
   return function (dispatch) {
+
     apis.kakaoLogIn(data)
     .then((res) => {
       console.log(res);
@@ -84,6 +91,7 @@ export const kakaoLogInDB = (data) => {
     })
   }
 }
+
 
 //회원정보가져오기
 export const getInfoDB = () => {
@@ -126,12 +134,13 @@ export default handleActions(
       }),
     [SIGNUP_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state)
-        draft.user=action.payload.user
+        console.log(state);
+        draft.user = action.payload.user;
       }),
 
     [KAKAO_LOGIN]: (state, action) =>
       produce(state, (draft) => {
+
         draft.user=action.payload.user
       }),
       
@@ -146,15 +155,16 @@ export default handleActions(
     //   draft.isLogin = false;
     //     }),
 
-  //   [LOAD_NICKNAME]: (state, action) =>
-  //     produce(state, (draft) => {
-  //       console.log(action.payload.user);
-  //       return { nickname: action.payload.user };
-  //     }),
-  //   [GET_NICKNAME]: (state, action) =>
-  //     produce(state, (draft) => {
-  //       return { user: action.data };
-  //     }),
+
+    //   [LOAD_NICKNAME]: (state, action) =>
+    //     produce(state, (draft) => {
+    //       console.log(action.payload.user);
+    //       return { nickname: action.payload.user };
+    //     }),
+    //   [GET_NICKNAME]: (state, action) =>
+    //     produce(state, (draft) => {
+    //       return { user: action.data };
+    //     }),
   },
   initialState
 );

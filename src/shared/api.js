@@ -98,7 +98,7 @@ export const apis = {
   loadSales: () => api.get("/data"),
 
   //장부
-  loadAccountBook: () => api.get("/accountbook/{year}-{month}"),
+  loadAccountBook: (date) => api.get(`accountbook/${date.year}-${date.month}`),
   loadCurrentAccount: () => api.get("/accountbook"),
   addAccount: (account) => api.post("/accountbook", account),
   editAccount: (id) => api.put(`/accountbook/${id}`),
