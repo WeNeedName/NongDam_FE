@@ -45,10 +45,10 @@ export const signUpDB = (userInfo) => {
 };
 
 //로그인
-export const logInDB = (email, password) => {
+export const logInDB = (user) => {
   return function (dispatch) {
     apis
-      .logIn(email, password)
+      .logIn(user)
       .then((res) => {
         console.log(res);
         const token = res.headers.authorization;
@@ -56,8 +56,7 @@ export const logInDB = (email, password) => {
         console.log(DecodedToken);
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
-
-        // window.location.assign("/");
+        window.location.assign("/");
         // dispatch(
         //   logIn(
         //     {
@@ -110,8 +109,6 @@ export const getInfoDB = () => {
 //로그아웃
 export const logOutDB = () => {
   return function (dispatch) {
-    console.log("로그아웃 하고싶어요")
-    dispatch(logOut());
     sessionStorage.removeItem("jwtToken");
     window.location.assign("/"); 
     
