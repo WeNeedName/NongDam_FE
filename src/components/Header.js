@@ -52,6 +52,7 @@ const Haeder = () => {
             농장장부
           </Menu>
         </div>
+
         <ProfileWrap>
           {isLogin ? (
             <Menu
@@ -73,6 +74,7 @@ const Haeder = () => {
 
           <UserProfile src={Profile} alt="프로필사진" />
         </ProfileWrap>
+
       </Nav>
     </div>
   );

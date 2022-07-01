@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-//ㅇㅇ
-const ScheduleWrite = () => {
+import MiniÇalendar from './MiniCalendar'
+
+const AddSchedule = (props) => {
   const [todo, setTodo] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
   const [category, setCategory] = useState(null);
@@ -33,6 +34,7 @@ const ScheduleWrite = () => {
           }}>
           x
         </ClearBtn>
+        <TodoContent>
         <CropsBigWrap>
           <SmallTitle>분류</SmallTitle>
           <CropsWrap>
@@ -60,6 +62,10 @@ const ScheduleWrite = () => {
         </CropsBigWrap>
         <CalenderBigWrap>
             <SmallTitle className="calender">날짜선택</SmallTitle>
+            <MiniÇalendar />
+
+
+
         </CalenderBigWrap>
        
         <WorkBigWrap>
@@ -106,17 +112,10 @@ const ScheduleWrite = () => {
               <WorkRadioText>기타</WorkRadioText>
             </Work>
           </WorksWrap>
-
-
-
-
         </WorkBigWrap>
 
-      
-
-
-
-        
+          <TodoWrap>
+        <SmallTitle className="todo">작업내용</SmallTitle>
         <TodoInput
           type="text"
           onChange={(e) => {
@@ -124,16 +123,8 @@ const ScheduleWrite = () => {
           }}
           placeholder="일정을 기록해주세요"
         />
-        
-
-        
-
-    
-
-           
-         
-       
-        
+        </TodoWrap>
+        </TodoContent>  
         <DoneBtn>작성완료</DoneBtn>
       </Wrap>
     </Back>
@@ -160,7 +151,14 @@ const Wrap = styled.form`
   background-color: white;
   border-radius: 20px;
   position: relative;
+  padding: -10px;
 `;
+const TodoContent = styled.div`
+padding: 0px 0px;
+width: 500px
+`
+
+
 const SmallTitle = styled.label`
 font-size: 1.3em;
 font-weight: bold;
@@ -183,13 +181,14 @@ const ClearBtn = styled.button`
   border: none;
   cursor: pointer;
 `;
-
+//작물 스타일드컴포넌트
 const CropsBigWrap = styled.div`
   width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: start;
   margin-top: 10px;
+  
 
 `;
 
@@ -251,9 +250,9 @@ width: 400px;
   margin-top: 10px;
 
 `;
-
+//작업대분류 스타일드컴포넌트
 const WorkBigWrap = styled.div`
-width: 400px;
+width: 500px;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -283,6 +282,7 @@ display: none;
 const WorkRadioText = styled.span`
   width: 70px;
   height: 30px;
+
   padding-bottom: 4px;
   border-radius: 10px;
   background: transparent;
@@ -301,7 +301,8 @@ const WorkRadioText = styled.span`
 
 
 
-
+//작업내용 스타일드 컴포넌트
+const TodoWrap = styled.div``
 const TodoInput = styled.textarea`
   width: 400px;
   font-size: 20px;
@@ -314,6 +315,9 @@ const TodoInput = styled.textarea`
     padding: 10px;
   }
 `;
+
+
+
 
 const DoneBtn = styled.button`
   margin-top: 30px;
@@ -328,4 +332,4 @@ const DoneBtn = styled.button`
   }
 `;
 
-export default ScheduleWrite;
+export default AddSchedule;
