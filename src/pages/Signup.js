@@ -2,12 +2,13 @@ import React, {useRef, useState, useEffect} from "react"
 import styled from 'styled-components'
 import {useDispatch, useSelector} from "react-redux"
 import {signUpDB} from '../redux/modules/users'
+import { useNavigate } from "react-router"
 
 
 const Signup = () =>{
     const dispatch= useDispatch();
     const emailRef = useRef();
-     
+    const navigate = useNavigate();
     const[email, setEmail] = useState('');
     //const[userMail, setUserMail] = useState('')
     const[pw, setPw] = useState('');
@@ -88,8 +89,7 @@ const Signup = () =>{
         setSuccess(true);
       };
       useEffect(()=>{
-        emailRef.current.focus();
-  
+        emailRef.current.focus();  
     },[])
         return(
             <>
@@ -180,7 +180,9 @@ const Signup = () =>{
             <SignUpBtn
             type="submit"
             onClick={() => {
-                signUp(email, pw, userName, userNickname)}}
+                signUp(email, pw, userName, userNickname)
+                navigate("/")
+            }}
             disabled={
                 !email ||
                 !pw ||

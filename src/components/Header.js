@@ -50,7 +50,10 @@ const Haeder = () => {
             농장장부
           </Menu>
         </div>
-        <UserProfile src={Profile} alt="프로필사진" />
+        <UserProfile src={Profile} alt="프로필사진"
+        onClick={() => {
+          navigate("/mypage")
+        }} />
       </Nav>
     </div>
   );

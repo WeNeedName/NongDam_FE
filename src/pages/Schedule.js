@@ -8,7 +8,7 @@ import Profile from "../images/Profile.png";
 
 // js파일
 import Header from "../components/Header";
-import ScheduleCalender from "../components/schedule/ScheduleCalender";
+import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
 import ScheduleWeek from "../components/schedule/ScheduleWeek";
 
 
@@ -26,11 +26,11 @@ const Schedule = () => {
           <Header />
           <Wrap>
             <div>
-              <ScheduleCalender />
+              <ScheduleCalendar />
               <button
                 onClick={() => {
                   openModal();
-                  navigate("/schedulewrite");
+                  navigate("/addschedule");
                 }}
               >
                 기록하기

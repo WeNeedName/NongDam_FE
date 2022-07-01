@@ -38,12 +38,6 @@ const OauthFilter = () => {
   //     setToken();
   //   }, []);
 
-
-    // React.useEffect(() => {
-    //     setToken();
-    // }, []);
-
-
     return (
         <div></div>
     );

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "../../Calendar.css";
 
-const ScheduleCalender = () => {
+const ScheduleCalendar = () => {
   const [value, onChange] = useState(new Date());
   const moment = require("moment");
   // 기록이 있는 날 리스트
@@ -49,4 +49,4 @@ const Nav = styled.div`
   margin-top: 30px;
 `;
 
-export default ScheduleCalender;
+export default ScheduleCalendar;

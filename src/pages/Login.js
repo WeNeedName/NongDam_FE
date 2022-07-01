@@ -5,12 +5,13 @@ import Signup from "./Signup";
 import { logInDB } from "../redux/modules/users";
 import KakaoLogin from "../images/kakao_login_medium_narrow.png"
 import {KAKAO_AUTH_URL} from "../shared/KakaoOauth"
+import { useNavigate } from "react-router";
 
 
 const Login = () => {
   const idRef = useRef();
   const errRef = useRef();
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -33,11 +34,12 @@ const Login = () => {
       window.alert("빈칸 다 채워줘요")
       return;
     }
-      const userInfo = {
+   
+      dispatch(logInDB({
         email: email,
         password: pw,
-      };
-      dispatch(logInDB(userInfo));
+      }
+      ));
     };
   
 
@@ -76,7 +78,8 @@ const Login = () => {
               type="submit"
               style={{ width: "100px" }}
               onClick={() => {
-                logIn();
+                logIn()
+                navigate("/");
               }}
             >
               {" "}
