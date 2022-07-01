@@ -9,13 +9,13 @@ const MyPage =() => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const isLogin = localStorage.getItem("jwtToken")
+    const isLogin = sessionStorage.getItem("jwtToken")
     console.log(isLogin)
-    function logOut()
-    {
-        localStorage.clear()
-        navigate("/");
-    }
+    // function logOut()
+    // {
+    //     sessionStorage.clear()
+    //     navigate("/");
+    // }
     return(
         <div>
             <Header />
@@ -25,8 +25,8 @@ const MyPage =() => {
             }}>회원정보 수정</p>
             <button 
             onClick={() => {
-                // {logOut()}
-                {dispatch(logOutDB())}
+                dispatch(logOutDB())
+                
             }}>
                 로그아웃</button>
 
