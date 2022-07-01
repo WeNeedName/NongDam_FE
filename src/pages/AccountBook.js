@@ -9,16 +9,14 @@ import Profile from "../images/Profile.png";
 
 // js파일
 import Header from "../components/Header";
-import AccountCalender from "../components/accountbook/AccountCalender";
 import AccountWeek from "../components/accountbook/AccountWeek";
+import CalenderBook from "../components/accountbook/CalenderBook";
 
 const AccountBook = () => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentAccount_list = useSelector((state) => state.account);
-  console.log(currentAccount_list);
   useEffect(() => {
     dispatch(getCurrentAccountListDB());
   }, [dispatch]);
@@ -34,7 +32,7 @@ const AccountBook = () => {
       <Header />
       <Wrap>
         <div>
-          <AccountCalender />
+          <CalenderBook />
           <button
             onClick={() => {
               openModal();

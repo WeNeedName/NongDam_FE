@@ -12,8 +12,6 @@ const rootReducer = combineReducers({
   users,
   main,
   account,
-  //   post,
-  //   comment,
 });
 
 // 미들웨어들을 모아두는 곳
