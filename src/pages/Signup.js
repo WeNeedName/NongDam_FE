@@ -1,31 +1,21 @@
-
-import React, {useRef, useState, useEffect} from "react"
-import styled from 'styled-components'
-import {useDispatch, useSelector} from "react-redux"
-import {signUpDB} from '../redux/modules/users'
-import { useNavigate } from "react-router"
-
+import React, { useRef, useState, useEffect } from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpDB } from "../redux/modules/users";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailRef = useRef();
 
-
-const Signup = () =>{
-    const dispatch= useDispatch();
-    const emailRef = useRef();
-    const navigate = useNavigate();
-    const[email, setEmail] = useState('');
-    //const[userMail, setUserMail] = useState('')
-    const[pw, setPw] = useState('');
-    const[pwCheck, setPwCheck] = useState('');
-    const[userNickname, setUserNickname] = useState('');
-    const[userName, setUserName] = useState('');
-    const [success, setSuccess] = useState(false);
-  
-   const userSignUp = useSelector((state) => state.users.users);
-
+  const [email, setEmail] = useState("");
+  //const[userMail, setUserMail] = useState('')
+  const [pw, setPw] = useState("");
+  const [pwCheck, setPwCheck] = useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const [userName, setUserName] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const userSignUp = useSelector((state) => state.users.users);
 
@@ -88,51 +78,33 @@ const Signup = () =>{
 
   //console.log(userId, pw)
 
-
-    const signUp = async () =>{
-                const userInfo ={
-                    email : email, 
-                    password: pw, 
-                    nickname : userNickname,
-                    name : userName
-                };
-                dispatch(signUpDB(userInfo))
-            //     if(userNickname?.response?.status === 400) {
-            //         setNicknameErr(true);
-            //         window.alert(userNickname?.response?.data);
-            //     }else if(userNickname?.response?.data === "닉네임 중복"){
-            //         setNicknameErr(true);
-            //     }else setNicknameErr(false);
-            }
-    
-            //console.log(userId, pw)
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // userId;
-        // setPw();
-        setSuccess(true);
-      };
-      useEffect(()=>{
-        emailRef.current.focus();  
-    },[])
-        return(
-            <>
-            <h1>회원가입</h1>
-            {/* <form onSubmit={handleSubmit}> */}
-                <InputBoxes>
-                    <EmailWrap>
-                        <LabelE>이메일</LabelE>
-                        <input 
-                        ref={emailRef}
-                        className = "inputId"
-                        type="email"
-                        //userIdErr={userIdErr}
-                        placeholder="이메일을 입력해주세요"
-                        onChange={(e) => {onChangeUserId(e)}}
-                        /> 
-                            {/* @
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // userId;
+    // setPw();
+    setSuccess(true);
+  };
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+  return (
+    <>
+      <h1>회원가입</h1>
+      {/* <form onSubmit={handleSubmit}> */}
+      <InputBoxes>
+        <EmailWrap>
+          <LabelE>이메일</LabelE>
+          <input
+            ref={emailRef}
+            className="inputId"
+            type="email"
+            //userIdErr={userIdErr}
+            placeholder="이메일을 입력해주세요"
+            onChange={(e) => {
+              onChangeUserId(e);
+            }}
+          />
+          {/* @
                             <SelectEM
                                 onChange={(e) => setUserMail(e.target.value)}>
                                 <option value="">선택해주세요</option>
@@ -179,39 +151,23 @@ const Signup = () =>{
           {!pwErr && pwCheckErr && <PwErr>비밀번호가 일치하지 않습니다.</PwErr>}
         </PwCheckWrap>
 
-
-                    </NameWrap>
-                    <NicknameWrap>
-                        <LabelNN>닉네임</LabelNN>
-                        <InputNickname
-                        placeholder = "닉네임"
-                        value={userNickname|| ""}
-                        onChange={(e) => setUserNickname(e.target.value)}               
-                        />
-                    </NicknameWrap>
-                
-                </InputBoxes>
-            
-            <SignUpBtn
-            type="submit"
-            onClick={() => {
-                signUp(email, pw, userName, userNickname)
-                navigate("/")
-            }}
-            disabled={
-                !email ||
-                !pw ||
-                !pwCheck||
-                userIdErr||
-                pwCheckErr
-                ? true: false
-            }
-            > 회원가입</SignUpBtn>
-        {/* </form> */}
-        </>
-    )
-}
-
+        <NameWrap>
+          <LabelN>이름</LabelN>
+          <InputName
+            value={userName || ""}
+            placeholder="이름"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </NameWrap>
+        <NicknameWrap>
+          <LabelNN>닉네임</LabelNN>
+          <InputNickname
+            placeholder="닉네임"
+            value={userNickname || ""}
+            onChange={(e) => setUserNickname(e.target.value)}
+          />
+        </NicknameWrap>
+      </InputBoxes>
 
       <SignUpBtn
         type="submit"
