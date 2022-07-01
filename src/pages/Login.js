@@ -1,11 +1,11 @@
 import { React, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Signup from "./Signup";
 import { logInDB } from "../redux/modules/users";
-
 import KakaoLogin from "../images/kakao_login_medium_narrow.png";
 import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const idRef = useRef();
@@ -19,18 +19,16 @@ const Login = () => {
   const dispatch = useDispatch();
   const userSignIn = useSelector((state) => state.users.users);
 
-  const logIn = (email, pw) => {
+  const logIn = () => {
     if (email === "" || pw === "") {
       window.alert("빈칸 다 채워줘요");
       return;
     }
-    dispatch(
-      logInDB({
-        email: email,
-        password: pw,
-      })
-    );
-    dispatch(logInDB(email, pw)).then(navigate("/"));
+    const userInfo = {
+      email: email,
+      password: pw,
+    };
+    dispatch(logInDB(userInfo));
   };
 
   useEffect(() => {
@@ -42,9 +40,7 @@ const Login = () => {
       <section>
         <h1>로그인페이지</h1>
 
-        {/* <form onSubmit={handleSubmit}> */}
         <IdBox>
-          {" "}
           <label className="id">ID</label>
           <input
             ref={idRef}
@@ -55,7 +51,6 @@ const Login = () => {
         </IdBox>
 
         <PwBox>
-          {" "}
           <label className="pw">PW</label>
           <input
             type="text"
@@ -70,10 +65,8 @@ const Login = () => {
             style={{ width: "100px" }}
             onClick={() => {
               logIn();
-              navigate("/");
             }}
           >
-            {" "}
             로그인
           </LoginBtn>
         </p>
@@ -86,7 +79,6 @@ const Login = () => {
             src={KakaoLogin}
           />
         </p>
-        {/* </form> */}
         <p>
           회원이 아니시라면? <br />
           <span className="line">
