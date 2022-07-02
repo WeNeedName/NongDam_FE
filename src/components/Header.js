@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {logOutDB} from '../redux/modules/users'
 
 // 이미지
 import Profile from "../images/Profile.png";
 
 const Haeder = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const isLogin = localStorage.getItem("jwtToken");
-  console.log();
+  const isLogin = sessionStorage.getItem("jwtToken");
+
 
   return (
     <div>
@@ -52,11 +54,12 @@ const Haeder = () => {
             농장장부
           </Menu>
         </div>
+
         <ProfileWrap>
           {isLogin ? (
             <Menu
               onClick={() => {
-                // navigate("/login");
+                dispatch(logOutDB())
               }}
             >
               로그아웃
@@ -71,8 +74,13 @@ const Haeder = () => {
             </Menu>
           )}
 
-          <UserProfile src={Profile} alt="프로필사진" />
+          <UserProfile src={Profile} alt="프로필사진"
+          onClick={ () => {
+            navigate("/mypage")
+            }}
+            />
         </ProfileWrap>
+
       </Nav>
     </div>
   );

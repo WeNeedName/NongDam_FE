@@ -7,8 +7,7 @@ const AccountWeek = () => {
   const dispatch = useDispatch();
 
   const [checkedInputs, setCheckedInputs] = useState("전체");
-  //   const [checkedInputs, setCheckedInputs] = useState("전체");
-  console.log(checkedInputs);
+
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {

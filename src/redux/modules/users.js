@@ -5,31 +5,32 @@ import jwt_decode from "jwt-decode";
 
 //actions
 const LOGIN_USER = "LOGIN_USER";
-// const SIGNOUT = 'users/SIGNOUT'
-const SIGNUP_USER = "SIGNUP_USER";
-const KAKAO_LOGIN = "KAKAO_LOGIN";
+const LOGOUT = 'users/LOGOUT'
+const SIGNUP_USER= 'SIGNUP_USER'
+const KAKAO_LOGIN= 'KAKAO_LOGIN'
+const GET_INFO = "GET_INFO"
+const EDIT_INFO = "EDIT_INFO"
+const EDIT_PW = "EDIT_PW"
+
 
 //initial state
 const initialState = {
-  user: null,
+  user: [],
 };
 
 //action creator
 const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
-const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({ user }));
-// const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
-// const logOut = createAction(LOG_OUT, (user) => ({ user }));
+const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({user}));
+const logOut = createAction(LOGOUT, (user) => ({ user }));
+const getInfo = createAction(GET_INFO, (user) => ({user}));
+const editInfo = createAction(EDIT_INFO, (user) => ({user}))
+const editPw = createAction(EDIT_PW, (user) => ({user}))
 
-// export const logIn =(userInfo) => {
-//     return {type:LOGIN, userInfo}
-// }
-// export const signOut =() => {
-//     return {type:SIGNOUT}
-// }
-// export const signUp =(userInfo) => {
-//     return {type:SIGNUP, userInfo}
-// }
+// const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
+
+
+
 
 //미들웨어
 //회원가입
@@ -48,26 +49,29 @@ export const signUpDB = (userInfo) => {
 };
 
 //로그인
-export const logInDB = (userInfo) => {
+export const logInDB = (user) => {
   return function (dispatch) {
-    console.log(userInfo);
     apis
-      .logIn(userInfo)
+      .logIn(user)
       .then((res) => {
         console.log(res);
         const token = res.headers.authorization;
         const DecodedToken = jwt_decode(token);
         console.log(DecodedToken);
-        localStorage.setItem("jwtToken", token);
+        sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");
-        dispatch(
-          logIn(
-            userInfo
-            // username: username,
-            // nickname: DecodedToken.nickname,
-          )
-        );
+        // dispatch(
+        //   logIn(
+        //     {
+        //     email: email,
+        //     nickname: DecodedToken.nickname,
+        //     }
+        //   )
+        // );
+        // localStorage.setItem("email", email);
+        // localStorage.setItem("nickname", DecodedToken.nickname);
+
       })
       .catch((err) => {
         window.alert("잘못된 로그인 정보 입니다.");
@@ -79,19 +83,75 @@ export const logInDB = (userInfo) => {
 //소셜로그인
 export const kakaoLogInDB = (data) => {
   return function (dispatch) {
-    apis
-      .KakaoLogIn(data)
-      .then((res) => {
-        console.log(res);
-        dispatch(kakaoLogIn(data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
 
-//reducer
+    apis.kakaoLogIn(data)
+    .then((res) => {
+      console.log(res);
+      dispatch(kakaoLogIn(data))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
+
+//회원정보가져오기
+export const getInfoDB = () => {
+  return async function(dispatch){
+      await apis.userInfo()
+      .then((res) => {
+          console.log(res.data);
+          dispatch(getInfo(res.data))
+      }) 
+      .catch((err) => {
+          console.log(err);
+      })
+  }
+}
+
+//회원정보수정
+export const editInfoDB = (user) => {
+  return async function (dispatch) {
+    await apis.editUserInfo(user)
+    .then((res) => {
+      console.log(res);
+      dispatch(editInfo(user))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+}
+
+//비밀번호변경
+export const editPwDB = (user) => {
+  return async function(dispatch) {
+    await apis.editPw(user)
+    .tehn((res) => {
+      console.log(res)
+    .catch((err) => {
+      console.log(err)
+    })  
+    })
+  }
+}
+
+
+
+
+
+//로그아웃
+export const logOutDB = () => {
+  return function (dispatch) {
+    sessionStorage.removeItem("jwtToken");
+    window.location.assign("/"); 
+    
+  };
+}
+
+
+
+//리듀서
 export default handleActions(
   {
     [LOGIN_USER]: (state, action) =>
@@ -104,14 +164,32 @@ export default handleActions(
       }),
     [SIGNUP_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state);
+        //console.log(state);
         draft.user = action.payload.user;
       }),
 
     [KAKAO_LOGIN]: (state, action) =>
       produce(state, (draft) => {
-        draft.user = action.payload.user;
+        draft.user=action.payload.user
       }),
+      
+    [GET_INFO]: (state, action) =>
+        produce(state, (draft) => {
+            draft.user=action.payload.user
+            // draft.user = action.payload;
+        }),
+    
+    [EDIT_INFO]: (state, action) =>
+        produce(state, (draft) => {
+          console.log(state,action)
+        })
+
+
+    // [LOGOUT]: (state, action) => produce(state, (draft) => {
+    //   draft.user = null;
+    //   draft.isLogin = false;
+    //     }),
+
 
     //   [LOAD_NICKNAME]: (state, action) =>
     //     produce(state, (draft) => {

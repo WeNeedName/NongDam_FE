@@ -252,9 +252,9 @@ button.rbc-input::-moz-focus-inner {
           box-shadow: none;
   margin: 0;
   padding: 2px 5px;
-  background-color: #3174ad;
-  border-radius: 5px;
-  color: #fff;
+  background-color: #D7EDF9;
+  border-radius: 0px;
+  color: #2399DC;
   cursor: pointer;
   width: 100%;
   text-align: left;
@@ -264,10 +264,36 @@ button.rbc-input::-moz-focus-inner {
   pointer-events: none;
 }
 .rbc-event.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
-  background-color: #265985;
+  /* background-color: #265985; */
 }
 .rbc-event:focus, .rbc-day-slot .rbc-background-event:focus {
-  outline: 5px auto #3b99fc;
+  /* outline: 1px auto #3b99fc; */
+}
+
+.rbc-event-ex, .rbc-day-slot .rbc-background-event {
+  border: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  margin: 0;
+  padding: 2px 5px;
+  background-color: #FBCCCC;
+  border-radius: 0px;
+  color: #2399DC;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+.rbc-slot-selecting .rbc-event, .rbc-slot-selecting .rbc-day-slot .rbc-background-event, .rbc-day-slot .rbc-slot-selecting .rbc-background-event {
+  cursor: inherit;
+  pointer-events: none;
+}
+.rbc-event-ex.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
+  /* background-color: #265985; */
+}
+.rbc-event-ex:focus, .rbc-day-slot .rbc-background-event:focus {
+  /* outline: 1px auto #3b99fc; */
 }
 
 .rbc-event-label {
