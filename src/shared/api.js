@@ -1,5 +1,5 @@
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const token = sessionStorage.getItem("jwtToken");
 
@@ -27,12 +27,10 @@ const formApi = axios.create({
   },
 });
 
-api.interceptors.request.use(
-  function (config) {
+api.interceptors.request.use(function (config) {
   config.headers.common["Authorization"] = `Bearer ${token}`;
   return config;
-},
-) //여기까지만 있었다.
+}); //여기까지만 있었다.
 //   function (err) {
 //     return Promise.reject(err);
 //   }
@@ -44,7 +42,7 @@ api.interceptors.request.use(
 //   },
 //   async function(err){
 //     const {
-//       config, 
+//       config,
 //       response: { status },
 //     } = err;
 //     if (status === 401) {
@@ -78,13 +76,6 @@ api.interceptors.request.use(
 //     }
 // )
 
-
-
-
-
-
-
-
 formApi.interceptors.request.use(function (config) {
   config.headers.common["Authorization"] = `Bearer ${token}`;
   return config;
@@ -93,6 +84,8 @@ formApi.interceptors.request.use(function (config) {
 export const apis = {
   //오늘날씨
   loadWeather: () => api.get("/weather"),
+  // 시세
+  loadMarketPrice: () => api.get("/marketprice"),
 
   // 매출통계
   loadSales: () => api.get("/data"),
@@ -114,7 +107,5 @@ export const apis = {
   logout: () => api.post("/"),
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
-  editUserInfo: (data) => api.put(`/member/{memberid}`,data),
-
-
+  editUserInfo: (data) => api.put(`/member/{memberid}`, data),
 };

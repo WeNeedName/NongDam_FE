@@ -8,7 +8,6 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const Sales = () => {
-  const [data, setData] = useState(null);
 
   const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
   console.log(nowTime);

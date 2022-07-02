@@ -13,6 +13,7 @@ import Day from "./Day";
 
 const CalendarBook = () => {
   const dispatch = useDispatch();
+  const [nowMonth, setNowMonth] = useState(null);
 
   moment.locale("ko-KR");
   const localizer = momentLocalizer(moment);
@@ -29,6 +30,14 @@ const CalendarBook = () => {
   return (
     <Calendar
       events={accountList.map((list, id) => {
+        // const price = [];
+        // price.push(list.price);
+        // const sum = price.reduce(
+        //   (previousValue, currentValue) => previousValue + currentValue,
+        //   0
+        // );
+
+        // console.log(sum);
         return {
           title:
             list.category === "수입"
@@ -50,6 +59,7 @@ const CalendarBook = () => {
           dateHeader: Day,
         },
       }}
+      setNowMonth={setNowMonth}
     />
   );
 };
