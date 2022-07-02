@@ -115,6 +115,14 @@ export const apis = {
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
   editUserInfo: (data) => api.put(`/member/{memberid}`,data),
+  editPw: (data) => api.put(`/member/{memberid}/password`,data),
 
 
+  //일정
+  loadSchedule: () => api.get("/schedule"),
+  loadMonthlySchedule : (date) => api.get(`/schedule/${date.year}-${date.month}`),
+  addSchedule: (data) => api.post("/schedule", data),
+  editSchedule: (scheduleId) => api.put(`/schedule/${scheduleId}`),
+  deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
+  
 };

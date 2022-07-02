@@ -2,27 +2,59 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import MiniÇalendar from './MiniCalendar'
+// import MiniÇalendar from './MiniCalendar'
+import {addScheduleDB} from '../../redux/modules/schedule'
+import DatePicker from "react-datepicker";
+import { addDays } from 'date-fns';
+import "react-datepicker/dist/react-datepicker.css";
+
+
 
 const AddSchedule = (props) => {
   const [todo, setTodo] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
-  const [category, setCategory] = useState(null);
+  const [work, setWork] = useState(null);
   const [memo, setMemo] = useState("");
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(null);
+  
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartTime(start);
+    setEndTime(end);
+    // console.log(startTime, end)
+  }
   const navigate = useNavigate();
-
-
+  const dispatch = useDispatch();
   function inputTodo(e) {
     setTodo(e.target.value);
   }
 
   const changeRadio = (e) => {
     if (e.target.checked) {
-      setCheckedInputs(e.target.id);
+      setWork(e.target.id);
     }
   };
-//   console.log(realPrice, checkedInputs, category, memo);
-  return (
+
+ 
+
+
+  console.log( memo, work);
+
+const addSchedule = (crop, startTime, endTime, memo, work) => {
+  dispatch(
+    addScheduleDB({
+      crop: crop,
+      startTime: startTime,
+      endTime: endTime,
+      toDo: (memo || work),
+    })
+  )
+}
+  console.log(startTime, endTime, memo, work);
+
+
+return (
     <Back>
       <Wrap>
         <TotalTitle>
@@ -62,19 +94,70 @@ const AddSchedule = (props) => {
         </CropsBigWrap>
         <CalenderBigWrap>
             <SmallTitle className="calender">날짜선택</SmallTitle>
-            <MiniÇalendar />
-
-
-
+            <DatePicker
+        selected={startTime}
+        onChange={onChange}
+        startDate={startTime}
+        endDate={endTime}
+        selectsRange
+        inline
+          />
+            
+           
         </CalenderBigWrap>
-       
-        <WorkBigWrap>
+        <CategoryBigWrap>
+          <span>분류</span>
+          <CategoryWrap>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="비료뿌리기"
+                name="radioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>비료뿌리기</FormCheckText>
+            </Label>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="농약치기"
+                name="radioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>농약치기</FormCheckText>
+            </Label>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="수확"
+                name="radioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>수확</FormCheckText>
+              <Label>
+              <FormCheckLeft
+                type="radio"
+                id="기타"
+                name="radioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>기타</FormCheckText>
+            </Label>
+            </Label>
+          </CategoryWrap>
+        </CategoryBigWrap>
+
+        {/* <WorkBigWrap>
             <SmallTitle className="work">농작업분류</SmallTitle>
             <WorksWrap>
             <Work>
               <WorkRadio
                 type="radio"
-                id="복숭아"
+                id="비료뿌리기"
                 name="radioButton"
                 onChange={changeRadio}
                 value={checkedInputs}
@@ -84,17 +167,18 @@ const AddSchedule = (props) => {
             <Work>
               <WorkRadio
                 type="radio"
-                id="수박"
+                id="농약치기"
                 name="radioButton"
                 onChange={changeRadio}
                 value={checkedInputs}
+                
               />
               <WorkRadioText>농약치기</WorkRadioText>
             </Work>
             <Work>
               <WorkRadio
                 type="radio"
-                id="수박"
+                id="수확"
                 name="radioButton"
                 onChange={changeRadio}
                 value={checkedInputs}
@@ -104,7 +188,7 @@ const AddSchedule = (props) => {
             <Work>
               <WorkRadio
                 type="radio"
-                id="수박"
+                id="기타"
                 name="radioButton"
                 onChange={changeRadio}
                 value={checkedInputs}
@@ -112,20 +196,23 @@ const AddSchedule = (props) => {
               <WorkRadioText>기타</WorkRadioText>
             </Work>
           </WorksWrap>
-        </WorkBigWrap>
+        </WorkBigWrap> */}
 
           <TodoWrap>
         <SmallTitle className="todo">작업내용</SmallTitle>
         <TodoInput
           type="text"
           onChange={(e) => {
-            inputTodo(e);
+           setMemo(e.target.value)
           }}
           placeholder="일정을 기록해주세요"
         />
         </TodoWrap>
         </TodoContent>  
-        <DoneBtn>작성완료</DoneBtn>
+        <DoneBtn
+          onClick={()=>{
+            addSchedule()
+          }}>작성완료</DoneBtn>
       </Wrap>
     </Back>
   );
@@ -251,6 +338,26 @@ width: 400px;
 
 `;
 //작업대분류 스타일드컴포넌트
+const CategoryBigWrap = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+const CategoryBigWrapSub = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+`;
+const CategoryWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+
 const WorkBigWrap = styled.div`
 width: 500px;
   display: flex;

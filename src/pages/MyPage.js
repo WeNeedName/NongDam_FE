@@ -10,7 +10,7 @@ const MyPage =() => {
     const dispatch = useDispatch();
     
     const isLogin = sessionStorage.getItem("jwtToken")
-    console.log(isLogin)
+    //console.log(isLogin)
     // function logOut()
     // {
     //     sessionStorage.clear()
@@ -23,12 +23,14 @@ const MyPage =() => {
             <p onClick={() => {
                 navigate("/editmemberinfo")
             }}>회원정보 수정</p>
+
+            <p onClick={() => {
+                navigate("/editpw")}}>비밀번호 변경</p>
+
             <button 
             onClick={() => {
                 dispatch(logOutDB())
-                
-            }}>
-                로그아웃</button>
+            }}>로그아웃</button>
 
         
         

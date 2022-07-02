@@ -9,22 +9,26 @@ const LOGOUT = 'users/LOGOUT'
 const SIGNUP_USER= 'SIGNUP_USER'
 const KAKAO_LOGIN= 'KAKAO_LOGIN'
 const GET_INFO = "GET_INFO"
+const EDIT_INFO = "EDIT_INFO"
+const EDIT_PW = "EDIT_PW"
 
 
 //initial state
 const initialState = {
-  user: null,
+  user: [],
 };
 
 //action creator
 const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
-
 const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({user}));
-const getInfo = createAction(GET_INFO, () => ({}));
+const logOut = createAction(LOGOUT, (user) => ({ user }));
+const getInfo = createAction(GET_INFO, (user) => ({user}));
+const editInfo = createAction(EDIT_INFO, (user) => ({user}))
+const editPw = createAction(EDIT_PW, (user) => ({user}))
 
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
-const logOut = createAction(LOGOUT, (user) => ({ user }));
+
 
 
 
@@ -91,20 +95,50 @@ export const kakaoLogInDB = (data) => {
   }
 }
 
-
 //회원정보가져오기
 export const getInfoDB = () => {
   return async function(dispatch){
       await apis.userInfo()
       .then((res) => {
-          console.log(res);
-          dispatch(getInfo())
+          console.log(res.data);
+          dispatch(getInfo(res.data))
       }) 
       .catch((err) => {
           console.log(err);
       })
   }
 }
+
+//회원정보수정
+export const editInfoDB = (user) => {
+  return async function (dispatch) {
+    await apis.editUserInfo(user)
+    .then((res) => {
+      console.log(res);
+      dispatch(editInfo(user))
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+}
+
+//비밀번호변경
+export const editPwDB = (user) => {
+  return async function(dispatch) {
+    await apis.editPw(user)
+    .tehn((res) => {
+      console.log(res)
+    .catch((err) => {
+      console.log(err)
+    })  
+    })
+  }
+}
+
+
+
+
 
 //로그아웃
 export const logOutDB = () => {
@@ -114,7 +148,6 @@ export const logOutDB = () => {
     
   };
 }
-
 
 
 
@@ -131,22 +164,27 @@ export default handleActions(
       }),
     [SIGNUP_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state);
+        //console.log(state);
         draft.user = action.payload.user;
       }),
 
     [KAKAO_LOGIN]: (state, action) =>
       produce(state, (draft) => {
-
         draft.user=action.payload.user
       }),
       
     [GET_INFO]: (state, action) =>
         produce(state, (draft) => {
-            console.log(state, action)
             draft.user=action.payload.user
             // draft.user = action.payload;
         }),
+    
+    [EDIT_INFO]: (state, action) =>
+        produce(state, (draft) => {
+          console.log(state,action)
+        })
+
+
     // [LOGOUT]: (state, action) => produce(state, (draft) => {
     //   draft.user = null;
     //   draft.isLogin = false;
