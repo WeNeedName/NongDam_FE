@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis } from "../../shared/api";
+import moment from "moment";
+import "moment/locale/ko";
 
 // Action
 const GET_ACCOUNT_LIST = "GET_ACCOUNT_LIST";
@@ -24,7 +26,10 @@ const getYearMonth = createAction(GET_YEAR_MONTH, (data) => ({ data }));
 const initialState = {
   accountList: [],
   currentAccount: [],
-  yearMonth: null,
+  yearMonth: {
+    month: moment().format("MM"),
+    year: moment().format("YYYY"),
+  },
 };
 
 // Middleware
@@ -41,6 +46,7 @@ export const getYearMonthDB = (date) => {
 export const getAccountListDB = (date) => {
   console.log(date);
   return async function (dispatch) {
+    console.log(date);
     apis
       .loadAccountBook(date)
       .then((response) => {
@@ -117,12 +123,29 @@ export default handleActions(
         console.log(state, payload);
         draft.currentAccount = payload.currentAccount;
       }),
-
+    // 최근내역, 월별 내역에 내역 추가
     [CREATE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(state, payload);
         draft.currentAccount.unshift(payload.account);
         draft.currentAccount = draft.currentAccount.map((account) => {
+          console.log(account);
+          if (Number(account.id) === Number(payload.account.id)) {
+            return {
+              ...account,
+              date: payload.account.date,
+              id: payload.account.id,
+              memo: payload.account.memo,
+              price: payload.account.price,
+              type: payload.account.type,
+            };
+          } else {
+            return account;
+          }
+        });
+
+        draft.accountList.unshift(payload.account);
+        draft.accountList = draft.accountList.map((account) => {
           console.log(account);
           if (Number(account.id) === Number(payload.account.id)) {
             return {
