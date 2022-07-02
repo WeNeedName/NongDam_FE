@@ -20,7 +20,7 @@ const Schedule = () => {
     if (!showModal) setShowModal(true);
     else setShowModal(false);
   };
-  console.log(showModal);
+  
     return (
         <div>
           <Header />

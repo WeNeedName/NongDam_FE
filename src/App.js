@@ -12,6 +12,8 @@ import AccountWrite from "./components/accountbook/AccountWrite";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import EditMemberInfo from "./pages/EditMemberInfo";
+import EditPw from "./pages/EditPw";
+
 import MyPage from "./pages/MyPage";
 import OauthFilter from "./pages/OauthFilter";
 import Schedule from "./pages/Schedule";
@@ -30,7 +32,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-        <Route path="/edit" element={<MyPage />} />
+        <Route path="/editpw" element={<EditPw />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/addSchedule" element={<AddSchedule />} />
