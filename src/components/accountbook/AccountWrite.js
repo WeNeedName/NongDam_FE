@@ -7,6 +7,11 @@ import { addAccountDB } from "../../redux/modules/account";
 import moment from "moment";
 import "moment/locale/ko";
 
+// 날짜 선택 라이브러리
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
+
 const AccountWrite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,6 +20,7 @@ const AccountWrite = () => {
   const [checkedInputs, setCheckedInputs] = useState("");
   const [category, setCategory] = useState(null);
   const [memo, setMemo] = useState("");
+  const [date, setDate] = useState(new Date());
 
   // 숫자 콤마넣기
   function comma(str) {
@@ -40,30 +46,26 @@ const AccountWrite = () => {
     }
   };
 
-  const nowTime = moment().format("YYYY-MM-DD");
-  console.log(nowTime);
-  //   console.log(realPrice, checkedInputs, category, memo);
+  const selecDate = moment(date).format("YYYY-MM-DD");
 
   const addAccount = () => {
-    // if (commentText.current.value === "") {
-    //   window.alert("댓글을 작성해주세요!");
-    // } else if (!isLogin) {
-    //   window.alert("로그인 후 댓글을 남기실 수 있습니다.");
-    // } else {
-    // api에 데이터 추가하기!
-    dispatch(
-      addAccountDB({
-        // postId: params.id,
-        // comment: commentText.current.value,
-        type: Number(category),
-        price: realPrice,
-        memo: memo,
-        date: nowTime,
-      })
-    );
-    // }
+    if (realPrice === 0) {
+      window.alert("금액을 입력해주세요.");
+    } else if (category === null) {
+      window.alert("품목을 선택해주세요.");
+    } else {
+      // api에 데이터 추가하기!
+      dispatch(
+        addAccountDB({
+          type: Number(category),
+          price: realPrice,
+          memo: memo,
+          date: selecDate,
+        })
+      );
+      navigate("/accountbook");
+    }
   };
-  console.log(Number(category), realPrice, memo, nowTime);
 
   return (
     <Back>
@@ -144,6 +146,21 @@ const AccountWrite = () => {
             )}
           </div>
         </CategoryBigWrapSub>
+
+        <CategoryBigWrapSub>
+          <FormLabel>날짜</FormLabel>
+          <SDatePicker
+            selected={date}
+            onChange={(date) => {
+              setDate(date);
+            }}
+            locale={ko}
+            dateFormat="yyyy년 MM월 dd일"
+            // minDate={new Date()}
+            value={date}
+          />
+        </CategoryBigWrapSub>
+
         <CategoryBigWrapSub>
           <span>메모</span>
           <MemoInput
@@ -211,6 +228,19 @@ const ClearBtn = styled.button`
   cursor: pointer;
 `;
 
+const SDatePicker = styled(DatePicker)`
+  width: 130px;
+  height: 26px;
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  margin-left: 20px;
+`;
+
+const FormLabel = styled.span`
+  width: 32px;
+`;
+
 const CategoryBigWrap = styled.div`
   width: 400px;
   display: flex;
@@ -223,7 +253,7 @@ const CategoryBigWrapSub = styled.div`
   width: 400px;
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 14px;
 `;
 
 const CategoryWrap = styled.div`

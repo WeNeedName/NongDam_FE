@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { getAccountListDB, getYearMonthDB } from "../../redux/modules/account";
 // react-calendar 라이브러리
 import Calendar from "react-calendar";
-import "../../Calendar.css";
+// import "../../Calendar.css";
 
 const AccountCalender = () => {
+  const dispatch = useDispatch();
+
   const [value, onChange] = useState(new Date());
   const moment = require("moment");
   // const [mark, setMark] = useState([]);
+
+  const accountList = useSelector((state) => state.account.accountList);
+  const yearMonth = useSelector((state) => state.account.yearMonth);
+  console.log(accountList);
+  console.log(yearMonth);
+  console.log(value);
+  useEffect(() => {
+    dispatch(getAccountListDB(yearMonth));
+  }, [dispatch]);
 
   // 기록이 있는 날 리스트
   const marks = [
@@ -42,21 +54,15 @@ const AccountCalender = () => {
         //   }
         // }}
         tileContent={({ date, view }) => {
-          // 날짜 타일에 컨텐츠 추가하기 (html 태그)
-          // 추가할 html 태그를 변수 초기화
-          let html = [];
-          // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
           if (mark.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-            html.push(<div className="dot"></div>);
+            return (
+              <>
+                <div>
+                  <Dot></Dot>
+                </div>
+              </>
+            );
           }
-          // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
-          return (
-            <>
-              <div className="flex justify-center items-center absoluteDiv">
-                {html}
-              </div>
-            </>
-          );
         }}
       />
       {moment(value).format("YYYY년 MM월 DD일")}
@@ -72,9 +78,17 @@ const Wrap = styled.div`
   flex-direction: column;
 `;
 
-const Text = styled.span`
-  color: black;
-  z-index: 10;
+// const Text = styled.span`
+//   color: black;
+//   z-index: 10;
+// `;
+
+const Dot = styled.div`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: black;
+  margin-left: 30px;
 `;
 
 export default AccountCalender;

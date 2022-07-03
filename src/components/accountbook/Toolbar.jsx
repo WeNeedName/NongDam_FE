@@ -7,6 +7,7 @@ import { getAccountListDB, getYearMonthDB } from "../../redux/modules/account";
 export default function Toolbar(props) {
   const dispatch = useDispatch();
   const [nowMonth, setNowMonth] = useState(null);
+  const [click, setClick] = useState(false);
   // const [nowYear, setNowYear] = useState(null);
 
   const { date } = props;
@@ -14,7 +15,11 @@ export default function Toolbar(props) {
 
   const navigate = (action) => {
     props.onNavigate(action);
+    if(!click)setClick(true)
+    else setClick(false)
   };
+
+  console.log(click)
 
   const month = moment(date).format("MM");
   const year = moment(date).format("YYYY");
@@ -23,38 +28,11 @@ export default function Toolbar(props) {
 
   const accountList = useSelector((state) => state.account.accountList);
   console.log(accountList);
-
-  console.log(nowMonth);
+  
   useEffect(() => {
-    // function watchClick() {
-    //   window.addEventListener("click", dispatch(getAccountListDB(YYMM)));
-    // }
-    // watchClick();
-
-    (() => {
-      // window.addEventListener("click", async () => {
-      //   setNowMonth(YYMM).then(() => {
-      //     dispatch(getAccountListDB(nowMonth));
-      //     dispatch(getYearMonthDB(nowMonth));
-      //   });
-      // });
-
-      window.addEventListener("click", () => setNowMonth(YYMM));
-      dispatch(getAccountListDB(nowMonth));
-      dispatch(getYearMonthDB(nowMonth));
-    })();
-
-    return () => {
-      window.removeEventListener("click", () => {
-        setNowMonth(YYMM);
-        dispatch(getAccountListDB(nowMonth));
-        dispatch(getYearMonthDB(nowMonth));
-      });
-    };
-
-    // dispatch(getAccountListDB(YYMM));
-    // dispatch(getYearMonthDB(YYMM));
-  }, [nowMonth]);
+    dispatch(getAccountListDB(YYMM));
+    dispatch(getYearMonthDB(YYMM));
+  }, [click]);
 
   return (
     <div className="rbc-toolbar">
