@@ -14,24 +14,8 @@ const EditMemberInfo = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [crops, setCrops] = useState("");
-  const [countryCode, setCountryCode] = useState();
-  const [profileImgUrl, setProfileImgUrl] = useState("");
-  // const [preview, setPreview] = React.useState(user?.profileImgUrl);
-  const [disable, setDisable] = useState(true);
-  const [address, setAddress] = useState("");
-  // 팝업창 상태 관리
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  // 팝업창 열기
-  const openPostCode = () => {
-    setIsPopupOpen(true);
-  };
-  // 팝업창 닫기
-  const closePostCode = () => {
-    setIsPopupOpen(false);
-  };
+
+
 
     const [name, setName]=useState("")
     const [nickname, setNickname]=useState("")
@@ -73,14 +57,7 @@ const EditMemberInfo = () => {
     }
     console.log(nickname, address, countryCode, profileImgUrl)
    
-    const onFileChange = (e) => {
-        // let formData = new FormData();
-        // console.log(e.target.files[0])
-        // formData.append('file', e.target.files[0]);
-        // const response = await 
-        // for (const keyValue of formData) console.log(keyValue)
-            //setProfileImgUrl(formData(e.target.files[0]))
-        }
+
 
 
   const onFileChange = (e) => {
