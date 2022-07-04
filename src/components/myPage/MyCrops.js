@@ -6,50 +6,40 @@ import Select from "react-select";
 import { isDayjs } from "dayjs";
 import { toBeChecked } from "@testing-library/jest-dom/dist/matchers";
 
+const MyCrops = (props) => {
+  const dispatch = useDispatch();
+  const [selectedCrops, setSelectedCrops] = useState([]);
+  const cropsData = useSelector((state) => state.users.crops);
+  useEffect(() => {
+    dispatch(getCropsListDB());
+  }, []);
 
-const MyCrops = (props) =>{
-    const dispatch = useDispatch();
-    const [selectedCrops, setSelectedCrops] = useState([])
-    const cropsData = useSelector((state) => state.users.crops);
-    useEffect(() => {
-        dispatch(getCropsListDB())
-    }, []);
-    //console.log(cropsData)
-    // const options = 
-    // cropsData !== undefined ? cropsData.map((crops) => {
-    //   return { label: crops.name, value: crops.id };
-    // }) : null;
-    
-  //  const myCropsId = selectedCrops.filter((option)=>option.value)
-    
-    console.log(selectedCrops)
-    // const putValue = e => {
-    //   setMyCrops(e.value.id)
-    // }
-    //props.setCrops(selectedCrops)
-    //console.log(selectedCrops)
-    return(
-      <Container>
-        <Select 
+  const crops = [];
+  selectedCrops.filter((v) => crops.push(v.value));
+  console.log(crops);
+
+  return (
+    <Container>
+      <Select
         className="react-select"
         defaultValue={[]} //db에서 유저data 불러올 때 다시 수정 필요함
-        isMulti 
+        isMulti
         name="crops"
-        options=
-          {cropsData !== undefined ? cropsData.map((crops) => {
-            return { label: crops.name, value: crops.id };
-          }) : null}
-        onChange={value=> {setSelectedCrops(
-          ...value)
-          }}
-          
+        options={
+          cropsData !== undefined
+            ? cropsData.map((crops) => {
+                return { label: crops.name, value: crops.id };
+              })
+            : null
+        }
+        onChange={(value) => {
+          setSelectedCrops(value);
+        }}
         classNamePrefix="select"
-        
-        
-        />
-      </Container>
-    )
-}
+      />
+    </Container>
+  );
+};
 
 const Container = styled.div`
   .react-select {
