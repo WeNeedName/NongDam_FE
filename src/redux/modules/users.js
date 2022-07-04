@@ -148,7 +148,7 @@ export const getCropsListDB =() => {
   return async function(dispatch) {
     await apis.loadCropsList()
     .then((res) => {
-      console.log(res.data)
+      //console.log(res.data)
       dispatch(getCropsList(res.data))
     })
     .catch((err) => {
@@ -156,7 +156,6 @@ export const getCropsListDB =() => {
     }) 
   }
 }
-
 
 //리듀서
 export default handleActions(
@@ -188,12 +187,12 @@ export default handleActions(
     
     [EDIT_INFO]: (state, action) =>
         produce(state, (draft) => {
-          console.log(state,action)
+          //console.log(state,action)
         }),
     
     [GET_CROPS]: (state, action) => 
       produce(state, (draft) => {
-        console.log(state, action);
+        // console.log(state, action);
         draft.crops = action.payload.data;
         }),
 
