@@ -1,4 +1,6 @@
-import { React, useState, useEffect } from "react";
+
+import {React, useState, useEffect, useRef} from 'react'
+
 import styled from "styled-components";
 import Header from "../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
@@ -78,6 +80,7 @@ const EditMemberInfo = () => {
                 placeholder="성함을 기입해주세요"
                 ></input>    
             </EditNameWrap> */}
+
         <EditNicknameWrap>
           <p>닉네임수정</p>
           <input
