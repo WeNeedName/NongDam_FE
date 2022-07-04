@@ -10,9 +10,9 @@ const AccountWeek = () => {
 
   const [checkedInputs, setCheckedInputs] = useState("전체");
   const [render, setRender] = useState(false);
+  const [accountId, setAccountId] = useState(null);
   // 장부내역 상세 모달 열기
   const [isOpen, setOpen] = useState(false);
-  const [accountId, setAccountId] = useState(null);
 
   function toggleModal(id) {
     setOpen(!isOpen);
@@ -34,7 +34,7 @@ const AccountWeek = () => {
   const filteredCategory =
     currentAccount_list !== undefined &&
     currentAccount_list.filter((v) => v.category === checkedInputs);
-
+  console.log(currentAccount_list);
   return (
     <Wrap>
       <CategoryWrap>
