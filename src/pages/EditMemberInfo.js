@@ -26,7 +26,7 @@ const EditMemberInfo =() => {
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const openPostCode = () => {setIsPopupOpen(true)}   
     const closePostCode = () => {setIsPopupOpen(false)}
-    const imgRef=useRef();
+    
 
 
     const userInfo = useSelector(state => state.users?.user)
@@ -140,15 +140,7 @@ const EditMemberInfo =() => {
             </EditMyCrops>
             <AddProfile>
                 <p>프로필 사진 등록</p>
-                <input 
-                    type="file"
-                    ref={imgUpload}
-                    className="imgInput"
-                    id="imgId"
-                    accept="image/*"
-                    name='file'
-                    onChange={onImgChange}
-                />
+               
             </AddProfile>  
             <Submit type="submit"
                onClick={()=>{
