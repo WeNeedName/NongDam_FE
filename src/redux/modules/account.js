@@ -92,12 +92,12 @@ export const addAccountDB = (account) => async (dispatch) => {
 };
 
 // 장부 수정하기
-export const ModifiAccountDB = (account) => async (dispatch) => {
+export const ModifiAccountDB = (id, account) => async (dispatch) => {
   try {
     console.log("장부 만들 준비", account);
-    const { data } = await apis.editAccount(account);
+    const { data } = await apis.editAccount(id, account);
     console.log(data);
-    dispatch(modifiAccount(data));
+    // dispatch(createAccount(data));
   } catch (error) {
     window.alert("장부 수정 중에 오류가 발생했습니다.");
     console.log(error);
@@ -179,42 +179,42 @@ export default handleActions(
       }),
 
     // 최근내역, 월별 내역에 내역 수정
-    [MODIFI_ACCOUNT]: (state, { payload }) =>
-      produce(state, (draft) => {
-        console.log(state, payload);
-        draft.currentAccount.unshift(payload.account);
-        draft.currentAccount = draft.currentAccount.map((account) => {
-          console.log(account);
-          if (Number(account.id) === Number(payload.account.id)) {
-            return {
-              ...account,
-              date: payload.account.date,
-              id: payload.account.id,
-              memo: payload.account.memo,
-              price: payload.account.price,
-              type: payload.account.type,
-            };
-          } else {
-            return account;
-          }
-        });
-        draft.accountList.unshift(payload.account);
-        draft.accountList = draft.accountList.map((account) => {
-          console.log(account);
-          if (Number(account.id) === Number(payload.account.id)) {
-            return {
-              ...account,
-              date: payload.account.date,
-              id: payload.account.id,
-              memo: payload.account.memo,
-              price: payload.account.price,
-              type: payload.account.type,
-            };
-          } else {
-            return account;
-          }
-        });
-      }),
+    // [MODIFI_ACCOUNT]: (state, { payload }) =>
+    //   produce(state, (draft) => {
+    //     console.log(state, payload);
+    //     draft.currentAccount.unshift(payload.account);
+    //     draft.currentAccount = draft.currentAccount.map((account) => {
+    //       console.log(account);
+    //       if (Number(account.id) === Number(payload.account.id)) {
+    //         return {
+    //           ...account,
+    //           date: payload.account.date,
+    //           id: payload.account.id,
+    //           memo: payload.account.memo,
+    //           price: payload.account.price,
+    //           type: payload.account.type,
+    //         };
+    //       } else {
+    //         return account;
+    //       }
+    //     });
+    //     draft.accountList.unshift(payload.account);
+    //     draft.accountList = draft.accountList.map((account) => {
+    //       console.log(account);
+    //       if (Number(account.id) === Number(payload.account.id)) {
+    //         return {
+    //           ...account,
+    //           date: payload.account.date,
+    //           id: payload.account.id,
+    //           memo: payload.account.memo,
+    //           price: payload.account.price,
+    //           type: payload.account.type,
+    //         };
+    //       } else {
+    //         return account;
+    //       }
+    //     });
+    //   }),
 
     [DELETE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
