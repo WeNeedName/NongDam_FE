@@ -19,10 +19,6 @@ const AccountWeek = () => {
     setAccountId(id);
   }
 
-  const deleteAccount = (id) => {
-    dispatch(deleteAccountDB(id));
-  };
-
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../../redux/modules/users";
-import Select from 'react-select'
+import Select from "react-select";
 import { isDayjs } from "dayjs";
 import { toBeChecked } from "@testing-library/jest-dom/dist/matchers";
+
 
 const MyCrops = (props) =>{
     const dispatch = useDispatch();
@@ -49,10 +50,12 @@ const MyCrops = (props) =>{
       </Container>
     )
 }
+
 const Container = styled.div`
-.react-select{
-  width: 60%;
-}`
+  .react-select {
+    width: 60%;
+  }
+`;
 const Selec = styled.select`
   margin-left: 20px;
   width: 170px;
