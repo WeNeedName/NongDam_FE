@@ -111,6 +111,11 @@ export const apis = {
   editUserInfo: (data) => api.put(`/member/{memberid}`,data),
   editPw: (data) => api.put(`/member/{memberid}/password`,data),
 
+  loadCropsList: () => api.get("/crops"),
+
+
+
+
   //일정
   loadSchedule: () => api.get("/schedule"),
   loadMonthlySchedule : (date) => api.get(`/schedule/${date.year}-${date.month}`),

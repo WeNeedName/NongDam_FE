@@ -5,17 +5,19 @@ import jwt_decode from "jwt-decode";
 
 //actions
 const LOGIN_USER = "LOGIN_USER";
-const LOGOUT = 'users/LOGOUT'
-const SIGNUP_USER= 'SIGNUP_USER'
-const KAKAO_LOGIN= 'KAKAO_LOGIN'
-const GET_INFO = "GET_INFO"
-const EDIT_INFO = "EDIT_INFO"
-const EDIT_PW = "EDIT_PW"
+const LOGOUT = 'users/LOGOUT';
+const SIGNUP_USER= 'SIGNUP_USER';
+const KAKAO_LOGIN= 'KAKAO_LOGIN';
+const GET_INFO = "GET_INFO";
+const EDIT_INFO = "EDIT_INFO";
+const EDIT_PW = "EDIT_PW";
+const GET_CROPS = "GET_CROPS";
 
 
 //initial state
 const initialState = {
   user: [],
+  crops:[],
 };
 
 //action creator
@@ -23,13 +25,11 @@ const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
 const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({user}));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
-const getInfo = createAction(GET_INFO, (user) => ({user}));
+const getInfo = createAction(GET_INFO, () => ({}));
 const editInfo = createAction(EDIT_INFO, (user) => ({user}))
 const editPw = createAction(EDIT_PW, (user) => ({user}))
-
+const getCropsList = createAction(GET_CROPS, (data) => ({data}));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
-
-
 
 
 //미들웨어
@@ -127,7 +127,7 @@ export const editInfoDB = (user) => {
 export const editPwDB = (user) => {
   return async function(dispatch) {
     await apis.editPw(user)
-    .tehn((res) => {
+    .then((res) => {
       console.log(res)
     .catch((err) => {
       console.log(err)
@@ -135,20 +135,27 @@ export const editPwDB = (user) => {
     })
   }
 }
-
-
-
-
-
 //로그아웃
 export const logOutDB = () => {
   return function (dispatch) {
     sessionStorage.removeItem("jwtToken");
     window.location.assign("/"); 
-    
   };
 }
 
+//작물리스트받아오기
+export const getCropsListDB =() => {
+  return async function(dispatch) {
+    await apis.loadCropsList()
+    .then((res) => {
+      console.log(res.data)
+      dispatch(getCropsList(res.data))
+    })
+    .catch((err) => {
+      console.log(err)
+    }) 
+  }
+}
 
 
 //리듀서
@@ -182,8 +189,13 @@ export default handleActions(
     [EDIT_INFO]: (state, action) =>
         produce(state, (draft) => {
           console.log(state,action)
-        })
-
+        }),
+    
+    [GET_CROPS]: (state, action) => 
+      produce(state, (draft) => {
+        console.log(state, action);
+        draft.crops = action.payload.data;
+        }),
 
     // [LOGOUT]: (state, action) => produce(state, (draft) => {
     //   draft.user = null;

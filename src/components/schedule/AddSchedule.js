@@ -36,9 +36,6 @@ const AddSchedule = (props) => {
     }
   };
 
- 
-
-
   console.log( memo, work);
 
 const addSchedule = (crop, startTime, endTime, memo, work) => {
