@@ -7,6 +7,7 @@ import {getInfoDB} from "../redux/modules/users"
 import {editInfoDB } from "../redux/modules/users";
 import PopupDom from '../components/myPage/PopupDom';
 import PopupPostCode from '../components/myPage/PopupPostCode';
+import MyCrops from '../components/myPage/MyCrops';
 
 const EditMemberInfo =() => {
     const navigate = useNavigate();
@@ -16,32 +17,29 @@ const EditMemberInfo =() => {
     const [name, setName]=useState("")
     const [nickname, setNickname]=useState("")
     const [crops, setCrops]=useState("")
-    
-    // const [address, setAddress]=useState("")
     const [countryCode, setCountryCode] = useState()
     const [profileImgUrl, setProfileImgUrl] = useState("");
     // const [preview, setPreview] = React.useState(user?.profileImgUrl); 
     const [disable, setDisable] = useState(true);
-    
-    const user = useSelector(state => state.users?.user)
-    //console.log(user)
-    const previousNickname = user?.nickname;
-    const previousName = user?.profileMsg;
-    const previousCountryCode = user?.countryCode;
-    useEffect (() => {
-        dispatch(getInfoDB())
-    },[]);
-    
-  	// 팝업창 상태 관리
+    const [address, setAddress]=useState("")
+	// 팝업창 상태 관리
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     // 팝업창 열기
     const openPostCode = () => {setIsPopupOpen(true)}   
     // 팝업창 닫기
     const closePostCode = () => {setIsPopupOpen(false)}
-   //데이터 가져오기 도전
-    const [address, setAddress]=useState("")
+
+    const userInfo = useSelector(state => state.users?.user)
+    useEffect (() => {
+        dispatch(getInfoDB())
+    },[]);
     
-    console.log(nickname, address, countryCode)
+    console.log(userInfo)
+    const previousNickname = userInfo?.nickname;
+    const previousName = userInfo?.profileMsg;
+    const previousCountryCode = userInfo?.countryCode;
+    
+    // console.log(nickname, address, countryCode, profileImgUrl)
     const editInfo = () =>{
         const newUserInfo ={
             nickname : nickname,
@@ -52,7 +50,17 @@ const EditMemberInfo =() => {
         }
         dispatch(editInfoDB(newUserInfo))
     }
-    
+
+   
+    const onFileChange = (e) => {
+        // let formData = new FormData();
+        // console.log(e.target.files[0])
+        // formData.append('file', e.target.files[0]);
+        // const response = await 
+        // for (const keyValue of formData) console.log(keyValue)
+            //setProfileImgUrl(formData(e.target.files[0]))
+        }
+
     return(
         <div>
             <Header />
@@ -83,7 +91,7 @@ const EditMemberInfo =() => {
                 type='button' 
                 onClick={()=>{openPostCode()}}
                 value={address}
-                >우편번호 검색</button>
+                >주소 검색</button>
                 {address}
                 {/* 팝업 생성 기준 div */}
                 <div id='popupDom'>
@@ -124,18 +132,23 @@ const EditMemberInfo =() => {
             </CountryCode>
             <EditMyCrops>
                 <p> 내 작물 수정</p>
-                
+                <MyCrops />
             </EditMyCrops>
             <AddProfile>
                 <p>프로필 사진 등록</p>
-                <input type="file"></input>          
+                <input 
+                  type="file"
+                  name="file_upload"
+                  onChange={onFileChange}
+                />
             </AddProfile>  
             <Submit type="submit"
-               onClick={()=>{editInfo(nickname,
+               onClick={()=>{
+                {editInfo(nickname,
                 address,
                 countryCode,
                 crops,
-                profileImgUrl )}}   
+                profileImgUrl )}}}   
             >수정하기</Submit>
             </div>
         </div>
