@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useRef} from 'react'
 import styled from "styled-components";
 import Header from "../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
@@ -26,6 +26,8 @@ const EditMemberInfo =() => {
     const [isPopupOpen, setIsPopupOpen] = useState(false)
     const openPostCode = () => {setIsPopupOpen(true)}   
     const closePostCode = () => {setIsPopupOpen(false)}
+    const imgRef=useRef();
+
 
     const userInfo = useSelector(state => state.users?.user)
     useEffect (() => {
@@ -139,18 +141,22 @@ const EditMemberInfo =() => {
             <AddProfile>
                 <p>프로필 사진 등록</p>
                 <input 
-                  type="file"
-                  name="file_upload"
-                  onChange={onFileChange}
+                    type="file"
+                    ref={imgUpload}
+                    className="imgInput"
+                    id="imgId"
+                    accept="image/*"
+                    name='file'
+                    onChange={onImgChange}
                 />
             </AddProfile>  
             <Submit type="submit"
                onClick={()=>{
-                {editInfo(nickname,
+                editInfo(nickname,
                 address,
                 countryCode,
                 crops,
-                profileImgUrl )}}}   
+                profileImgUrl )}}   
             >수정하기</Submit>
             </div>
         </div>
