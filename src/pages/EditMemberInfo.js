@@ -26,9 +26,7 @@ const EditMemberInfo = () => {
     const [address, setAddress]=useState("")
 	// 팝업창 상태 관리
     const [isPopupOpen, setIsPopupOpen] = useState(false)
-    // 팝업창 열기
     const openPostCode = () => {setIsPopupOpen(true)}   
-    // 팝업창 닫기
     const closePostCode = () => {setIsPopupOpen(false)}
 
     const userInfo = useSelector(state => state.users?.user)
@@ -36,12 +34,16 @@ const EditMemberInfo = () => {
         dispatch(getInfoDB())
     },[]);
     
-    console.log(userInfo)
+    const previousUserList =
+    userInfo !== undefined ? userInfo.map((list) => {
+        return list
+    }) : null
+
+    //console.log(previousUserList)
     const previousNickname = userInfo?.nickname;
     const previousName = userInfo?.profileMsg;
     const previousCountryCode = userInfo?.countryCode;
     
-    // console.log(nickname, address, countryCode, profileImgUrl)
     const editInfo = () =>{
         const newUserInfo ={
             nickname : nickname,
@@ -52,7 +54,7 @@ const EditMemberInfo = () => {
         }
         dispatch(editInfoDB(newUserInfo))
     }
-
+    console.log(nickname, address, countryCode, profileImgUrl)
    
     const onFileChange = (e) => {
         // let formData = new FormData();
@@ -136,7 +138,7 @@ const EditMemberInfo = () => {
             </CountryCode>
             <EditMyCrops>
                 <p> 내 작물 수정</p>
-                <MyCrops />
+                <MyCrops  setCrops={setCrops}/>
             </EditMyCrops>
             <AddProfile>
                 <p>프로필 사진 등록</p>
