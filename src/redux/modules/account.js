@@ -8,6 +8,7 @@ import "moment/locale/ko";
 const GET_ACCOUNT_LIST = "GET_ACCOUNT_LIST";
 const GET_ACCOUNT = "GET_ACCOUNT";
 const CREATE_ACCOUNT = "CREATE_ACCOUNT";
+const MODIFI_ACCOUNT = "CREATE_ACCOUNT";
 const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 
 const GET_YEAR_MONTH = "GET_YEAR_MONTH";
@@ -18,6 +19,7 @@ const getAccount = createAction(GET_ACCOUNT, (currentAccount) => ({
   currentAccount,
 }));
 const createAccount = createAction(CREATE_ACCOUNT, (account) => ({ account }));
+const modifiAccount = createAction(MODIFI_ACCOUNT, (account) => ({ account }));
 const deleteAccount = createAction(DELETE_ACCOUNT, (id) => ({ id }));
 
 const getYearMonth = createAction(GET_YEAR_MONTH, (data) => ({ data }));
@@ -88,6 +90,20 @@ export const addAccountDB = (account) => async (dispatch) => {
     console.log(error);
   }
 };
+
+// 장부 수정하기
+export const ModifiAccountDB = (account) => async (dispatch) => {
+  try {
+    console.log("장부 만들 준비", account);
+    const { data } = await apis.editAccount(account);
+    console.log(data);
+    dispatch(modifiAccount(data));
+  } catch (error) {
+    window.alert("장부 수정 중에 오류가 발생했습니다.");
+    console.log(error);
+  }
+};
+
 // 장부 삭제하기
 export const deleteAccountDB = (id) => {
   console.log(id);
@@ -123,6 +139,7 @@ export default handleActions(
         console.log(state, payload);
         draft.currentAccount = payload.currentAccount;
       }),
+
     // 최근내역, 월별 내역에 내역 추가
     [CREATE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
@@ -143,7 +160,44 @@ export default handleActions(
             return account;
           }
         });
+        draft.accountList.unshift(payload.account);
+        draft.accountList = draft.accountList.map((account) => {
+          console.log(account);
+          if (Number(account.id) === Number(payload.account.id)) {
+            return {
+              ...account,
+              date: payload.account.date,
+              id: payload.account.id,
+              memo: payload.account.memo,
+              price: payload.account.price,
+              type: payload.account.type,
+            };
+          } else {
+            return account;
+          }
+        });
+      }),
 
+    // 최근내역, 월별 내역에 내역 수정
+    [MODIFI_ACCOUNT]: (state, { payload }) =>
+      produce(state, (draft) => {
+        console.log(state, payload);
+        draft.currentAccount.unshift(payload.account);
+        draft.currentAccount = draft.currentAccount.map((account) => {
+          console.log(account);
+          if (Number(account.id) === Number(payload.account.id)) {
+            return {
+              ...account,
+              date: payload.account.date,
+              id: payload.account.id,
+              memo: payload.account.memo,
+              price: payload.account.price,
+              type: payload.account.type,
+            };
+          } else {
+            return account;
+          }
+        });
         draft.accountList.unshift(payload.account);
         draft.accountList = draft.accountList.map((account) => {
           console.log(account);

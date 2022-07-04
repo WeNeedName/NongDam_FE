@@ -3,14 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const token = sessionStorage.getItem("jwtToken");
 
-const apiTest = axios.create({
-  baseURL: "http://localhost:5001",
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json,",
-  },
-});
-
 const api = axios.create({
   baseURL: "http://idontcare.shop",
   headers: {
@@ -94,7 +86,8 @@ export const apis = {
   loadAccountBook: (date) => api.get(`accountbook/${date.year}-${date.month}`),
   loadCurrentAccount: () => api.get("/accountbook"),
   addAccount: (account) => api.post("/accountbook", account),
-  editAccount: (id) => api.put(`/accountbook/${id}`),
+  editAccount: (account) =>
+    api.put(`/accountbook/${account.id}`, account.account),
   deleteAccount: (id) => api.delete(`/accountbook/${id}`),
 
   // user
@@ -108,8 +101,8 @@ export const apis = {
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
 
-  editUserInfo: (data) => api.put(`/member/{memberid}`,data),
-  editPw: (data) => api.put(`/member/{memberid}/password`,data),
+  editUserInfo: (data) => api.put(`/member/{memberid}`, data),
+  editPw: (data) => api.put(`/member/{memberid}/password`, data),
 
   loadCropsList: () => api.get("/crops"),
 
@@ -118,9 +111,9 @@ export const apis = {
 
   //일정
   loadSchedule: () => api.get("/schedule"),
-  loadMonthlySchedule : (date) => api.get(`/schedule/${date.year}-${date.month}`),
+  loadMonthlySchedule: (date) =>
+    api.get(`/schedule/${date.year}-${date.month}`),
   addSchedule: (data) => api.post("/schedule", data),
   editSchedule: (scheduleId) => api.put(`/schedule/${scheduleId}`),
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
-  
 };

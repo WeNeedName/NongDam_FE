@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAccountDB } from "../../redux/modules/account";
+import { deleteAccountDB, getAccountListDB } from "../../redux/modules/account";
+// 컴포넌트
+import AccountModal from "./AccountModal";
 
 const AccountWeek = () => {
   const dispatch = useDispatch();
 
   const [checkedInputs, setCheckedInputs] = useState("전체");
+  const [render, setRender] = useState(false);
+  // 장부내역 상세 모달 열기
+  const [isOpen, setOpen] = useState(false);
+  const [accountId, setAccountId] = useState(null);
+
+  function toggleModal(id) {
+    setOpen(!isOpen);
+    setAccountId(id);
+  }
+
+  const deleteAccount = (id) => {
+    dispatch(deleteAccountDB(id));
+  };
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -18,9 +33,6 @@ const AccountWeek = () => {
   const currentAccount_list = useSelector(
     (state) => state.account.currentAccount
   );
-  const yearMonth = useSelector((state) => state.account.yearMonth);
-  console.log(currentAccount_list);
-  console.log(yearMonth);
 
   // 항목(전체, 수입, 지출) 필터링
   const filteredCategory =
@@ -65,16 +77,14 @@ const AccountWeek = () => {
       {currentAccount_list !== undefined && checkedInputs === "전체"
         ? currentAccount_list.map((list, accountId) => {
             return (
-              <AccountBox key={list.id}>
+              <AccountBox
+                key={list.id}
+                onClick={() => {
+                  toggleModal(list.id);
+                }}
+              >
                 <div>
                   <Day>{list.date}</Day>
-                  <button
-                    onClick={() => {
-                      dispatch(deleteAccountDB(list.id));
-                    }}
-                  >
-                    삭제
-                  </button>
                 </div>
                 <span>사용처</span>
                 <BottomWrap>
@@ -115,16 +125,14 @@ const AccountWeek = () => {
         : currentAccount_list !== undefined &&
           filteredCategory.map((list, id) => {
             return (
-              <AccountBox key={list.id}>
+              <AccountBox
+                key={list.id}
+                onClick={() => {
+                  toggleModal(list.id);
+                }}
+              >
                 <div>
                   <Day>{list.date}</Day>
-                  <button
-                    onClick={() => {
-                      dispatch(deleteAccountDB(list.id));
-                    }}
-                  >
-                    삭제
-                  </button>
                 </div>
                 <span>사용처</span>
                 <BottomWrap>
@@ -162,6 +170,14 @@ const AccountWeek = () => {
               </AccountBox>
             );
           })}
+      {isOpen && (
+        <AccountModal
+          isOpen={isOpen}
+          toggleModal={toggleModal}
+          accountId={accountId}
+          currentAccount_list={currentAccount_list}
+        />
+      )}
     </Wrap>
   );
 };
@@ -226,6 +242,10 @@ const AccountBox = styled.div`
   background-color: white;
   border-radius: 10px;
   margin: 10px 0px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const Day = styled.span`
