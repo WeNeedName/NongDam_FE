@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ReactModal from "react-modal";
+import Modal from "styled-react-modal";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +14,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 
-const AccountWrite = () => {
+const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -68,17 +70,21 @@ const AccountWrite = () => {
   };
 
   return (
-    <Back>
-      <Wrap>
-        <PriceInput
-          type="text"
-          maxLength="12"
-          onChange={(e) => {
-            inputNumberFormat(e);
-          }}
-          placeholder="0원"
-        />
-        {/* <ClearBtn
+    // <Back>
+    <StyledModal
+      isOpen={isOpen}
+      onBackgroundClick={toggleModal}
+      onEscapeKeydown={toggleModal}
+    >
+      <PriceInput
+        type="text"
+        maxLength="12"
+        onChange={(e) => {
+          inputNumberFormat(e);
+        }}
+        placeholder="0원"
+      />
+      {/* <ClearBtn
           onClick={() => {
             setPrice(0);
           }}
@@ -86,129 +92,114 @@ const AccountWrite = () => {
           x
         </ClearBtn> */}
 
-        <CategoryBigWrap>
-          <span>분류</span>
-          <CategoryWrap>
-            <Label>
-              <FormCheckLeft
-                type="radio"
-                id="수입"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <FormCheckText>수입</FormCheckText>
-            </Label>
-            <Label>
-              <FormCheckLeft
-                type="radio"
-                id="지출"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <FormCheckText>지출</FormCheckText>
-            </Label>
-          </CategoryWrap>
-        </CategoryBigWrap>
+      <CategoryBigWrap>
+        <span>분류</span>
+        <CategoryWrap>
+          <Label>
+            <FormCheckLeft
+              type="radio"
+              id="수입"
+              name="radioButton"
+              onChange={changeRadio}
+              value={checkedInputs}
+            />
+            <FormCheckText>수입</FormCheckText>
+          </Label>
+          <Label>
+            <FormCheckLeft
+              type="radio"
+              id="지출"
+              name="radioButton"
+              onChange={changeRadio}
+              value={checkedInputs}
+            />
+            <FormCheckText>지출</FormCheckText>
+          </Label>
+        </CategoryWrap>
+      </CategoryBigWrap>
 
-        <CategoryBigWrapSub>
-          <div>
-            <span>품목</span>
-            {checkedInputs === "" && (
-              <Selec onChange={(e) => setCategory(e.target.value)}>
-                <option value="">분류을 먼저 선택해주세요</option>{" "}
-              </Selec>
-            )}
-            {checkedInputs === "수입" && (
-              <Selec onChange={(e) => setCategory(e.target.value)}>
-                <option value="">품목을 선택해주세요</option>
-                <option value="0">농산물 판매</option>
-                <option value="1">정부보조금</option>
-                <option value="2">기타수입</option>
-              </Selec>
-            )}
+      <CategoryBigWrapSub>
+        <div>
+          <span>품목</span>
+          {checkedInputs === "" && (
+            <Selec onChange={(e) => setCategory(e.target.value)}>
+              <option value="">분류을 먼저 선택해주세요</option>{" "}
+            </Selec>
+          )}
+          {checkedInputs === "수입" && (
+            <Selec onChange={(e) => setCategory(e.target.value)}>
+              <option value="">품목을 선택해주세요</option>
+              <option value="0">농산물 판매</option>
+              <option value="1">정부보조금</option>
+              <option value="2">기타수입</option>
+            </Selec>
+          )}
 
-            {checkedInputs === "지출" && (
-              <Selec onChange={(e) => setCategory(e.target.value)}>
-                <option value="">품목을 선택해주세요</option>
-                <option value="3">비료</option>
-                <option value="4">종자/종묘</option>
-                <option value="5">농약</option>
-                <option value="6">농기계</option>
-                <option value="7">기타 농자재</option>
-                <option value="8">유통비 및 판매 경비</option>
-                <option value="9">고용노동비</option>
-                <option value="10">임차료</option>
-                <option value="11">수도광열비</option>
-                <option value="12">기타 지출</option>
-              </Selec>
-            )}
-          </div>
-        </CategoryBigWrapSub>
+          {checkedInputs === "지출" && (
+            <Selec onChange={(e) => setCategory(e.target.value)}>
+              <option value="">품목을 선택해주세요</option>
+              <option value="3">비료</option>
+              <option value="4">종자/종묘</option>
+              <option value="5">농약</option>
+              <option value="6">농기계</option>
+              <option value="7">기타 농자재</option>
+              <option value="8">유통비 및 판매 경비</option>
+              <option value="9">고용노동비</option>
+              <option value="10">임차료</option>
+              <option value="11">수도광열비</option>
+              <option value="12">기타 지출</option>
+            </Selec>
+          )}
+        </div>
+      </CategoryBigWrapSub>
 
-        <CategoryBigWrapSub>
-          <FormLabel>날짜</FormLabel>
-          <SDatePicker
-            selected={date}
-            onChange={(date) => {
-              setDate(date);
-            }}
-            locale={ko}
-            dateFormat="yyyy년 MM월 dd일"
-            // minDate={new Date()}
-            value={date}
-          />
-        </CategoryBigWrapSub>
-
-        <CategoryBigWrapSub>
-          <span>메모</span>
-          <MemoInput
-            onChange={(e) => setMemo(e.target.value)}
-            placeholder="내용을 여기에 입력하세요"
-          />
-        </CategoryBigWrapSub>
-        <DoneBtn
-          onClick={() => {
-            addAccount();
-            // navigate("/accountbook");
+      <CategoryBigWrapSub>
+        <FormLabel>날짜</FormLabel>
+        <SDatePicker
+          selected={date}
+          onChange={(date) => {
+            setDate(date);
           }}
-        >
-          작성완료
-        </DoneBtn>
-      </Wrap>
-    </Back>
+          locale={ko}
+          dateFormat="yyyy년 MM월 dd일"
+          // minDate={new Date()}
+          value={date}
+        />
+      </CategoryBigWrapSub>
+
+      <CategoryBigWrapSub>
+        <span>메모</span>
+        <MemoInput
+          onChange={(e) => setMemo(e.target.value)}
+          placeholder="내용을 여기에 입력하세요"
+        />
+      </CategoryBigWrapSub>
+      <DoneBtn
+        onClick={() => {
+          addAccount();
+          // navigate("/accountbook");
+        }}
+      >
+        작성완료
+      </DoneBtn>
+    </StyledModal>
+    // </Back>
   );
 };
 
-const Back = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: #ddd;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Wrap = styled.div`
-  width: 600px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
+const StyledModal = Modal.styled`
+  width: 700px;
   background-color: white;
-  border-radius: 20px;
-  position: relative;
+  border-radius: 10px;
+  padding: 30px;
 `;
 
 const PriceInput = styled.input`
-  width: 400px;
+  width: 80%;
   font-size: 20px;
   border: none;
   border-bottom: 1px solid black;
-  padding-right: 30px;
+  /* padding-right: 30px; */
   margin-bottom: 20px;
   &::placeholder {
     color: #ddd;
@@ -242,7 +233,7 @@ const FormLabel = styled.span`
 `;
 
 const CategoryBigWrap = styled.div`
-  width: 400px;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -250,7 +241,7 @@ const CategoryBigWrap = styled.div`
 `;
 
 const CategoryBigWrapSub = styled.div`
-  width: 400px;
+  width: 80%;
   display: flex;
   flex-direction: row;
   margin-top: 14px;

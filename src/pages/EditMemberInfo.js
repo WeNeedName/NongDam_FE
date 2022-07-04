@@ -2,19 +2,36 @@ import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux"
-import {getInfoDB} from "../redux/modules/users"
-import {editInfoDB } from "../redux/modules/users";
-import PopupDom from '../components/myPage/PopupDom';
-import PopupPostCode from '../components/myPage/PopupPostCode';
-import MyCrops from '../components/myPage/MyCrops';
-
+import { useSelector, useDispatch } from "react-redux";
+import { getInfoDB } from "../redux/modules/users";
+import { editInfoDB } from "../redux/modules/users";
+import PopupDom from "../components/myPage/PopupDom";
+import PopupPostCode from "../components/myPage/PopupPostCode";
+import MyCrops from "../components/myPage/MyCrops";
 
 const EditMemberInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [crops, setCrops] = useState("");
+  const [countryCode, setCountryCode] = useState();
+  const [profileImgUrl, setProfileImgUrl] = useState("");
+  // const [preview, setPreview] = React.useState(user?.profileImgUrl);
+  const [disable, setDisable] = useState(true);
+  const [address, setAddress] = useState("");
+  // 팝업창 상태 관리
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  // 팝업창 열기
+  const openPostCode = () => {
+    setIsPopupOpen(true);
+  };
+  // 팝업창 닫기
+  const closePostCode = () => {
+    setIsPopupOpen(false);
+  };
 
     const [name, setName]=useState("")
     const [nickname, setNickname]=useState("")
@@ -65,13 +82,22 @@ const EditMemberInfo = () => {
             //setProfileImgUrl(formData(e.target.files[0]))
         }
 
-    return(
-        <div>
-            <Header />
-            <div>
-            <h1>회원정보수정</h1>
-            {/* <EditNameWrap>
 
+  const onFileChange = (e) => {
+    // let formData = new FormData();
+    // console.log(e.target.files[0])
+    // formData.append('file', e.target.files[0]);
+    // const response = await
+    // for (const keyValue of formData) console.log(keyValue)
+    //setProfileImgUrl(formData(e.target.files[0]))
+  };
+
+  return (
+    <div>
+      <Header />
+      <div>
+        <h1>회원정보수정</h1>
+        {/* <EditNameWrap>
                 <p>이름수정</p>
                 <input
                 label="성함"
@@ -80,6 +106,7 @@ const EditMemberInfo = () => {
                 placeholder="성함을 기입해주세요"
                 ></input>    
             </EditNameWrap> */}
+
 
             <EditNicknameWrap>
                 <p>닉네임수정</p>
@@ -172,7 +199,7 @@ const EditMemberInfo = () => {
             }}
             value={address}
           >
-            우편번호 검색
+            주소 검색
           </button>
           {address}
           {/* 팝업 생성 기준 div */}
@@ -216,15 +243,18 @@ const EditMemberInfo = () => {
         </CountryCode>
         <EditMyCrops>
           <p> 내 작물 수정</p>
+          <MyCrops />
         </EditMyCrops>
         <AddProfile>
           <p>프로필 사진 등록</p>
-          <input type="file"></input>
+          <input type="file" name="file_upload" onChange={onFileChange} />
         </AddProfile>
         <Submit
           type="submit"
           onClick={() => {
-            editInfo(nickname, address, countryCode, crops, profileImgUrl);
+            {
+              editInfo(nickname, address, countryCode, crops, profileImgUrl);
+            }
           }}
         >
           수정하기

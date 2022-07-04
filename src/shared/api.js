@@ -86,8 +86,7 @@ export const apis = {
   loadAccountBook: (date) => api.get(`accountbook/${date.year}-${date.month}`),
   loadCurrentAccount: () => api.get("/accountbook"),
   addAccount: (account) => api.post("/accountbook", account),
-  editAccount: (account) =>
-    api.put(`/accountbook/${account.id}`, account.account),
+  editAccount: (id, account) => api.put(`/accountbook/${id}`, account),
   deleteAccount: (id) => api.delete(`/accountbook/${id}`),
 
   // user
@@ -105,9 +104,6 @@ export const apis = {
   editPw: (data) => api.put(`/member/{memberid}/password`, data),
 
   loadCropsList: () => api.get("/crops"),
-
-
-
 
   //일정
   loadSchedule: () => api.get("/schedule"),

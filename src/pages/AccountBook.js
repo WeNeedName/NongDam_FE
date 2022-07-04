@@ -12,9 +12,9 @@ import Header from "../components/Header";
 import AccountWeek from "../components/accountbook/AccountWeek";
 import CalenderBook from "../components/accountbook/CalenderBook";
 import AccountCalender from "../components/accountbook/AccountCalender";
+import AccountWrite from "../components/accountbook/AccountWrite";
 
 const AccountBook = () => {
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,11 +22,12 @@ const AccountBook = () => {
     dispatch(getCurrentAccountListDB());
   }, [dispatch]);
 
-  const openModal = () => {
-    if (!showModal) setShowModal(true);
-    else setShowModal(false);
-  };
-  console.log(showModal);
+  // 장부내역 상세 모달 열기
+  const [isOpen, setOpen] = useState(false);
+
+  function toggleModal(id) {
+    setOpen(!isOpen);
+  }
 
   return (
     <div>
@@ -37,14 +38,14 @@ const AccountBook = () => {
           {/* <AccountCalender /> */}
           <button
             onClick={() => {
-              openModal();
-              navigate("/accountwrite");
+              toggleModal();
             }}
           >
             기록하기
           </button>
         </div>
         <AccountWeek />
+        {isOpen && <AccountWrite isOpen={isOpen} toggleModal={toggleModal} />}
       </Wrap>
     </div>
   );
