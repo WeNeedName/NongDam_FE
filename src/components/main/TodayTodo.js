@@ -5,19 +5,30 @@ import { useDispatch, useSelector } from "react-redux";
 const TodayTodo = () => {
   return (
     <Wrap>
-      <h2>오늘의 할 일</h2>
+      <Title>📝 오늘의 할 일</Title>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  width: 400px;
-  height: 250px;
   border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 16px 16px;
+  grid-column: 2 / 3;
+  grid-row: 5 / 7;
+  padding: 16px 16px;
+  background-color: #fff;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 5 / 6;
+  }
+`;
+
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 1.4em;
+  line-height: 10px;
 `;
 
 export default TodayTodo;

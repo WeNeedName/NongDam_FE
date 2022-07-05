@@ -30,11 +30,13 @@ const AccountWeek = () => {
     (state) => state.account.currentAccount
   );
 
+  
+
   // 항목(전체, 수입, 지출) 필터링
   const filteredCategory =
     currentAccount_list !== undefined &&
     currentAccount_list.filter((v) => v.category === checkedInputs);
-  console.log(currentAccount_list);
+
   return (
     <Wrap>
       <CategoryWrap>

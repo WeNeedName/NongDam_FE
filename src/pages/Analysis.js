@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // 이미지
 import Profile from "../images/Profile.png";
 
-// js파일
+// 컴포넌트
 import Header from "../components/Header";
 import Sales from "../components/analysis/Sales";
 import TotalHarvest from "../components/analysis/TotalHarvest";

@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getWeatherDB } from "../../redux/modules/main";
+import "../../Tooltip.css";
 // 차트 라이브러리
 import ApexCharts from "react-apexcharts";
 
 import moment from "moment";
 import "moment/locale/ko";
-// moment().format('HH')
+
 const Weather = () => {
   const dispatch = useDispatch();
   const weatherData = useSelector((state) => state.main.weather);
+  const [checkedInputs, setCheckedInputs] = useState("hour");
 
-  const [checkedInputs, setCheckedInputs] = useState("전체");
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -20,36 +21,53 @@ const Weather = () => {
     }
   };
 
-  // const time = weatherData?.hour[0]?.time;
-  // console.log(time);
-  console.log(weatherData);
   useEffect(() => {
     dispatch(getWeatherDB());
   }, [dispatch]);
 
-  console.log(weatherData);
+  // 시간 리스트
+  const hourData = weatherData?.hour?.time;
+  const hourDataFormatArr = [];
+  hourData &&
+    hourData.map((data) => {
+      return hourDataFormatArr.push(moment(data * 1000).format("H"));
+    });
+
+  // 주간 요일 리스트
+  const dayData = weatherData?.day?.day;
+  const dayDataFormatArr = [];
+  dayData &&
+    dayData.map((data) => {
+      return dayDataFormatArr.push(moment(data * 1000).format("dd"));
+    });
+
+  // 기온, 강수확률 배열
+  const hourTempArr = weatherData?.hour?.temp;
+  const dayTempArr = weatherData?.day?.temp;
+  const hourPopArr = weatherData?.hour?.pop;
+  const dayPopArr = weatherData?.day?.pop;
+
   // 시간별 날씨 그래프 데이터
   const state = {
     series: [
       {
         name: "기온",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        data: checkedInputs === "hour" ? hourTempArr : dayTempArr,
       },
       {
         name: "강수확률",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        data: checkedInputs === "hour" ? hourPopArr : dayPopArr,
       },
     ],
     options: {
       markers: {
-        size: 2.5,
-        colors: ["#7EE3AB"],
+        size: [2.5, 0],
+        colors: ["#7EE3AB", "transparent"],
       },
       legend: {
         show: false,
       },
       chart: {
-        height: 350,
         type: "line",
         zoom: {
           enabled: false,
@@ -64,47 +82,107 @@ const Weather = () => {
       stroke: {
         curve: "straight",
         width: 3,
+        colors: ["#7EE3AB", "transparent"],
       },
       grid: {
+        borderColor: "#CCCCCC",
+        strokeDashArray: 2,
         row: {
           colors: ["transparent", "transparent"],
         },
         column: {
           colors: ["transparent", "transparent"],
         },
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: false, // 그리드선 제거
+          },
+        },
       },
       tooltip: {
         x: {
           show: false,
         },
+        style: {
+          fontSize: "12px",
+          fontFamily: undefined,
+        },
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="tooltip-box">' +
+            '<div class="line">' +
+            '<span class="label">' +
+            "기온" +
+            "</span>" +
+            '<span class="label-data">' +
+            series[seriesIndex][dataPointIndex] +
+            "℃" +
+            "</span>" +
+            "</div>" +
+            '<div class="line-bottom">' +
+            '<span  class="label">' +
+            "강수확률" +
+            "</span>" +
+            '<span class="label-data">' +
+            series[seriesIndex][dataPointIndex] +
+            "%" +
+            "</span>" +
+            "</div>" +
+            "</div>"
+          );
+        },
       },
       xaxis: {
-        categories: [
-          // 시간 리스트
-          // time,
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-        ],
+        categories:
+          checkedInputs === "hour" ? hourDataFormatArr : dayDataFormatArr,
         labels: {
-          format: "HH",
+          formatter: function (value) {
+            if (checkedInputs === "hour") return value + "시";
+            else return value;
+          },
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Noto Sans KR",
+            fontWeight: 400,
+            cssClass: "apexcharts-xaxis-label",
+          },
+        },
+
+        position: "top",
+        axisBorder: {
+          show: false,
+          color: "#78909C",
+          height: 1,
+          width: "100%",
+          offsetX: 0,
+          offsetY: 0,
+        },
+        axisTicks: {
+          show: false,
+          borderType: "solid",
+          color: "#78909C",
+          height: 6,
+          offsetX: 0,
+          offsetY: 0,
         },
       },
       yaxis: {
         show: false,
+        min: 24,
+        max: 38,
       },
     },
   };
 
   return (
     <Wrap>
-      <h3>⛅️ 농장 날씨</h3>
+      <Title>⛅️ 농장 날씨</Title>
       <MiddleWrap>
         <MiddleLeftWrap>
           <Region>{weatherData.address}</Region>
@@ -119,20 +197,16 @@ const Weather = () => {
         <MiddleRightWrap>
           <InfoWrap>
             <Info>강수량</Info>
-            <InfoNum>{weatherData.rn} mm</InfoNum>
-          </InfoWrap>
-          <InfoWrap>
             <Info>습도</Info>
-            <InfoNum>{weatherData.rhm} %</InfoNum>
-          </InfoWrap>
-          <InfoWrap>
             <Info>이슬점</Info>
-            <InfoNum>{weatherData.dewPoint} ℃</InfoNum>
-          </InfoWrap>
-          <InfoWrap>
             <Info>바람</Info>
-            <InfoNum>{weatherData.ws} m/s</InfoNum>
           </InfoWrap>
+          <InfoWrapRight>
+            <InfoNum>{weatherData.rn} mm</InfoNum>
+            <InfoNum>{weatherData.rhm} %</InfoNum>
+            <InfoNum>{weatherData.dewPoint} ℃</InfoNum>
+            <InfoNum>{weatherData.ws} m/s</InfoNum>
+          </InfoWrapRight>
         </MiddleRightWrap>
       </MiddleWrap>
       <BottomWrap>
@@ -164,7 +238,7 @@ const Weather = () => {
             options={state.options}
             series={state.series}
             type="line"
-            height={200}
+            height={100 + "%"}
           />
         </ChartBox>
       </BottomWrap>
@@ -173,18 +247,30 @@ const Weather = () => {
 };
 
 const Wrap = styled.div`
-  width: 420px;
-  height: 500px;
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-  padding: 4px 30px;
-  margin: 20px;
+  border-radius: 10px;
+  padding: 16px 16px;
+  grid-column: 2 / 3;
+  grid-row: 2 / 5;
+  background-color: #fff;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 5;
+  }
+`;
+
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 1.4em;
+  line-height: 10px;
 `;
 
 const MiddleWrap = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin: 10px 0px 4px 0px;
 `;
 
 const MiddleLeftWrap = styled.div`
@@ -195,13 +281,14 @@ const MiddleLeftWrap = styled.div`
 
 const MiddleRightWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-left: 40px;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 30px;
 `;
 
 const Region = styled.span`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.1em;
   line-height: 24px;
 `;
 
@@ -209,7 +296,7 @@ const IconWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: -10px;
+  margin-top: -14px;
 `;
 
 const TempWrap = styled.div`
@@ -220,21 +307,20 @@ const TempWrap = styled.div`
 
 const Temp = styled.span`
   font-weight: 500;
-  font-size: 48px;
+  font-size: 3.8em;
   line-height: 48px;
 `;
 
 const WeatherT = styled.span`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.1em;
   line-height: 28px;
   margin-left: -8px;
-  margin-top: 4px;
 `;
 
 const Icon = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   background-image: url(${(props) => props.iconURL});
   /* background-image: url(http://openweathermap.org/img/wn/03d@2x.png); */
   background-position: center 30%;
@@ -243,18 +329,25 @@ const Icon = styled.div`
 
 const InfoWrap = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
+  flex-direction: column;
+  margin-bottom: 4px;
+`;
+const InfoWrapRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+  margin-left: -6px;
 `;
 
 const Info = styled.span`
-  font-size: 16px;
+  font-size: 12px;
+  line-height: 24px;
   color: #787c87;
 `;
 
 const InfoNum = styled.span`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
   margin-left: 30px;
   color: #02113b;
@@ -271,10 +364,10 @@ const CategoryWrap = styled.div`
 `;
 
 const FormCheckText = styled.span`
-  width: 48px;
-  height: 30px;
+  width: 40px;
+  height: 26px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 24px;
   margin-right: 4px;
   background: transparent;
@@ -304,11 +397,8 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const ChartBox = styled.div`
-  width: 409px;
-  height: 215px;
-  left: 29px;
-  top: 263px;
-  margin-top: 18px;
+  margin-top: 14px;
+  padding: 0px 30px 0px 20px;
   background: #fafafa;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
   border-radius: 4px;

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 
-const SalesCard = () => {
+const TodayNews = () => {
   return (
     <Wrap>
-      <Title>📊 농장 관리 현황</Title>
+      <Title>💬 오늘의 뉴스</Title>
     </Wrap>
   );
 };
@@ -15,12 +14,12 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 16px 16px;
+  grid-column: 3 / 4;
+  grid-row: 6 / 7;
   background-color: #fff;
-  grid-column: 3 / 5;
-  grid-row: 4 / 6;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
-    grid-row: 7 / 8;
+    grid-row: 9 / 10;
   }
 `;
 
@@ -30,4 +29,4 @@ const Title = styled.span`
   line-height: 10px;
 `;
 
-export default SalesCard;
+export default TodayNews;

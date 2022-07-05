@@ -7,11 +7,10 @@ import { getCurrentAccountListDB } from "../redux/modules/account";
 // 이미지
 import Profile from "../images/Profile.png";
 
-// js파일
+// 컴포넌트
 import Header from "../components/Header";
 import AccountWeek from "../components/accountbook/AccountWeek";
 import CalenderBook from "../components/accountbook/CalenderBook";
-import AccountCalender from "../components/accountbook/AccountCalender";
 import AccountWrite from "../components/accountbook/AccountWrite";
 
 const AccountBook = () => {
@@ -35,7 +34,6 @@ const AccountBook = () => {
       <Wrap>
         <div>
           <CalenderBook />
-          {/* <AccountCalender /> */}
           <button
             onClick={() => {
               toggleModal();
