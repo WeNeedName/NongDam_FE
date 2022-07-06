@@ -2,6 +2,7 @@ import { React, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {getInfoDB} from "../redux/modules/users"
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -10,17 +11,23 @@ import Profile from "../images/Profile.png";
 import Header from "../components/Header";
 import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
 import ScheduleWeek from "../components/schedule/ScheduleWeek";
+import AddSchedule from "../components/schedule/AddSchedule";
 
 
 const Schedule = () => {
-    const [showModal, setShowModal] = useState(false);
-    const navigate = useNavigate();
-
-     const openModal = () => {
-    if (!showModal) setShowModal(true);
-    else setShowModal(false);
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const userInfo = useSelector((state) => state.users.user);
+  //  상세 모달 열기
+  const [isOpen, setOpen] = useState(false);
+  function toggleModal(id) {
+    setOpen(!isOpen);
+  }
   
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []); 
+
     return (
         <div>
           <Header />
@@ -29,14 +36,14 @@ const Schedule = () => {
               <ScheduleCalendar />
               <button
                 onClick={() => {
-                  openModal();
-                  navigate("/addschedule");
+                  toggleModal();
                 }}
               >
                 기록하기
               </button>
             </div>
             <ScheduleWeek />
+            {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
           </Wrap>
         </div>
       );

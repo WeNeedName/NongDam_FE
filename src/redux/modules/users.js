@@ -98,7 +98,7 @@ export const getInfoDB = () => {
     await apis
       .userInfo()
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         dispatch(getInfo(res.data));
       })
       .catch((err) => {
@@ -110,6 +110,7 @@ export const getInfoDB = () => {
 //회원정보수정
 export const editInfoDB = (user) => {
   return async function (dispatch) {
+    console.log(user)
     await apis
       .editUserInfo(user)
       .then((res) => {

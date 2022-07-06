@@ -2,42 +2,55 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 // react-calendar 라이브러리
-import Calendar from "react-calendar";
-import "../../Calendar.css";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "../../BigCalendar.css";
+// 컴포넌트
+import Toolbar from "./ToolbarSchedule";
+import Day from "./DaySchedule";
 
 const ScheduleCalendar = () => {
-  const [value, onChange] = useState(new Date());
-  const moment = require("moment");
-  // 기록이 있는 날 리스트
-  const marks = [
-    "15-06-2022",
-    "03-06-2022",
-    "07-06-2022",
-    "12-06-2022",
-    "13-06-2022",
-    "15-06-2022",
-  ];
+  const dispatch = useDispatch();
+  const [nowMonth, setNowMonth] = useState(null);
 
+  moment.locale("ko-KR");
+  const localizer = momentLocalizer(moment);
+
+  // const accountList = useSelector((state) => state.account.accountList);
+  // const yearMonth = useSelector((state) => state.account.yearMonth);
+  
+
+  // useEffect(() => {
+  //   dispatch(getAccountListDB(yearMonth));
+  // }, [dispatch]);
+  
   return (
-    <div>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        minDetail="month"
-        maxDetail="month"
-        locale="ko"
-        navigationLabel={null}
-        showNeighboringMonth={false} // 이전, 이후 달의 날짜는 보이지 않도록 설정
-        formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
-        // 일정이 있는 날 하이라이트
-        tileClassName={({ date, view }) => {
-          if (marks.find((x) => x === moment(date).format("DD-MM-YYYY"))) {
-            return "highlight";
-          }
-        }}
-      />
-      {moment(value).format("YYYY년 MM월 DD일")}
-    </div>
+    <Calendar
+      // events={accountList.map((list, id) => {
+   
+      //   return {
+      //     title:
+      //       list.category === "수입"
+      //         ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
+      //           "+" +
+      //           String(list.price).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
+      //         : "-" +
+      //           String(list.price).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,"),
+      //     allDay: false,
+      //     start: new Date(list.date),
+      //     end: new Date(list.date),
+      //   };
+      // })}
+      localizer={localizer}
+      style={{ height: 500, width: 600 }}
+      components={{
+        toolbar: Toolbar,
+        month: {
+          dateHeader: Day,
+        },
+      }}
+      setNowMonth={setNowMonth}
+    />
   );
 };
 

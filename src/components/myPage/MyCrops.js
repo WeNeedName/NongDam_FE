@@ -6,7 +6,7 @@ import Select from "react-select";
 import { isDayjs } from "dayjs";
 import { toBeChecked } from "@testing-library/jest-dom/dist/matchers";
 
-const MyCrops = (props) => {
+const MyCrops = ({setCrops, previousCrops}) => {
   const dispatch = useDispatch();
   const [selectedCrops, setSelectedCrops] = useState([]);
   const cropsData = useSelector((state) => state.users.crops);
@@ -14,15 +14,20 @@ const MyCrops = (props) => {
     dispatch(getCropsListDB());
   }, []);
 
-  const crops = [];
-  selectedCrops.filter((v) => crops.push(v.value));
-  console.log(crops);
-
+  const _crops = [];
+  selectedCrops.filter((v) => _crops.push(v.value));
+  
+  useEffect(()=>{
+    setCrops(_crops)}
+    ,[selectedCrops])
+    console.log(cropsData)
+    // console.log(selectedCrops)
+    console.log(_crops)
   return (
     <Container>
       <Select
         className="react-select"
-        defaultValue={[]} //db에서 유저data 불러올 때 다시 수정 필요함
+        defaultValue= {previousCrops} //db에서 유저data 불러올 때 확인 필요함
         isMulti
         name="crops"
         options={
