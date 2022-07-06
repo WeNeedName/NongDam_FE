@@ -82,11 +82,4 @@ const Wrap = styled.div`
   margin: 20px; */
 `;
 
-const TopWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 export default Income;
