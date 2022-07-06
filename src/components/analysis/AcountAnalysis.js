@@ -13,6 +13,7 @@ const AccountAnalysis = () => {
           올 한해는 <br />
           이렇게 관리했어요
         </Title>
+        <div></div>
       </TitleWrap>
       <BodyWrap>
         <Expense />
