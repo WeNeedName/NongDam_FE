@@ -13,8 +13,8 @@ import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
 import ScheduleWeek from "../components/schedule/ScheduleWeek";
 import AddSchedule from "../components/schedule/AddSchedule";
 
-
 const Schedule = () => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const userInfo = useSelector((state) => state.users.user);
@@ -45,16 +45,20 @@ const Schedule = () => {
             <ScheduleWeek />
             {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
           </Wrap>
+
         </div>
-      );
-    };
-    
-    const Wrap = styled.div`
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 30px;
-    `;
+        <ScheduleWeek />
+      </Wrap>
+    </>
+  );
+};
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 100px;
+`;
 
 export default Schedule;

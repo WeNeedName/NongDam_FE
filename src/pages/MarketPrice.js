@@ -11,7 +11,7 @@ import Header from "../components/Header";
 const MarketPrice = () => {
   return (
     <div>
-      <Header />
+      <Header currentPage="marketPrice" />
       <div>도매시세 페이지입니다.</div>
     </div>
   );

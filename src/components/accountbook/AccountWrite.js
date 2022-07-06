@@ -64,8 +64,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
           memo: memo,
           date: selecDate,
         })
-      );
-      navigate("/accountbook");
+      ).then(toggleModal());
     }
   };
 
