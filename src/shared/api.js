@@ -13,7 +13,8 @@ const api = axios.create({
 
 // form data용
 const formApi = axios.create({
-  baseURL: "http://3.39.230.66",
+  baseURL: "http://idontcare.shop",
+  // "http://3.39.230.66",
   headers: {
     "content-type": "multipart/form-data",
   },
@@ -100,12 +101,12 @@ export const apis = {
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
 
-  editUserInfo: (data) => api.put(`/member/{memberid}`, data),
+  editUserInfo: (id,data) => formApi.put(`/member/{memberid}`, id, data),
   editPw: (data) => api.put(`/member/{memberid}/password`, data),
 
   loadCropsList: () => api.get("/crops"),
 
-  //일정
+  //일정(schedule)
   loadSchedule: () => api.get("/schedule"),
   loadMonthlySchedule: (date) =>
     api.get(`/schedule/${date.year}-${date.month}`),
