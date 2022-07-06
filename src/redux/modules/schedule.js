@@ -48,3 +48,7 @@ export default handleActions(
   },
   initialState
 );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 52b3949f98963087eabfe1d9b8a80b8b50c1e9ca
