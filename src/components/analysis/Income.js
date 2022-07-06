@@ -62,8 +62,6 @@ const Income = () => {
 
   return (
     <Wrap>
-      {/* <TopWrap><span>기간선택</span></TopWrap> */}
-
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}

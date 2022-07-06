@@ -1,116 +1,129 @@
-import React, { useEffect, useState } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import styled from "styled-components";
+import Modal from "styled-react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-// import MiniÇalendar from './MiniCalendar'
+
 import {addScheduleDB} from '../../redux/modules/schedule'
+
+//달력
 import DatePicker from "react-datepicker";
-import { addDays } from 'date-fns';
-import "react-datepicker/dist/react-datepicker.css";
+import { addDays } from "date-fns"
+import { ko } from "date-fns/esm/locale";
+import moment from "moment";
 
-
-
-const AddSchedule = (props) => {
+const AddSchedule = ({isOpen, toggleModal, scheduleId}) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();  
   const [todo, setTodo] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
-  const [work, setWork] = useState(null);
+  const [checkedCrops, setCheckedCrops] = useState("");
+  const [cropsTodo, setCropsTodo] = useState("")
+  const [work, setWork] = useState("");
   const [memo, setMemo] = useState("");
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(null);
-  
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartTime(start);
-    setEndTime(end);
-    // console.log(startTime, end)
-  }
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  function inputTodo(e) {
-    setTodo(e.target.value);
-  }
+  // const [startTime, setStartTime] = useState(new Date());
+  // const [endTime, setEndTime] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(startDate);
+  const myCropsList = useSelector((state) => state.users.user.crops)
 
-  const changeRadio = (e) => {
+
+
+  const changeRadioWork = (e) => {
     if (e.target.checked) {
-      setWork(e.target.id);
+      setMemo(e.target.id);      
+    }
+  };
+  const changeRadioCrops = (e) => {
+    if (e.target.checked) {
+      setCropsTodo(e.target.id);
     }
   };
 
-  console.log( memo, work);
-
-const addSchedule = (crop, startTime, endTime, memo, work) => {
-  dispatch(
-    addScheduleDB({
-      crop: crop,
-      startTime: startTime,
-      endTime: endTime,
-      toDo: (memo || work),
-    })
-  )
-}
-  console.log(startTime, endTime, memo, work);
-
-
+  const addSchedule = () => {
+   dispatch(
+      addScheduleDB({
+        crop: cropsTodo,
+        startTime: startDateFormat,
+        endTime: endDateFormat,
+        toDo: memo
+      })
+    )
+  }
+  const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm")
+  const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm")
+  console.log(cropsTodo, startDateFormat, endDateFormat, memo);
+  
+console.log(myCropsList)
+console.log(checkedCrops)
 return (
-    <Back>
+    //<Back>
+    <StyledModal
+      isOpen={isOpen}
+      onBackgroundClick={toggleModal}
+      onEscapeKeydown={toggleModal}
+    >
       <Wrap>
         <TotalTitle>
             작업일정등록하기
         </TotalTitle>
-        <ClearBtn
-          onClick={() => {
-            navigate("/schedule");
-          }}>
-          x
-        </ClearBtn>
         <TodoContent>
-        <CropsBigWrap>
-          <SmallTitle>분류</SmallTitle>
-          <CropsWrap>
-            <Label>
-              <FormCheckLeft
-                type="radio"
-                id="복숭아"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <FormCheckText>복숭아</FormCheckText>
-            </Label>
-            <Label>
-              <FormCheckLeft
-                type="radio"
-                id="수박"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <FormCheckText>수박</FormCheckText>
-            </Label>
-          </CropsWrap>
-        </CropsBigWrap>
-        <CalenderBigWrap>
-            <SmallTitle className="calender">날짜선택</SmallTitle>
-            <DatePicker
-        selected={startTime}
-        onChange={onChange}
-        startDate={startTime}
-        endDate={endTime}
-        selectsRange
-        inline
-          />
-            
-           
-        </CalenderBigWrap>
         <CategoryBigWrap>
-          <span>분류</span>
+          <SmallTitle>작물종류</SmallTitle>
+          <CategoryWrap>
+            {myCropsList !== undefined ? 
+              myCropsList.map((list)=>{
+              return(
+                <Label
+                key={list.id}>
+                <FormCheckLeft
+                  type="radio"
+                  id={list.id}
+                  name="radioButton"
+                  onChange={changeRadioCrops}
+                  value={checkedCrops}
+                />
+                <FormCheckText>{list.name}</FormCheckText>
+              </Label>
+              )
+            }) : null 
+          }
+          </CategoryWrap>
+        </CategoryBigWrap>
+        <CategoryBigWrap>
+              <SmallTitle className="calender">날짜선택</SmallTitle>
+          <DatePickers>
+            <DatePicker
+                className="startDatePicker"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                showTimeSelect
+                minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게 
+                dateFormat="yyyy-MM-dd HH:mm"// 시간 포맷 변경
+                locale={ko}// 한글로 변경
+                //inline//달력 보이게 
+            />
+            <DatePicker
+                className="endDatePicker"
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                showTimeSelect
+                minDate={startDate} //오늘보다 이전 날짜는 선택 못하게
+                dateFormat="yyyy-MM-dd HH:mm"
+                locale={ko}// 한글로 변경
+                //inline//달력 보이게 
+            />
+          </DatePickers>
+        </CategoryBigWrap>
+        <CategoryBigWrap>
+        <SmallTitle className="work">분류</SmallTitle>
           <CategoryWrap>
             <Label>
               <FormCheckLeft
                 type="radio"
                 id="비료뿌리기"
                 name="radioButton"
-                onChange={changeRadio}
+                onChange={changeRadioWork}
                 value={checkedInputs}
               />
               <FormCheckText>비료뿌리기</FormCheckText>
@@ -120,7 +133,7 @@ return (
                 type="radio"
                 id="농약치기"
                 name="radioButton"
-                onChange={changeRadio}
+                onChange={changeRadioWork}
                 value={checkedInputs}
               />
               <FormCheckText>농약치기</FormCheckText>
@@ -130,103 +143,56 @@ return (
                 type="radio"
                 id="수확"
                 name="radioButton"
-                onChange={changeRadio}
+                onChange={changeRadioWork}
                 value={checkedInputs}
               />
               <FormCheckText>수확</FormCheckText>
+              </Label>
               <Label>
-              <FormCheckLeft
-                type="radio"
-                id="기타"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
+                <FormCheckLeft
+                  type="radio"
+                  id="기타"
+                  name="radioButton"
+                  onChange={changeRadioWork}
+                  value={checkedInputs}
+                />
               <FormCheckText>기타</FormCheckText>
             </Label>
-            </Label>
+           
           </CategoryWrap>
         </CategoryBigWrap>
 
-        {/* <WorkBigWrap>
-            <SmallTitle className="work">농작업분류</SmallTitle>
-            <WorksWrap>
-            <Work>
-              <WorkRadio
-                type="radio"
-                id="비료뿌리기"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <WorkRadioText>비료뿌리기</WorkRadioText>
-            </Work>
-            <Work>
-              <WorkRadio
-                type="radio"
-                id="농약치기"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-                
-              />
-              <WorkRadioText>농약치기</WorkRadioText>
-            </Work>
-            <Work>
-              <WorkRadio
-                type="radio"
-                id="수확"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <WorkRadioText>수확</WorkRadioText>
-            </Work>
-            <Work>
-              <WorkRadio
-                type="radio"
-                id="기타"
-                name="radioButton"
-                onChange={changeRadio}
-                value={checkedInputs}
-              />
-              <WorkRadioText>기타</WorkRadioText>
-            </Work>
-          </WorksWrap>
-        </WorkBigWrap> */}
-
-          <TodoWrap>
+          <CategoryBigWrap>
         <SmallTitle className="todo">작업내용</SmallTitle>
         <TodoInput
           type="text"
-          onChange={(e) => {
-           setMemo(e.target.value)
+          defaultValue={memo}
+          onChange={(e)=>{
+            setMemo(e.target.value)
           }}
           placeholder="일정을 기록해주세요"
         />
-        </TodoWrap>
+        </CategoryBigWrap>
         </TodoContent>  
         <DoneBtn
           onClick={()=>{
             addSchedule()
           }}>작성완료</DoneBtn>
       </Wrap>
-    </Back>
+    </StyledModal>
   );
 };
 
-const Back = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: #ddd;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+const StyledModal = Modal.styled`
+  width: 50%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
 `;
 
 const Wrap = styled.form`
-  width: 600px;
-  height: 700px;
+  width: 100%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,10 +205,9 @@ const Wrap = styled.form`
 `;
 const TodoContent = styled.div`
 padding: 0px 0px;
-width: 500px
+width: 100vw
+height: 80vh
 `
-
-
 const SmallTitle = styled.label`
 font-size: 1.3em;
 font-weight: bold;
@@ -253,45 +218,30 @@ font-size: 2rem;
 font-weight: bold;
 
 `
-const ClearBtn = styled.button`
-  display: inline-block;
-  font-size: 20px;
-  width: 30px;
-  position: absolute;
-  right: 110px;
-  top: 22%;
-  transform: translatey(-50%);
-  background-color: transparent;
+
+const DatePickers = styled.div`
+.startDatePicker{
+   width:50%;
+   height:2rem;
+   font-size:1.3rem;
+   font-weight:bold;
+   background-color:transparent;
+   color:black;
+   border: none;
+}
+.endDatePicker{
+  width:50%;
+  height:2rem;
+  font-size:1.3rem;
+  font-weight:bold;
+  background-color:transparent;
+  color:black;
   border: none;
-  cursor: pointer;
-`;
-//작물 스타일드컴포넌트
-const CropsBigWrap = styled.div`
-  width: 400px;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  margin-top: 10px;
-  
-
-`;
-
-const CropsBigWrapSub = styled.div`
-  width: 400px;
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-  
-`;
-
-const CropsWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-left: 20px;
-`;
+}
+`    
 
 const FormCheckText = styled.span`
-  width: 60px;
+  width: 80px;
   height: 30px;
   padding-bottom: 4px;
   border-radius: 10px;
@@ -323,20 +273,22 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
   display: none;
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+
+`;
 
 
 const CalenderBigWrap = styled.div`
-width: 400px;
+
   display: flex;
   flex-direction: row;
   justify-content: start;
   margin-top: 10px;
 
 `;
-//작업대분류 스타일드컴포넌트
+
 const CategoryBigWrap = styled.div`
-  width: 400px;
+  
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -344,7 +296,7 @@ const CategoryBigWrap = styled.div`
 `;
 
 const CategoryBigWrapSub = styled.div`
-  width: 400px;
+  width: 80%;
   display: flex;
   flex-direction: row;
   margin-top: 10px;
@@ -352,61 +304,16 @@ const CategoryBigWrapSub = styled.div`
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center
+  
 `;
 
 
-const WorkBigWrap = styled.div`
-width: 500px;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  margin-top: 10px;
-
-`
-const WorksWrap = styled.div`
-display: flex;
-  flex-direction: row;
-  margin-left: 20px;
-`
-
-const Work = styled.label``
-const WorkRadio= styled.input.attrs({ type: "radio" })`
-&:checked {
-  display: inline-block;
-  background: none;
-  text-align: center;
-  display: none;
-}
-&:checked + ${FormCheckText} {
-  background: black;
-  color: white;
-}
-display: none;
-`;
-const WorkRadioText = styled.span`
-  width: 70px;
-  height: 30px;
-
-  padding-bottom: 4px;
-  border-radius: 10px;
-  background: transparent;
-  border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  cursor: pointer;
-  color: black;
-  &:hover {
-    background-color: black;
-    color: white;
-  }
-`;
 
 
 
 //작업내용 스타일드 컴포넌트
-const TodoWrap = styled.div``
+
 const TodoInput = styled.textarea`
   width: 400px;
   font-size: 20px;
