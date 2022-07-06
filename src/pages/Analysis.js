@@ -32,14 +32,18 @@ const Analysis = () => {
 };
 
 const Wrap = styled.div`
+  height: auto;
+  width: 100vw;
+  max-width: 1920px;
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 1fr repeat(8, 8%) 1fr;
-  grid-template-rows: 70px 55% 36% 0;
+  grid-template-rows: 70px 50% 36% 0;
   justify-content: center;
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 16px;
+  background: #f5f5f5;
 `;
 
 const BodyWrap = styled.h2`

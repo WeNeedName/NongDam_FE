@@ -30,6 +30,10 @@ const IncomeWrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const TitleWrap = styled.div`
@@ -38,11 +42,11 @@ const TitleWrap = styled.div`
 `;
 
 const SmileIcon = styled.span`
-  font-size: 2rem;
+  font-size: 20px;
 `;
 
 const Title = styled.span`
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 700;
   margin-left: 10px;
   text-align: left;

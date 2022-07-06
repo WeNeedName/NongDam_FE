@@ -8,138 +8,179 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const Sales = () => {
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
+  const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
 
+  const slaes = ["600", "400", "200", "0"];
+
+  // 시간별 날씨 그래프 데이터
   const state = {
-    defaultLocale: "ko",
-    locales: [
-      {
-        name: "ko",
-        options: {
-          months: [
-            "1월",
-            "2월",
-            "3월",
-            "4월",
-            "5월",
-            "6월",
-            "7월",
-            "8월",
-            "9월",
-            "10월",
-            "11월",
-            "12월",
-          ],
-          shortMonths: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          days: [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-          toolbar: {
-            download: ["Download SVG", "Download PNG", "Download CSV"],
-            selection: "Selection",
-            selectionZoom: "Selection Zoom",
-            zoomIn: "Zoom In",
-            zoomOut: "Zoom Out",
-            pan: "Panning",
-            reset: "Reset Zoom",
-          },
-        },
-      },
-    ],
     series: [
       {
-        name: "수입",
-        data: [31, 40, 28, 51, 42, 109, 100],
+        name: "비용",
+        data: [100, 200, 200, 300, 100, 200],
       },
       {
-        name: "지출",
-        data: [11, 32, 45, 32, 34, 52, 41],
+        name: "매출",
+        data: [0, 100, 300, 600, 400, 300],
       },
       {
         name: "순이익",
-        data: [21, 8, -17, 19, 8, 57, 59],
+        data: [-100, 100, 100, 300, 300, 100],
       },
     ],
-    colors: ["#2E93fA", "#66DA26", "#546E7A", "#E91E63", "#FF9800"],
     options: {
+      markers: {
+        size: [2, 2, 2.5],
+        colors: ["#3152bf50", "#7EB3E350", "#7EE3AB"],
+        hover: {
+          size: undefined,
+          sizeOffset: 2,
+        },
+      },
+      legend: {
+        show: false,
+      },
       chart: {
-        height: 350,
-        type: "area",
+        type: "line",
+        zoom: {
+          enabled: false,
+        },
+        toolbar: {
+          show: false,
+        },
       },
       dataLabels: {
         enabled: false,
       },
       stroke: {
-        curve: "smooth",
+        curve: "straight",
+        width: [1.5, 1.5, 2.5],
+        colors: ["#3152bf50", "#7EB3E350", "#7EE3AB"], // 그래프 선 여기에 추가
       },
-      //   yaxis: {
-      //     title: {
-      //       text: "thousands",
-      //     },
-      //   },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2022-01-19T00:00:00.000Z",
-          "2022-02-19T01:30:00.000Z",
-          "2022-03-19T02:30:00.000Z",
-          "2022-04-19T03:30:00.000Z",
-          "2022-05-19T04:30:00.000Z",
-          "2022-06-19T05:30:00.000Z",
-        ],
+      grid: {
+        borderColor: "#ddd",
+        strokeDashArray: 1.6, // 가로축 점선
+        row: {
+          colors: ["transparent", "transparent", "transparent"], // 배경색
+        },
+        column: {
+          colors: ["transparent", "transparent", "transparent"],
+        },
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: true, // 그리드선
+          },
+        },
+        padding: {
+          top: -2,
+          right: 20,
+          bottom: -10,
+          left: 20,
+        },
       },
-      fill: {
-        opacity: 1,
-        colors: ["#2E93fA", "#66DA26", "#E91E63"],
-      },
-      //   markers: {
-      //     colors: ["#F44336", "#E91E63", "#9C27B0"],
-      //   },
-
       tooltip: {
         x: {
-          //   format: "dd/MM/yy HH:mm",
-          format: "MM월",
+          show: false,
         },
+        style: {
+          fontSize: "12px",
+          fontFamily: undefined,
+        },
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="tooltip-box">' +
+            '<div class="line">' +
+            '<span class="price-label">' +
+            "2021년 9월" +
+            "</span>" +
+            "</div>" +
+            '<div class="line-bottom">' +
+            '<span class="label-data">' +
+            series[seriesIndex][dataPointIndex] +
+            '<span class="price-label">' +
+            "원" +
+            "</span>" +
+            "</span>" +
+            "</div>" +
+            "</div>"
+          );
+        },
+      },
+      xaxis: {
+        categories: day,
+        labels: {
+          formatter: function (value) {
+            return value;
+          },
+          style: {
+            fontSize: "0px",
+          },
+        },
+        position: "top", // x축 라벨
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        tooltip: {
+          enabled: false,
+        },
+      },
+      yaxis: {
+        show: false,
+        min: undefined,
+        max: undefined,
       },
     },
   };
 
   return (
-    <Wrap>
-      <TopWrap>
-        <h3>매출현황</h3>
-        <span>기간선택</span>
-      </TopWrap>
+    <>
+      <Wrap>
+        <Title>매출 현황</Title>
+        <ChartWrap>
+          <YasisWrap>
+            {slaes.map((data, id) => {
+              return <Yasis key={id}>{data}</Yasis>;
+            })}
+          </YasisWrap>
 
-      <ApexCharts
-        options={state.options}
-        series={state.series}
-        type="area"
-        height={250}
-      />
-    </Wrap>
+          <ChartBox>
+            <ApexCharts
+              options={state.options}
+              series={state.series}
+              type="line"
+              height={94 + "%"}
+            />
+            <YasisLabelBox>
+              <YasisLabelWrap>
+                <YasisColorTipA />
+                <YasisLabel>비용</YasisLabel>
+              </YasisLabelWrap>
+              <YasisLabelWrap>
+                <YasisColorTipB />
+                <YasisLabel>매출</YasisLabel>
+              </YasisLabelWrap>
+              <YasisLabelWrap>
+                <YasisColorTipC />
+                <YasisLabel>순이익</YasisLabel>
+              </YasisLabelWrap>
+            </YasisLabelBox>
+          </ChartBox>
+          <XasisWrap>
+            {day.map((data, id) => {
+              return <Xasis key={id}>{data}</Xasis>;
+            })}
+          </XasisWrap>
+        </ChartWrap>
+      </Wrap>
+    </>
   );
 };
 
@@ -152,11 +193,127 @@ const Wrap = styled.div`
   padding: 20px;
 `;
 
-const TopWrap = styled.div`
+const Title = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+const ChartWrap = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  row-gap: 4px;
+  column-gap: 8px;
+  cursor: pointer;
+  margin-top: 12px;
+`;
+
+const YasisWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+`;
+
+const Yasis = styled.span`
+  font-size: 8px;
+  color: #666666;
+`;
+
+const ChartBox = styled.div`
+  width: 100%;
+  margin-top: 6px;
+  background: #fafafa;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
+  border-radius: 4px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  position: relative;
+`;
+
+const YasisLabelBox = styled.div`
+  max-width: 150px;
+  width: 24%;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  padding: 4px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 6px 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  @media only screen and (max-width: 760px) {
+    width: 100px;
+    margin: 6px 10px;
+  }
+`;
+
+const YasisLabelWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const YasisColorTipA = styled.div`
+  width: 7px;
+  height: 3px;
+  background: #3152bf;
+  margin-right: 4px;
+  @media only screen and (max-width: 760px) {
+    width: 4px;
+    height: 4px;
+  }
+`;
+
+const YasisColorTipB = styled.div`
+  width: 7px;
+  height: 3px;
+  background: #7eb3e3;
+  margin-right: 4px;
+  @media only screen and (max-width: 760px) {
+    width: 4px;
+    height: 4px;
+  }
+`;
+
+const YasisColorTipC = styled.div`
+  width: 7px;
+  height: 3px;
+  background: #7ee3ab;
+  margin-right: 4px;
+  @media only screen and (max-width: 760px) {
+    width: 4px;
+    height: 4px;
+  }
+`;
+
+const YasisLabel = styled.span`
+  font-size: 8px;
+  color: #666666;
+`;
+
+const XasisWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: space-between;
+  margin: 0px 10px;
+  /* margin-top: 4px; */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+`;
+
+const Xasis = styled.span`
+  font-size: 8px;
+  color: #666666;
 `;
 
 export default Sales;

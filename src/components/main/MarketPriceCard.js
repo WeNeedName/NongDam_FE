@@ -22,8 +22,8 @@ const MarketPriceCard = () => {
   console.log(kg);
 
   function inputNumberFormat(e) {
-    setKg(e.target.value);
     e.target.value = uncomma(e.target.value);
+    setKg(e.target.value);
   }
 
   return (
@@ -60,11 +60,12 @@ const MarketPriceCard = () => {
                   inputNumberFormat(e);
                 }}
                 placeholder="0"
+                maxLength={6}
               />
               <TodayPriceSumT>kg</TodayPriceSumT>
               <Sum>=</Sum>
-              <TodayPriceSum>{comma(kg * 300)}</TodayPriceSum>
-              <TodayPriceSumT>원</TodayPriceSumT>
+              <TodayPriceSum>{comma(Math.floor(kg * 0.3))}</TodayPriceSum>
+              <TodayPriceSumT>만원</TodayPriceSumT>
             </SumWrap>
             <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
           </WrapLeftBottom>
@@ -217,6 +218,9 @@ const KgInput = styled.input`
   border-radius: 6px;
   border: none;
   padding-left: 10px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ShowMoreBtn = styled.span`
