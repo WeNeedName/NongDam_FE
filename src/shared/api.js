@@ -107,6 +107,7 @@ export const apis = {
 
   //일정
   loadSchedule: () => api.get("/schedule"),
+  loadTodaySchedule: () => api.get("/schedule/today"),
   loadMonthlySchedule: (date) =>
     api.get(`/schedule/${date.year}-${date.month}`),
   addSchedule: (data) => api.post("/schedule", data),

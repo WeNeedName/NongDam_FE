@@ -96,35 +96,46 @@ const WorkTime = () => {
 
   return (
     <Wrap>
-      <TopWrap>
-        <h3>작업시간</h3>
-        <span>기간선택</span>
-      </TopWrap>
+      <TitleWrap>
+        <SmileIcon>😀</SmileIcon>
+        <Title>
+          작년에 비해 올해 작업 시간이 <br />
+          20% 감소했어요
+        </Title>
+      </TitleWrap>
       <ReactApexChart
         options={state.options}
         series={state.series}
         type="bar"
-        height={260}
+        height={200}
       />
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 400px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  grid-column: 7 / 10;
+  grid-row: 2 / 3;
 `;
 
-const TopWrap = styled.div`
+const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+`;
+
+const SmileIcon = styled.span`
+  font-size: 24px;
+`;
+
+const Title = styled.span`
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
+  text-align: left;
 `;
 
 export default WorkTime;

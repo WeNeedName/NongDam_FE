@@ -11,43 +11,42 @@ import Header from "../components/Header";
 import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
 import ScheduleWeek from "../components/schedule/ScheduleWeek";
 
-
 const Schedule = () => {
-    const [showModal, setShowModal] = useState(false);
-    const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
-     const openModal = () => {
+  const openModal = () => {
     if (!showModal) setShowModal(true);
     else setShowModal(false);
   };
-  
-    return (
+
+  return (
+    <>
+      <Header currentPage="schedule" />
+      <Wrap>
         <div>
-          <Header />
-          <Wrap>
-            <div>
-              <ScheduleCalendar />
-              <button
-                onClick={() => {
-                  openModal();
-                  navigate("/addschedule");
-                }}
-              >
-                기록하기
-              </button>
-            </div>
-            <ScheduleWeek />
-          </Wrap>
+          <ScheduleCalendar />
+          <button
+            onClick={() => {
+              openModal();
+              navigate("/addschedule");
+            }}
+          >
+            기록하기
+          </button>
         </div>
-      );
-    };
-    
-    const Wrap = styled.div`
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-      margin-top: 30px;
-    `;
+        <ScheduleWeek />
+      </Wrap>
+    </>
+  );
+};
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 100px;
+`;
 
 export default Schedule;

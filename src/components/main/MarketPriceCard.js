@@ -1,39 +1,79 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
+import MarketPriceChart from "./MarketPriceChart";
+
 const MarketPriceCard = () => {
+  const navigate = useNavigate();
+
+  const [kg, setKg] = useState(0);
+  // 숫자에 콤마넣기
+  function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  }
+  // 숫자만 입력가능
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
+  console.log(kg);
+
+  function inputNumberFormat(e) {
+    setKg(e.target.value);
+    e.target.value = uncomma(e.target.value);
+  }
+
   return (
     <Wrap>
       <BoxWrap>
         <Title>📈 오늘의 시세</Title>
-        <ShowMoreBtn>더 보기 &gt;</ShowMoreBtn>
+        <ShowMoreBtn
+          onClick={() => {
+            navigate("/marketprice");
+          }}
+        >
+          더 보기 &gt;
+        </ShowMoreBtn>
       </BoxWrap>
-      <BoxWrap>
+      <BoxBodyWrap>
         <WrapLeft>
-          <RowWrap>
-            <span>가락양재양곡시장</span>
-            <Hr />
-            <span>벼 - 흑미</span>
-          </RowWrap>
+          <div>
+            <RowWrap>
+              <CategoryT>가락양재양곡시장</CategoryT>
+              <Hr />
+              <CategoryT>벼 - 흑미</CategoryT>
+            </RowWrap>
+            <PriceWrap>
+              <TodayPrice>{comma(300)}</TodayPrice>
+              <TodayPriceT>원/kg</TodayPriceT>
+            </PriceWrap>
+          </div>
 
-          <div>
-            <span>300</span>
-            <span>원/kg</span>
-          </div>
-          <span>예상 판매 금액</span>
-          <div>
-            <input placeholder="kg을 입력해주세요." />
-            <span>kg</span>
-            <span>300</span>
-            <span>원</span>
-          </div>
+          <WrapLeftBottom>
+            <CategoryT>예상 판매 금액</CategoryT>
+            <SumWrap>
+              <KgInput
+                onChange={(e) => {
+                  inputNumberFormat(e);
+                }}
+                placeholder="0"
+              />
+              <TodayPriceSumT>kg</TodayPriceSumT>
+              <Sum>=</Sum>
+              <TodayPriceSum>{comma(kg * 300)}</TodayPriceSum>
+              <TodayPriceSumT>원</TodayPriceSumT>
+            </SumWrap>
+            <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
+          </WrapLeftBottom>
         </WrapLeft>
-        <WrapLeft>
-          {/* <span>월별 평균 시세</span>
-          <ChartBox></ChartBox> */}
-        </WrapLeft>
-      </BoxWrap>
+        <WrapRight>
+          <ChartTitle>월별 평균 시세</ChartTitle>
+          <MarketPriceChart />
+        </WrapRight>
+      </BoxBodyWrap>
     </Wrap>
   );
 };
@@ -42,7 +82,7 @@ const Wrap = styled.div`
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 16px 16px;
+  padding: 20px 20px 16px 20px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -50,7 +90,7 @@ const Wrap = styled.div`
   grid-row: 2 / 4;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
-    grid-row: 6 / 7;
+    grid-row: 7 / 10;
   }
 `;
 
@@ -65,6 +105,17 @@ const BoxWrap = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+const BoxBodyWrap = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+  @media only screen and (max-width: 760px) {
+    flex-direction: column;
+  }
 `;
 
 const RowWrap = styled.div`
@@ -84,15 +135,88 @@ const Hr = styled.div`
 const WrapLeft = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 `;
 
-const ChartBox = styled.div`
-  margin-top: 18px;
-  padding: 0px 20px;
+const WrapLeftBottom = styled.div`
+  margin-top: 10px;
+`;
+
+const WrapRight = styled.div`
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* margin-left: 60px; */
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+  }
+`;
+
+const CategoryT = styled.span`
+  font-weight: 700;
+  font-size: 1rem;
+`;
+
+const ChartTitle = styled.span`
+  font-weight: 500;
+  font-size: 1rem;
+`;
+
+const PriceWrap = styled.div`
+  margin-bottom: 16px;
+`;
+
+const TodayPrice = styled.span`
+  font-weight: 500;
+  font-size: 2rem;
+`;
+
+const TodayPriceSum = styled.span`
+  font-weight: 500;
+  font-size: 1.9rem;
+  margin-bottom: 4px;
+`;
+
+const Sum = styled.span`
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0px 8px;
+`;
+
+const SumWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TodayPriceT = styled.span`
+  font-weight: 400;
+  font-size: 1rem;
+  margin-left: 4px;
+`;
+
+const TodayPriceSumT = styled.span`
+  font-weight: 400;
+  font-size: 1rem;
+  margin-left: 4px;
+  align-self: flex-end;
+  margin-bottom: 8px;
+`;
+
+const Info = styled.span`
+  font-weight: 400;
+  font-size: 8px;
+  margin-top: 4px;
+`;
+
+const KgInput = styled.input`
+  width: 96px;
+  height: 30px;
   background: #fafafa;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
-  border-radius: 4px;
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  border: none;
+  padding-left: 10px;
 `;
 
 const ShowMoreBtn = styled.span`

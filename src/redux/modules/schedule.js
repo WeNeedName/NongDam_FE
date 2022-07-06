@@ -14,7 +14,6 @@
 
 // const createSchedule = createAction(CREATE_SCHEDULE, (data) => ({ data }));
 
-
 // // InitialState
 // const initialState = {
 //   schedule: [null],
@@ -25,7 +24,7 @@
 // export const addScheduleDB=(data)=> async (dispatch) => {
 //     try{
 //     console.log("스케줄에 들어갈 데이터 ", data)
-//     const {} = await apis.addSchedule(data);    
+//     const {} = await apis.addSchedule(data);
 //     dispatch(createSchedule(data));
 //     }
 //     catch(err){
@@ -33,16 +32,13 @@
 //     }
 // }
 
-
-
-
 // // Reducer
 // export default handleActions(
 //   {
-//     [CREATE_SCHEDULE]: (state, {payload}) => 
+//     [CREATE_SCHEDULE]: (state, {payload}) =>
 //     produce(state, (draft)) => {
 //         console.log(state, payload);
-        
+
 //     })
 //   },
 //   initialState

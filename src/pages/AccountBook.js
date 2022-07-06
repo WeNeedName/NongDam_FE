@@ -29,9 +29,9 @@ const AccountBook = () => {
   }
 
   return (
-    <div>
-      <Header />
-      <Wrap>
+    <Wrap>
+      <Header currentPage="accountbook" />
+      <BodyWrap>
         <div>
           <CalenderBook />
           <button
@@ -44,17 +44,22 @@ const AccountBook = () => {
         </div>
         <AccountWeek />
         {isOpen && <AccountWrite isOpen={isOpen} toggleModal={toggleModal} />}
-      </Wrap>
-    </div>
+      </BodyWrap>
+    </Wrap>
   );
 };
 
 const Wrap = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
+const BodyWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: 30px;
+  margin-top: 70px;
 `;
 
 export default AccountBook;

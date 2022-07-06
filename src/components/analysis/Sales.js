@@ -8,7 +8,6 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const Sales = () => {
-
   const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
   console.log(nowTime);
 
@@ -145,13 +144,12 @@ const Sales = () => {
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 340px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  grid-column: 6 / 10;
+  grid-row: 3 / 4;
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
 `;
 
 const TopWrap = styled.div`

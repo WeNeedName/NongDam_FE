@@ -122,13 +122,13 @@ const TotalHarvest = () => {
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 340px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  grid-column: 2 / 6;
+  grid-row: 3 / 4;
+
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
 `;
 
 const TopWrap = styled.div`
