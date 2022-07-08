@@ -20,7 +20,7 @@ const Income = () => {
         type: "donut",
       },
       legend: {
-        position: "right",
+        show: false,
       },
       responsive: [
         {
@@ -40,16 +40,30 @@ const Income = () => {
             // },
             labels: {
               show: true,
-              total: {
-                showAlways: true,
+              name: {
+                // 데이터 라벨 커스텀
                 show: true,
-                label: "총 금액",
-                fontSize: "12px",
+                fontSize: "22px",
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 700,
+                color: undefined,
+                offsetY: 6,
+                formatter: function (val) {
+                  return val;
+                },
+              },
+
+              total: {
+                showAlways: false,
+                show: true,
+                label: "지출",
+                fontSize: "18px",
+                fontWeight: "700",
                 color: "black",
               },
               value: {
                 fontSize: "22px",
-                show: true,
+                show: false,
                 color: "blue",
               },
             },
@@ -66,7 +80,7 @@ const Income = () => {
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="330"
+        width="230"
       />
     </Wrap>
   );
