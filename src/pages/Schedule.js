@@ -14,10 +14,6 @@ import ScheduleWeek from "../components/schedule/ScheduleWeek";
 import AddSchedule from "../components/schedule/AddSchedule";
 
 const Schedule = () => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 52b3949f98963087eabfe1d9b8a80b8b50c1e9ca
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.users.user);
@@ -29,27 +25,25 @@ const Schedule = () => {
 
   useEffect(() => {
     dispatch(getInfoDB());
-  }, []); 
+  }, []);
 
-    return (
+  return (
+    <>
+      <Header currentPage="schedule" />
+      <Wrap>
         <div>
-          <Header />
-          <Wrap>
-            <div>
-              <ScheduleCalendar />
-              <button
-                onClick={() => {
-                  toggleModal();
-                }}
-              >
-                기록하기
-              </button>
-            </div>
-            <ScheduleWeek />
-            {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
-          </Wrap>
-
-       
+          <ScheduleCalendar />
+          <button
+            onClick={() => {
+              toggleModal();
+            }}
+          >
+            기록하기
+          </button>
+        </div>
+        <ScheduleWeek />
+        {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
+      </Wrap>
     </>
   );
 };

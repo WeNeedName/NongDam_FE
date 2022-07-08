@@ -20,8 +20,6 @@ const Haeder = ({ currentPage }) => {
     }
   };
 
-  console.log(headerNav);
-
   return (
     <Wrap>
       <Nav>

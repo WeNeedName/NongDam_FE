@@ -30,7 +30,6 @@ const Wrap = styled.div`
   width: 100vw;
   max-width: 1920px;
   height: auto;
-  background: #f5f5f5;
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 1fr repeat(3, 23%) 1fr;
