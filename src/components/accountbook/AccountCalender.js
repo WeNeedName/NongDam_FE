@@ -78,11 +78,6 @@ const Wrap = styled.div`
   flex-direction: column;
 `;
 
-// const Text = styled.span`
-//   color: black;
-//   z-index: 10;
-// `;
-
 const Dot = styled.div`
   width: 8px;
   height: 8px;

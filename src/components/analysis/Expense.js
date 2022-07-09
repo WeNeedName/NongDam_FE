@@ -20,37 +20,71 @@ const Expense = () => {
         type: "donut",
       },
       legend: {
+        show: false,
         position: "right",
         // fontSize: "8px",
       },
+
       responsive: [
         {
           breakpoint: 480,
         },
       ],
+      dataLabels: {
+        enabled: true,
+        textAnchor: "right",
+        distributed: true,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          fontSize: "14px",
+          fontFamily: "Noto Sans KR",
+          fontWeight: "700",
+          colors: [
+            "#02113B",
+            "#02113B",
+            "#02113B",
+            "#02113B",
+            "#02113B",
+            "#02113B",
+            "#02113B",
+            "#02113B",
+          ],
+        },
+        dropShadow: {
+          enabled: false,
+        },
+      },
+
       plotOptions: {
         pie: {
           donut: {
-            // hollow: {
-            //   margin: 15,
-            //   size: '70%',
-            //   image: '../../css/images/a-icon.jpg',
-            //   imageWidth: 64,
-            //   imageHeight: 64,
-            //   imageClipped: false
-            // },
             labels: {
               show: true,
+              name: {
+                // 데이터 라벨 커스텀
+                show: true,
+                fontSize: "22px",
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 700,
+                color: undefined,
+                offsetY: 6,
+                formatter: function (val) {
+                  return val;
+                },
+              },
+
               total: {
                 showAlways: false,
                 show: true,
-                label: "총 금액",
-                fontSize: "14px",
+                label: "수입",
+                fontSize: "18px",
+                fontWeight: "700",
                 color: "black",
               },
               value: {
                 fontSize: "22px",
-                show: true,
+                show: false,
                 color: "blue",
               },
             },
@@ -83,7 +117,7 @@ const Expense = () => {
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="330"
+        width="230"
       />
     </Wrap>
   );

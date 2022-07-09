@@ -20,7 +20,7 @@ const Income = () => {
         type: "donut",
       },
       legend: {
-        position: "right",
+        show: false,
       },
       responsive: [
         {
@@ -40,16 +40,30 @@ const Income = () => {
             // },
             labels: {
               show: true,
-              total: {
-                showAlways: true,
+              name: {
+                // 데이터 라벨 커스텀
                 show: true,
-                label: "총 금액",
-                fontSize: "12px",
+                fontSize: "22px",
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 700,
+                color: undefined,
+                offsetY: 6,
+                formatter: function (val) {
+                  return val;
+                },
+              },
+
+              total: {
+                showAlways: false,
+                show: true,
+                label: "지출",
+                fontSize: "18px",
+                fontWeight: "700",
                 color: "black",
               },
               value: {
                 fontSize: "22px",
-                show: true,
+                show: false,
                 color: "blue",
               },
             },
@@ -62,13 +76,11 @@ const Income = () => {
 
   return (
     <Wrap>
-      {/* <TopWrap><span>기간선택</span></TopWrap> */}
-
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="330"
+        width="230"
       />
     </Wrap>
   );
@@ -82,13 +94,6 @@ const Wrap = styled.div`
   box-shadow: 0px 3px 6px #00000029;
   padding: 4px 18px;
   margin: 20px; */
-`;
-
-const TopWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 export default Income;

@@ -2,7 +2,7 @@ import { React, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {getInfoDB} from "../redux/modules/users"
+import { getInfoDB } from "../redux/modules/users";
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -12,12 +12,14 @@ import Header from "../components/Header";
 import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
 import ScheduleWeek from "../components/schedule/ScheduleWeek";
 import AddSchedule from "../components/schedule/AddSchedule";
-import { getCurrentScheduleListDB, getScheduleListDB } from "../redux/modules/schedule";
+import {
+  getCurrentScheduleListDB,
+  getScheduleListDB,
+} from "../redux/modules/schedule";
 
 const Schedule = () => {
-
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.users.user);
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
   //  상세 모달 열기
@@ -28,33 +30,24 @@ const Schedule = () => {
   //유저 정보 받아오기
   useEffect(() => {
     dispatch(getInfoDB());
-  }, []); 
+  }, []);
 
   //최근 스케줄리스트 받아오기
   useEffect(() => {
     dispatch(getCurrentScheduleListDB());
-  }, [dispatch]); 
-
+  }, [dispatch]);
 
   return (
-        <div>
-          <Header />
-          <Wrap>
-            <div>
-              <ScheduleCalendar />
-              <button
-                onClick={() => {
-                  toggleModal();
-                }}
-              >
-                기록하기
-              </button>
-            </div>
-            <ScheduleWeek />
-            {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
-          </Wrap>
-
-        </div>
+    <div>
+      <ScheduleCalendar />
+      <button
+        onClick={() => {
+          toggleModal();
+        }}
+      >
+        기록하기
+      </button>
+    </div>
   );
 };
 

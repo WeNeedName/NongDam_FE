@@ -53,6 +53,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-size: 85%;
     background: #f5f5f5;
+    ::-webkit-scrollbar {
+    display: none;
+  }
   }
 `;
 

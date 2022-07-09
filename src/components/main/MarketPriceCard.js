@@ -19,13 +19,21 @@ const MarketPriceCard = () => {
     str = String(str);
     return str.replace(/[^\d]+/g, "");
   }
-  console.log(kg);
+  // console.log(kg);
 
   function inputNumberFormat(e) {
     e.target.value = uncomma(e.target.value);
     setKg(e.target.value);
   }
 
+  const sellingPrice = Number(kg * 300);
+  // console.log(sellingPriceMin, sellingPrice, String(sellingPrice).split("."));
+  console.log(
+    sellingPrice,
+    String(sellingPrice).slice(0, -4) + "만",
+    String(sellingPrice).slice(-4, -3) + "천원",
+    String(sellingPrice).slice(-3) + "원"
+  );
   return (
     <Wrap>
       <BoxWrap>
@@ -64,8 +72,35 @@ const MarketPriceCard = () => {
               />
               <TodayPriceSumT>kg</TodayPriceSumT>
               <Sum>=</Sum>
-              <TodayPriceSum>{comma(Math.floor(kg * 0.3))}</TodayPriceSum>
-              <TodayPriceSumT>만원</TodayPriceSumT>
+              <TodayPriceSum>
+                {/* {comma(Math.floor(kg * 0.03)) > 0
+                  ? sellingPrice
+                  : comma(Math.floor(kg * 0.3))} */}
+              </TodayPriceSum>
+              <SellingPrice>
+                {sellingPrice < 1000
+                  ? kg * 300 + "원"
+                  : sellingPrice < 10000
+                  ? comma(Math.floor(kg * 0.3)) +
+                    "천" +
+                    " " +
+                    String(sellingPrice).slice(-3) +
+                    "원"
+                  : String(sellingPrice).slice(-4, -3) === "0" &&
+                    String(sellingPrice).slice(0, -4).length < 3
+                  ? String(sellingPrice).slice(0, -4) +
+                    "만" +
+                    " " +
+                    String(sellingPrice).slice(-3) +
+                    "원"
+                  : String(sellingPrice).slice(0, -4).length < 3
+                  ? String(sellingPrice).slice(0, -4) +
+                    "만" +
+                    " " +
+                    String(sellingPrice).slice(-4, -3) +
+                    "천원"
+                  : comma(String(sellingPrice).slice(0, -4)) + "만원"}
+              </SellingPrice>
             </SumWrap>
             <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
           </WrapLeftBottom>
@@ -199,6 +234,14 @@ const TodayPriceT = styled.span`
 const TodayPriceSumT = styled.span`
   font-weight: 400;
   font-size: 1rem;
+  margin-left: 4px;
+  align-self: flex-end;
+  margin-bottom: 8px;
+`;
+
+const SellingPrice = styled.span`
+  font-weight: 700;
+  font-size: 14px;
   margin-left: 4px;
   align-self: flex-end;
   margin-bottom: 8px;

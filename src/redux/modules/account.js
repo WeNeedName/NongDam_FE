@@ -38,7 +38,7 @@ const initialState = {
 
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
-  console.log(date);
+  // console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
@@ -46,13 +46,10 @@ export const getYearMonthDB = (date) => {
 
 //월별 장부리스트 불러오기
 export const getAccountListDB = (date) => {
-  console.log(date);
   return async function (dispatch) {
-    console.log(date);
     apis
       .loadAccountBook(date)
       .then((response) => {
-        console.log(response);
         dispatch(getAccountList(response.data));
       })
       .catch((error) => {
@@ -68,7 +65,6 @@ export const getCurrentAccountListDB = () => {
     apis
       .loadCurrentAccount()
       .then((response) => {
-        console.log(response.data);
         dispatch(getAccount(response.data));
       })
       .catch((error) => {
@@ -127,19 +123,16 @@ export default handleActions(
   {
     [GET_YEAR_MONTH]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.yearMonth = payload.data;
       }),
 
     [GET_ACCOUNT_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.accountList = payload.list;
       }),
 
     [GET_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.currentAccount = payload.currentAccount;
       }),
 

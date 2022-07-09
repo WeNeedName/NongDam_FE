@@ -38,7 +38,7 @@ const Wrap = styled.div`
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 1fr repeat(8, 8%) 1fr;
-  grid-template-rows: 70px 50% 36% 0;
+  grid-template-rows: 90px 50% 36% 0;
   justify-content: center;
   flex-flow: wrap;
   row-gap: 16px;
