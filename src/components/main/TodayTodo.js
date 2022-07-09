@@ -31,10 +31,10 @@ const TodayTodo = () => {
           더 보기 &gt;
         </ShowMoreBtn>
       </TopWrap>
-      {scheduleData &&
-        scheduleData.slice(0, 3).map((schedule) => {
+      {scheduleData.length >= 1 ? (
+        scheduleData.slice(0, 3).map((schedule, id) => {
           return (
-            <ScheduleBox>
+            <ScheduleBox key={id}>
               <Hr />
               <ScheduleContent>{schedule?.toDo}</ScheduleContent>
               <ScheduleTime>
@@ -43,7 +43,10 @@ const TodayTodo = () => {
               </ScheduleTime>
             </ScheduleBox>
           );
-        })}
+        })
+      ) : (
+        <Guide> 오늘 일정을 등록해주세요.</Guide>
+      )}
     </Wrap>
   );
 };
@@ -82,6 +85,17 @@ const ShowMoreBtn = styled.span`
   line-height: 24px;
   color: #8e8f93;
   cursor: pointer;
+`;
+
+const Guide = styled.div`
+  height: 90%;
+  font-size: 12px;
+  color: #02113b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
 `;
 
 const ScheduleBox = styled.div`
