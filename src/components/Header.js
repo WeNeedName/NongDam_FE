@@ -93,7 +93,7 @@ const Haeder = ({ currentPage }) => {
             <FormCheckText
               id="workTime"
               onClick={() => {
-                // navigate("/accountbook");
+                navigate("/writeworklog");
               }}
               currentPage={headerNav}
             >

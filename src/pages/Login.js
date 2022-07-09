@@ -6,8 +6,10 @@ import { logInDB } from "../redux/modules/users";
 import KakaoLogin from "../images/kakao_login_medium_narrow.png";
 import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
 import { useNavigate } from "react-router";
+import Header from "../components/Header";
 
 const Login = () => {
+  
   const idRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
@@ -37,58 +39,65 @@ const Login = () => {
 
   return (
     <>
-      <section>
-        <h1>로그인페이지</h1>
+    <Header />
+      <Container>
+        <section>
+          <h1>로그인페이지</h1>
 
-        <IdBox>
-          <label className="id">ID</label>
-          <input
-            ref={idRef}
-            autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </IdBox>
+          <IdBox>
+            <label className="id">ID</label>
+            <input
+              ref={idRef}
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </IdBox>
 
-        <PwBox>
-          <label className="pw">PW</label>
-          <input
-            type="text"
-            onChange={(e) => setPw(e.target.value)}
-            value={pw}
-            required
-          />
-        </PwBox>
-        <p>
-          <LoginBtn
-            type="submit"
-            style={{ width: "100px" }}
-            onClick={() => {
-              logIn();
-            }}
-          >
-            로그인
-          </LoginBtn>
-        </p>
+          <PwBox>
+            <label className="pw">PW</label>
+            <input
+              type="text"
+              onChange={(e) => setPw(e.target.value)}
+              value={pw}
+              required
+            />
+          </PwBox>
+          <p>
+            <LoginBtn
+              type="submit"
+              style={{ width: "100px" }}
+              onClick={() => {
+                logIn();
+              }}
+            >
+              로그인
+            </LoginBtn>
+          </p>
 
-        <p>
-          <SocialBtn
-            onClick={() => {
-              window.location.href = KAKAO_AUTH_URL;
-            }}
-            src={KakaoLogin}
-          />
-        </p>
-        <p>
-          회원이 아니시라면? <br />
-          <span className="line">
-            <a href="/signup"> 회원가입</a>
-          </span>
-        </p>
-      </section>
+          <p>
+            <SocialBtn
+              onClick={() => {
+                window.location.href = KAKAO_AUTH_URL;
+              }}
+              src={KakaoLogin}
+            />
+          </p>
+          <p>
+            회원이 아니시라면? <br />
+            <span className="line">
+              <a href="/signup"> 회원가입</a>
+            </span>
+          </p>
+        </section>
+      </Container>
     </>
   );
 };
+
+
+const Container = styled.div`
+margin-top: 100px;`
 
 const InputBoxes = styled.div`
   display: flex;
