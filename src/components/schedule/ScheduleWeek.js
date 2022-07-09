@@ -23,7 +23,7 @@ const ScheduleWeek = () => {
 
   return (
     <Wrap>
-      <div>일정 최근내역입니다.</div>
+      
       {currentScheduleList !== undefined ? 
       currentScheduleList.map((sList, scheduleId) =>{
         return(
@@ -65,7 +65,7 @@ const ScheduleWeek = () => {
 };
 
 const Wrap = styled.div`
-  width: 35%;
+  
   height: 700px;
   display: flex;
   flex-direction: column;
@@ -75,7 +75,7 @@ const Wrap = styled.div`
 `;
 
 const ScheduleBox = styled.div`
-  width: 300px;
+  width: 80%;
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
