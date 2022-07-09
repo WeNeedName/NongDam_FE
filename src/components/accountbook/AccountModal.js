@@ -70,7 +70,9 @@ const AccountModal = ({
       memo: memo,
       date: selecDate,
     };
-    dispatch(ModifiAccountDB(id, data)).then(toggleModal());
+    dispatch(ModifiAccountDB(id, data)).then(() => {
+      toggleModal();
+    });
   };
 
   return (
@@ -137,7 +139,6 @@ const AccountModal = ({
                   onChange={changeRadio}
                   value={checkedInputs}
                   defaultChecked={account.category === "수입" ? true : false}
-                  //   {account.category === "수입" ? defaultChecked : null}
                 />
                 <FormCheckText>수입</FormCheckText>
               </LabelS>
@@ -166,92 +167,33 @@ const AccountModal = ({
                 </Selec>
               )}
               {checkedInputs === "수입" && (
-                <Selec onChange={(e) => setCategory(e.target.value)}>
+                <Selec
+                  onChange={(e) => setCategory(e.target.value)}
+                  defaultValue={String(account.type)}
+                >
                   <option value="">품목을 선택해주세요</option>
-                  <option
-                    value="0"
-                    selected={String(account.type) === "0" ? true : false}
-                  >
-                    농산물 판매
-                  </option>
-                  <option
-                    value="1"
-                    selected={String(account.type) === "1" ? true : false}
-                  >
-                    정부보조금
-                  </option>
-                  <option
-                    value="2"
-                    selected={String(account.type) === "2" ? true : false}
-                  >
-                    기타수입
-                  </option>
+                  <option value="0">농산물 판매</option>
+                  <option value="1">정부보조금</option>
+                  <option value="2">기타수입</option>
                 </Selec>
               )}
 
               {checkedInputs === "지출" && (
-                <Selec onChange={(e) => setCategory(e.target.value)}>
+                <Selec
+                  onChange={(e) => setCategory(e.target.value)}
+                  defaultValue={String(account.type)}
+                >
                   <option value="">품목을 선택해주세요</option>
-                  <option
-                    value="3"
-                    selected={String(account.type) === "3" ? true : false}
-                  >
-                    비료
-                  </option>
-                  <option
-                    value="4"
-                    selected={String(account.type) === "4" ? true : false}
-                  >
-                    종자/종묘
-                  </option>
-                  <option
-                    value="5"
-                    selected={String(account.type) === "5" ? true : false}
-                  >
-                    농약
-                  </option>
-                  <option
-                    value="6"
-                    selected={String(account.type) === "6" ? true : false}
-                  >
-                    농기계
-                  </option>
-                  <option
-                    value="7"
-                    selected={String(account.type) === "7" ? true : false}
-                  >
-                    기타 농자재
-                  </option>
-                  <option
-                    value="8"
-                    selected={String(account.type) === "8" ? true : false}
-                  >
-                    유통비 및 판매 경비
-                  </option>
-                  <option
-                    value="9"
-                    selected={String(account.type) === "9" ? true : false}
-                  >
-                    고용노동비
-                  </option>
-                  <option
-                    value="10"
-                    selected={String(account.type) === "10" ? true : false}
-                  >
-                    임차료
-                  </option>
-                  <option
-                    value="11"
-                    selected={String(account.type) === "11" ? true : false}
-                  >
-                    수도광열비
-                  </option>
-                  <option
-                    value="12"
-                    selected={String(account.type) === "12" ? true : false}
-                  >
-                    기타 지출
-                  </option>
+                  <option value="3">비료</option>
+                  <option value="4">종자/종묘</option>
+                  <option value="5">농약</option>
+                  <option value="6">농기계</option>
+                  <option value="7">기타 농자재</option>
+                  <option value="8">유통비 및 판매 경비</option>
+                  <option value="9">고용노동비</option>
+                  <option value="10">임차료</option>
+                  <option value="11">수도광열비</option>
+                  <option value="12">기타 지출</option>
                 </Selec>
               )}
             </div>

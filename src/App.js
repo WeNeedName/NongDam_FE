@@ -2,8 +2,7 @@ import React from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
-//js파일
-
+//컴포넌트
 import Main from "./pages/Main";
 import Analysis from "./pages/Analysis";
 import AccountBook from "./pages/AccountBook";
@@ -17,7 +16,9 @@ import EditPw from "./pages/EditPw";
 import MyPage from "./pages/MyPage";
 import OauthFilter from "./pages/OauthFilter";
 import Schedule from "./pages/Schedule";
-import AddSchedule from "./components/schedule/AddSchedule";
+// import AddSchedule from "./components/schedule/AddSchedule";
+import WorkLog from "./pages/WorkLog";
+import WirteWorkLog from "./pages/WriteWorkLog";
 
 function App() {
   return (
@@ -34,8 +35,10 @@ function App() {
         <Route path="/editmemberinfo" element={<EditMemberInfo />} />
         <Route path="/editpw" element={<EditPw />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/worklog" element={<WorkLog />} />
+        <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/addSchedule" element={<AddSchedule />} />
+        {/* <Route path="/addSchedule" element={<AddSchedule />} /> */}
         <Route path="/code/auth" element={<OauthFilter />} />
       </Routes>
     </>
@@ -48,6 +51,8 @@ const GlobalStyle = createGlobalStyle`
     color:  #02113B;
     margin: 0;
     padding: 0;
+    font-size: 85%;
+    background: #f5f5f5;
   }
 `;
 

@@ -27,7 +27,7 @@ const EditMemberInfo = () => {
     const previousCountryCode = userInfo?.countryCode;
     const previousCrops = userInfo?.crops;
     const previousProfileImg = userInfo?.profileImg;
-    
+    const defaultImageUrl = "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
     const [nickname, setNickname] = useState(userInfo?.nickname);
     const [crops, setCrops] = useState(userInfo?.crops);
     const [countryCode, setCountryCode] = useState(userInfo?.countryCode);
@@ -38,7 +38,7 @@ const EditMemberInfo = () => {
     const token = sessionStorage.getItem("jwtToken");
     
     
-    const defaultImageUrl = "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+    
     // 팝업창 상태 관리
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const openPostCode = () => {

@@ -74,29 +74,29 @@ const Expense = () => {
 
   return (
     <Wrap>
-      <TopWrap>
-        <h3>지출</h3>
-        <span>기간선택</span>
-      </TopWrap>
+      {/* <TopWrap> */}
+      {/* <h3>지출</h3> */}
+      {/* <span>기간선택</span> */}
+      {/* </TopWrap> */}
 
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="480"
+        width="330"
       />
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  width: 500px;
+  /* width: 500px;
   height: 440px;
   border: none;
   border-radius: 18px;
   box-shadow: 0px 3px 6px #00000029;
   padding: 4px 18px;
-  margin: 20px;
+  margin: 20px; */
 `;
 
 const TopWrap = styled.div`
