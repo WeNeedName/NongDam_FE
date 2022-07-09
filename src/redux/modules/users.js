@@ -54,8 +54,10 @@ export const logInDB = (user) => {
       .then((res) => {
         console.log(res);
         const token = res.headers.authorization;
+        const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
         console.log(DecodedToken);
+        sessionStorage.setItem("refreshToken",refreshToken)
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");

@@ -1,10 +1,10 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+const baseURL = "http://localhost:8080"
 const token = sessionStorage.getItem("jwtToken");
-
+const refreshToken = sessionStorage.getItem("refreshToken");
 const api = axios.create({
-  baseURL: "http://idontcare.shop",
+  baseURL: baseURL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -13,7 +13,7 @@ const api = axios.create({
 
 // form data용
 const formApi = axios.create({
-  baseURL: "http://idontcare.shop",
+  baseURL: baseURL,
   // "http://3.39.230.66",
   headers: {
     "content-type": "multipart/form-data",
@@ -22,6 +22,7 @@ const formApi = axios.create({
 
 api.interceptors.request.use(function (config) {
   config.headers.common["Authorization"] = `Bearer ${token}`;
+  config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`;
   return config;
 }); //여기까지만 있었다.
 //   function (err) {
@@ -71,8 +72,16 @@ api.interceptors.request.use(function (config) {
 
 formApi.interceptors.request.use(function (config) {
   config.headers.common["Authorization"] = `Bearer ${token}`;
+  config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`
   return config;
 });
+api.interceptors.response.use(response=>{
+  if(response.headers.authorization != undefined){
+    console.log("set New Token")
+    sessionStorage.setItem("jwtToken", response.headers.authorization);
+  }
+  return response;
+})
 
 export const apis = {
   //오늘날씨
