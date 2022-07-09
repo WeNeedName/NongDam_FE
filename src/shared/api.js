@@ -1,6 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL = "http://localhost:8080"
+const baseURL = "http://idontcare.shop"
 const token = sessionStorage.getItem("jwtToken");
 const refreshToken = sessionStorage.getItem("refreshToken");
 const api = axios.create({
