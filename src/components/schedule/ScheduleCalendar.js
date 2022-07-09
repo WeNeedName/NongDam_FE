@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // react-calendar 라이브러리
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "../../BigCalendar.css";
+import "../../BigCalendarSchedule.css";
 
 // 컴포넌트
 import Toolbar from "./ToolbarSchedule";
