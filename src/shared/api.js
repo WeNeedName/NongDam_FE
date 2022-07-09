@@ -117,9 +117,14 @@ export const apis = {
 
   //일정(schedule)
   loadSchedule: () => api.get("/schedule"),
+  loadCurrentSchedule:()=>api.get("/schedule"),
+  loadTodaySchedule: () => api.get("/schedule/today"),
   loadMonthlySchedule: (date) =>
     api.get(`/schedule/${date.year}-${date.month}`),
   addSchedule: (data) => api.post("/schedule", data),
-  editSchedule: (scheduleId) => api.put(`/schedule/${scheduleId}`),
+  editSchedule: (id, schedule) => api.put(`/schedule/${id}`,schedule),
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
+
+  //일지(worklog) (수정필요)
+  addWorkLog:(data) => formApi.post("/worklog",data)
 };

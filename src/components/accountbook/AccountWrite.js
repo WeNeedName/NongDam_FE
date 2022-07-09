@@ -64,8 +64,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
           memo: memo,
           date: selecDate,
         })
-      );
-      navigate("/accountbook");
+      ).then(toggleModal());
     }
   };
 
@@ -76,24 +75,23 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
       onBackgroundClick={toggleModal}
       onEscapeKeydown={toggleModal}
     >
-      <PriceInput
-        type="text"
-        maxLength="12"
-        onChange={(e) => {
-          inputNumberFormat(e);
-        }}
-        placeholder="0원"
-      />
-      {/* <ClearBtn
-          onClick={() => {
-            setPrice(0);
-          }}
-        >
-          x
-        </ClearBtn> */}
+      <Title>기록하기</Title>
+      <ContentWrap>
+        <ContentLabel>금액</ContentLabel>
+        <div>
+          <PriceInput
+            type="text"
+            maxLength="12"
+            onChange={(e) => {
+              inputNumberFormat(e);
+            }}
+          />
+          <WonT>원</WonT>
+        </div>
+      </ContentWrap>
 
-      <CategoryBigWrap>
-        <span>분류</span>
+      <ContentWrap>
+        <ContentLabel>분류</ContentLabel>
         <CategoryWrap>
           <Label>
             <FormCheckLeft
@@ -116,11 +114,11 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
             <FormCheckText>지출</FormCheckText>
           </Label>
         </CategoryWrap>
-      </CategoryBigWrap>
+      </ContentWrap>
 
-      <CategoryBigWrapSub>
+      <ContentWrap>
+        <ContentLabel>품목</ContentLabel>
         <div>
-          <span>품목</span>
           {checkedInputs === "" && (
             <Selec onChange={(e) => setCategory(e.target.value)}>
               <option value="">분류을 먼저 선택해주세요</option>{" "}
@@ -151,10 +149,10 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
             </Selec>
           )}
         </div>
-      </CategoryBigWrapSub>
+      </ContentWrap>
 
-      <CategoryBigWrapSub>
-        <FormLabel>날짜</FormLabel>
+      <ContentWrap>
+        <ContentLabel>날짜</ContentLabel>
         <SDatePicker
           selected={date}
           onChange={(date) => {
@@ -165,86 +163,79 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
           // minDate={new Date()}
           value={date}
         />
-      </CategoryBigWrapSub>
+      </ContentWrap>
 
-      <CategoryBigWrapSub>
-        <span>메모</span>
-        <MemoInput
-          onChange={(e) => setMemo(e.target.value)}
-          placeholder="내용을 여기에 입력하세요"
-        />
-      </CategoryBigWrapSub>
-      <DoneBtn
-        onClick={() => {
-          addAccount();
-          // navigate("/accountbook");
-        }}
-      >
-        작성완료
-      </DoneBtn>
+      <ContentWrap>
+        <ContentLabel>메모</ContentLabel>
+        <MemoInput onChange={(e) => setMemo(e.target.value)} />
+      </ContentWrap>
+      <BtnWrap>
+        <DoneBtn
+          onClick={() => {
+            addAccount();
+            // navigate("/accountbook");
+          }}
+        >
+          작성완료
+        </DoneBtn>
+        <CancelBtn>취소</CancelBtn>
+      </BtnWrap>
     </StyledModal>
-    // </Back>
   );
 };
 
 const StyledModal = Modal.styled`
-  width: 700px;
+  max-width: 300px;
+  width: 90%;
   background-color: white;
   border-radius: 10px;
   padding: 30px;
-`;
-
-const PriceInput = styled.input`
-  width: 80%;
-  font-size: 20px;
-  border: none;
-  border-bottom: 1px solid black;
-  /* padding-right: 30px; */
-  margin-bottom: 20px;
-  &::placeholder {
-    color: #ddd;
+  @media only screen and (max-width: 760px) {
+    width: 80%;
+    padding: 20px;
   }
 `;
 
-const ClearBtn = styled.button`
-  display: inline-block;
+const Title = styled.span`
   font-size: 20px;
-  width: 30px;
-  position: absolute;
-  right: 110px;
-  top: 22%;
-  transform: translatey(-50%);
-  background-color: transparent;
+  font-weight: 700;
+`;
+
+const ContentWrap = styled.span`
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0px;
+`;
+
+const ContentLabel = styled.span`
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+`;
+
+const PriceInput = styled.input`
+  width: 130px;
+  height: 24px;
+  background: #fafafa;
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
   border: none;
-  cursor: pointer;
+`;
+
+const WonT = styled.span`
+  font-size: 12px;
+  margin-left: 6px;
 `;
 
 const SDatePicker = styled(DatePicker)`
-  width: 130px;
-  height: 26px;
-  border-radius: 10px;
-  border: 1px solid black;
-  text-align: center;
-  margin-left: 20px;
-`;
-
-const FormLabel = styled.span`
-  width: 32px;
-`;
-
-const CategoryBigWrap = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 10px;
-`;
-
-const CategoryBigWrapSub = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 14px;
+  width: 160px;
+  font-size: 11px;
+  height: 24px;
+  background-color: white;
+  border: 1px solid #02113b;
+  padding: 0px 6px;
+  color: #02113b;
+  border-radius: 6px;
 `;
 
 const CategoryWrap = styled.div`
@@ -253,34 +244,36 @@ const CategoryWrap = styled.div`
 `;
 
 const FormCheckText = styled.span`
-  width: 60px;
-  height: 30px;
+  width: 40px;
+  height: 18px;
+  font-size: 10px;
   padding-bottom: 4px;
-  border-radius: 10px;
+  border-radius: 100px;
   background: transparent;
-  border: 1px solid black;
+  border: 1px solid #616161;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 8px;
+  color: #616161;
   cursor: pointer;
-  color: black;
   &:hover {
-    background-color: black;
-    color: white;
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
   }
 `;
 
 const FormCheckLeft = styled.input.attrs({ type: "radio" })`
   &:checked {
-    display: inline-block;
-    background: none;
-    text-align: center;
-    display: none;
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
   }
   &:checked + ${FormCheckText} {
-    background: black;
-    color: white;
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
   }
   display: none;
 `;
@@ -288,27 +281,52 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const Selec = styled.select`
-  margin-left: 20px;
-  width: 170px;
+  width: 160px;
+  font-size: 11px;
+  height: 24px;
   background-color: white;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid black;
-  padding-left: 10px;
+  border: 1px solid #616161;
+  padding: 0px 6px;
+  color: #616161;
+  border-radius: 6px;
 `;
 
-const MemoInput = styled.input`
-  margin-left: 20px;
+const MemoInput = styled.textarea`
+  border: 1px solid #616161;
+  border-radius: 6px;
+  height: 60px;
+  padding: 6px;
+`;
+
+const BtnWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 26px;
 `;
 
 const DoneBtn = styled.button`
-  margin-top: 30px;
-  width: 300px;
-  height: 40px;
-  background-color: black;
+  padding: 6px 16px;
+  height: 26px;
+  background: #22631c;
+  border-radius: 6px;
   color: white;
   border: none;
-  border-radius: 8px;
+  font-size: 11px;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const CancelBtn = styled.button`
+  padding: 6px 16px;
+  height: 26px;
+  background-color: transparent;
+  border-radius: 6px;
+  color: #616161;
+  border: 1px solid #616161;
+  margin-left: 6px;
+  font-size: 11px;
   &:hover {
     opacity: 0.7;
   }

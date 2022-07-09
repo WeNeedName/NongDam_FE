@@ -18,44 +18,45 @@ const AddSchedule = ({isOpen, toggleModal, scheduleId}) => {
   const [todo, setTodo] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
   const [checkedCrops, setCheckedCrops] = useState("");
-  const [cropsTodo, setCropsTodo] = useState("")
+  const [cropTodo, setCropTodo] = useState("")
   const [work, setWork] = useState("");
   const [memo, setMemo] = useState("");
   // const [startTime, setStartTime] = useState(new Date());
   // const [endTime, setEndTime] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(startDate);
-  const myCropsList = useSelector((state) => state.users.user.crops)
-
-
+  const myCropsList = useSelector((state) => state.users.user?.crops)
 
   const changeRadioWork = (e) => {
     if (e.target.checked) {
       setMemo(e.target.id);      
     }
   };
+  console.log(checkedCrops)
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
-      setCropsTodo(e.target.id);
+      setCropTodo(e.target.id);
     }
   };
 
   const addSchedule = () => {
    dispatch(
       addScheduleDB({
-        crop: cropsTodo,
+        cropId: cropTodo,
         startTime: startDateFormat,
         endTime: endDateFormat,
         toDo: memo
       })
-    )
+    ).then(
+      toggleModal()
+      );
   }
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm")
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm")
-  console.log(cropsTodo, startDateFormat, endDateFormat, memo);
+  //console.log(cropTodo, startDateFormat, endDateFormat, memo);
   
 console.log(myCropsList)
-console.log(checkedCrops)
+//console.log(checkedCrops)
 return (
     //<Back>
     <StyledModal
@@ -177,6 +178,7 @@ return (
         <DoneBtn
           onClick={()=>{
             addSchedule()
+            navigate("/schedule")
           }}>작성완료</DoneBtn>
       </Wrap>
     </StyledModal>
@@ -190,7 +192,7 @@ const StyledModal = Modal.styled`
   padding: 30px;
 `;
 
-const Wrap = styled.form`
+const Wrap = styled.div`
   width: 100%;
   height: 70%;
   display: flex;

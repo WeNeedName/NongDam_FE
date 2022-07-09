@@ -19,19 +19,20 @@ const MyPage =() => {
     return(
         <div>
             <Header />
-            <p>마이페이지입니다.</p>
-            <p onClick={() => {
-                navigate("/editmemberinfo")
-            }}>회원정보 수정</p>
+            <Container>
+                <p>마이페이지입니다.</p>
+                <p onClick={() => {
+                    navigate("/editmemberinfo")
+                }}>회원정보 수정</p>
 
-            <p onClick={() => {
-                navigate("/editpw")}}>비밀번호 변경</p>
+                <p onClick={() => {
+                    navigate("/editpw")}}>비밀번호 변경</p>
 
-            <button 
-            onClick={() => {
-                dispatch(logOutDB())
-            }}>로그아웃</button>
-
+                <button 
+                onClick={() => {
+                    dispatch(logOutDB())
+                }}>로그아웃</button>
+            </Container>        
         
         
         
@@ -39,5 +40,6 @@ const MyPage =() => {
         </div>
     )
 }
-
+const Container = styled.div`
+margin-top:100px`
 export default MyPage;

@@ -38,7 +38,7 @@ const initialState = {
 
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
-  console.log(date);
+  // console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
@@ -46,13 +46,10 @@ export const getYearMonthDB = (date) => {
 
 //월별 장부리스트 불러오기
 export const getAccountListDB = (date) => {
-  console.log(date);
   return async function (dispatch) {
-    console.log(date);
     apis
       .loadAccountBook(date)
       .then((response) => {
-        console.log(response);
         dispatch(getAccountList(response.data));
       })
       .catch((error) => {
@@ -68,7 +65,6 @@ export const getCurrentAccountListDB = () => {
     apis
       .loadCurrentAccount()
       .then((response) => {
-        console.log(response.data);
         dispatch(getAccount(response.data));
       })
       .catch((error) => {
@@ -94,10 +90,13 @@ export const addAccountDB = (account) => async (dispatch) => {
 // 장부 수정하기
 export const ModifiAccountDB = (id, account) => async (dispatch) => {
   try {
-    console.log("장부 만들 준비", account);
-    const { data } = await apis.editAccount(id, account);
-    console.log(data);
-    // dispatch(createAccount(data));
+    console.log("장부 수정 준비", account);
+    await apis.editAccount(id, account);
+
+    apis.loadCurrentAccount().then((response) => {
+      console.log(response.data);
+      dispatch(getAccount(response.data));
+    });
   } catch (error) {
     window.alert("장부 수정 중에 오류가 발생했습니다.");
     console.log(error);
@@ -124,19 +123,16 @@ export default handleActions(
   {
     [GET_YEAR_MONTH]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.yearMonth = payload.data;
       }),
 
     [GET_ACCOUNT_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.accountList = payload.list;
       }),
 
     [GET_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.currentAccount = payload.currentAccount;
       }),
 
@@ -183,38 +179,37 @@ export default handleActions(
     //   produce(state, (draft) => {
     //     console.log(state, payload);
     //     draft.currentAccount.unshift(payload.account);
-    //     draft.currentAccount = draft.currentAccount.map((account) => {
-    //       console.log(account);
-    //       if (Number(account.id) === Number(payload.account.id)) {
-    //         return {
-    //           ...account,
-    //           date: payload.account.date,
-    //           id: payload.account.id,
-    //           memo: payload.account.memo,
-    //           price: payload.account.price,
-    //           type: payload.account.type,
-    //         };
-    //       } else {
-    //         return account;
-    //       }
-    //     });
-    //     draft.accountList.unshift(payload.account);
-    //     draft.accountList = draft.accountList.map((account) => {
-    //       console.log(account);
-    //       if (Number(account.id) === Number(payload.account.id)) {
-    //         return {
-    //           ...account,
-    //           date: payload.account.date,
-    //           id: payload.account.id,
-    //           memo: payload.account.memo,
-    //           price: payload.account.price,
-    //           type: payload.account.type,
-    //         };
-    //       } else {
-    //         return account;
-    //       }
-    //     });
-    //   }),
+    //     console.log(state.currentAccount);
+
+    //   const new_account_list = draft.currentAccount.map((l, idx) => {
+    //     console.log(...l);
+    //     console.log(payload.account.id, l.id);
+    //     if (payload.account.id === l.id) {
+    //       return { ...l };
+    //     } else {
+    //       return l;
+    //     }
+    //   });
+    //   return { ...draft, currentAccount: new_account_list };
+    // }),
+
+    //   draft.accountList.unshift(payload.account);
+    //   draft.accountList = draft.accountList.map((account) => {
+    //     console.log(account);
+    //     if (Number(account.id) === Number(payload.account.id)) {
+    //       return {
+    //         ...account,
+    //         date: payload.account.date,
+    //         id: payload.account.id,
+    //         memo: payload.account.memo,
+    //         price: payload.account.price,
+    //         type: payload.account.type,
+    //       };
+    //     } else {
+    //       return account;
+    //     }
+    //   });
+    // }),
 
     [DELETE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {

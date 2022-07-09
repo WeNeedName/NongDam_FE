@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "../../BigCalendar.css";
+
 // 컴포넌트
 import Toolbar from "./ToolbarSchedule";
 import Day from "./DaySchedule";
+import { getCurrentScheduleListDB, getScheduleListDB } from "../../redux/modules/schedule";
 
 const ScheduleCalendar = () => {
   const dispatch = useDispatch();
@@ -16,31 +18,26 @@ const ScheduleCalendar = () => {
   moment.locale("ko-KR");
   const localizer = momentLocalizer(moment);
 
-  // const accountList = useSelector((state) => state.account.accountList);
-  // const yearMonth = useSelector((state) => state.account.yearMonth);
-  
-
-  // useEffect(() => {
-  //   dispatch(getAccountListDB(yearMonth));
-  // }, [dispatch]);
+  const scheduleList = useSelector((state) => state.schedule.scheduleList);
+  const yearMonth = useSelector((state) => state.schedule.yearMonth);
+  console.log(scheduleList)
+  console.log(yearMonth)
+ 
+  useEffect(() => {
+    dispatch(getScheduleListDB(yearMonth));
+  }, [dispatch]);
   
   return (
     <Calendar
-      // events={accountList.map((list, id) => {
-   
-      //   return {
-      //     title:
-      //       list.category === "수입"
-      //         ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
-      //           "+" +
-      //           String(list.price).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
-      //         : "-" +
-      //           String(list.price).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,"),
-      //     allDay: false,
-      //     start: new Date(list.date),
-      //     end: new Date(list.date),
-      //   };
-      // })}
+      events={scheduleList.map((list, id) => {
+        return {
+          title:
+            list.crop,
+          allDay: false,
+          start: new Date(list.startTime),
+          end: new Date(list.endTime),
+        };
+      })}
       localizer={localizer}
       style={{ height: 500, width: 600 }}
       components={{
