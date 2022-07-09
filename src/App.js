@@ -16,7 +16,9 @@ import EditPw from "./pages/EditPw";
 import MyPage from "./pages/MyPage";
 import OauthFilter from "./pages/OauthFilter";
 import Schedule from "./pages/Schedule";
-import AddSchedule from "./components/schedule/AddSchedule";
+// import AddSchedule from "./components/schedule/AddSchedule";
+import WorkLog from "./pages/WorkLog";
+import WirteWorkLog from "./pages/WriteWorkLog";
 
 function App() {
   return (
@@ -33,8 +35,10 @@ function App() {
         <Route path="/editmemberinfo" element={<EditMemberInfo />} />
         <Route path="/editpw" element={<EditPw />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/worklog" element={<WorkLog />} />
+        <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/addSchedule" element={<AddSchedule />} />
+        {/* <Route path="/addSchedule" element={<AddSchedule />} /> */}
         <Route path="/code/auth" element={<OauthFilter />} />
       </Routes>
     </>

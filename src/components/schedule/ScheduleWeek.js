@@ -1,40 +1,65 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import ScheduleModal from './ScheduleModal'
 
 
 const ScheduleWeek = () => {
   const [scheduleId, setScheduleId] = useState(null);
-  
+  const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false);
+  
   function toggleModal(id) {
     setOpen(!isOpen);
     setScheduleId(id);
   }
 
 
+  const currentScheduleList = useSelector(
+    (state) => state.schedule.currentSchedule
+  );
+  
+  //console.log(currentScheduleList)
+
   return (
     <Wrap>
       <div>일정 최근내역입니다.</div>
-      <AccountBox
-                //key={list.id}
-                // onClick={() => {
-                //   toggleModal();
-                // }}
-              >
-                <div>
-                  <Day>5일</Day>
-                </div>
-                <div>
-                  12:00~15:00
-                </div>
-                <BottomWrap>
-                <button>복숭아</button>   
-                </BottomWrap>
-                <BottomWrap>
-                <button>비료뿌리기</button>
-                </BottomWrap>
-              </AccountBox>
+      {currentScheduleList !== undefined ? 
+      currentScheduleList.map((sList, scheduleId) =>{
+        return(
+        <ScheduleBox
+        key={sList.id}
+        onClick={() => {
+          toggleModal(sList.id);
+        }}
+      >
+          <div>
+            <TimeSmallWrap>
+              <SmallTitle>시작일</SmallTitle>
+              <Time>{sList.startTime}</Time></TimeSmallWrap>
+            <TimeSmallWrap>
+              <SmallTitle>종료일</SmallTitle>
+              <Time>{sList.endTime}</Time>
+            </TimeSmallWrap>
+          </div>
+          <BottomWrap>
+            <button>{sList.crop}</button>   
+          </BottomWrap>
+          <BottomWrap>
+            <button>{sList.toDo}</button>
+          </BottomWrap>
+        </ScheduleBox>
+      )})
+    : null}
+    {isOpen && (
+        <ScheduleModal
+          isOpen={isOpen}
+          toggleModal={toggleModal}
+          scheduleId={scheduleId}
+          currentScheduleList={currentScheduleList}
+          
+        />
+      )}
     </Wrap>
   );
 };
@@ -49,7 +74,7 @@ const Wrap = styled.div`
   padding: 40px 0px;
 `;
 
-const AccountBox = styled.div`
+const ScheduleBox = styled.div`
   width: 300px;
   padding: 16px 20px;
   display: flex;
@@ -65,9 +90,22 @@ const AccountBox = styled.div`
   }
 `;
 
-const Day = styled.span`
+const TimeWrap = styled.div`
+flex-direction:column;
+`
+
+
+const TimeSmallWrap = styled.div`
+flex-direction: flex`
+
+const SmallTitle = styled.span`
+font-size: 20px;
+font-weight: bold;
+margin: 5px;
+`
+const Time = styled.span`
   font-size: 18px;
-  font-weight: bold;
+  
 `;
 
 const BottomWrap = styled.div`

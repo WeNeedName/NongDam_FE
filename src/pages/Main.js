@@ -21,6 +21,7 @@ const Main = () => {
         <AnalysisCard />
         <TodayNews />
         <TodayPost />
+        
       </Wrap>
     </>
   );

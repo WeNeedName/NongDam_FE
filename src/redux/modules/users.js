@@ -185,7 +185,8 @@ export default handleActions(
 
     [EDIT_INFO]: (state, action) =>
       produce(state, (draft) => {
-        //console.log(state,action)
+        console.log(state,action)
+        //draft.user = action.payload.user
       }),
 
     [GET_CROPS]: (state, action) =>
