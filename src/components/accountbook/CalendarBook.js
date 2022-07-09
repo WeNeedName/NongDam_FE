@@ -8,7 +8,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "../../BigCalendar.css";
 // 컴포넌트
-import Toolbar from "./ToolBar";
+import ToolBar from "./ToolBar";
 import Day from "./Day";
 import Event from "./Event";
 import AccountModal from "./AccountModal";
@@ -58,7 +58,7 @@ const CalendarBook = () => {
         localizer={localizer}
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
-          toolbar: Toolbar,
+          toolBar: ToolBar,
           month: {
             dateHeader: Day,
           },
