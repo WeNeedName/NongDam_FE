@@ -14,7 +14,6 @@ const ScheduleWeek = () => {
     setScheduleId(id);
   }
 
-
   const currentScheduleList = useSelector(
     (state) => state.schedule.currentSchedule
   );

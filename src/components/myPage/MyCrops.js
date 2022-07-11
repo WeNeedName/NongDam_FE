@@ -20,14 +20,14 @@ const MyCrops = ({setCrops, previousCrops}) => {
   useEffect(()=>{
     setCrops(_crops)}
     ,[selectedCrops])
-    console.log(cropsData)
+    //console.log(cropsData)
     // console.log(selectedCrops)
-    console.log(_crops)
+    //console.log(_crops)
   return (
     <Container>
       <Select
         className="react-select"
-        defaultValue= {previousCrops} //db에서 유저data 불러올 때 확인 필요함
+        defaultValue= {previousCrops} 
         isMulti
         name="crops"
         options={

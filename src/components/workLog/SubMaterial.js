@@ -3,31 +3,77 @@ import styled from "styled-components";
 import {useSelector, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const SubMaterial =() => {
+const SubMaterial =({setSubMaterialC, setSubMaterialF}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [toggleState, setToggleState] = useState(1);
+    //const [chemical, setChemical] = useState({});
+    const [typeC, setTypeC] = useState({type : 0});
+    const [productC, setProductC] = useState({productC : ""});
+    const [quantityC, setQuantityC] = useState();
+    const [unitC, setUnitC] = useState();
+    const quantityAndUnitC= quantityC+unitC
+    //console.log(quantityAndUnitC)
+    const [useC, setUseC] = useState({useC : ""}) 
+    //console.log(useC)
+    const  chemical = Object.assign(typeC, productC, useC);
+    //console.log(chemical)
 
+    //const [fertilizer, setFertilizer] = useState({});
+    const [typeF, setTypeF] = useState({type : ''});
+    const [productF, setProductF] = useState({productF : ""});
+    const [quantityF, setQuantityF] = useState();
+    const [unitF, setUnitF] = useState();
+    const quantityAndUnitF= quantityF+unitF
+    const [useF, setUseF] = useState({useF : ""}) 
+    const  fertilizer = Object.assign(typeF, productF, useF);
     const toggleTab = (index) => {
       setToggleState(index);
     };
   
+
+    useEffect(() => {
+      setUseC({useC : quantityAndUnitC})
+    },[quantityAndUnitC])
+      
+    useEffect(() => {
+      setUseF({useF : quantityAndUnitF})
+    },[quantityAndUnitF])
+
+    useEffect(()=> {
+      setSubMaterialC(chemical);   
+    },[chemical]);
+    useEffect(()=> {
+      setSubMaterialF(fertilizer)
+    },[fertilizer]);
+
+
     return(     
         <TodoContent>
             <SmallTitle>부자재 사용량</SmallTitle>
             <div className="container">
               <div className="bloc-tabs">
                 <button
-                  className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                  onClick={() => toggleTab(1)}
+                  name="type"
+                  defaultValue={chemical.type}
+                  className={toggleState === 1 ? "t1234abs active-tabs" : "tabs"}
+                  onClick={() => {
+                    toggleTab(1)
+                    setTypeC({typeC : 0})
+                  }}
                 >
                   농약
                 </button>
                 <button
+                  name="type"
                   className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                  onClick={() => toggleTab(2)}
+                  onClick={() => {
+                    toggleTab(2)
+                    setTypeF({typeF : 1})
+                  }}
                 >
                   비료
                 </button>
@@ -38,16 +84,27 @@ const SubMaterial =() => {
               >
                 <div className="innerContent">
                   <input
-                  type="text" className="inputChemical"
-                  placeholder="사용하신 농약을 입력해주세요" />
+                  type="text" 
+                  className="inputChemical"
+                  name="product"
+                  placeholder="사용하신 농약을 입력해주세요" 
+                  onChange={(e)=> setProductC({productC : e.target.value})}
+                  />
+                  
                   <div className="innerSet">
                     <input className="quantity"
                     type="text"
-                    placeholder="사용량을 입력해주세요" />
-                    <select className="measure">
-                    <option value="">ml</option>
-                    <option value="1101">l</option>
-                    <option value="2100">kg</option>
+                    name="use"
+                    placeholder="사용량을 입력해주세요" 
+                    onChange={(e)=> {setQuantityC(e.target.value)}}/>
+                    
+                    <select className="measure"
+                    name="unit"
+                    onChange={(e)=> {setUnitC(e.target.value)}}>
+                    <option value="">단위를 선택해주세요</option>
+                    <option value="ml">ml</option>
+                    <option value="l">l</option>
+                    <option value="kg">kg</option>
                     </select>
                   </div>
                 </div>
@@ -58,16 +115,24 @@ const SubMaterial =() => {
               >
                <div className="innerContent">
                   <input
-                  type="text" className="inputChemical"
+                  type="text" 
+                  name="product"
+                  className="inputChemical"
+                  onChange={(e)=> setProductF({productF : e.target.value})}
                   placeholder="사용하신 비료를 입력해주세요" />
                   <div className="innerSet">
                     <input className="quantity"
-                    type="text"
-                    placeholder="사용량을 입력해주세요" />
-                    <select className="measure">
-                    <option value="">ml</option>
-                    <option value="1101">l</option>
-                    <option value="2100">kg</option>
+                    type="text" name="use"
+                    placeholder="사용량을 입력해주세요" 
+                    onChange={(e)=> {setQuantityF(e.target.value)}}/>
+
+                    <select className="measure" 
+                    name="unit"
+                    onChange={(e)=> {setUnitF(e.target.value)}}>
+                    <option value="">단위를 선택해주세요</option>
+                    <option value="ml">ml</option>
+                    <option value="l">l</option>
+                    <option value="kg">kg</option>
                     </select>
                   </div>
                 </div>
@@ -85,9 +150,9 @@ font-weight: bold;
 `
 
 const TodoContent = styled.div`
-padding: 20px; 
+padding: 10px; 
 width: 93%;
-height: 40vh;
+height: 30vh;
 background-color: #fff;
 
 .container {

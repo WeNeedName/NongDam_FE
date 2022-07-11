@@ -58,7 +58,7 @@ const CalendarBook = () => {
         localizer={localizer}
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
-          toolBar: ToolBar,
+          toolbar: ToolBar,
           month: {
             dateHeader: Day,
           },

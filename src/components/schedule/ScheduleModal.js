@@ -126,6 +126,7 @@ const ScheduleModal = ({
             <Btn
               onClick={() => {
                 editSchedule();
+                navigate("/schedule")
               }}
             >
               수정완료

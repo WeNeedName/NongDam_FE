@@ -7,7 +7,7 @@ import moment from "moment";
 import "../../BigCalendarSchedule.css";
 
 // 컴포넌트
-import Toolbar from "./ToolbarSchedule";
+import ToolBar from "./ToolbarSchedule";
 import Day from "./DaySchedule";
 import { getCurrentScheduleListDB, getScheduleListDB } from "../../redux/modules/schedule";
 
@@ -22,26 +22,23 @@ const ScheduleCalendar = () => {
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
   console.log(scheduleList)
   console.log(yearMonth)
+  console.log(nowMonth)
  
-  useEffect(() => {
-    dispatch(getScheduleListDB(yearMonth));
-  }, [dispatch]);
-  
   return (
     <Calendar
       events={scheduleList.map((list, id) => {
         return {
           title:
             list.crop,
-          allDay: false,
-          start: new Date(list.startTime),
-          end: new Date(list.endTime),
+            allDay: false,
+            start: new Date(list.startTime),
+            end: new Date(list.endTime),
         };
       })}
       localizer={localizer}
       style={{ height: 500, width: 600 }}
       components={{
-        toolbar: Toolbar,
+        toolbar: ToolBar,
         month: {
           dateHeader: Day,
         },

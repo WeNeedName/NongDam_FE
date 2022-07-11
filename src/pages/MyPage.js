@@ -20,6 +20,8 @@ const MyPage =() => {
         <div>
             <Header />
             <Container>
+                
+                    <>
                 <p>마이페이지입니다.</p>
                 <p onClick={() => {
                     navigate("/editmemberinfo")
@@ -32,6 +34,10 @@ const MyPage =() => {
                 onClick={() => {
                     dispatch(logOutDB())
                 }}>로그아웃</button>
+                </>
+                
+
+            
             </Container>        
         
         

@@ -105,7 +105,7 @@ export const editScheduleDB = (id, data) => async (dispatch) => {
 //스케줄 삭제하기
 export const deleteScheduleDB = (id) => async (dispatch) => {
   try {
-    console.log("스케줄 삭제 준비!", id);
+    //console.log("스케줄 삭제 준비!", id);
     await apis.deleteSchedule(id);
     dispatch(deleteSchedule(id));
   } catch (err) {
@@ -115,7 +115,7 @@ export const deleteScheduleDB = (id) => async (dispatch) => {
 };
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
-  console.log(date);
+  //console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
