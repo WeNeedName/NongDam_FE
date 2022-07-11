@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+
 import { getScheduleListDB, getYearMonthDB } from "../../redux/modules/schedule";
 
-export default function Toolbar(props) {
+
+export default function ToolbarSchedule(props) {
   const dispatch = useDispatch();
   const [nowMonth, setNowMonth] = useState(null);
   const [click, setClick] = useState(false);

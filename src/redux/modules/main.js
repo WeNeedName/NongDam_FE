@@ -31,7 +31,7 @@ export const getWeatherDB = () => {
         dispatch(getWeather(response.data));
       })
       .catch((error) => {
-        window.alert("날씨정보를 불러오는 중에 오류가 발생했습니다.");
+        // window.alert("날씨정보를 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
       });
   };
@@ -45,7 +45,7 @@ export const getMarketPriceDB = () => {
         dispatch(getMarketPrice(response.data));
       })
       .catch((error) => {
-        window.alert("시세정보를 불러오는 중에 오류가 발생했습니다.");
+        // window.alert("시세정보를 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
       });
   };

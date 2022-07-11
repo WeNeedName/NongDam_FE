@@ -27,7 +27,35 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
   const filteredList =
     accountList && accountList.filter((v) => v.date === eventInfoDay);
 
-  console.log(filteredList);
+  // 숫자 콤마넣기
+  function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  }
+
+  // filteredList 에서 수입 가격의 총합
+  const filteredIncome =
+    filteredList && filteredList.filter((v) => v.category === "수입");
+  const filteredIncomePrice =
+    filteredIncome &&
+    filteredIncome.map((v) => {
+      return v.price;
+    });
+  const IncomeSum = filteredIncomePrice.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
+
+  // filteredList 에서 지출 가격의 총합
+  const filtereExpense =
+    filteredList && filteredList.filter((v) => v.category === "지출");
+  const filteredExpensePrice =
+    filtereExpense &&
+    filtereExpense.map((v) => {
+      return v.price;
+    });
+  const ExpenseSum = filteredExpensePrice.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
 
   return (
     <StyledModal
@@ -39,20 +67,13 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
       <TopWrap>
         <ListNum>총 {filteredList.length}건</ListNum>
         <PriceSumWrap>
-          {filteredList &&
-            filteredList.map((list, id) => {
-              return (
-                <>
-                  {list.category === "수입" && (
-                    <PriceSumNumIn>+ 000원</PriceSumNumIn>
-                  )}
+          {filteredIncome.length > 0 && (
+            <PriceSumNumIn>+ {comma(IncomeSum)}원</PriceSumNumIn>
+          )}
 
-                  {list.category === "지출" && (
-                    <PriceSumNumEx>- 000원</PriceSumNumEx>
-                  )}
-                </>
-              );
-            })}
+          {filtereExpense.length > 0 && (
+            <PriceSumNumEx>- {comma(ExpenseSum)}원</PriceSumNumEx>
+          )}
         </PriceSumWrap>
       </TopWrap>
 
@@ -60,7 +81,7 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
         {filteredList &&
           filteredList.map((list, id) => {
             return (
-              <>
+              <div key={list.id}>
                 <Hr />
                 <EventWrap>
                   <WhereToUseWrap>
@@ -97,7 +118,7 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
                         )}
                   </Price>
                 </EventWrap>
-              </>
+              </div>
             );
           })}
       </BodyWrap>

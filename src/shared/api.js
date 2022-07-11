@@ -1,8 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL = "http://idontcare.shop"
-const token = sessionStorage.getItem("jwtToken");
-const refreshToken = sessionStorage.getItem("refreshToken");
+const baseURL = "http://idontcare.shop";
+
 const api = axios.create({
   baseURL: baseURL,
   headers: {
@@ -21,23 +20,27 @@ const formApi = axios.create({
 });
 
 api.interceptors.request.use(function (config) {
+  const token = sessionStorage.getItem("jwtToken");
+  const refreshToken = sessionStorage.getItem("refreshToken");
   config.headers.common["Authorization"] = `Bearer ${token}`;
   config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`;
   return config;
-}); 
+});
 
 formApi.interceptors.request.use(function (config) {
+  const token = sessionStorage.getItem("jwtToken");
+  const refreshToken = sessionStorage.getItem("refreshToken");
   config.headers.common["Authorization"] = `Bearer ${token}`;
-  config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`
+  config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`;
   return config;
 });
-api.interceptors.response.use(response=>{
-  if(response.headers.authorization != undefined){
-    console.log("set New Token")
+api.interceptors.response.use((response) => {
+  if (response.headers.authorization !== undefined) {
+    console.log("set New Token");
     sessionStorage.setItem("jwtToken", response.headers.authorization);
   }
   return response;
-})
+});
 
 export const apis = {
   //오늘날씨
@@ -66,19 +69,19 @@ export const apis = {
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
 
-  editUserInfo: (id,data) => formApi.put(`/member/{memberid}`, id, data),
+  editUserInfo: (id, data) => formApi.put(`/member/{memberid}`, id, data),
   editPw: (data) => api.put(`/member/{memberid}/password`, data),
 
   loadCropsList: () => api.get("/crops"),
 
   //일정(schedule)
   loadSchedule: () => api.get("/schedule"),
-  loadCurrentSchedule:()=>api.get("/schedule"),
+  loadCurrentSchedule: () => api.get("/schedule"),
   loadTodaySchedule: () => api.get("/schedule/today"),
   loadMonthlySchedule: (date) =>
     api.get(`/schedule/${date.year}-${date.month}`),
   addSchedule: (data) => api.post("/schedule", data),
-  editSchedule: (id, schedule) => api.put(`/schedule/${id}`,schedule),
+  editSchedule: (id, schedule) => api.put(`/schedule/${id}`, schedule),
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
 
   //일지(worklog) (수정필요)
@@ -86,3 +89,4 @@ export const apis = {
   loadWorkLogList:() =>api.get("/worklog"),//확정 아님
   loadWorkLog:() =>api.get("/worklog") //확정 아님
 };
+

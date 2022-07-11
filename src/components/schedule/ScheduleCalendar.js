@@ -7,9 +7,14 @@ import moment from "moment";
 import "../../BigCalendarSchedule.css";
 
 // 컴포넌트
+
 import ToolBar from "./ToolbarSchedule";
+
 import Day from "./DaySchedule";
-import { getCurrentScheduleListDB, getScheduleListDB } from "../../redux/modules/schedule";
+import {
+  getCurrentScheduleListDB,
+  getScheduleListDB,
+} from "../../redux/modules/schedule";
 
 const ScheduleCalendar = () => {
   const dispatch = useDispatch();
@@ -20,25 +25,31 @@ const ScheduleCalendar = () => {
 
   const scheduleList = useSelector((state) => state.schedule.scheduleList);
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
+
   console.log(scheduleList)
   console.log(yearMonth)
   console.log(nowMonth)
  
+
   return (
     <Calendar
       events={scheduleList.map((list, id) => {
         return {
+
           title:
             list.crop,
             allDay: false,
             start: new Date(list.startTime),
             end: new Date(list.endTime),
+
         };
       })}
       localizer={localizer}
       style={{ height: 500, width: 600 }}
       components={{
+
         toolbar: ToolBar,
+
         month: {
           dateHeader: Day,
         },

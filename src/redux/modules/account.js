@@ -53,7 +53,7 @@ export const getAccountListDB = (date) => {
         dispatch(getAccountList(response.data));
       })
       .catch((error) => {
-        window.alert("월별 장부를 불러오는 중에 오류가 발생했습니다.");
+        // window.alert("월별 장부를 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
       });
   };
@@ -68,7 +68,7 @@ export const getCurrentAccountListDB = () => {
         dispatch(getAccount(response.data));
       })
       .catch((error) => {
-        window.alert("최근 거래내역을 불러오는 중에 오류가 발생했습니다.");
+        // window.alert("최근 거래내역을 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
       });
   };
