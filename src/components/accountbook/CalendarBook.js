@@ -39,24 +39,11 @@ const CalendarBook = () => {
     setOpen(!isOpen);
   }
 
-  function PriceSum(arr) {
-    arr.reduce((acc, cur) => {
-      return acc + cur;
-    }, 0);
-  }
-
-  // 같은 날짜 && 수입 내역만 필터링
+  // 월별 전체 내역에서 수입 내역만 필터링
   const filterAccountList = accountList.filter(
     (v, idx, arr) => v.category === "수입"
   );
 
-  // console.log(filterAccountList);
-
-  // console.log(
-  //   filterAccountList[0].filter(
-  //     (v, idx) => filterAccountList[0].indexOf(v.date) === idx
-  //   )
-  // );
   function flatten(arr) {
     const result = [];
     arr.forEach((i) => {
@@ -78,13 +65,18 @@ const CalendarBook = () => {
   //   // console.log(!copy.includes(item.date));
   // });
 
-  // let copy = new Map();
-  // flatten(filterAccountList).forEach((account) => {
-  //   if (copy.has(account.date)) {
-  //     copy.set(account.date, copy.get(account.date) + account.price);
-  //   } else copy.set(account.date, account.price);
-  // });
-  // console.log(copy);
+  let copy = new Map();
+  filterAccountList.forEach((account) => {
+    if (copy.has(account.date)) {
+      copy.set(account.date, copy.get(account.date) + account.id);
+    } else copy.set(account.date, account.id);
+  });
+  console.log(copy);
+  const filterId = copy.forEach((id) => {
+    return id;
+  });
+
+  console.log(filterId);
 
   // copy = new Map();
   // copy.set("date", copy.date);
@@ -117,11 +109,6 @@ const CalendarBook = () => {
     },
   ];
 
-  // flatten(accountList).forEach((account) => {
-  //   if (!list.includes(account)) copy.push(account);
-  //   // console.log(!copy.includes(item.date));
-  // });
-
   return (
     <>
       <Calendar
@@ -130,10 +117,6 @@ const CalendarBook = () => {
           const filteredList =
             accountList && accountList.filter((v) => v.date === list.date);
           console.log(filteredList);
-
-          // const filteredSliceList = filteredList[0].map((list) => {
-          //   return console.log(list);
-          // });
 
           // 같은 날짜의 수입 총합
           const filteredIncome = filteredList.filter(
@@ -156,17 +139,12 @@ const CalendarBook = () => {
           const ExpenseSum = filteredExpensePrice.reduce((acc, cur) => {
             return acc + cur;
           }, 0);
-          // console.log(filteredList);
-          // let copy = [];
-          // list.forEach((item) => {
-          //   if (!copy.includes(item.date)) copy.push(item);
-          // });
-          // console.log(copy);
 
           return {
             title:
               list.category === "수입"
-                ? "+" +
+                ? // && list.id === copy.id
+                  "+" +
                   String(IncomeSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
                 : list.category === "지출"
                 ? "-" +
