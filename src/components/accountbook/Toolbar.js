@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getAccountListDB, getYearMonthDB } from "../../redux/modules/account";
 
-export default function Toolbar(props) {
+export default function ToolBar(props) {
   const dispatch = useDispatch();
   const [nowMonth, setNowMonth] = useState(null);
   const [click, setClick] = useState(false);
   // const [nowYear, setNowYear] = useState(null);
 
   const { date } = props;
-  // console.log(props);
 
   const navigate = (action) => {
     props.onNavigate(action);

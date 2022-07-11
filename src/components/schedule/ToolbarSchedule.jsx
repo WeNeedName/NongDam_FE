@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getAccountListDB, getYearMonthDB } from "../../redux/modules/account";
+import "../../BigCalendarSchedule.css"
 
-export default function Toolbar(props) {
+export default function ToolbarSchedule(props) {
   const dispatch = useDispatch();
   const [nowMonth, setNowMonth] = useState(null);
   const [click, setClick] = useState(false);
