@@ -1,6 +1,8 @@
 import {React, useState, useEffect} from 'react'
 import Header from "../components/Header";
+import LoadWorkLog from "../components/workLog/LoadWorkLog"
 import styled from "styled-components";
+
 import {useSelector, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom";
 //import {logOutDB} from '../redux/modules/users'
@@ -12,7 +14,8 @@ const WorkLog =() => {
     return(
         <Container>
            <Header />
-         <p>영농일지페이지입니다.</p>
+         {/* <p>영농일지페이지입니다.</p> */}
+         <LoadWorkLog />
         <button
         onClick={()=>{
           navigate("/writeworklog")

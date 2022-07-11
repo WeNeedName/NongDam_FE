@@ -2,7 +2,7 @@ import {React, useState, useEffect} from 'react'
 import styled from "styled-components";
 import {useSelector, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom";
-
+import { getInfoDB } from "../../redux/modules/users";
 //import {logOutDB} from '../redux/modules/users'
 
 //달력
@@ -11,7 +11,7 @@ import { addDays } from "date-fns"
 import { ko } from "date-fns/esm/locale";
 import moment from "moment";
 
-const Work =() => {
+const Work =(props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -21,42 +21,33 @@ const Work =() => {
     const [cropTodo, setCropTodo] = useState("")
     const [work, setWork] = useState("");
     const [memo, setMemo] = useState("");
-    // const [startTime, setStartTime] = useState(new Date());
-    // const [endTime, setEndTime] = useState(new Date());
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(startDate);
+    const [startTime, setStartTime] = useState(new Date());
+    const [endTime, setEndTime] = useState(startTime);
+    
+    
+    //유저가 선택한 작물 불러오기  
+    useEffect(() => {
+      dispatch(getInfoDB());
+      }, []);
     const myCropsList = useSelector((state) => state.users.user?.crops)
-  
+    // console.log(myCropsList)
+    
+    
+     const changeRadioCrops = (e) => {
+      if (e.target.checked) {
+        props.setCrop(e.target.id);
+      }
+    };
+    
     const changeRadioWork = (e) => {
       if (e.target.checked) {
-        setMemo(e.target.id);      
+        setMemo(e.target.id)
+        props.setMemo(e.target.id);      
       }
     };
-    console.log(checkedCrops)
-    const changeRadioCrops = (e) => {
-      if (e.target.checked) {
-        setCropTodo(e.target.id);
-      }
-    };
-    
-    // const addSchedule = () => {
-    //  dispatch(
-    //     addScheduleDB({
-    //       cropId: cropTodo,
-    //       startTime: startDateFormat,
-    //       endTime: endDateFormat,
-    //       toDo: memo
-    //     })
-    //   ).then(
-    //     
-    //     );
-    // }
-    const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm")
-    const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm")
+    //console.log(memo)
     //console.log(cropTodo, startDateFormat, endDateFormat, memo);
     
-  console.log(myCropsList)
-
     return(
         <TodoContent>
           <CategoryBigWrap>
@@ -82,12 +73,14 @@ const Work =() => {
             </CategoryWrap>
           </CategoryBigWrap>
           <CategoryBigWrap>
-                <SmallTitle className="calender">날짜선택</SmallTitle>
+                <SmallTitle className="calender">작업시간</SmallTitle>
             <DatePickers>
               <DatePicker
                   className="startDatePicker"
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  selected={startTime}
+                  onChange={(date) => {
+                    setStartTime(date)
+                    props.setStartTime(date)}}
                   showTimeSelect
                   minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게 
                   dateFormat="yyyy-MM-dd HH:mm"// 시간 포맷 변경
@@ -96,10 +89,12 @@ const Work =() => {
               />
               <DatePicker
                   className="endDatePicker"
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
+                  selected={endTime}
+                  onChange={(date) => {
+                    setEndTime(date)
+                    props.setEndTime(date)}}
                   showTimeSelect
-                  minDate={startDate} //오늘보다 이전 날짜는 선택 못하게
+                  minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
                   dateFormat="yyyy-MM-dd HH:mm"
                   locale={ko}// 한글로 변경
                   //inline//달력 보이게 
@@ -153,15 +148,15 @@ const Work =() => {
             </CategoryWrap>
           </CategoryBigWrap>
           <CategoryBigWrap>
-          <SmallTitle className="todo">작업내용</SmallTitle>
-          <TodoInput
-            type="text"
-            defaultValue={memo}
-            onChange={(e)=>{
-              setMemo(e.target.value)
-            }}
-            placeholder="일정을 기록해주세요"
-          />
+            <SmallTitle className="todo">작업내용</SmallTitle>
+            <TodoInput
+              type="text"
+              defaultValue={memo}
+              onChange={(e)=>{
+                props.setMemo(e.target.value)
+              }}
+              placeholder="일정을 기록해주세요"
+            />
           </CategoryBigWrap>
         </TodoContent>  
         

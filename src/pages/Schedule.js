@@ -24,6 +24,7 @@ const Schedule = () => {
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
   //  상세 모달 열기
   const [isOpen, setOpen] = useState(false);
+  const isLogin = sessionStorage.getItem("jwtToken")
   function toggleModal(id) {
     setOpen(!isOpen);
   }
@@ -37,9 +38,20 @@ const Schedule = () => {
     dispatch(getCurrentScheduleListDB());
   }, [dispatch]);
 
+  
+  useEffect(() => {
+    dispatch(getScheduleListDB(yearMonth));
+  }, [dispatch]);
+  
+
+
+
+
   return (
     <Wrap>
       <Header currentPage="schedule"/>
+      {isLogin ? (
+        <>
       <CalendarWrap>
         <ScheduleCalendar />
         <AddScheduleBtn
@@ -55,6 +67,15 @@ const Schedule = () => {
       </CurrentListWrap>  
       
       {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal}/>}
+      </>
+      ): (
+      
+      
+      <Blocked>
+        <p className="plzLogin"> 로그인 회원만 이용 가능합니다.</p>
+        </Blocked>
+        
+        )}
     </Wrap>
   );
 };
@@ -126,6 +147,24 @@ const CurrentListWrap = styled.div`
     grid-row: 3 / 4;
   }
 `;
+
+const Blocked = styled.div`
+margin-top: 100px;
+width : 100vw;
+height: 100vh;
+background-color: #ffffff;
+opacity: 0.5;
+position: relative;
+
+.plzLogin{
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  font-size : 10px;
+  color : #000;
+  position: absolute;
+}
+`
 
 
 

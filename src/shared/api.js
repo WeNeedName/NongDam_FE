@@ -85,5 +85,8 @@ export const apis = {
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
 
   //일지(worklog) (수정필요)
-  addWorkLog: (data) => formApi.post("/worklog", data),
+  addWorkLog:(data) => formApi.post("/worklog",data),
+  loadWorkLogList:() =>api.get("/worklog"),//확정 아님
+  loadWorkLog:() =>api.get("/worklog") //확정 아님
 };
+
