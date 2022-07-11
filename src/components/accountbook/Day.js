@@ -7,8 +7,6 @@ export default function Day(props) {
 
   // console.log(date.getMonth() + 1);
 
-  console.log(date);
-
   return (
     <>
       <DayTopWrap className="rbc-month-row" role="rowgroup">

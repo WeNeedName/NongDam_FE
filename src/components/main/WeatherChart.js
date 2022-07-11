@@ -22,11 +22,7 @@ const WeatherChart = (props) => {
   const hourDataFormatArr = [];
   hourData &&
     hourData.map((data) => {
-      return hourDataFormatArr.push(
-        moment((data + 25200) * 1000)
-          // .tz("Asia/Seoul")
-          .format("H")
-      );
+      return hourDataFormatArr.push(moment(data * 1000).format("H"));
     });
 
   // 주간 요일 리스트
@@ -34,11 +30,7 @@ const WeatherChart = (props) => {
   const dayDataFormatArr = [];
   dayData &&
     dayData.map((data) => {
-      return dayDataFormatArr.push(
-        moment((data + 25200) * 1000)
-          // .tz("Asia/Seoul")
-          .format("dd")
-      );
+      return dayDataFormatArr.push(moment(data * 1000).format("dd"));
     });
 
   // 기온, 강수확률 배열
