@@ -116,7 +116,49 @@ const CalendarBook = () => {
       category: "수입",
     },
   ];
-
+  const convertCalendarData=(datas)=>{
+    let mappedData = new Map();
+      datas.map(data=>{
+        let original;
+        let insertData = [];
+        if(mappedData.has(data.date))
+          original = mappedData.get(data.date);
+        else
+          original = [0,0];
+        if(data.type < 3){
+          insertData.push(original[0]+data.price);
+          insertData.push(original[1]);
+        }else{
+          insertData.push(original[0]);
+          insertData.push(original[1]+data.price);
+        }
+        mappedData.set(data.date,insertData);
+      });
+    let convertedData = [];
+      Array.from(mappedData.keys()).map(key=>{
+        const value = mappedData.get(key);
+        if(value[0] > 0){
+          convertedData.push({
+            title:
+                "+" + String(value[0]).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,"),
+            allDay: false,
+            start: new Date(key),
+            end: new Date(key),
+          });
+        }
+        if(value[1] > 0){
+          convertedData.push({
+            title:
+                "-" + String(value[1]).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,"),
+            allDay: false,
+            start: new Date(key),
+            end: new Date(key),
+          });
+        }
+      });
+      console.log(convertedData)
+      return convertedData;
+  }
   // flatten(accountList).forEach((account) => {
   //   if (!list.includes(account)) copy.push(account);
   //   // console.log(!copy.includes(item.date));
@@ -125,58 +167,59 @@ const CalendarBook = () => {
   return (
     <>
       <Calendar
-        events={accountList.map((list, id) => {
-          // 같은 날짜인 내역만 필터링
-          const filteredList =
-            accountList && accountList.filter((v) => v.date === list.date);
-          console.log(filteredList);
-
-          // const filteredSliceList = filteredList[0].map((list) => {
-          //   return console.log(list);
-          // });
-
-          // 같은 날짜의 수입 총합
-          const filteredIncome = filteredList.filter(
-            (v) => v.category === "수입"
-          );
-          const filteredIncomePrice = filteredIncome.map((v) => {
-            return v.price;
-          });
-          const IncomeSum = filteredIncomePrice.reduce((acc, cur) => {
-            return acc + cur;
-          }, 0);
-
-          // 같은 날짜의 지출 총합
-          const filtereExpense = filteredList.filter(
-            (v) => v.category === "지출"
-          );
-          const filteredExpensePrice = filtereExpense.map((v) => {
-            return v.price;
-          });
-          const ExpenseSum = filteredExpensePrice.reduce((acc, cur) => {
-            return acc + cur;
-          }, 0);
-          // console.log(filteredList);
-          // let copy = [];
-          // list.forEach((item) => {
-          //   if (!copy.includes(item.date)) copy.push(item);
-          // });
-          // console.log(copy);
-
-          return {
-            title:
-              list.category === "수입"
-                ? "+" +
-                  String(IncomeSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
-                : list.category === "지출"
-                ? "-" +
-                  String(ExpenseSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
-                : null,
-            allDay: false,
-            start: new Date(list.date),
-            end: new Date(list.date),
-          };
-        })}
+          events={convertCalendarData(accountList)}
+        // events={accountList.map((list, id) => {
+        //   // 같은 날짜인 내역만 필터링
+        //   const filteredList =
+        //     accountList && accountList.filter((v) => v.date === list.date);
+        //   console.log(filteredList);
+        //
+        //   // const filteredSliceList = filteredList[0].map((list) => {
+        //   //   return console.log(list);
+        //   // });
+        //
+        //   // 같은 날짜의 수입 총합
+        //   const filteredIncome = filteredList.filter(
+        //     (v) => v.category === "수입"
+        //   );
+        //   const filteredIncomePrice = filteredIncome.map((v) => {
+        //     return v.price;
+        //   });
+        //   const IncomeSum = filteredIncomePrice.reduce((acc, cur) => {
+        //     return acc + cur;
+        //   }, 0);
+        //
+        //   // 같은 날짜의 지출 총합
+        //   const filtereExpense = filteredList.filter(
+        //     (v) => v.category === "지출"
+        //   );
+        //   const filteredExpensePrice = filtereExpense.map((v) => {
+        //     return v.price;
+        //   });
+        //   const ExpenseSum = filteredExpensePrice.reduce((acc, cur) => {
+        //     return acc + cur;
+        //   }, 0);
+        //   // console.log(filteredList);
+        //   // let copy = [];
+        //   // list.forEach((item) => {
+        //   //   if (!copy.includes(item.date)) copy.push(item);
+        //   // });
+        //   // console.log(copy);
+        //
+        //   return {
+        //     title:
+        //       list.category === "수입"
+        //         ? "+" +
+        //           String(IncomeSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
+        //         : list.category === "지출"
+        //         ? "-" +
+        //           String(ExpenseSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,")
+        //         : null,
+        //     allDay: false,
+        //     start: new Date(list.date),
+        //     end: new Date(list.date),
+        //   };
+        // })}
         localizer={localizer}
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
