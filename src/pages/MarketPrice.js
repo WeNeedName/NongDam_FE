@@ -57,6 +57,16 @@ const MarketPrice = () => {
             </SelecWrap>
           </CategoryWrap>
           <MarketPriceCard />
+
+          <BottomWrap>
+            <Title>내 작물 시세 추이</Title>
+            <MyCropsChartWrap>
+              <MarketPriceCard />
+              <MarketPriceCard />
+              <MarketPriceCard />
+              <MarketPriceCard />
+            </MyCropsChartWrap>
+          </BottomWrap>
         </BodyWrap>
       </Wrap>
     </div>
@@ -110,8 +120,20 @@ const Selec = styled.select`
   color: #616161;
   border-radius: 6px;
   .react-select {
-    width: 60%;
+    width: 200px;
   }
+`;
+
+const BottomWrap = styled.div`
+  margin-top: 30px;
+`;
+
+const MyCropsChartWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
 `;
 
 export default MarketPrice;

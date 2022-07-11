@@ -159,7 +159,7 @@ const PriceSumNumIn = styled.span`
 
 const PriceSumNumEx = styled.span`
   font-size: 11px;
-  color: #02113b;
+  color: #eb3333;
   margin-left: 8px;
 `;
 
@@ -211,7 +211,7 @@ const MemoT = styled.span`
 
 const Price = styled.span`
   font-size: 14px;
-  color: ${(props) => (props.category === "수입" ? "#2399DC" : "#02113B")};
+  color: ${(props) => (props.category === "수입" ? "#2399DC" : "#EB3333")};
 `;
 
 export default EventModal;

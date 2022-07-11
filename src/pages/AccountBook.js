@@ -10,7 +10,7 @@ import Profile from "../images/Profile.png";
 // 컴포넌트
 import Header from "../components/Header";
 import AccountWeek from "../components/accountbook/AccountWeek";
-import CalendarBook from "../components/accountbook/CalendarBook";
+import CalendarBook from "../components/accountbook/AccountCalendar";
 import AccountWrite from "../components/accountbook/AccountWrite";
 
 const AccountBook = () => {

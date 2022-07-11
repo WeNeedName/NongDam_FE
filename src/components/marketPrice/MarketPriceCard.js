@@ -59,7 +59,7 @@ const MarketPriceCard = () => {
 };
 
 const Wrap = styled.div`
-  max-width: 500px;
+  width: 400px;
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -68,6 +68,7 @@ const Wrap = styled.div`
   flex-direction: column;
   background-color: #fff;
   margin-top: 30px;
+  margin-right: 20px;
 `;
 
 const RowWrap = styled.div`

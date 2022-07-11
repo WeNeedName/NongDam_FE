@@ -44,6 +44,8 @@
     "save": "^2.5.0",
     "styled-components": "^5.3.5",
     "styled-react-modal": "^3.0.0",
+    "sweetalert2": "^11.4.20",
+    "sweetalert2-react-content": "^5.0.1",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.0"
   },

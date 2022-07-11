@@ -12,6 +12,9 @@ import { ko } from "date-fns/esm/locale";
 // 날짜 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const AccountModal = ({
   isOpen,
@@ -75,6 +78,33 @@ const AccountModal = ({
     });
   };
 
+  const deleteAccount = () => {
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#318F27",
+      cancelButtonColor: "#ddd",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteAccountDB(account.id));
+        toggleModal();
+        Swal.fire({
+          title: "삭제가 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+      }
+    });
+  };
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -112,13 +142,7 @@ const AccountModal = ({
               <Btn onClick={toggleEditModal}>수정</Btn>
               <Btn
                 onClick={() => {
-                  const result = window.confirm(
-                    "삭제하시겠습니까? 삭제한 내역은 되돌릴 수 없습니다."
-                  );
-                  if (result) {
-                    dispatch(deleteAccountDB(account.id));
-                    toggleModal();
-                  }
+                  deleteAccount();
                 }}
               >
                 삭제

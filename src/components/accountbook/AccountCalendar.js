@@ -39,6 +39,8 @@ const CalendarBook = () => {
     setOpen(!isOpen);
   }
 
+  console.log(accountList);
+
   // accountList 가공
   const convertCalendarData = (accountList) => {
     let mappedData = new Map();
@@ -59,6 +61,7 @@ const CalendarBook = () => {
         insertData.push(original[0]);
         insertData.push(original[1] + list.price);
       }
+      console.log(mappedData);
       // mappedData = {key :"2022-07-14" vaue:[10000, 0]}
       mappedData.set(list.date, insertData);
     });
@@ -89,6 +92,7 @@ const CalendarBook = () => {
         });
       }
     });
+
     return convertedData;
   };
 
