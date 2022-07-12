@@ -86,7 +86,7 @@ const EditMemberInfo = () => {
         },
       })
     };
-    console.log(userInfo?.countryCode)
+    //console.log(userInfo?.countryCode)
     return (
       <Wrap>
           <Title>기본 정보</Title>
