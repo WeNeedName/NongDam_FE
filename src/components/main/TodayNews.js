@@ -14,8 +14,8 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 20px;
-  grid-column: 3 / 4;
-  grid-row: 6 / 7;
+  grid-column: 4 / 5;
+  grid-row: 2 / 5;
   background-color: #fff;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;

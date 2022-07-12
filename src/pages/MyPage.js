@@ -1,9 +1,9 @@
-import {React, useState, useEffect} from 'react'
+import { React, useState, useEffect } from "react";
 import Header from "../components/Header";
 import MyPageMenu from "../components/myPage/MyPageMenu";
 import EditMemberInfo from './EditMemberInfo'
 import styled from "styled-components";
-import {useSelector, useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInfoDB } from "../redux/modules/users";
 
@@ -63,3 +63,4 @@ column-gap: 60px;
 
 
 export default MyPage;
+

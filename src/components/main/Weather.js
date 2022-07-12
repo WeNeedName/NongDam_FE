@@ -85,7 +85,7 @@ const Wrap = styled.div`
   border-radius: 10px;
   padding: 20px;
   grid-column: 2 / 3;
-  grid-row: 2 / 5;
+  grid-row: 2 / 6;
   background-color: #fff;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
@@ -127,6 +127,7 @@ const Region = styled.span`
   font-weight: 400;
   font-size: 1rem;
   line-height: 24px;
+  margin-bottom: 8px;
 `;
 
 const IconWrap = styled.div`
@@ -156,8 +157,8 @@ const WeatherT = styled.span`
 `;
 
 const Icon = styled.div`
-  width: 110px;
-  height: 110px;
+  width: 90px;
+  height: 90px;
   background-image: url(${(props) => props.iconURL});
   /* background-image: url(http://openweathermap.org/img/wn/03d@2x.png); */
   background-position: center 30%;

@@ -8,11 +8,13 @@ import { addAccountDB } from "../../redux/modules/account";
 // 날짜 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
-
 // 날짜 선택 라이브러리
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
   const navigate = useNavigate();
@@ -50,6 +52,8 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
 
   const selecDate = moment(date).format("YYYY-MM-DD");
 
+  const MySwal = withReactContent(Swal);
+
   const addAccount = () => {
     if (realPrice === 0) {
       window.alert("금액을 입력해주세요.");
@@ -64,9 +68,22 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
           memo: memo,
           date: selecDate,
         })
-      ).then(toggleModal());
+      ).then(() => {
+        toggleModal();
+      });
     }
   };
+
+  // MySwal.fire({
+  //   title: <h5>작성이 완료되었습니다.</h5>,
+  //   icon: "success",
+  //   showConfirmButton: false,
+  //   timer: 1500,
+  //   color: "#black",
+  //   padding: "10px",
+  //   width: "400px",
+  //   height: "200px",
+  // });
 
   return (
     // <Back>

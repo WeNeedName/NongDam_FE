@@ -37,22 +37,23 @@ const Expense = () => {
         offsetX: 0,
         offsetY: 0,
         style: {
-          fontSize: "14px",
+          fontSize: "12px",
           fontFamily: "Noto Sans KR",
           fontWeight: "700",
           colors: [
-            "#02113B",
-            "#02113B",
-            "#02113B",
-            "#02113B",
-            "#02113B",
-            "#02113B",
-            "#02113B",
-            "#02113B",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
           ],
         },
         dropShadow: {
-          enabled: false,
+          enabled: true,
+          color: "#aaa",
         },
       },
 
@@ -119,18 +120,25 @@ const Expense = () => {
         type="donut"
         width="230"
       />
+      <Legend>
+        <span>비료</span>
+        <span>종자/종묘</span>
+        <span>농약</span>
+        <span>농기계</span>
+        <span>기타 농자재</span>
+        {/* <span>유통비 및 판매 경비</span>
+        <span>고용노동비</span>
+        <span>임차료</span>
+        <span>수도광열비</span>
+        <span>기타 지출</span> */}
+      </Legend>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  /* width: 500px;
-  height: 440px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px; */
+  display: flex;
+  flex-direction: row;
 `;
 
 const TopWrap = styled.div`
@@ -138,6 +146,15 @@ const TopWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+const Legend = styled.div`
+  display: flex;
+  flex-direction: column;
+  span {
+    font-size: 8px;
+    margin: 2px;
+  }
 `;
 
 export default Expense;

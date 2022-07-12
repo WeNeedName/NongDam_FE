@@ -43,13 +43,15 @@ api.interceptors.response.use((response) => {
 });
 
 export const apis = {
-  //오늘날씨
+  //메인페이지
+  // 날씨
   loadWeather: () => api.get("/weather"),
   // 시세
-  loadMarketPrice: () => api.get("/marketprice"),
-
+  loadMarketPrice: (data) => api.post("/marketprice", data),
   // 매출통계
   loadSales: () => api.get("/data"),
+  // 오늘일정
+  loadTodaySchedule: () => api.get("/schedule/today"),
 
   //장부
   loadAccountBook: (date) => api.get(`accountbook/${date.year}-${date.month}`),
@@ -75,7 +77,6 @@ export const apis = {
   //일정(schedule)
   loadSchedule: () => api.get("/schedule"),
   loadCurrentSchedule: () => api.get("/schedule"),
-  loadTodaySchedule: () => api.get("/schedule/today"),
   loadMonthlySchedule: (date) =>
     api.get(`/schedule/${date.year}-${date.month}`),
   addSchedule: (data) => api.post("/schedule", data),
@@ -83,8 +84,7 @@ export const apis = {
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
 
   //일지(worklog) (수정필요)
-  addWorkLog:(data) => formApi.post("/worklog",data),
-  loadWorkLogList:() =>api.get("/worklog"),//확정 아님
-  loadWorkLog:() =>api.get("/worklog") //확정 아님
+  addWorkLog: (data) => formApi.post("/worklog", data),
+  loadWorkLogList: () => api.get("/worklog"), //확정 아님
+  loadWorkLog: () => api.get("/worklog"), //확정 아님
 };
-

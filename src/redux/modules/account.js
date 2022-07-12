@@ -3,6 +3,11 @@ import { produce } from "immer";
 import { apis } from "../../shared/api";
 import moment from "moment";
 import "moment/locale/ko";
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 // Action
 const GET_ACCOUNT_LIST = "GET_ACCOUNT_LIST";
@@ -81,6 +86,16 @@ export const addAccountDB = (account) => async (dispatch) => {
     const { data } = await apis.addAccount(account);
     console.log(data);
     dispatch(createAccount(data));
+    Swal.fire({
+      title: "작성이 완료되었습니다.",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1300,
+      color: "#black",
+      padding: "20px",
+      width: "400px",
+      height: "200px",
+    });
   } catch (error) {
     window.alert("장부 등록 중에 오류가 발생했습니다.");
     console.log(error);
@@ -96,6 +111,17 @@ export const ModifiAccountDB = (id, account) => async (dispatch) => {
     apis.loadCurrentAccount().then((response) => {
       console.log(response.data);
       dispatch(getAccount(response.data));
+
+      MySwal.fire({
+        title: <h5>수정이 완료되었습니다.</h5>,
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        color: "#black",
+        padding: "10px",
+        width: "400px",
+        height: "200px",
+      });
     });
   } catch (error) {
     window.alert("장부 수정 중에 오류가 발생했습니다.");
@@ -109,6 +135,7 @@ export const deleteAccountDB = (id) => {
   return async function (dispatch) {
     try {
       console.log("장부를 삭제할거야!");
+
       await apis.deleteAccount(id);
       dispatch(deleteAccount(id));
     } catch (error) {

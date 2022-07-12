@@ -22,6 +22,32 @@ const Income = () => {
       legend: {
         show: false,
       },
+      dataLabels: {
+        enabled: true,
+        textAnchor: "right",
+        distributed: true,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          fontSize: "12px",
+          fontFamily: "Noto Sans KR",
+          fontWeight: "700",
+          colors: [
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+          ],
+        },
+        dropShadow: {
+          enabled: true,
+          color: "#aaa",
+        },
+      },
       responsive: [
         {
           breakpoint: 480,
@@ -82,18 +108,27 @@ const Income = () => {
         type="donut"
         width="230"
       />
+      <Legend>
+        <span>농산물 판매</span>
+        <span>정부보조금</span>
+        <span>기타수입</span>
+      </Legend>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  /* width: 500px;
-  height: 440px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px; */
+  display: flex;
+  flex-direction: row;
+`;
+
+const Legend = styled.div`
+  display: flex;
+  flex-direction: column;
+  span {
+    font-size: 8px;
+    margin: 2px;
+  }
 `;
 
 export default Income;

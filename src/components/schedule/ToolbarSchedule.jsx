@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-
-import { getScheduleListDB, getYearMonthDB } from "../../redux/modules/schedule";
-
+import { getAccountListDB, getYearMonthDB } from "../../redux/modules/account";
 
 export default function ToolbarSchedule(props) {
   const dispatch = useDispatch();
@@ -28,19 +26,13 @@ export default function ToolbarSchedule(props) {
   const YYMM = { month: month, year: year };
   console.log(YYMM);
 
-  const scheduleList = useSelector((state) => state.schedule.scheduleList);
-  console.log(scheduleList);
+  const accountList = useSelector((state) => state.account.accountList);
+  console.log(accountList);
   
-  useEffect(() => {
-    dispatch(getScheduleListDB(YYMM));
-    dispatch(getYearMonthDB(YYMM));
-  }, [click]);
-  useEffect(() => {
-    dispatch(getScheduleListDB(YYMM));
-    
-  }, [dispatch]);
-
-
+  // useEffect(() => {
+  //   dispatch(getAccountListDB(YYMM));
+  //   dispatch(getYearMonthDB(YYMM));
+  // }, [click]);
 
   return (
     <div className="rbc-toolbar">

@@ -30,6 +30,7 @@ export default function Day(props) {
     </>
   );
 }
+
 const DayTopWrap = styled.div`
   /* border-top: 1px solid #ddd; */
   width: 100%;

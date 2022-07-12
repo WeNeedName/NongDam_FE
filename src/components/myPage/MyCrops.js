@@ -6,17 +6,18 @@ import Select from "react-select";
 import { isDayjs } from "dayjs";
 import { toBeChecked } from "@testing-library/jest-dom/dist/matchers";
 
-const MyCrops = ({setCrops, previousCrops}) => {
+const MyCrops = ({ setCrops, previousCrops }) => {
   const dispatch = useDispatch();
   const [selectedCrops, setSelectedCrops] = useState([]);
   const cropsData = useSelector((state) => state.users.crops);
-  
+
   useEffect(() => {
     dispatch(getCropsListDB());
   }, []);
 
   const _crops = [];
   selectedCrops.filter((v) => _crops.push(v.value));
+
   
   useEffect(()=>{
     setCrops(_crops)}
@@ -33,6 +34,7 @@ const MyCrops = ({setCrops, previousCrops}) => {
 console.log(beforeCrops)
     console.log(_crops)
     console.log(previousCrops)
+
   return (
     <Container>
       <Select
