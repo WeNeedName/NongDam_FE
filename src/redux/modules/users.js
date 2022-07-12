@@ -26,7 +26,7 @@ const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 const getInfo = createAction(GET_INFO, (user) => ({ user }));
 const editInfo = createAction(EDIT_INFO, (user) => ({ user }));
-const editPw = createAction(EDIT_PW, (user) => ({ user }));
+const changePw = createAction(EDIT_PW, (user) => ({ user }));
 const getCropsList = createAction(GET_CROPS, (data) => ({ data }));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
 
@@ -73,7 +73,11 @@ export const logInDB = (user) => {
         // localStorage.setItem("nickname", DecodedToken.nickname);
       })
       .catch((err) => {
-        window.alert("잘못된 로그인 정보 입니다.");
+        let code = err.response.status;
+        if(code == 403)
+          window.alert("이메일 인증완료가 필요합니다.")
+        else
+          window.alert("잘못된 로그인 정보 입니다.");
         console.log(err);
       });
   };
@@ -128,8 +132,11 @@ export const editInfoDB = (user) => {
 //비밀번호변경
 export const editPwDB = (user) => {
   return async function (dispatch) {
-    await apis.editPw(user).then((res) => {
-      console.log(res).catch((err) => {
+    await apis.editPw(user)
+    .then((res) => {
+      console.log(res)
+      dispatch(changePw(res.data))
+      .catch((err) => {
         console.log(err);
       });
     });

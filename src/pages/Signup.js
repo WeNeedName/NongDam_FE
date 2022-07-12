@@ -67,7 +67,11 @@ const Signup = () => {
       nickname: userNickname,
       name: userName,
     };
-    dispatch(signUpDB(userInfo)).then(navigate("/login"));
+    dispatch(signUpDB(userInfo)).then(res => {
+      window.alert("회원가입이 완료되었습니다. 입력하신 이메일에서 메일 인증후 이용 가능합니다.")
+      navigate("/login")
+    })
+      
     //     if(userNickname?.response?.status === 400) {
     //         setNicknameErr(true);
     //         window.alert(userNickname?.response?.data);

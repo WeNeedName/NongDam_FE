@@ -62,13 +62,11 @@ export const apis = {
   logIn: (data) => api.post("/member/login", data),
   // nicknameCheck: (userNickname) =>
   //   api.get(`/api/user/nicknameCheck/${userNickname}`, { userNickname }),
-
   signUp: (data) => api.post("/member", data),
   kakaoLogIn: (data) => api.post("/member/auth", data),
   logout: () => api.post("/"),
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
-
   editUserInfo: (id, data) => formApi.put(`/member/{memberid}`, id, data),
   editPw: (data) => api.put(`/member/{memberid}/password`, data),
 
