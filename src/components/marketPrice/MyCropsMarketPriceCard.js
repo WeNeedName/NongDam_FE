@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
-
 // 컴포넌트
-import MarketPriceMonthChart from "./MarketPriceMonthChart";
-import MarketPriceYearChart from "./MarketPriceYearChart";
+import MarketPriceMonthChart from "./MyCropsMonthChart";
+import MarketPriceYearChart from "./MyCropsYearChart";
 
-const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
+const MarketPriceCard = () => {
   const navigate = useNavigate();
   const [checkedInputs, setCheckedInputs] = useState("month");
 
@@ -18,66 +16,23 @@ const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
       setCheckedInputs(e.target.id);
     }
   };
-
-  const customStyles = {
-    container: () => ({
-      // width: 100,
-      border: "1px solid black",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: "1px dotted pink",
-      color: state.isSelected ? "green" : "black",
-      padding: 10,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      width: 200,
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = "opacity 300ms";
-
-      return { ...provided, opacity, transition };
-    },
-  };
-
   return (
     <Wrap>
-      <CategoryT>📈 작물 조회</CategoryT>
-      <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
-      <Region>가락양재양곡시장</Region>
-      {/* <Selec onChange={(e) => setCategory(e.target.value)}>
-                {cropsData !== undefined
-                  ? cropsData.map((crops) => {
-                      return <option value={crops.id}>{crops.name}</option>;
-                      // { label: crops.name, value: crops.id };
-                    })
-                  : null}
-              </Selec> */}
-      <StyledSelect
-        // styles={customStyles}
-        name="crops"
-        placeholder={"작물을 검색해보세요"}
-        options={
-          cropsData !== undefined
-            ? cropsData.map((crops) => {
-                return { label: crops.name, value: crops.id };
-              })
-            : null
-        }
-        classNamePrefix="react-select"
-        onChange={(value) => {
-          setSelectedCrops(value);
-        }}
-      />
+      <div>
+        <RowWrap>
+          <CategoryT>가락양재양곡시장</CategoryT>
+          <Hr />
+          <CategoryT>벼 - 흑미</CategoryT>
+        </RowWrap>
+      </div>
+
       <CategoryChartWrap>
         <CategoryWrap>
           <Label>
             <FormCheckLeft
               type="radio"
               id="month"
-              name="AllCropsCaterory"
+              name="MyCropsCaterory"
               onChange={changeRadio}
               value={checkedInputs}
               defaultChecked
@@ -88,7 +43,7 @@ const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
             <FormCheckLeft
               type="radio"
               id="year"
-              name="AllCropsCaterory"
+              name="MyCropsCaterory"
               onChange={changeRadio}
               value={checkedInputs}
             />
@@ -104,7 +59,8 @@ const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
 };
 
 const Wrap = styled.div`
-  width: 90%;
+  width: 400px;
+  height: 100%;
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -112,22 +68,22 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  @media only screen and (max-width: 760px) {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-  }
+  margin-right: 20px;
 `;
 
-const Region = styled.div`
-  font-size: 12px;
-  font-weight: 700;
-  margin: 10px 0px;
+const RowWrap = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
-const SubTitle = styled.span`
-  margin: 4px 0px;
+const Hr = styled.div`
+  width: 1px;
+  height: 10px;
+  border-right: 1.6px solid black;
+  /* margin-top: 6px; */
+  margin: 2px 4px 0px 4px;
 `;
 
 const CategoryChartWrap = styled.div`
@@ -143,13 +99,13 @@ const CategoryChartWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1rem;
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
-  /* margin: 8px 0px; */
+  margin: 8px 0px;
 `;
 
 const FormCheckText = styled.span`
@@ -185,11 +141,5 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label``;
-
-const StyledSelect = styled(Select)`
-  width: 200px;
-  height: 30px;
-  margin: 0px 0px 20px 0px;
-`;
 
 export default MarketPriceCard;

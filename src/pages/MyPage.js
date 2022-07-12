@@ -17,7 +17,7 @@ const MyPage = () => {
   //     navigate("/");
   // }
   return (
-    <div>
+    <Wrap>
       <Header />
       <p>마이페이지입니다.</p>
       <p
@@ -43,8 +43,12 @@ const MyPage = () => {
       >
         로그아웃
       </button>
-    </div>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  margin-top: 70px;
+`;
 
 export default MyPage;

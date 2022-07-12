@@ -154,7 +154,7 @@ const AnalysisSalesChart = () => {
             options={state.options}
             series={state.series}
             type="line"
-            height={84 + "%"}
+            height={100 + "%"}
           />
           <YasisLabelBox>
             <YasisLabelWrap>
@@ -183,6 +183,7 @@ const AnalysisSalesChart = () => {
 
 const ChartWrap = styled.div`
   width: 100%;
+  height: 60%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;

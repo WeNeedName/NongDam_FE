@@ -1,42 +1,55 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Select from "react-select";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { getMarketPriceDB } from "../../redux/modules/main";
+import { getCropsListDB } from "../../redux/modules/users";
+import { getInfoDB } from "../../redux/modules/users";
 
-import MarketPriceChart from "./MarketPriceChart";
-
-const MarketPriceCard = () => {
+const TodayMarketPrice = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const marketPriceData = useSelector((state) => state.main.marketPrice);
+  const cropsData = useSelector((state) => state.users.crops);
+  const userInfo = useSelector((state) => state.users.user);
 
-  const [kg, setKg] = useState(0);
+  const [selectedCrops, setSelectedCrops] = useState(21);
+  const [selectedRadio, setSelectedRadio] = useState("소매");
+
+  useEffect(() => {
+    dispatch(getMarketPriceDB(marketPriceCategory));
+    dispatch(getCropsListDB());
+  }, [selectedCrops, selectedRadio]);
+
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
+
+  const marketPriceCategory = {
+    productClsCode: selectedRadio,
+    gradeRank: "상품",
+    cropId: selectedCrops,
+  };
+
+  console.log(userInfo);
+  console.log(marketPriceData);
+
   // 숫자에 콤마넣기
   function comma(str) {
     str = String(str);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
-  // 숫자만 입력가능
-  function uncomma(str) {
-    str = String(str);
-    return str.replace(/[^\d]+/g, "");
-  }
-  // console.log(kg);
 
-  function inputNumberFormat(e) {
-    e.target.value = uncomma(e.target.value);
-    setKg(e.target.value);
-  }
-
-  const sellingPrice = Number(kg * 300);
-  // console.log(sellingPriceMin, sellingPrice, String(sellingPrice).split("."));
-  console.log(
-    sellingPrice,
-    String(sellingPrice).slice(0, -4) + "만",
-    String(sellingPrice).slice(-4, -3) + "천원",
-    String(sellingPrice).slice(-3) + "원"
-  );
+  const changeRadio = (e) => {
+    setSelectedRadio(e.target.value);
+    console.log(e.target.value);
+  };
+  console.log(selectedRadio);
+  console.log(selectedCrops);
   return (
     <Wrap>
-      <BoxWrap>
+      <TopWrap>
         <Title>📈 오늘의 시세</Title>
         <ShowMoreBtn
           onClick={() => {
@@ -45,71 +58,68 @@ const MarketPriceCard = () => {
         >
           더 보기 &gt;
         </ShowMoreBtn>
-      </BoxWrap>
-      <BoxBodyWrap>
-        <WrapLeft>
-          <div>
-            <RowWrap>
-              <CategoryT>가락양재양곡시장</CategoryT>
-              <Hr />
-              <CategoryT>벼 - 흑미</CategoryT>
-            </RowWrap>
-            <PriceWrap>
-              <TodayPrice>{comma(300)}</TodayPrice>
-              <TodayPriceT>원/kg</TodayPriceT>
-            </PriceWrap>
-          </div>
+      </TopWrap>
 
-          <WrapLeftBottom>
-            <CategoryT>예상 판매 금액</CategoryT>
-            <SumWrap>
-              <KgInput
-                onChange={(e) => {
-                  inputNumberFormat(e);
-                }}
-                placeholder="0"
-                maxLength={6}
-              />
-              <TodayPriceSumT>kg</TodayPriceSumT>
-              <Sum>=</Sum>
-              <TodayPriceSum>
-                {/* {comma(Math.floor(kg * 0.03)) > 0
-                  ? sellingPrice
-                  : comma(Math.floor(kg * 0.3))} */}
-              </TodayPriceSum>
-              <SellingPrice>
-                {sellingPrice < 1000
-                  ? kg * 300 + "원"
-                  : sellingPrice < 10000
-                  ? comma(Math.floor(kg * 0.3)) +
-                    "천" +
-                    " " +
-                    String(sellingPrice).slice(-3) +
-                    "원"
-                  : String(sellingPrice).slice(-4, -3) === "0" &&
-                    String(sellingPrice).slice(0, -4).length < 3
-                  ? String(sellingPrice).slice(0, -4) +
-                    "만" +
-                    " " +
-                    String(sellingPrice).slice(-3) +
-                    "원"
-                  : String(sellingPrice).slice(0, -4).length < 3
-                  ? String(sellingPrice).slice(0, -4) +
-                    "만" +
-                    " " +
-                    String(sellingPrice).slice(-4, -3) +
-                    "천원"
-                  : comma(String(sellingPrice).slice(0, -4)) + "만원"}
-              </SellingPrice>
-            </SumWrap>
-            <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
-          </WrapLeftBottom>
-        </WrapLeft>
-        <WrapRight>
-          <ChartTitle>월별 평균 시세</ChartTitle>
-          <MarketPriceChart />
-        </WrapRight>
-      </BoxBodyWrap>
+      <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
+      <Region>
+        {marketPriceData &&
+          marketPriceData.country + " " + marketPriceData.wholesale + "시장"}
+      </Region>
+      <SelecWrap>
+        <StyledSelect
+          name="crops"
+          placeholder={"작물을 검색해보세요"}
+          options={
+            cropsData !== undefined
+              ? cropsData.map((crops) => {
+                  return { label: crops.name, value: crops.id };
+                })
+              : null
+          }
+          classNamePrefix="react-select"
+          onChange={(value) => {
+            setSelectedCrops(value);
+          }}
+        />
+
+        <RadioWrap>
+          <InputWrap>
+            <input
+              type="radio"
+              id="wholeSale"
+              name="saleCategory"
+              value="소매"
+              checked
+              onChange={changeRadio}
+            />
+            <label htmlFor="wholeSale">소매</label>
+          </InputWrap>
+          <InputWrap>
+            <input
+              type="radio"
+              id="retailSale"
+              name="saleCategory"
+              value="도매"
+              onChange={changeRadio}
+            />
+            <label htmlFor="retailSale">도매</label>
+          </InputWrap>
+        </RadioWrap>
+      </SelecWrap>
+
+      <SearchBtn>조회하기</SearchBtn>
+      <BottomWrap>
+        <Hr />
+        <CategoryTWrap>
+          <CategoryT> 딸기 </CategoryT>
+          <DateT>2022.07.10 기준</DateT>
+        </CategoryTWrap>
+
+        <PriceWrap>
+          <TodayPrice>{comma(300)}</TodayPrice>
+          <TodayPriceT>원/{marketPriceData?.unit}</TodayPriceT>
+        </PriceWrap>
+      </BottomWrap>
     </Wrap>
   );
 };
@@ -122,148 +132,19 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  grid-column: 3 / 5;
-  grid-row: 2 / 4;
+  grid-column: 3 / 4;
+  grid-row: 2 / 5;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 7 / 10;
   }
 `;
 
-const Title = styled.span`
-  font-weight: 700;
-  font-size: 1.4em;
-  line-height: 10px;
-`;
-
-const BoxWrap = styled.div`
+const TopWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-const BoxBodyWrap = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 16px;
-  @media only screen and (max-width: 760px) {
-    flex-direction: column;
-  }
-`;
-
-const RowWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const Hr = styled.div`
-  width: 1px;
-  height: 10px;
-  border-right: 1.6px solid black;
-  /* margin-top: 6px; */
-  margin: 2px 4px 0px 4px;
-`;
-
-const WrapLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const WrapLeftBottom = styled.div`
-  margin-top: 10px;
-`;
-
-const WrapRight = styled.div`
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  /* margin-left: 60px; */
-  @media only screen and (max-width: 760px) {
-    width: 100%;
-  }
-`;
-
-const CategoryT = styled.span`
-  font-weight: 700;
-  font-size: 1rem;
-`;
-
-const ChartTitle = styled.span`
-  font-weight: 500;
-  font-size: 1rem;
-`;
-
-const PriceWrap = styled.div`
-  margin-bottom: 16px;
-`;
-
-const TodayPrice = styled.span`
-  font-weight: 500;
-  font-size: 2rem;
-`;
-
-const TodayPriceSum = styled.span`
-  font-weight: 500;
-  font-size: 1.9rem;
-  margin-bottom: 4px;
-`;
-
-const Sum = styled.span`
-  font-weight: 400;
-  font-size: 1rem;
-  margin: 0px 8px;
-`;
-
-const SumWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const TodayPriceT = styled.span`
-  font-weight: 400;
-  font-size: 1rem;
-  margin-left: 4px;
-`;
-
-const TodayPriceSumT = styled.span`
-  font-weight: 400;
-  font-size: 1rem;
-  margin-left: 4px;
-  align-self: flex-end;
-  margin-bottom: 8px;
-`;
-
-const SellingPrice = styled.span`
-  font-weight: 700;
-  font-size: 14px;
-  margin-left: 4px;
-  align-self: flex-end;
-  margin-bottom: 8px;
-`;
-
-const Info = styled.span`
-  font-weight: 400;
-  font-size: 8px;
-  margin-top: 4px;
-`;
-
-const KgInput = styled.input`
-  width: 96px;
-  height: 30px;
-  background: #fafafa;
-  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 6px;
-  border: none;
-  padding-left: 10px;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const ShowMoreBtn = styled.span`
@@ -274,4 +155,118 @@ const ShowMoreBtn = styled.span`
   cursor: pointer;
 `;
 
-export default MarketPriceCard;
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 18px;
+`;
+
+const Region = styled.div`
+  font-size: 12px;
+  font-weight: 700;
+  margin: 10px 0px;
+`;
+
+const SubTitle = styled.span`
+  margin: 4px 0px;
+`;
+
+const StyledSelect = styled(Select)`
+  width: 200px;
+  height: 30px;
+  margin: 0px 0px 20px 0px;
+  & .Select {
+    &__control {
+      display: flex;
+      align-items: center;
+      border-radius: 0;
+      border: none;
+      height: 100%;
+      height: 20px;
+    }
+  }
+`;
+
+const SearchBtn = styled.button`
+  width: 60px;
+  height: 24px;
+  font-size: 11px;
+  color: #616161;
+  padding: 4px;
+  background: #ffffff;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
+  &:hover {
+    color: black;
+    border: 1px solid black;
+  }
+`;
+
+const BottomWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+const Hr = styled.div`
+  width: 100%;
+  height: 1px;
+  margin-left: -20px;
+  padding-right: 40px;
+  border-bottom: 0.5px solid #dddddd;
+`;
+
+const PriceWrap = styled.div`
+  /* margin-bottom: 16px; */
+`;
+
+const TodayPrice = styled.span`
+  font-weight: 500;
+  font-size: 2rem;
+`;
+
+const TodayPriceT = styled.span`
+  font-weight: 400;
+  font-size: 1rem;
+  margin-left: 4px;
+`;
+
+const CategoryTWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-items: flex-end;
+`;
+
+const CategoryT = styled.span`
+  font-weight: 700;
+  font-size: 13px;
+`;
+
+const DateT = styled.span`
+  font-size: 10px;
+  color: #6f6f6f;
+  margin-left: 6px;
+`;
+
+const SelecWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const RadioWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 10px;
+`;
+
+const InputWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 6px;
+`;
+
+export default TodayMarketPrice;

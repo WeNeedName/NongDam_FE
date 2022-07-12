@@ -1,60 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getWeatherDB } from "../../redux/modules/main";
-import "../../Tooltip.css";
 // 차트 라이브러리
 import ApexCharts from "react-apexcharts";
-
+// 날짜 포맷 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
 
-const WeatherChart = (props) => {
-  const dispatch = useDispatch();
-  const weatherData = useSelector((state) => state.main.weather);
-
-  useEffect(() => {
-    dispatch(getWeatherDB());
-  }, [dispatch]);
-
-  // 시간 리스트
-  const hourData = weatherData?.hour?.time;
-  const hourDataFormatArr = [];
-  hourData &&
-    hourData.map((data) => {
-      return hourDataFormatArr.push(moment(data * 1000).format("H"));
-    });
-
-  // 주간 요일 리스트
-  const dayData = weatherData?.day?.day;
-  const dayDataFormatArr = [];
-  dayData &&
-    dayData.map((data) => {
-      return dayDataFormatArr.push(moment(data * 1000).format("dd"));
-    });
-
-  // 기온, 강수확률 배열
-  const hourTempArr = weatherData?.hour?.temp;
-  const dayTempArr = weatherData?.day?.temp;
-  const hourPopArr = weatherData?.hour?.pop;
-  const dayPopArr = weatherData?.day?.pop;
-
+const MarketPriceChart = () => {
+  const day = [
+    "2021.07",
+    "2021.09",
+    "2021.11",
+    "2022.03",
+    "2022.05",
+    "2022.07",
+  ];
   // 시간별 날씨 그래프 데이터
   const state = {
     series: [
       {
-        name: "기온",
-        data: props.checkedInputs === "hour" ? hourTempArr : dayTempArr,
-      },
-      {
-        name: "강수확률",
-        data: props.checkedInputs === "hour" ? hourPopArr : dayPopArr,
+        name: "월별 평균 시세",
+        data: ["300", "400", "300", "500", "300", "300"],
       },
     ],
     options: {
       markers: {
         size: [2.5, 0],
-        colors: ["#7EE3AB", "transparent"],
+        colors: "#7EB3E3",
         hover: {
           size: undefined,
           sizeOffset: 2,
@@ -78,13 +50,13 @@ const WeatherChart = (props) => {
       stroke: {
         curve: "straight",
         width: 2.5,
-        colors: ["#7EE3AB", "transparent"],
+        colors: "#7EB3E3",
       },
       grid: {
-        borderColor: "#CCCCCC",
-        strokeDashArray: 2,
+        borderColor: "#ddd",
+        strokeDashArray: 1, // 가로축 점선
         row: {
-          colors: ["transparent", "transparent"],
+          colors: ["transparent", "transparent"], // 배경색
         },
         column: {
           colors: ["transparent", "transparent"],
@@ -96,8 +68,14 @@ const WeatherChart = (props) => {
         },
         yaxis: {
           lines: {
-            show: false, // 그리드선 제거
+            show: true, // 그리드선
           },
+        },
+        padding: {
+          top: -2,
+          right: 20,
+          bottom: -10,
+          left: 20,
         },
       },
       tooltip: {
@@ -112,21 +90,16 @@ const WeatherChart = (props) => {
           return (
             '<div class="tooltip-box">' +
             '<div class="line">' +
-            '<span class="label">' +
-            "기온" +
-            "</span>" +
-            '<span class="label-data">' +
-            series[seriesIndex][dataPointIndex] +
-            "℃" +
+            '<span class="price-label">' +
+            "2021년 9월" +
             "</span>" +
             "</div>" +
             '<div class="line-bottom">' +
-            '<span  class="label">' +
-            "강수확률" +
-            "</span>" +
             '<span class="label-data">' +
             series[seriesIndex][dataPointIndex] +
-            "%" +
+            '<span class="price-label">' +
+            "원/kg" +
+            "</span>" +
             "</span>" +
             "</div>" +
             "</div>"
@@ -134,23 +107,16 @@ const WeatherChart = (props) => {
         },
       },
       xaxis: {
-        categories:
-          props.checkedInputs === "hour" ? hourDataFormatArr : dayDataFormatArr,
+        categories: day,
         labels: {
           formatter: function (value) {
-            if (props.checkedInputs === "hour") return value + "시";
-            else return value;
+            return value;
           },
           style: {
-            colors: "#666666",
-            fontSize: "12px",
-            fontFamily: "Noto Sans KR",
-            fontWeight: 400,
-            cssClass: "apexcharts-xaxis-label",
+            fontSize: "0px",
           },
         },
-
-        position: "top",
+        position: "top", // x축 라벨
         axisBorder: {
           show: false,
         },
@@ -163,8 +129,8 @@ const WeatherChart = (props) => {
       },
       yaxis: {
         show: false,
-        // min: 16,
-        // max: 38,
+        min: undefined,
+        max: undefined,
       },
     },
   };
@@ -176,19 +142,38 @@ const WeatherChart = (props) => {
           options={state.options}
           series={state.series}
           type="line"
-          height={98 + "%"}
+          height={92 + "%"}
         />
       </ChartBox>
+      <XasisWrap>
+        {day.map((data, id) => {
+          return <Xasis key={id}>{data}</Xasis>;
+        })}
+      </XasisWrap>
     </>
   );
 };
 
 const ChartBox = styled.div`
-  margin-top: 14px;
-  padding: 0px 20px 0px 20px;
+  width: 100%;
+  margin-top: 6px;
   background: #fafafa;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
   border-radius: 4px;
   cursor: pointer;
 `;
-export default WeatherChart;
+
+const XasisWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 4px;
+`;
+
+const Xasis = styled.span`
+  font-size: 8px;
+  color: #666666;
+`;
+
+export default MarketPriceChart;

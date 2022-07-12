@@ -18,7 +18,7 @@ const TodayTodo = () => {
 
   // console.log(scheduleData[0].startTime, typeof scheduleData[0].startTime);
   // console.log(moment(scheduleData[0].startTime).format("HH:mm"));
-
+  console.log(scheduleData);
   return (
     <Wrap>
       <TopWrap>
@@ -32,7 +32,7 @@ const TodayTodo = () => {
         </ShowMoreBtn>
       </TopWrap>
       {scheduleData.length >= 1 ? (
-        scheduleData.slice(0, 3).map((schedule, id) => {
+        scheduleData.slice(0, 2).map((schedule, id) => {
           return (
             <ScheduleBox key={id}>
               <Hr />
@@ -57,7 +57,7 @@ const Wrap = styled.div`
   border-radius: 10px;
   padding: 20px;
   grid-column: 2 / 3;
-  grid-row: 5 / 7;
+  grid-row: 6 / 8;
   padding: 16px 16px;
   background-color: #fff;
   @media only screen and (max-width: 760px) {
