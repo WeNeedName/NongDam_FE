@@ -21,8 +21,9 @@ const Work =(props) => {
     const [cropTodo, setCropTodo] = useState("")
     const [work, setWork] = useState("");
     const [memo, setMemo] = useState("");
-    const [startTime, setStartTime] = useState(new Date());
-    const [endTime, setEndTime] = useState(startTime);
+    const [workDate, setWorkDate] = useState(new Date());
+    const [myTitle, setMyTitle] = useState("")
+    
     
     
     //유저가 선택한 작물 불러오기  
@@ -45,11 +46,23 @@ const Work =(props) => {
         props.setMemo(e.target.id);      
       }
     };
+
+  
     //console.log(memo)
     //console.log(cropTodo, startDateFormat, endDateFormat, memo);
     
     return(
         <TodoContent>
+          <CategoryBigWrap>
+          <SmallTitle>일지제목</SmallTitle>
+          <input
+          onChange={(e) =>{
+            setMyTitle(e.target.value)
+            props.setTitle(e.target.value)
+          }}>
+
+          </input>
+          </CategoryBigWrap>
           <CategoryBigWrap>
             <SmallTitle>작물종류</SmallTitle>
             <CategoryWrap>
@@ -77,28 +90,16 @@ const Work =(props) => {
             <DatePickers>
               <DatePicker
                   className="startDatePicker"
-                  selected={startTime}
+                  selected={workDate}
                   onChange={(date) => {
-                    setStartTime(date)
-                    props.setStartTime(date)}}
-                  showTimeSelect
+                    setWorkDate(date)
+                    props.setDate(date)}}
                   minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게 
-                  dateFormat="yyyy-MM-dd HH:mm"// 시간 포맷 변경
+                  dateFormat="yyyy-MM-dd"// 시간 포맷 변경
                   locale={ko}// 한글로 변경
                   //inline//달력 보이게 
               />
-              <DatePicker
-                  className="endDatePicker"
-                  selected={endTime}
-                  onChange={(date) => {
-                    setEndTime(date)
-                    props.setEndTime(date)}}
-                  showTimeSelect
-                  minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
-                  dateFormat="yyyy-MM-dd HH:mm"
-                  locale={ko}// 한글로 변경
-                  //inline//달력 보이게 
-              />
+             
             </DatePickers>
           </CategoryBigWrap>
           <CategoryBigWrap>
