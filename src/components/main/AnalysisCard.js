@@ -73,7 +73,9 @@ const AnalysisCard = () => {
           <FormCheckText>작업시간</FormCheckText>
         </Label>
       </CategoryWrap>
-      {checkedInputs === "sales" && <AnalysisSalesChart />}
+      <ChartWrap>
+        {checkedInputs === "sales" && <AnalysisSalesChart />}
+      </ChartWrap>
     </Wrap>
   );
 };
@@ -85,7 +87,7 @@ const Wrap = styled.div`
   padding: 20px 20px 16px 20px;
   background-color: #fff;
   grid-column: 3 / 5;
-  grid-row: 4 / 6;
+  grid-row: 5 / 8;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 10 / 12;
@@ -151,5 +153,7 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label``;
+
+const ChartWrap = styled.div``;
 
 export default AnalysisCard;

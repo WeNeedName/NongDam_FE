@@ -39,6 +39,8 @@ const CalendarBook = () => {
     setOpen(!isOpen);
   }
 
+  console.log(accountList);
+
   // accountList 가공
   const convertCalendarData = (accountList) => {
     let mappedData = new Map();
@@ -89,6 +91,7 @@ const CalendarBook = () => {
         });
       }
     });
+
     return convertedData;
   };
 
@@ -100,9 +103,9 @@ const CalendarBook = () => {
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
           toolbar: ToolBar,
-          month: {
-            dateHeader: Day,
-          },
+          // month: {
+          //   dateHeader: Day,
+          // },
         }}
         onSelectEvent={(eventInfo) => {
           setEventInfo(eventInfo);

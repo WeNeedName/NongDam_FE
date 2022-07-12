@@ -37,10 +37,10 @@ export const getWeatherDB = () => {
   };
 };
 // 오늘 시세 조회
-export const getMarketPriceDB = () => {
+export const getMarketPriceDB = (data) => {
   return async function (dispatch) {
     apis
-      .loadMarketPrice()
+      .loadMarketPrice(data)
       .then((response) => {
         dispatch(getMarketPrice(response.data));
       })
@@ -55,6 +55,7 @@ export const loadTodayScheduleDB = () => async (dispatch) => {
   try {
     const { data } = await apis.loadTodaySchedule();
     dispatch(getTodaySchedule(data));
+    console.log(data);
   } catch (err) {
     console.log(err);
   }

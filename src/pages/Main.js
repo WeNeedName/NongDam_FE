@@ -20,8 +20,7 @@ const Main = () => {
         <TodayTodo />
         <AnalysisCard />
         <TodayNews />
-        <TodayPost />
-        
+        {/* <TodayPost /> */}
       </Wrap>
     </>
   );
@@ -33,12 +32,12 @@ const Wrap = styled.div`
   height: auto;
   display: grid;
   grid-auto-rows: auto;
-  grid-template-columns: 1fr repeat(3, 23%) 1fr;
-  grid-template-rows: 70px repeat(5, 1fr) 0;
+  grid-template-columns: 1fr repeat(3, 23.2%) 1fr;
+  grid-template-rows: 70px repeat(7, 13%) 0;
   justify-content: center;
   flex-flow: wrap;
   row-gap: 16px;
-  column-gap: 26px;
+  column-gap: 20px;
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, 26%) 1fr;
   }

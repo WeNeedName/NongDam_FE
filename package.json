@@ -37,6 +37,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-scroll-horizontal": "^1.6.6",
     "react-select": "^5.4.0",
     "redux": "^4.2.0",
     "redux-actions": "^2.6.5",
@@ -44,6 +45,8 @@
     "save": "^2.5.0",
     "styled-components": "^5.3.5",
     "styled-react-modal": "^3.0.0",
+    "sweetalert2": "^11.4.20",
+    "sweetalert2-react-content": "^5.0.1",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.0"
   },
