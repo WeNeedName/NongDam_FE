@@ -18,27 +18,40 @@ const MyCrops = ({ setCrops, previousCrops }) => {
   const _crops = [];
   selectedCrops.filter((v) => _crops.push(v.value));
 
-  useEffect(() => {
-    setCrops(_crops);
-  }, [selectedCrops]);
+  
+  useEffect(()=>{
+    setCrops(_crops)}
+    ,[selectedCrops])
+    console.log(_crops)
+    console.log(cropsData)
+    console.log(selectedCrops)
+  
+  const beforeCrops = previousCrops!==undefined ?
+  previousCrops.map((crops) => {
+    return (crops.type)
+  }) : null
 
-  console.log(cropsData);
-  // console.log(selectedCrops)
-  console.log(_crops);
+console.log(beforeCrops)
+    console.log(_crops)
+    console.log(previousCrops)
+
   return (
     <Container>
       <Select
         className="react-select"
-        defaultValue={previousCrops} //db에서 유저data 불러올 때 확인 필요함
+        //defaultValue= "1, 2"//{previousCrops} //db에서 유저data 불러올 때 확인 필요함
+        // placeholder={previousCrops.}
         isMulti
         name="crops"
         options={
           cropsData !== undefined
-            ? cropsData.map((crops) => {
+            ? cropsData.map((crops, list) => {
+                <list key={crops.id}/>
                 return { label: crops.name, value: crops.id };
               })
             : null
         }
+        placeholder={beforeCrops}
         onChange={(value) => {
           setSelectedCrops(value);
         }}
@@ -50,15 +63,22 @@ const MyCrops = ({ setCrops, previousCrops }) => {
 
 const Container = styled.div`
   .react-select {
-    width: 60%;
+    width: 200px;
+    
+    margin-left: 80px;
+    border-radius: 30px;
+    
+    
   }
 `;
+
+
 const Selec = styled.select`
-  margin-left: 20px;
+  
   width: 170px;
   background-color: white;
   height: 30px;
-  border-radius: 10px;
+  
   border: 1px solid black;
   padding-left: 10px;
 `;

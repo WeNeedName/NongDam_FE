@@ -50,7 +50,6 @@ const Schedule = () => {
   return (
     <Wrap>
       <Header currentPage="schedule"/>
-      {isLogin ? (
         <>
       <CalendarWrap>
         <ScheduleCalendar />
@@ -68,14 +67,7 @@ const Schedule = () => {
       
       {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal}/>}
       </>
-      ): (
       
-      
-      <Blocked>
-        <p className="plzLogin"> 로그인 회원만 이용 가능합니다.</p>
-        </Blocked>
-        
-        )}
     </Wrap>
   );
 };

@@ -9,7 +9,7 @@ import moment from "moment";
 import "../../BigCalendar.css";
 
 // 컴포넌트
-import ToolBar from "./ToolBar";
+import ToolBar from "./Toolbar";
 import Day from "./Day";
 import Event from "./Event";
 import AccountModal from "./AccountModal";

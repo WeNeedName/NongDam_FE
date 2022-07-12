@@ -102,10 +102,10 @@ display: inline
 flex-direction : row;
 justify-content: center;
 position : relative;
-cursor : pointer;
-&:hover {
-  box-shadow : 0px 6px 10px rgba(0, 0, 0, 0.15);
-}
+//cursor : pointer;
+// &:hover {
+//   box-shadow : 0px 6px 10px rgba(0, 0, 0, 0.15);
+// }
 `
 const Content = styled.div`
 display : flex

@@ -36,7 +36,7 @@ const EditPw = () => {
   };
     
 console.log(oldPw, newPw)
-const editMyPw = () =>{
+const editMyPw = (oldPw, newPw) =>{
     const oldAndNewPws ={
         oldPassword: oldPw,
         newPassword: newPw
@@ -82,7 +82,6 @@ return(
                 type="text" />
 
             {!newPwErr && newPwCheckErr && <NewPwErr>비밀번호가 일치하지 않습니다.</NewPwErr>}
-
             <Submit type="submit"
                 onClick={()=>{editMyPw(oldPw, newPw)}}   
             >수정하기</Submit>
@@ -91,7 +90,10 @@ return(
     </>
     )
 }
-const EditPwWrap = styled.div``
+const EditPwWrap = styled.div`
+margin-top:70px;
+
+`
 const NewPwErr = styled.div``
 const Submit = styled.button``
 export default EditPw;

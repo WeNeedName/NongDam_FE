@@ -19,26 +19,50 @@ const WriteWorkLog =() => {
     const token = sessionStorage.getItem("jwtToken");
     const myCropsList = useSelector((state) => state.users.user?.crops)
 
+    const [title, setTitle] = useState("")
     const [crop, setCrop] = useState("")
-    const [startTime, setStartTime] = useState("")
+    const [date, setDate] = useState("")
     const [endTime, setEndTime] = useState("")
     const [memo, setMemo] = useState("")
-    const [subMaterialC, setSubMaterialC] = useState([])
-    const [subMaterialF, setSubMaterialF] = useState([])
+    const [subMaterial, setSubMaterial] = useState([])
+    
+    const [type, setType] = useState(0);
+    const [product, setProduct] = useState("");
+    const [use, setUse] = useState("");
+    const [unit, setUnit] = useState("");
+    const usage = use+unit
+    
+    const subMaterialData = {
+      type: type,
+      product : product,
+      use : usage
+    }
+
+    const [type1, setType1] = useState(0);
+    const [product1, setProduct1] = useState("");
+    const [use1, setUse1] = useState("");
+    const [unit1, setUnit1] = useState("");
+    const usage1 = use1+unit1
+    
+    const subMaterialData1 = {
+      type: type1,
+      product : product1,
+      use : usage1
+    }
+
+
     const [harvest, setHarvest] = useState("")
     const [images, setImages] = useState("")
-    const mySubMaterial = []
-    mySubMaterial.push(subMaterialC, subMaterialF)
-    const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm")
-    const endTimeFormat = moment(endTime).format("YYYY-MM-DD HH:mm")
     
+    const dateFormat = moment(date).format("YYYY-MM-DD")
+    
+    const numberCrop = Number(crop)
     const addWorkLog = async () => {
       const data = {
-              crop : crop,
-              startTime : startTimeFormat,
-              endTime : endTimeFormat,
+              crop : numberCrop,
+              date : dateFormat,
               memo : memo,
-              subMaterial : mySubMaterial,
+              subMaterial : subMaterialData,
               harvest : harvest
       }
       let frm = new FormData();
@@ -54,15 +78,15 @@ const WriteWorkLog =() => {
         }
       })
       dispatch(
-        addWorkLogDB(data) //api연결은 직접 하니까, 리덕스 저장하는 건 액션생성함수 createWorkLog 써도 되는 부분인가???
+        addWorkLogDB(data) 
       )
         .then(
           navigate("/worklog")
       );
       
       }
-    console.log(crop, startTimeFormat, endTimeFormat, memo, mySubMaterial, harvest, images)
-    
+    console.log(title, numberCrop, dateFormat, memo, subMaterialData, harvest, images)
+    console.log(type, product, use, unit)
     
     return(
         <Container>
@@ -72,14 +96,14 @@ const WriteWorkLog =() => {
                 작업일지등록하기
               </TotalTitle>
               <ContentWrap>
-                <Work setCrop={setCrop} setStartTime={setStartTime} setEndTime={setEndTime} setMemo={setMemo} />
-                <SubMaterial setSubMaterialC={setSubMaterialC} setSubMaterialF={setSubMaterialF}/>
+                <Work setTitle={setTitle} setCrop={setCrop} setDate={setDate} setMemo={setMemo} />
+                <SubMaterial setType={setType} setProduct={setProduct} setUse={setUse} setUnit={setUnit}/>
                 <Record setHarvest={setHarvest}/>
                 <WorkPhoto setImages={setImages}/>
               </ContentWrap>
               <DoneBtn
               onClick={()=>{
-                // addWorkLog()
+                addWorkLog()
               }}>작성완료</DoneBtn>
             </Wrap> 
         </Container>
