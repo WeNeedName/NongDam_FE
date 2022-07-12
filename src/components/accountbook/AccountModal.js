@@ -126,7 +126,7 @@ const AccountModal = ({
                 value={date}
               />
             ) : (
-              account.date
+              moment(account.date).format("M월 D일")
             )}
           </Day>
           {openEdit ? (
@@ -295,7 +295,7 @@ const AccountModal = ({
 };
 
 const StyledModal = Modal.styled`
-  width: 700px;
+  width: 440px;
   background-color: white;
   border-radius: 10px;
   padding: 30px;
@@ -424,4 +424,5 @@ const SDatePicker = styled(DatePicker)`
   font-size: 20px;
   font-weight: bold;
 `;
+
 export default AccountModal;

@@ -61,7 +61,6 @@ const CalendarBook = () => {
         insertData.push(original[0]);
         insertData.push(original[1] + list.price);
       }
-      console.log(mappedData);
       // mappedData = {key :"2022-07-14" vaue:[10000, 0]}
       mappedData.set(list.date, insertData);
     });
@@ -104,9 +103,9 @@ const CalendarBook = () => {
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
           toolbar: ToolBar,
-          month: {
-            dateHeader: Day,
-          },
+          // month: {
+          //   dateHeader: Day,
+          // },
         }}
         onSelectEvent={(eventInfo) => {
           setEventInfo(eventInfo);

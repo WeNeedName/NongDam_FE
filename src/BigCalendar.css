@@ -372,7 +372,7 @@ button.rbc-input::-moz-focus-inner {
   -webkit-user-select: none;
   height: 100%;
 }
-
+/* 달력 요일 헤더 */
 .rbc-month-header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -380,7 +380,7 @@ button.rbc-input::-moz-focus-inner {
   height: 24px;
   background-color: #C3EEBF;
   border-radius: 8px 8px 0px 0px;
-  padding: 1px;
+  padding: 4px;
   margin: -1px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;

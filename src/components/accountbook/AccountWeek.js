@@ -87,19 +87,26 @@ const AccountWeek = () => {
         {currentAccount_list !== undefined && checkedInputs === "전체"
           ? currentAccount_list.map((list, accountId) => {
               return (
-                <AccountBox
-                  key={list.id}
-                  onClick={() => {
-                    toggleModal(list.id);
-                  }}
-                >
-                  <BoxTopWrap>
-                    <Day>{moment(list.date).format("M월 D일")}</Day>
+                <AccountBox key={list.id}>
+                  <BoxTopWrapB>
+                    <BoxTopWrap>
+                      <Day>{moment(list.date).format("M월 D일")}</Day>
 
-                    <Category category={list.category}>
-                      {list.category === "수입" ? "수입" : "지출"}
-                    </Category>
-                  </BoxTopWrap>
+                      <Category category={list.category}>
+                        {list.category === "수입" ? "수입" : "지출"}
+                      </Category>
+                    </BoxTopWrap>
+                    <DotWrap
+                      onClick={() => {
+                        toggleModal(list.id);
+                      }}
+                    >
+                      <Dot />
+                      <Dot />
+                      <Dot />
+                    </DotWrap>
+                  </BoxTopWrapB>
+
                   <PriceNum>
                     {list.category === "수입"
                       ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
@@ -146,13 +153,25 @@ const AccountWeek = () => {
                     toggleModal(list.id);
                   }}
                 >
-                  <BoxTopWrap>
-                    <Day>{moment(list.date).format("M월 D일")}</Day>
+                  <BoxTopWrapB>
+                    <BoxTopWrap>
+                      <Day>{moment(list.date).format("M월 D일")}</Day>
 
-                    <Category category={list.category}>
-                      {list.category === "수입" ? "수입" : "지출"}
-                    </Category>
-                  </BoxTopWrap>
+                      <Category category={list.category}>
+                        {list.category === "수입" ? "수입" : "지출"}
+                      </Category>
+                    </BoxTopWrap>
+                    <DotWrap
+                      onClick={() => {
+                        toggleModal(list.id);
+                      }}
+                    >
+                      <Dot />
+                      <Dot />
+                      <Dot />
+                    </DotWrap>
+                  </BoxTopWrapB>
+
                   <PriceNum>
                     {list.category === "수입"
                       ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
@@ -217,6 +236,7 @@ const Title = styled.div`
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 const FormCheckText = styled.span`
@@ -278,7 +298,7 @@ const AccountBoxWrap = styled.div`
 const AccountBox = styled.div`
   width: 90%;
   height: auto;
-  padding: 10px 16px;
+  padding: 10px 10px 10px 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -287,10 +307,10 @@ const AccountBox = styled.div`
   border-radius: 6px;
   margin: 10px 0px;
   position: relative;
-  cursor: pointer;
+  /* cursor: pointer;
   &:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-  }
+  } */
 `;
 
 const Day = styled.span`
@@ -310,14 +330,15 @@ const Category = styled.span`
   justify-content: center;
   align-items: center;
   padding: 2px 10px 4px 10px;
+  margin-left: 10px;
   background: ${(props) => (props.category === "수입" ? "#d7edf9" : "#FACCCC")};
   border-radius: 100px;
   font-size: 8px;
   color: ${(props) => (props.category === "수입" ? "#39a4e0" : "#EC4646")};
 
-  position: absolute;
+  /* position: absolute;
   top: 17px;
-  left: 86px;
+  left: 86px; */
 `;
 
 const PriceNum = styled.span`
@@ -326,6 +347,7 @@ const PriceNum = styled.span`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-right: 10px;
 `;
 
 const WhereTo = styled.span`
@@ -351,6 +373,29 @@ const BottomWrap = styled.div`
   display: flex;
   flex-direction: row;
   margin-right: 6px;
+`;
+
+const BoxTopWrapB = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 4px;
+`;
+
+const DotWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+`;
+
+const Dot = styled.div`
+  width: 2.4px;
+  height: 2.4px;
+  background-color: black;
+  border-radius: 100px;
+  margin-bottom: 2px;
 `;
 
 export default AccountWeek;
