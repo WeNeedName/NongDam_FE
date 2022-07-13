@@ -6,7 +6,7 @@ border-radius: 4px;
 }
 
 .line {
-    width: 80px;
+    /* width: 80px; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;

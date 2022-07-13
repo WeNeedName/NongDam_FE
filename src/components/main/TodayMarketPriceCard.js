@@ -19,16 +19,16 @@ const TodayMarketPrice = () => {
   const cropsData = useSelector((state) => state.users.crops);
   const userInfo = useSelector((state) => state.users.user);
 
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
+
   const [selectedCrops, setSelectedCrops] = useState(21);
   const [checkedInputs, setCheckedInputs] = useState("소매");
 
   useEffect(() => {
     dispatch(getTodayMarketPriceDB(marketPriceCategory));
     dispatch(getCropsListDB());
-  }, []);
-
-  useEffect(() => {
-    dispatch(getInfoDB());
   }, []);
 
   const marketPriceCategory = {

@@ -6,7 +6,7 @@ import ApexCharts from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const MarketPriceChart = ({ marketPriceData }) => {
+const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
   // 숫자에 콤마넣기
   function comma(str) {
     str = String(str);
@@ -19,6 +19,7 @@ const MarketPriceChart = ({ marketPriceData }) => {
   }
 
   console.log(marketPriceData);
+  console.log(selectedCrops);
 
   const day =
     marketPriceData[1] !== undefined
@@ -35,9 +36,15 @@ const MarketPriceChart = ({ marketPriceData }) => {
     return Number(uncomma(price));
   });
 
-  const wholeSalePriceList = marketPriceData[0]?.priceList.map((price) => {
-    return Number(uncomma(price));
-  });
+  const wholeSalePriceList =
+    marketPriceData[0]?.priceList.length !== 0
+      ? marketPriceData[0]?.priceList.map((price) => {
+          return Number(uncomma(price));
+        })
+      : null;
+
+  const cropName =
+    selectedCrops === 21 ? null : selectedCrops?.label.split(" ")[1];
 
   // 선택 작물 월별 데이터
   const state = {
@@ -173,33 +180,45 @@ const MarketPriceChart = ({ marketPriceData }) => {
 
   return (
     <>
-      <ChartBox>
-        <ApexCharts
-          options={state.options}
-          series={state.series}
-          type="line"
-          height={92 + "%"}
-        />
-        {marketPriceData[0] !== undefined &&
-        marketPriceData[1] !== undefined ? (
-          <YasisLabelBox>
-            <YasisLabelWrap>
-              <YasisColorTipA />
-              <YasisLabel>소매</YasisLabel>
-            </YasisLabelWrap>
-            <YasisLabelWrap>
-              <YasisColorTipB />
-              <YasisLabel>도매</YasisLabel>
-            </YasisLabelWrap>
-          </YasisLabelBox>
-        ) : null}
-      </ChartBox>
-      <XasisWrap>
-        {day &&
-          day.map((data, id) => {
-            return <Xasis key={id}>{data}</Xasis>;
-          })}
-      </XasisWrap>
+      {(marketPriceData !== undefined &&
+        marketPriceData[0]?.priceList.length !== 0) ||
+      marketPriceData[1]?.priceList.length !== 0 ? (
+        <>
+          <ChartBox>
+            <ApexCharts
+              options={state.options}
+              series={state.series}
+              type="line"
+              height={92 + "%"}
+            />
+            {marketPriceData[0] !== undefined &&
+            marketPriceData[1] !== undefined ? (
+              <YasisLabelBox>
+                <YasisLabelWrap>
+                  <YasisColorTipA />
+                  <YasisLabel>소매</YasisLabel>
+                </YasisLabelWrap>
+                <YasisLabelWrap>
+                  <YasisColorTipB />
+                  <YasisLabel>도매</YasisLabel>
+                </YasisLabelWrap>
+              </YasisLabelBox>
+            ) : null}
+          </ChartBox>
+          <XasisWrap>
+            {day &&
+              day.map((data, id) => {
+                return <Xasis key={id}>{data}</Xasis>;
+              })}
+          </XasisWrap>
+        </>
+      ) : (
+        <NotFoundNoticeWrap>
+          <NotFoundNotice>
+            {cropName}의 월별 데이터가 존재하지 않습니다.
+          </NotFoundNotice>
+        </NotFoundNoticeWrap>
+      )}
     </>
   );
 };
@@ -280,6 +299,18 @@ const YasisColorTipB = styled.div`
 const YasisLabel = styled.span`
   font-size: 8px;
   color: #666666;
+`;
+
+const NotFoundNoticeWrap = styled.div`
+  height: 165px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NotFoundNotice = styled.div`
+  color: #6f6f6f;
 `;
 
 export default MarketPriceChart;

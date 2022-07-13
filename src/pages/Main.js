@@ -4,7 +4,7 @@ import styled from "styled-components";
 // 컴포넌트
 import Header from "../components/Header";
 import Weather from "../components/main/Weather";
-import MarketPriceCard from "../components/main/MarketPriceCard";
+import MarketPriceCard from "../components/main/TodayMarketPriceCard";
 import TodayTodo from "../components/main/TodayTodo";
 import AnalysisCard from "../components/main/AnalysisCard";
 import TodayNews from "../components/main/TodayNews";

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../redux/modules/users";
 import Select from "react-select";
+import { getInfoDB } from "../redux/modules/users";
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -26,7 +27,13 @@ const MarketPrice = () => {
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
 
-  console.log(salePrice);
+  const userInfo = useSelector((state) => state.users.user);
+
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
+
+  console.log(userInfo);
 
   const onDragStart = (e) => {
     e.preventDefault();
@@ -91,24 +98,32 @@ const MarketPrice = () => {
             salePrice={salePrice}
           />
         </BodyWrap>
-        <Title>👀 내 작물 시세를 한 눈에</Title>
-        <MyCropsChartWrap
-          onMouseDown={onDragStart}
-          onMouseMove={isDrag ? onThrottleDragMove : null}
-          onMouseUp={onDragEnd}
-          onMouseLeave={onDragEnd}
-          ref={scrollRef}
-        >
-          <GradationBox />
-          <GradationBox />
-          {/* <Div />
+        {userInfo !== undefined && userInfo?.crops.length !== 0 ? (
+          <>
+            <Title>👀 내 작물 시세를 한 눈에</Title>
+            <MyCropsChartWrap
+              onMouseDown={onDragStart}
+              onMouseMove={isDrag ? onThrottleDragMove : null}
+              onMouseUp={onDragEnd}
+              onMouseLeave={onDragEnd}
+              ref={scrollRef}
+            >
+              {userInfo !== undefined && userInfo?.crops.length > 3 ? (
+                <>
+                  <GradationBox />
+                  <GradationBox />
+                </>
+              ) : null}
+              {/* <Div />
           <Div /> */}
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-        </MyCropsChartWrap>
+              {/* <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard /> */}
+              <MyCropsMarketPriceCard />
+            </MyCropsChartWrap>
+          </>
+        ) : null}
       </Wrap>
     </div>
   );

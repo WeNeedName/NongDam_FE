@@ -15,7 +15,7 @@ const Weather = () => {
       setCheckedInputs(e.target.id);
     }
   };
-
+  console.log(weatherData);
   useEffect(() => {
     dispatch(getWeatherDB());
   }, [dispatch]);

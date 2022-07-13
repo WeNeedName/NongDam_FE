@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { getMarketPriceDB } from "../../redux/modules/main";
+import { getInfoDB } from "../../redux/modules/users";
 
 // 컴포넌트
 import MarketPriceMonthChart from "./MarketPriceMonthChart";
@@ -15,6 +16,10 @@ const MarketPriceCard = ({ cropsData }) => {
   const [checkedInputs, setCheckedInputs] = useState("month");
   const [selectedCrops, setSelectedCrops] = useState(21);
   const marketPriceData = useSelector((state) => state.main.marketPrice);
+  const userInfo = useSelector((state) => state.users.user);
+
+  const marketName = userInfo?.address.split(" ")[0];
+
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -31,13 +36,17 @@ const MarketPriceCard = ({ cropsData }) => {
     data: checkedInputs,
   };
 
-  console.log(selectedCrops.value);
+  console.log(userInfo);
 
   return (
     <Wrap>
       <CategoryT>📈 작물 조회</CategoryT>
       <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
-      <Region>가락양재양곡시장</Region>
+      <Region>
+        {marketName !== undefined
+          ? marketName + " " + "도소매시장"
+          : "서울 도소매시장"}
+      </Region>
 
       <StyledSelect
         // styles={customStyles}
@@ -84,10 +93,16 @@ const MarketPriceCard = ({ cropsData }) => {
         </CategoryWrap>
 
         {checkedInputs === "month" && (
-          <MarketPriceMonthChart marketPriceData={marketPriceData} />
+          <MarketPriceMonthChart
+            marketPriceData={marketPriceData}
+            selectedCrops={selectedCrops}
+          />
         )}
         {checkedInputs === "year" && (
-          <MarketPriceYearChart marketPriceData={marketPriceData} />
+          <MarketPriceYearChart
+            marketPriceData={marketPriceData}
+            selectedCrops={selectedCrops}
+          />
         )}
       </CategoryChartWrap>
     </Wrap>

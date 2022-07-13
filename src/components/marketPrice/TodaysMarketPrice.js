@@ -18,6 +18,8 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
   );
   const userInfo = useSelector((state) => state.users.user);
 
+  const marketName = userInfo?.address.split(" ")[0];
+
   const [selectedCrops, setSelectedCrops] = useState(21);
   const [checkedInputs, setCheckedInputs] = useState("소매");
 
@@ -30,8 +32,6 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
     str = String(str);
     return str.replace(/[^\d]+/g, "");
   }
-
-  console.log(TodaymarketPriceData);
 
   useEffect(() => {
     if (Number(uncomma(TodaymarketPriceData?.latestDatePrice)) > 0)
@@ -60,7 +60,11 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
     <Wrap>
       <Title>📈 오늘의 시세</Title>
       <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
-      <Region>가락양재양곡시장</Region>
+      <Region>
+        {marketName !== undefined
+          ? marketName + " " + "도소매시장"
+          : "서울 도소매시장"}
+      </Region>
       <SelecWrap>
         <StyledSelect
           name="crops"
@@ -275,8 +279,7 @@ const NotFoundNoticeWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const NotFoundNotice = styled.span`

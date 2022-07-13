@@ -2,13 +2,37 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { getMarketPriceDB } from "../../redux/modules/main";
 // 컴포넌트
 import MarketPriceMonthChart from "./MyCropsMonthChart";
 import MarketPriceYearChart from "./MyCropsYearChart";
 
-const MarketPriceCard = () => {
+// 차트 라이브러리
+import ApexCharts from "react-apexcharts";
+// 날짜 포맷 라이브러리
+import moment from "moment";
+import "moment/locale/ko";
+
+const MyCropsMarketPriceCard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const marketPriceData = useSelector((state) => state.main.marketPrice);
+
   const [checkedInputs, setCheckedInputs] = useState("month");
+
+  const userInfo = useSelector((state) => state.users.user);
+  const marketName = userInfo?.address.split(" ")[0];
+
+  // 숫자에 콤마넣기
+  function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  }
+  // 숫자만 입력가능
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -16,45 +40,242 @@ const MarketPriceCard = () => {
       setCheckedInputs(e.target.id);
     }
   };
+
+  useEffect(() => {
+    dispatch(getMarketPriceDB(data));
+  }, [checkedInputs]);
+
+  console.log(checkedInputs, marketPriceData);
+
+  const data = {
+    cropId: userInfo?.id,
+    data: checkedInputs,
+  };
+
+  const userCropsArr = [];
+  const userCropsMap =
+    userInfo !== undefined
+      ? userInfo?.crops.map((crop) => {
+          return userCropsArr.push(crop.id);
+        })
+      : null;
+
+  console.log(userCropsArr);
+
+  const day =
+    marketPriceData[1] !== undefined
+      ? marketPriceData[1].dateList.map((date) => {
+          return moment(date).format("YY.MM");
+        })
+      : marketPriceData[1] !== undefined
+      ? marketPriceData[0].dateList.map((date) => {
+          return moment(date).format("YY.MM");
+        })
+      : null;
+
+  const retailSalePriceList = marketPriceData[1]?.priceList.map((price) => {
+    return Number(uncomma(price));
+  });
+
+  const wholeSalePriceList =
+    marketPriceData[0]?.priceList.length !== 0
+      ? marketPriceData[0]?.priceList.map((price) => {
+          return Number(uncomma(price));
+        })
+      : null;
+
+  // 내 작물 데이터
+  const state = {
+    series: [
+      {
+        name: marketPriceData[0]?.wholeSale,
+        data: wholeSalePriceList,
+      },
+      {
+        name: marketPriceData[1]?.wholeSale,
+        data: retailSalePriceList,
+      },
+    ],
+    options: {
+      markers: {
+        size: [2, 2],
+        colors: ["#7EB3E3", "#7EE3AB"],
+        hover: {
+          size: undefined,
+          sizeOffset: 2,
+        },
+      },
+      legend: {
+        show: false,
+      },
+      chart: {
+        type: "line",
+        zoom: {
+          enabled: false,
+        },
+        toolbar: {
+          show: false,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "straight",
+        width: [2, 2],
+        colors: ["#7EB3E3", "#7EE3AB"],
+      },
+      grid: {
+        borderColor: "#ddd",
+        strokeDashArray: 1, // 가로축 점선
+        row: {
+          colors: ["transparent", "transparent"], // 배경색
+        },
+        column: {
+          colors: ["transparent", "transparent"],
+        },
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: true, // 그리드선
+          },
+        },
+        padding: {
+          top: -2,
+          right: 20,
+          bottom: -10,
+          left: 20,
+        },
+      },
+      tooltip: {
+        x: {
+          show: false,
+        },
+        style: {
+          fontSize: "12px",
+          fontFamily: undefined,
+        },
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="tooltip-box">' +
+            '<div class="line-B">' +
+            '<span class="data-name-label">' +
+            marketPriceData[seriesIndex].crop +
+            " " +
+            state?.series[seriesIndex]?.name +
+            '<span class="date-label">' +
+            " " +
+            day[dataPointIndex] +
+            " 기준" +
+            "</span>" +
+            "</span>" +
+            "</div>" +
+            '<div class="line-bottom">' +
+            '<span class="label-data">' +
+            comma(series[seriesIndex][dataPointIndex]) +
+            '<span class="price-label">' +
+            "원/" +
+            marketPriceData[seriesIndex]?.unit +
+            "</span>" +
+            "</span>" +
+            "</div>" +
+            "</div>"
+          );
+        },
+      },
+      xaxis: {
+        categories: day,
+        labels: {
+          formatter: function (value) {
+            return value;
+          },
+          style: {
+            fontSize: "0px",
+          },
+        },
+        position: "top", // x축 라벨
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        tooltip: {
+          enabled: false,
+        },
+      },
+      yaxis: {
+        show: false,
+        min: undefined,
+        max: undefined,
+      },
+    },
+  };
+
   return (
-    <Wrap>
-      <div>
-        <RowWrap>
-          <CategoryT>가락양재양곡시장</CategoryT>
-          <Hr />
-          <CategoryT>벼 - 흑미</CategoryT>
-        </RowWrap>
-      </div>
+    userInfo !== undefined &&
+    userInfo?.crops.map((list, index) => {
+      return (
+        <Wrap>
+          <div>
+            <RowWrap>
+              <CategoryT>
+                {marketName !== undefined
+                  ? marketName + " " + "도소매시장"
+                  : "서울 도소매시장"}
+              </CategoryT>
+              <Hr />
+              <CategoryT>{list.name}</CategoryT>
+            </RowWrap>
+          </div>
 
-      <CategoryChartWrap>
-        <CategoryWrap>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="month"
-              name="MyCropsCaterory"
-              onChange={changeRadio}
-              value={checkedInputs}
-              defaultChecked
-            />
-            <FormCheckText>월별</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="year"
-              name="MyCropsCaterory"
-              onChange={changeRadio}
-              value={checkedInputs}
-            />
-            <FormCheckText>연도별</FormCheckText>
-          </Label>
-        </CategoryWrap>
+          <CategoryChartWrap>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="month"
+                  name={list.id}
+                  onChange={changeRadio}
+                  value={checkedInputs}
+                  defaultChecked
+                />
+                <FormCheckText>월별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="year"
+                  name={list.id}
+                  onChange={changeRadio}
+                  value={checkedInputs}
+                />
+                <FormCheckText>연도별</FormCheckText>
+              </Label>
+            </CategoryWrap>
 
-        {checkedInputs === "month" && <MarketPriceMonthChart />}
-        {checkedInputs === "year" && <MarketPriceYearChart />}
-      </CategoryChartWrap>
-    </Wrap>
+            {checkedInputs === "month" && (
+              <MarketPriceMonthChart
+                MyCrops={list}
+                checkedInputs={checkedInputs}
+                index={index}
+              />
+            )}
+            {checkedInputs === "year" && (
+              <MarketPriceYearChart
+                MyCrops={list}
+                checkedInputs={checkedInputs}
+                index={index}
+              />
+            )}
+          </CategoryChartWrap>
+        </Wrap>
+      );
+    })
   );
 };
 
@@ -142,4 +363,4 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-export default MarketPriceCard;
+export default MyCropsMarketPriceCard;

@@ -6,7 +6,7 @@ import ApexCharts from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const MarketPriceChart = () => {
+const MyCropsYearChart = () => {
   const day = [
     "2021.07",
     "2021.09",
@@ -176,4 +176,4 @@ const Xasis = styled.span`
   color: #666666;
 `;
 
-export default MarketPriceChart;
+export default MyCropsYearChart;

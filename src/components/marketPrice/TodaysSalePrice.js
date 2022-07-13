@@ -20,7 +20,7 @@ const TodaysSalePrice = ({ salePrice }) => {
   }
 
   const sellingPrice = Number(kg * salePrice);
-
+  console.log(salePrice);
   return (
     <Wrap>
       <CategoryT>💵 예상 판매 금액</CategoryT>
@@ -37,30 +37,36 @@ const TodaysSalePrice = ({ salePrice }) => {
       </SumWrap>
       <BottomWrap>
         <Hr />
-        <SellingPrice>
-          {sellingPrice < 1000
-            ? kg * salePrice + "원"
-            : sellingPrice < 10000
-            ? String(sellingPrice).slice(-4, -3) +
-              "천" +
-              " " +
-              String(sellingPrice).slice(-3) +
-              "원"
-            : String(sellingPrice).slice(-4, -3) === "0" &&
-              String(sellingPrice).slice(0, -4).length < 3
-            ? String(sellingPrice).slice(0, -4) +
-              "만" +
-              " " +
-              String(sellingPrice).slice(-3) +
-              "원"
-            : String(sellingPrice).slice(0, -4).length < 3
-            ? String(sellingPrice).slice(0, -4) +
-              "만" +
-              " " +
-              String(sellingPrice).slice(-4, -3) +
-              "천원"
-            : comma(String(sellingPrice).slice(0, -4)) + "만원"}
-        </SellingPrice>
+        {salePrice === 0 ? (
+          <NotFoundNoticeWrap>
+            <NotFoundNotice>판매 금액을 예상할 수 없습니다.</NotFoundNotice>
+          </NotFoundNoticeWrap>
+        ) : (
+          <SellingPrice>
+            {sellingPrice < 1000
+              ? kg * salePrice + "원"
+              : sellingPrice < 10000
+              ? String(sellingPrice).slice(-4, -3) +
+                "천" +
+                " " +
+                String(sellingPrice).slice(-3) +
+                "원"
+              : String(sellingPrice).slice(-4, -3) === "0" &&
+                String(sellingPrice).slice(0, -4).length < 3
+              ? String(sellingPrice).slice(0, -4) +
+                "만" +
+                " " +
+                String(sellingPrice).slice(-3) +
+                "원"
+              : String(sellingPrice).slice(0, -4).length < 3
+              ? String(sellingPrice).slice(0, -4) +
+                "만" +
+                " " +
+                String(sellingPrice).slice(-4, -3) +
+                "천원"
+              : comma(String(sellingPrice).slice(0, -4)) + "만원"}
+          </SellingPrice>
+        )}
       </BottomWrap>
     </Wrap>
   );
@@ -142,4 +148,18 @@ const Hr = styled.div`
   padding-right: 40px;
   border-bottom: 0.5px solid #dddddd;
 `;
+
+const NotFoundNoticeWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const NotFoundNotice = styled.span`
+  color: #787c87;
+  font-size: 11px;
+  margin-top: 20px;
+`;
+
 export default TodaysSalePrice;
