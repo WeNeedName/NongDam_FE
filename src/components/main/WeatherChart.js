@@ -163,8 +163,8 @@ const WeatherChart = (props) => {
       },
       yaxis: {
         show: false,
-        // min: 16,
-        // max: 38,
+        min: 16,
+        max: 38,
       },
     },
   };

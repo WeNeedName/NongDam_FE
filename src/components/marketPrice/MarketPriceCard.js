@@ -3,15 +3,18 @@ import styled from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { getMarketPriceDB } from "../../redux/modules/main";
 
 // 컴포넌트
 import MarketPriceMonthChart from "./MarketPriceMonthChart";
 import MarketPriceYearChart from "./MarketPriceYearChart";
 
-const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
+const MarketPriceCard = ({ cropsData }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [checkedInputs, setCheckedInputs] = useState("month");
-
+  const [selectedCrops, setSelectedCrops] = useState(21);
+  const marketPriceData = useSelector((state) => state.main.marketPrice);
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -19,42 +22,23 @@ const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
     }
   };
 
-  const customStyles = {
-    container: () => ({
-      // width: 100,
-      border: "1px solid black",
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: "1px dotted pink",
-      color: state.isSelected ? "green" : "black",
-      padding: 10,
-    }),
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      width: 200,
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = "opacity 300ms";
+  useEffect(() => {
+    dispatch(getMarketPriceDB(data));
+  }, [checkedInputs, selectedCrops]);
 
-      return { ...provided, opacity, transition };
-    },
+  const data = {
+    cropId: selectedCrops === 21 ? 21 : selectedCrops.value,
+    data: checkedInputs,
   };
+
+  console.log(selectedCrops.value);
 
   return (
     <Wrap>
       <CategoryT>📈 작물 조회</CategoryT>
       <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
       <Region>가락양재양곡시장</Region>
-      {/* <Selec onChange={(e) => setCategory(e.target.value)}>
-                {cropsData !== undefined
-                  ? cropsData.map((crops) => {
-                      return <option value={crops.id}>{crops.name}</option>;
-                      // { label: crops.name, value: crops.id };
-                    })
-                  : null}
-              </Selec> */}
+
       <StyledSelect
         // styles={customStyles}
         name="crops"
@@ -62,7 +46,10 @@ const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
         options={
           cropsData !== undefined
             ? cropsData.map((crops) => {
-                return { label: crops.name, value: crops.id };
+                return {
+                  label: "[" + crops.type + "]" + " " + crops.name,
+                  value: crops.id,
+                };
               })
             : null
         }
@@ -96,8 +83,12 @@ const MarketPriceCard = ({ cropsData, setSelectedCrops }) => {
           </Label>
         </CategoryWrap>
 
-        {checkedInputs === "month" && <MarketPriceMonthChart />}
-        {checkedInputs === "year" && <MarketPriceYearChart />}
+        {checkedInputs === "month" && (
+          <MarketPriceMonthChart marketPriceData={marketPriceData} />
+        )}
+        {checkedInputs === "year" && (
+          <MarketPriceYearChart marketPriceData={marketPriceData} />
+        )}
       </CategoryChartWrap>
     </Wrap>
   );

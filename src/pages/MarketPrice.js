@@ -19,12 +19,14 @@ const MarketPrice = () => {
   const [category, setCategory] = useState(null);
   const [selectedCrops, setSelectedCrops] = useState([]);
   const [selectedCropsB, setSelectedCropsB] = useState([]);
-  const [selectedCropsC, setSelectedCropsC] = useState([]);
+  const [salePrice, setSalePrice] = useState(0);
   const cropsData = useSelector((state) => state.users.crops);
 
   const scrollRef = useRef(null);
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
+
+  console.log(salePrice);
 
   const onDragStart = (e) => {
     e.preventDefault();
@@ -80,10 +82,13 @@ const MarketPrice = () => {
           <TodaysMarketPrice
             cropsData={cropsData}
             setSelectedCrops={setSelectedCropsB}
+            setSalePrice={setSalePrice}
+            salePrice={salePrice}
           />
           <TodaysSalePrice
             cropsData={cropsData}
-            setSelectedCrops={setSelectedCropsC}
+            selectedCropsB={selectedCropsB}
+            salePrice={salePrice}
           />
         </BodyWrap>
         <Title>👀 내 작물 시세를 한 눈에</Title>
@@ -96,7 +101,9 @@ const MarketPrice = () => {
         >
           <GradationBox />
           <GradationBox />
-
+          {/* <Div />
+          <Div /> */}
+          <MyCropsMarketPriceCard />
           <MyCropsMarketPriceCard />
           <MyCropsMarketPriceCard />
           <MyCropsMarketPriceCard />
@@ -180,6 +187,13 @@ const MyCropsChartWrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const Div = styled.div`
+  width: 400px;
+  height: 100px;
+  border: none;
+  background-color: red;
 `;
 
 export default MarketPrice;

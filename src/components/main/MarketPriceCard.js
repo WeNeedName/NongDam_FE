@@ -3,37 +3,43 @@ import styled from "styled-components";
 import Select from "react-select";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getMarketPriceDB } from "../../redux/modules/main";
+import { getTodayMarketPriceDB } from "../../redux/modules/main";
 import { getCropsListDB } from "../../redux/modules/users";
 import { getInfoDB } from "../../redux/modules/users";
+// 날짜 포맷 라이브러리
+import moment from "moment";
+import "moment/locale/ko";
 
 const TodayMarketPrice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const marketPriceData = useSelector((state) => state.main.marketPrice);
+  const TodaymarketPriceData = useSelector(
+    (state) => state.main.todayMarketPrice
+  );
   const cropsData = useSelector((state) => state.users.crops);
   const userInfo = useSelector((state) => state.users.user);
 
   const [selectedCrops, setSelectedCrops] = useState(21);
-  const [selectedRadio, setSelectedRadio] = useState("소매");
+  const [checkedInputs, setCheckedInputs] = useState("소매");
 
   useEffect(() => {
-    dispatch(getMarketPriceDB(marketPriceCategory));
+    dispatch(getTodayMarketPriceDB(marketPriceCategory));
     dispatch(getCropsListDB());
-  }, [selectedCrops, selectedRadio]);
+  }, []);
 
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
 
   const marketPriceCategory = {
-    productClsCode: selectedRadio,
-    gradeRank: "상품",
-    cropId: selectedCrops,
+    productClsCode: checkedInputs,
+    cropId:
+      selectedCrops === 21 && userInfo !== null
+        ? userInfo.crops[0].id
+        : selectedCrops === 21
+        ? selectedCrops
+        : selectedCrops.value,
   };
-
-  console.log(userInfo);
-  console.log(marketPriceData);
 
   // 숫자에 콤마넣기
   function comma(str) {
@@ -42,11 +48,11 @@ const TodayMarketPrice = () => {
   }
 
   const changeRadio = (e) => {
-    setSelectedRadio(e.target.value);
-    console.log(e.target.value);
+    if (e.target.checked) {
+      setCheckedInputs(e.target.id);
+    }
   };
-  console.log(selectedRadio);
-  console.log(selectedCrops);
+
   return (
     <Wrap>
       <TopWrap>
@@ -62,19 +68,31 @@ const TodayMarketPrice = () => {
 
       <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
       <Region>
-        {marketPriceData &&
-          marketPriceData.country + " " + marketPriceData.wholesale + "시장"}
+        {TodaymarketPriceData
+          ? TodaymarketPriceData.country +
+            " " +
+            TodaymarketPriceData.wholeSale +
+            "시장"
+          : null}
       </Region>
       <SelecWrap>
         <StyledSelect
           name="crops"
           placeholder={"작물을 검색해보세요"}
           options={
-            cropsData !== undefined
-              ? cropsData.map((crops) => {
-                  return { label: crops.name, value: crops.id };
+            userInfo !== null
+              ? userInfo.crops.map((crops) => {
+                  return {
+                    label: "[" + crops.type + "]" + " " + crops.name,
+                    value: crops.id,
+                  };
                 })
-              : null
+              : cropsData.map((crops) => {
+                  return {
+                    label: "[" + crops.type + "]" + " " + crops.name,
+                    value: crops.id,
+                  };
+                })
           }
           classNamePrefix="react-select"
           onChange={(value) => {
@@ -82,43 +100,64 @@ const TodayMarketPrice = () => {
           }}
         />
 
-        <RadioWrap>
-          <InputWrap>
-            <input
-              type="radio"
-              id="wholeSale"
-              name="saleCategory"
-              value="소매"
-              checked
-              onChange={changeRadio}
-            />
-            <label htmlFor="wholeSale">소매</label>
-          </InputWrap>
-          <InputWrap>
-            <input
-              type="radio"
-              id="retailSale"
-              name="saleCategory"
-              value="도매"
-              onChange={changeRadio}
-            />
-            <label htmlFor="retailSale">도매</label>
-          </InputWrap>
-        </RadioWrap>
+        <InputWrap>
+          <input
+            type="radio"
+            id="소매"
+            name="saleRadio"
+            value="소매"
+            onChange={changeRadio}
+            checked={checkedInputs === "소매" ? true : false}
+          />
+          <label htmlFor="wholeSale">소매</label>
+        </InputWrap>
+        <InputWrap>
+          <input
+            type="radio"
+            id="도매"
+            name="saleRadio"
+            onChange={changeRadio}
+            value="도매"
+            checked={checkedInputs === "도매" ? true : false}
+          />
+          <label htmlFor="retailSale">도매</label>
+        </InputWrap>
       </SelecWrap>
 
-      <SearchBtn>조회하기</SearchBtn>
+      <SearchBtn
+        onClick={() => {
+          dispatch(getTodayMarketPriceDB(marketPriceCategory));
+        }}
+      >
+        조회하기
+      </SearchBtn>
       <BottomWrap>
         <Hr />
         <CategoryTWrap>
-          <CategoryT> 딸기 </CategoryT>
-          <DateT>2022.07.10 기준</DateT>
+          <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
+          <DateT>
+            {TodaymarketPriceData.latestDate !== ""
+              ? moment(TodaymarketPriceData?.latestDate).format("YYYY.MM.DD") +
+                " " +
+                "기준"
+              : null}
+          </DateT>
         </CategoryTWrap>
 
-        <PriceWrap>
-          <TodayPrice>{comma(300)}</TodayPrice>
-          <TodayPriceT>원/{marketPriceData?.unit}</TodayPriceT>
-        </PriceWrap>
+        {TodaymarketPriceData.latestDate !== "" ? (
+          <>
+            <PriceWrap>
+              <TodayPrice>
+                {comma(TodaymarketPriceData?.latestDatePrice)}
+              </TodayPrice>
+              <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
+            </PriceWrap>
+          </>
+        ) : (
+          <NotFoundNoticeWrap>
+            <NotFoundNotice>최근 조사된 데이터가 없습니다.</NotFoundNotice>
+          </NotFoundNoticeWrap>
+        )}
       </BottomWrap>
     </Wrap>
   );
@@ -174,16 +213,6 @@ const StyledSelect = styled(Select)`
   width: 200px;
   height: 30px;
   margin: 0px 0px 20px 0px;
-  & .Select {
-    &__control {
-      display: flex;
-      align-items: center;
-      border-radius: 0;
-      border: none;
-      height: 100%;
-      height: 20px;
-    }
-  }
 `;
 
 const SearchBtn = styled.button`
@@ -254,6 +283,48 @@ const SelecWrap = styled.div`
   align-items: center;
 `;
 
+const CategoryWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const FormCheckText = styled.span`
+  width: 40px;
+  height: 18px;
+  font-size: 10px;
+  padding-bottom: 4px;
+  border-radius: 100px;
+  background: transparent;
+  border: 1px solid #616161;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  color: #616161;
+  cursor: pointer;
+  &:hover {
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
+  }
+`;
+
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
+  }
+  &:checked + ${FormCheckText} {
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
+  }
+  display: none;
+`;
+
+const Label = styled.label``;
+
 const RadioWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -267,6 +338,20 @@ const InputWrap = styled.div`
   flex-direction: row;
   align-items: center;
   margin-right: 6px;
+`;
+
+const NotFoundNoticeWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NotFoundNotice = styled.span`
+  color: #787c87;
+  font-size: 11px;
+  margin-top: 20px;
 `;
 
 export default TodayMarketPrice;
