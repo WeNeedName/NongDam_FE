@@ -129,7 +129,6 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
             '<span class="date-label">' +
             " " +
             day[dataPointIndex] +
-            " 기준" +
             "</span>" +
             "</span>" +
             "</div>" +

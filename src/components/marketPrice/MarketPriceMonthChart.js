@@ -18,9 +18,6 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
     return str.replace(/[^\d]+/g, "");
   }
 
-  console.log(marketPriceData);
-  console.log(selectedCrops);
-
   const day =
     marketPriceData[1] !== undefined
       ? marketPriceData[1].dateList.map((date) => {
@@ -132,7 +129,6 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
             '<span class="date-label">' +
             " " +
             day[dataPointIndex] +
-            " 기준" +
             "</span>" +
             "</span>" +
             "</div>" +

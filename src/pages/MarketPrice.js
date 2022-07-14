@@ -37,13 +37,6 @@ const MarketPrice = () => {
     dispatch(getInfoDB());
   }, []);
 
-  useEffect(() => {
-    dispatch(getMyCropsMarketPriceDB());
-  }, [userInfo]);
-
-  console.log(userInfo);
-  console.log(AllmarketPriceData);
-
   const onDragStart = (e) => {
     e.preventDefault();
     setIsDrag(true);

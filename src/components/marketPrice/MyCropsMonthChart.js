@@ -20,10 +20,9 @@ const MarketPriceChart = ({ checkedInputs, MyCrops, index }) => {
   );
   const userInfo = useSelector((state) => state.users.user);
 
-  useEffect(() => {
-    dispatch(getMyCropsMarketPriceDB());
-    dispatch(getMyCropMarketPriceDB(data));
-  }, [userInfo]);
+  // useEffect(() => {
+  //   dispatch(getMyCropsMarketPriceDB());
+  // }, [userInfo]);
 
   // 숫자에 콤마넣기
   function comma(str) {
@@ -35,8 +34,6 @@ const MarketPriceChart = ({ checkedInputs, MyCrops, index }) => {
     str = String(str);
     return str.replace(/[^\d]+/g, "");
   }
-
-  console.log(MyCrops, AllmarketPriceData, marketPriceData);
 
   const data = {
     cropId: MyCrops?.id,
@@ -56,22 +53,18 @@ const MarketPriceChart = ({ checkedInputs, MyCrops, index }) => {
   //       })
   //     : null;
 
-  const retailSalePriceList = marketPriceData[1]?.priceList.map((price) => {
-    return Number(uncomma(price));
-  });
+  // const retailSalePriceList = marketPriceData[1]?.priceList.map((price) => {
+  //   return Number(uncomma(price));
+  // });
 
-  const wholeSalePriceList =
-    marketPriceData[0]?.priceList.length !== 0
-      ? marketPriceData[0]?.priceList.map((price) => {
-          return Number(uncomma(price));
-        })
-      : null;
+  // const wholeSalePriceList =
+  //   marketPriceData[0]?.priceList.length !== 0
+  //     ? marketPriceData[0]?.priceList.map((price) => {
+  //         return Number(uncomma(price));
+  //       })
+  //     : null;
 
   const test = [
-    {
-      name: "소매",
-      data: [200, 300, 350, 200, 150, 200, 300],
-    },
     {
       name: "소매",
       data: [200, 300, 350, 200, 150, 200, 300],

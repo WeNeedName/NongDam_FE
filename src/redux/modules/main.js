@@ -23,7 +23,7 @@ const getMyCropMarketPrice = createAction(GET_MY_CROP_MARKET_PRICE, (data) => ({
   data,
 }));
 const getMyCropsMarketPrice = createAction(
-  GET_MY_CROP_MARKET_PRICE,
+  GET_MY_CROPS_MARKET_PRICE,
   (data) => ({
     data,
   })
@@ -93,7 +93,6 @@ export const getMyCropsMarketPriceDB = () => {
     apis
       .firstLoadMyCropsMarketPrice()
       .then((response) => {
-        console.log(response);
         dispatch(getMyCropsMarketPrice(response.data));
       })
       .catch((error) => {
@@ -121,7 +120,6 @@ export const loadTodayScheduleDB = () => async (dispatch) => {
   try {
     const { data } = await apis.loadTodaySchedule();
     dispatch(getTodaySchedule(data));
-    console.log(data);
   } catch (err) {
     console.log(err);
   }
@@ -133,7 +131,6 @@ export const loadTodayNewsDB = () => {
     apis
       .loadTodayNews()
       .then((response) => {
-        console.log(response);
         dispatch(getTodayNews(response.data));
       })
       .catch((error) => {
