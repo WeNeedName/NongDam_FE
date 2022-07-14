@@ -30,7 +30,7 @@ const CalendarBook = () => {
 
   useEffect(() => {
     dispatch(getAccountListDB(yearMonth));
-  }, [dispatch]);
+  }, [yearMonth]);
 
   // 장부내역 상세 모달 열기
   const [isOpen, setOpen] = useState(false);
@@ -103,9 +103,9 @@ const CalendarBook = () => {
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
           toolbar: ToolBar,
-          // month: {
-          //   dateHeader: Day,
-          // },
+          month: {
+            dateHeader: Day,
+          },
         }}
         onSelectEvent={(eventInfo) => {
           setEventInfo(eventInfo);

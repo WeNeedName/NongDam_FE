@@ -48,7 +48,7 @@ const AccountWeek = () => {
 
   return (
     <Wrap>
-      <Title>최근 거래 내역</Title>
+      <Title>최근 내역</Title>
       <CategoryWrap>
         <Label>
           <FormCheckLeft
