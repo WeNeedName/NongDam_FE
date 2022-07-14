@@ -30,7 +30,7 @@ const Haeder = ({ currentPage }) => {
               setHeaderNav(headerNav);
             }}
           >
-            Nongsa
+            Nongdam
           </Logo>
 
           <CategoryWrap>
@@ -102,13 +102,22 @@ const Haeder = ({ currentPage }) => {
 
         <ProfileWrap>
           {isLogin ? (
-            <Menu
-              onClick={() => {
-                dispatch(logOutDB());
-              }}
-            >
-              로그아웃
-            </Menu>
+            <>
+              <Menu
+                onClick={() => {
+                  dispatch(logOutDB());
+                }}
+              >
+                로그아웃
+              </Menu>
+              <UserProfile
+                src={Profile}
+                alt="프로필사진"
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              />
+            </>
           ) : (
             <Menu
               onClick={() => {
@@ -118,14 +127,6 @@ const Haeder = ({ currentPage }) => {
               로그인
             </Menu>
           )}
-
-          <UserProfile
-            src={Profile}
-            alt="프로필사진"
-            onClick={() => {
-              navigate("/mypage");
-            }}
-          />
         </ProfileWrap>
       </Nav>
     </Wrap>
