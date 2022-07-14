@@ -20,7 +20,7 @@ const TodaysSalePrice = ({ salePrice }) => {
   }
 
   const sellingPrice = Number(kg * salePrice);
-  console.log(salePrice);
+
   return (
     <Wrap>
       <CategoryT>💵 예상 판매 금액</CategoryT>

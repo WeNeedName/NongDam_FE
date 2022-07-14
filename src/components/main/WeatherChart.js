@@ -26,7 +26,7 @@ const WeatherChart = (props) => {
     });
 
   // 주간 요일 리스트
-  const dayData = weatherData?.day?.day;
+  const dayData = weatherData?.day?.time;
   const dayDataFormatArr = [];
   dayData &&
     dayData.map((data) => {
