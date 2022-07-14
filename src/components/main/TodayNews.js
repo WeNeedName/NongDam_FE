@@ -35,7 +35,7 @@ const TodayNews = () => {
                   <ShowMoreBtn>더보기</ShowMoreBtn>
 
                   <TextWrap>
-                    <ContentsT>
+                    <ContentsT imageURL={list.imageUrl}>
                       {list.descript
                         .replaceAll("&quot;", "''")
                         .replace(/(<br>|<br\/>|<br \/>)/g, " ")}
@@ -167,7 +167,7 @@ const InfoWrap = styled.div`
 `;
 
 const ContentsT = styled.div`
-  width: 180px;
+  width: ${(props) => (props.imageURL === "" ? "270px" : "180px")};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
@@ -177,6 +177,12 @@ const ContentsT = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
+  @media only screen and (max-width: 1220px) {
+    width: ${(props) => (props.imageURL === "" ? "80%" : "150px")};
+  }
+  @media only screen and (max-width: 760px) {
+    width: ${(props) => (props.imageURL === "" ? "90%" : "190px")};
+  }
 `;
 
 const ContentsTInfo = styled.div`
@@ -185,8 +191,8 @@ const ContentsTInfo = styled.div`
 `;
 
 const ImageContent = styled.div`
-  width: 80px;
-  height: 60px;
+  width: 26%;
+  padding-bottom: 20%;
   background-image: url(${(props) => props.imageURL});
   /* background-image: url(https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164422528068537909.jpeg?gif=1&w=1080); */
   background-position: center 30%;
@@ -194,6 +200,14 @@ const ImageContent = styled.div`
   border-radius: 4px;
   cursor: pointer;
   margin-right: 12px;
+  @media only screen and (max-width: 1220px) {
+    width: 28%;
+    padding-bottom: 22%;
+  }
+  @media only screen and (max-width: 760px) {
+    width: 24%;
+    padding-bottom: 18%;
+  }
 `;
 
 export default TodayNews;
