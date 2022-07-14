@@ -6,7 +6,10 @@ import { apis } from "../../shared/api";
 const GET_WEATHER = "GET_WEATHER";
 const GET_TODAY_MARKET_PRICE = "GET_TODAY_MARKET_PRICE";
 const GET_MARKET_PRICE = "GET_MARKET_PRICE";
+const GET_MY_CROPS_MARKET_PRICE = "GET_MY_CROPS_MARKET_PRICE";
+const GET_MY_CROP_MARKET_PRICE = "GET_MY_CROP_MARKET_PRICE";
 const GET_TODAY_SCHEDULE_LIST = "GET_TODAY_SCHEDULE_LIST";
+const GET_TODAY_NEWS_LIST = "GET_TODAY_NEWS_LIST";
 
 // Action Creator
 const getWeather = createAction(GET_WEATHER, (data) => ({ data }));
@@ -16,16 +19,31 @@ const getTodayMarketPrice = createAction(GET_TODAY_MARKET_PRICE, (data) => ({
 const getMarketPrice = createAction(GET_MARKET_PRICE, (data) => ({
   data,
 }));
+const getMyCropMarketPrice = createAction(GET_MY_CROP_MARKET_PRICE, (data) => ({
+  data,
+}));
+const getMyCropsMarketPrice = createAction(
+  GET_MY_CROP_MARKET_PRICE,
+  (data) => ({
+    data,
+  })
+);
 const getTodaySchedule = createAction(GET_TODAY_SCHEDULE_LIST, (data) => ({
+  data,
+}));
+const getTodayNews = createAction(GET_TODAY_NEWS_LIST, (data) => ({
   data,
 }));
 
 // InitialState
 const initialState = {
   weather: [],
-  marketPrice: [],
   todayMarketPrice: [],
+  marketPrice: [],
+  myCropMarketPrice: [],
+  myCropsMarketPrice: [],
   todayScheduleList: [],
+  todayNews: [],
 };
 
 // Middleware
@@ -52,7 +70,6 @@ export const getTodayMarketPriceDB = (data) => {
         dispatch(getTodayMarketPrice(response.data));
       })
       .catch((error) => {
-        // window.alert("시세정보를 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
       });
   };
@@ -66,7 +83,34 @@ export const getMarketPriceDB = (data) => {
         dispatch(getMarketPrice(response.data));
       })
       .catch((error) => {
-        // window.alert("시세정보를 불러오는 중에 오류가 발생했습니다.");
+        console.log(error);
+      });
+  };
+};
+// 내 작물 시세 전체조회
+export const getMyCropsMarketPriceDB = () => {
+  return async function (dispatch) {
+    apis
+      .firstLoadMyCropsMarketPrice()
+      .then((response) => {
+        console.log(response);
+        dispatch(getMyCropsMarketPrice(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+// 내 작물 시세 조회
+export const getMyCropMarketPriceDB = (data) => {
+  return async function (dispatch) {
+    apis
+      .loadMyCropsMarketPrice(data)
+      .then((response) => {
+        dispatch(getMyCropMarketPrice(response.data));
+      })
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -81,6 +125,22 @@ export const loadTodayScheduleDB = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+// 오늘 뉴스 조회
+export const loadTodayNewsDB = () => {
+  return async function (dispatch) {
+    apis
+      .loadTodayNews()
+      .then((response) => {
+        console.log(response);
+        dispatch(getTodayNews(response.data));
+      })
+      .catch((error) => {
+        // window.alert("날씨정보를 불러오는 중에 오류가 발생했습니다.");
+        console.log(error);
+      });
+  };
 };
 
 // Reducer
@@ -101,10 +161,26 @@ export default handleActions(
       produce(state, (draft) => {
         draft.marketPrice = payload.data;
       }),
+    // 내 작물 시세 전체 조회
+    [GET_MY_CROPS_MARKET_PRICE]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.myCropsMarketPrice = payload.data;
+      }),
+    // 내 작물 시세 조회
+    [GET_MY_CROP_MARKET_PRICE]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.myCropMarketPrice = payload.data;
+      }),
     // 오늘 일정 조회
     [GET_TODAY_SCHEDULE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.todayScheduleList = payload.data;
+      }),
+    // 오늘 뉴스 조회
+    [GET_TODAY_NEWS_LIST]: (state, { payload }) =>
+      produce(state, (draft) => {
+        console.log(payload);
+        draft.todayNews = payload.data;
       }),
   },
   initialState
