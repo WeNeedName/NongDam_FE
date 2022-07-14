@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyCropsMarketPriceDB } from "../../redux/modules/main";
 // 차트 라이브러리
 import ApexCharts from "react-apexcharts";
 // 날짜 포맷 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
 
-const MyCropsYearChart = () => {
+const MyCropsYearChart = ({ MyCrops, checkedInputs }) => {
+  const dispatch = useDispatch();
+
+  const marketPriceData = useSelector((state) => state.main.marketPrice);
+  useEffect(() => {
+    dispatch(getMyCropsMarketPriceDB(data));
+  }, [checkedInputs]);
+
+  const data = {
+    cropId: MyCrops?.id,
+    data: checkedInputs,
+  };
+
   const day = [
     "2021.07",
     "2021.09",
@@ -144,6 +158,19 @@ const MyCropsYearChart = () => {
           type="line"
           height={92 + "%"}
         />
+        {marketPriceData[0] !== undefined &&
+        marketPriceData[1] !== undefined ? (
+          <YasisLabelBox>
+            <YasisLabelWrap>
+              <YasisColorTipA />
+              <YasisLabel>소매</YasisLabel>
+            </YasisLabelWrap>
+            <YasisLabelWrap>
+              <YasisColorTipB />
+              <YasisLabel>도매</YasisLabel>
+            </YasisLabelWrap>
+          </YasisLabelBox>
+        ) : null}
       </ChartBox>
       <XasisWrap>
         {day.map((data, id) => {
@@ -160,6 +187,7 @@ const ChartBox = styled.div`
   background: #fafafa;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
   border-radius: 4px;
+  position: relative;
   cursor: pointer;
 `;
 
@@ -172,6 +200,61 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
+  font-size: 8px;
+  color: #666666;
+`;
+
+const YasisLabelBox = styled.div`
+  max-width: 150px;
+  width: 76px;
+  height: auto;
+  background-color: #ffffff;
+  /* border: 1px solid #e3e3e3; */
+  border-radius: 4px;
+  padding: 4px;
+  position: absolute;
+  right: -20px;
+  top: -34px;
+  margin: 6px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  @media only screen and (max-width: 760px) {
+    width: 100px;
+    margin: 6px 10px;
+  }
+`;
+
+const YasisLabelWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const YasisColorTipA = styled.div`
+  width: 7px;
+  height: 3px;
+  background: #7ee3ab;
+  margin-right: 4px;
+  @media only screen and (max-width: 760px) {
+    width: 4px;
+    height: 4px;
+  }
+`;
+
+const YasisColorTipB = styled.div`
+  width: 7px;
+  height: 3px;
+  background: #7eb3e3;
+  margin-right: 4px;
+  @media only screen and (max-width: 760px) {
+    width: 4px;
+    height: 4px;
+  }
+`;
+
+const YasisLabel = styled.span`
   font-size: 8px;
   color: #666666;
 `;

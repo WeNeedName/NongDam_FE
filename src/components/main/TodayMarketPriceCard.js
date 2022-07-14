@@ -196,7 +196,7 @@ const ShowMoreBtn = styled.span`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.4em;
 `;
 
 const Region = styled.div`

@@ -14,6 +14,7 @@ import MarketPriceCard from "../components/marketPrice/MarketPriceCard";
 import MyCropsMarketPriceCard from "../components/marketPrice/MyCropsMarketPriceCard";
 import TodaysMarketPrice from "../components/marketPrice/TodaysMarketPrice";
 import TodaysSalePrice from "../components/marketPrice/TodaysSalePrice";
+import { getMyCropsMarketPriceDB } from "../redux/modules/main";
 
 const MarketPrice = () => {
   const dispatch = useDispatch();
@@ -28,12 +29,20 @@ const MarketPrice = () => {
   const [startX, setStartX] = useState();
 
   const userInfo = useSelector((state) => state.users.user);
+  const AllmarketPriceData = useSelector(
+    (state) => state.main.myCropsMarketPrice
+  );
 
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
 
+  useEffect(() => {
+    dispatch(getMyCropsMarketPriceDB());
+  }, [userInfo]);
+
   console.log(userInfo);
+  console.log(AllmarketPriceData);
 
   const onDragStart = (e) => {
     e.preventDefault();
