@@ -36,16 +36,13 @@ const initialState ={
 
 export const addWorkLogDB = (data) => {
   return async function(dispatch) {
-    apis
-    .addWorkLog(data) //컴포넌트에서 직접 서버 연결 했으니까 이부분 삭제 가능한가?
-    .then((res) => {
-      console.log(res)
-      dispatch(createWorkLog(data));
-    })
-    .catch((err) => {
-      window.alert("영농일지 등록 중에 오류가 발생했습니다.");
-      console.log(err)
-    });
+    dispatch(createWorkLog(data))
+    // addWorkLog(data) //컴포넌트에서 직접 서버 연결 했으니까 이부분 삭제 가능한가?
+   
+    // .catch((err) => {
+    //   window.alert("영농일지 등록 중에 오류가 발생했습니다.");
+    //   console.log(err)
+    // });
   };
 };
 

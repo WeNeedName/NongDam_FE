@@ -122,6 +122,7 @@ color : #616161;
 height: 30px;
 border-radius: 10px;
 border: 1px solid #bfbfbf;
-padding-left: 10px;
+padding-left: 10px
+ext-align : left;
 `
 export default SubMaterial;

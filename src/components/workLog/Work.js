@@ -82,10 +82,6 @@ const Work =(props) => {
                 )
               }) : null 
             }
-            <FakeCropContent>복숭아</FakeCropContent>
-            <FakeCropContent>고추</FakeCropContent>
-            <FakeCropContent>감자</FakeCropContent>
-            <FakeCropContent>고구마</FakeCropContent>
             </CategoryWrap>
           </CategoryBigWrap>
           <CategoryBigWrap>
@@ -117,37 +113,37 @@ const Work =(props) => {
           <SmallTitle className="work">분류</SmallTitle>
             <WorkCategoryWrap>
               <Label>
-                <FormCheckLeft
+                <FormCheckLeftWork
                   type="radio"
                   id="비료뿌리기"
-                  name="radioButton"
+                  name="radioButtonWork"
                   onChange={changeRadioWork}
                   value={checkedInputs}
                 />
-                <FormCheckText>비료뿌리기</FormCheckText>
+                <FormCheckTextWork>비료뿌리기</FormCheckTextWork>
               </Label>
               <Label>
-                <FormCheckLeft
+                <FormCheckLeftWork
                   type="radio"
                   id="농약치기"
-                  name="radioButton"
+                  name="radioButtonWork"
                   onChange={changeRadioWork}
                   value={checkedInputs}
                 />
-                <FormCheckText>농약치기</FormCheckText>
+                <FormCheckTextWork>농약치기</FormCheckTextWork>
               </Label>
               <Label>
-                <FormCheckLeft
+                <FormCheckLeftWork
                   type="radio"
                   id="수확"
-                  name="radioButton"
+                  name="radioButtonWork"
                   onChange={changeRadioWork}
                   value={checkedInputs}
                 />
-                <FormCheckText>수확</FormCheckText>
+                <FormCheckTextWork>수확</FormCheckTextWork>
                 </Label>
                 {/* <Label>
-                  <FormCheckLeft
+                  <FormCheckLeftWork
                     type="radio"
                     id="기타"
                     name="radioButton"
@@ -201,6 +197,8 @@ padding : 10px;
 
 const CategoryWrap = styled.div`
 margin-top : 10px;
+display : flex;
+
 `;
 
 const SmallTitle = styled.label`
@@ -245,7 +243,7 @@ const FormCheckText = styled.span`
   width: 80px;
   height: 30px;
   padding-bottom: 4px;
-  border-radius: 10px;
+  border-radius: 20px;
   background: transparent;
   border: 1px solid black;
   display: flex;
@@ -276,6 +274,41 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label`
 `;
+
+const FormCheckTextWork = styled.span`
+  width: 80px;
+  height: 30px;
+  padding-bottom: 4px;
+  border-radius: 20px;
+  background: transparent;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+  color: black;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`;
+
+const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    display: inline-block;
+    background: none;
+    text-align: center;
+    display: none;
+  }
+  &:checked + ${FormCheckTextWork} {
+    background: black;
+    color: white;
+  }
+  display: none;
+`;
+
+
 
 const TodoInput = styled.textarea`
   width: 80%;

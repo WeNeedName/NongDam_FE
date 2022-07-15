@@ -73,7 +73,9 @@ background-color: white;
 height: 30px;
 border-radius: 10px;
 border: 1px solid black;
-padding-left: 10px;`
+padding-left: 10px;
+text-align : left`
+
 
 
 
