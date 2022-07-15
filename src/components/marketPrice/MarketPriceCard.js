@@ -23,7 +23,7 @@ const MarketPriceCard = ({ cropsData }) => {
     (state) => state.main.searchMarketPrice_is_loaded
   );
 
-  // const marketName = userInfo?.address.split(" ")[0];
+  const marketName = userInfo?.address.split(" ")[0];
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -45,12 +45,17 @@ const MarketPriceCard = ({ cropsData }) => {
     <Wrap>
       {is_loaded ? (
         <>
+          {userInfo?.address === "" && (
+            <NoticeWrap>
+              <NoticeT> 마이페이지에서 지역을 등록해주세요.</NoticeT>
+            </NoticeWrap>
+          )}
           <CategoryT>📈 작물 조회</CategoryT>
           <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
           <Region>
-            {/* {marketName !== undefined
+            {marketName !== undefined
               ? marketName + " " + "도소매시장"
-              : "서울 도소매시장"} */}
+              : "서울 도소매시장"}
           </Region>
           <StyledSelect
             // styles={customStyles}
@@ -138,6 +143,7 @@ const Wrap = styled.div`
   background-color: #fff;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+  position: relative;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
@@ -214,6 +220,30 @@ const StyledSelect = styled(Select)`
   width: 200px;
   height: 30px;
   margin: 0px 0px 20px 0px;
+`;
+
+const NoticeWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 100;
+  background: linear-gradient(to top, #fff 30%, transparent 75%);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+`;
+
+const NoticeT = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  color: #318f27;
 `;
 
 export default MarketPriceCard;
