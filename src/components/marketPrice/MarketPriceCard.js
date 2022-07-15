@@ -32,6 +32,8 @@ const MarketPriceCard = ({ cropsData }) => {
     }
   };
 
+  console.log(marketPriceData);
+
   useEffect(() => {
     dispatch(getMarketPriceDB(data));
   }, [checkedInputs, selectedCrops]);

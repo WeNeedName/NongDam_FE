@@ -41,14 +41,17 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
     return Number(uncomma(price));
   });
 
-  console.log(marketPriceData[0]?.priceList);
+  console.log(retailSalePriceList);
 
   // 시간별 날씨 그래프 데이터
   const state = {
     series: [
       {
         name: marketPriceData[0]?.wholeSale,
-        data: wholeSalePriceList,
+        data:
+          wholeSalePriceList !== null
+            ? wholeSalePriceList
+            : retailSalePriceList,
       },
       {
         name: marketPriceData[1]?.wholeSale,
@@ -58,7 +61,10 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
     options: {
       markers: {
         size: [2, 2],
-        colors: ["#7EB3E3", "#7EE3AB"],
+        colors:
+          wholeSalePriceList !== null
+            ? ["#7EB3E3", "#7EE3AB"]
+            : ["#7EB3E3", "#7EB3E3"],
         hover: {
           size: undefined,
           sizeOffset: 2,
@@ -82,7 +88,10 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
       stroke: {
         curve: "straight",
         width: [2, 2],
-        colors: ["#7EB3E3", "#7EE3AB"],
+        colors:
+          wholeSalePriceList !== null
+            ? ["#7EB3E3", "#7EE3AB"]
+            : ["#7EB3E3", "#7EB3E3"],
       },
       grid: {
         borderColor: "#ddd",
@@ -119,6 +128,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          console.log(comma(series[seriesIndex][dataPointIndex]));
           return (
             '<div class="tooltip-box">' +
             '<div class="line-B">' +
