@@ -34,7 +34,7 @@ const TodayTodo = () => {
                 navigate("/schedule");
               }}
             >
-              더 보기 &gt;
+              더 보기
             </ShowMoreBtn>
           </TopWrap>
           {scheduleData.length >= 1 ? (
@@ -115,7 +115,7 @@ const TopWrap = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 20px;
   line-height: 10px;
 `;
 
@@ -129,7 +129,7 @@ const ShowMoreBtn = styled.span`
 
 const Guide = styled.div`
   height: 90%;
-  font-size: 12px;
+  font-size: 14px;
   color: #02113b;
   display: flex;
   flex-direction: column;
@@ -156,13 +156,13 @@ const Hr = styled.div`
 
 const ScheduleContent = styled.span`
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 14px;
 `;
 
 const ScheduleTime = styled.span`
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 0px;
 `;
 

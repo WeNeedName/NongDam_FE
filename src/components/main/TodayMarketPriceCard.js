@@ -57,6 +57,8 @@ const TodayMarketPrice = () => {
     }
   };
 
+  console.log(TodaymarketPriceData);
+
   return (
     <Wrap>
       {is_loaded ? (
@@ -68,7 +70,7 @@ const TodayMarketPrice = () => {
                 navigate("/marketprice");
               }}
             >
-              더 보기 &gt;
+              더 보기
             </ShowMoreBtn>
           </TopWrap>
 
@@ -208,6 +210,7 @@ const TopWrap = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2px;
 `;
 
 const ShowMoreBtn = styled.span`
@@ -220,17 +223,20 @@ const ShowMoreBtn = styled.span`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 1.4em;
+  font-size: 20px;
+  line-height: 10px;
+  margin-bottom: 4px;
 `;
 
 const Region = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   margin: 10px 0px;
 `;
 
 const SubTitle = styled.span`
   margin: 4px 0px;
+  font-size: 12px;
 `;
 
 const StyledSelect = styled(Select)`
@@ -243,9 +249,9 @@ const StyledSelect = styled(Select)`
 `;
 
 const SearchBtn = styled.button`
-  width: 60px;
-  height: 24px;
-  font-size: 11px;
+  width: 66px;
+  height: 28px;
+  font-size: 12px;
   color: #616161;
   padding: 4px;
   background: #ffffff;
@@ -277,31 +283,32 @@ const PriceWrap = styled.div`
 
 const TodayPrice = styled.span`
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 30px;
 `;
 
 const TodayPriceT = styled.span`
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 14px;
   margin-left: 4px;
 `;
 
 const CategoryTWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 4px;
   align-items: flex-end;
 `;
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 13px;
+  font-size: 15px;
 `;
 
 const DateT = styled.span`
-  font-size: 10px;
+  font-size: 12px;
   color: #6f6f6f;
-  margin-left: 6px;
+  margin-left: 10px;
 `;
 
 const SelecWrap = styled.div`
@@ -318,7 +325,7 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   width: 40px;
   height: 18px;
-  font-size: 10px;
+  font-size: 12px;
   padding-bottom: 4px;
   border-radius: 100px;
   background: transparent;
@@ -378,7 +385,7 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 20px;
 `;
 

@@ -285,7 +285,7 @@ const Wrap = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   margin-bottom: 20px;
 `;
@@ -309,6 +309,7 @@ const FormCheckText = styled.span`
   height: 16px;
   margin-right: 6px;
   margin-bottom: 10px;
+  font-size: 12px;
   cursor: pointer;
   color: black;
   &:hover {
@@ -343,7 +344,7 @@ const Gradient = styled.div`
 const AccountBoxWrap = styled.div`
   width: 100%;
   padding-right: 70px;
-  height: 530px;
+  height: 584px;
   /* border-top: 30px solid linear-gradient(to top, transparent, red 70%); */
   /* background-color: red; */
   overflow: auto;
@@ -371,7 +372,7 @@ const AccountBox = styled.div`
 `;
 
 const Day = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 `;
 
@@ -399,7 +400,7 @@ const Category = styled.span`
 `;
 
 const PriceNum = styled.span`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   display: flex;
   flex-direction: row;
@@ -408,7 +409,7 @@ const PriceNum = styled.span`
 `;
 
 const WhereTo = styled.span`
-  font-size: 10px;
+  font-size: 12px;
   color: #02113b;
   margin: 8px 0px;
 `;
@@ -422,7 +423,8 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #616161;
   border-radius: 100px;
-  font-size: 8px;
+  font-size: 12px;
+  margin-bottom: 4px;
   color: #616161;
 `;
 

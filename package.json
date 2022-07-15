@@ -27,7 +27,7 @@
     "r": "^0.0.5",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
-    "react-big-calendar": "^0.40.2",
+    "react-big-calendar": "^1.4.0",
     "react-bootstrap": "^2.4.0",
     "react-calendar": "^3.7.0",
     "react-datepicker": "^4.8.0",

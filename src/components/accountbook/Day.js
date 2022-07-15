@@ -52,7 +52,7 @@ const DayLabelBtn = styled.button`
 `;
 
 const DayLabel = styled.span`
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   color: #22641c;
 `;
