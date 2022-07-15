@@ -20,7 +20,7 @@ const EditMemberInfo = () => {
     const { id } = useParams();
     const fileInput = useRef();
     const userInfo = useSelector((state) => state.users.user);
-    
+    console.log(userInfo)
     const previousNickname = userInfo?.nickname;
     const previousAddress = userInfo?.address;
     const previousCountryCode = userInfo?.countryCode;
@@ -30,15 +30,13 @@ const EditMemberInfo = () => {
       });
     
     const previousProfileImg = userInfo?.profileImage;
-    console.log(previousProfileImg)
+    
     const [nickname, setNickname] = useState("");
     const [crops, setCrops] = useState();
     const [countryCode, setCountryCode] = useState(0);
-    const [profileImg, setProfileImg] = useState("")//디폴트값으로 기본이미지 바꿔야됨
+    const [profileImg, setProfileImg] = useState("")
     const [address, setAddress] = useState("")
     const [disable, setDisable] = useState(true);
-    
-    console.log(array)
 
     const token = sessionStorage.getItem("jwtToken");
     const refreshToken = sessionStorage.getItem("refreshToken");
@@ -138,13 +136,14 @@ const EditMemberInfo = () => {
                   <SmallTitle>주소</SmallTitle>
                   <PrevAddress>
                     {userInfo?.address}</PrevAddress>
-                </TitleAndAddress>
-                  {/* 버튼 클릭 시 팝업 생성 */}
-                <EditAddressBtn
-                  type="button"
-                  onClick={() => {openPostCode()}}
-                  value={address}
-                > 주소검색</EditAddressBtn>
+                    {/* {address} */}
+                  </TitleAndAddress>
+                    {/* 버튼 클릭 시 팝업 생성 */}
+                  <EditAddressBtn
+                    type="button"
+                    onClick={() => {openPostCode()}}
+                    value={address}
+                  > 주소검색</EditAddressBtn>
 
                   </AddressWrap>
                   <div id="popupDom">
@@ -161,7 +160,14 @@ const EditMemberInfo = () => {
               <CropsWrap>                
                 <TitleAndCrops>
                   <SmallTitleCrops> 내 작물</SmallTitleCrops>
-                    <MyCrops setCrops={setCrops}  previousCrops={previousCrops}/>
+                    <CropsContent>
+                      <PreviousMyCrops> 
+                        {userInfo?.crops.map((list) => {
+                          return(<PreviousCropsList>{"["+list.type+"]" + " " + list.name}</PreviousCropsList>)
+                          })}
+                        </PreviousMyCrops> 
+                      <MyCrops setCrops={setCrops}  previousCrops={previousCrops}/>
+                    </CropsContent>
                 </TitleAndCrops>
                 
               </CropsWrap>
@@ -172,28 +178,28 @@ const EditMemberInfo = () => {
                 
                 <Selec
                   onChange={(e) => setCountryCode(e.target.value)}>
+                  {userInfo?.countryCode ? 
                   <option value="">
-                    {userInfo?.countryCode ? (  
-                    userInfo?.countryCode === 1101 && "서울(도매)",
-                    userInfo?.countryCode === 2101 && "부산(도매)",
-                    userInfo?.countryCode === 2201 && "대구(도매)",
-                    userInfo?.countryCode === 2300 && "인천(소매)",
-                    userInfo?.countryCode === 2401 && "광주(도매)",
-                    userInfo?.countryCode === 2501 && "대전(도매)",
-                    userInfo?.countryCode === 2601 && "울산(소매)",
-                    userInfo?.countryCode === 3111 && "수원(소매)",
-                    userInfo?.countryCode === 3211 && "춘천(소매)",
-                    userInfo?.countryCode === 3311 && "청주(소매)",
-                    userInfo?.countryCode === 3511 && "전주(소매)",
-                    userInfo?.countryCode === 3711 && "포항(소매)",
-                    userInfo?.countryCode === 3911 && "제주(소매)",
-                    userInfo?.countryCode === 3113 && "의정부(소매)",
-                    userInfo?.countryCode === 3613 && "순천(소매)",
-                    userInfo?.countryCode === 3714 && "안동(소매)",
-                    userInfo?.countryCode === 3814 && "창원(소매)",
-                    userInfo?.countryCode === 3145 && "용인(소매)"
-                  ) : "지역을 선택해주세용"}</option>
-                  
+                    {userInfo?.countryCode === 1101 && "서울(도매)"}
+                    {userInfo?.countryCode === 2101 && "부산(도매)"}
+                    {userInfo?.countryCode === 2201 && "대구(도매)"}
+                    {userInfo?.countryCode === 2300 && "인천(소매)"}
+                    {userInfo?.countryCode === 2401 && "광주(도매)"}
+                    {userInfo?.countryCode === 2501 && "대전(도매)"}
+                    {userInfo?.countryCode === 2601 && "울산(소매)"}
+                    {userInfo?.countryCode === 3111 && "수원(소매)"}
+                    {userInfo?.countryCode === 3211 && "춘천(소매)"}
+                    {userInfo?.countryCode === 3311 && "청주(소매)"}
+                    {userInfo?.countryCode === 3511 && "전주(소매)"}
+                    {userInfo?.countryCode === 3711 && "포항(소매)"}
+                    {userInfo?.countryCode === 3911 && "제주(소매)"}
+                    {userInfo?.countryCode === 3113 && "의정부(소매)"}
+                    {userInfo?.countryCode === 3613 && "순천(소매)"}
+                    {userInfo?.countryCode === 3714 && "안동(소매)"}
+                    {userInfo?.countryCode === 3814 && "창원(소매)"}
+                    {userInfo?.countryCode === 3145 && "용인(소매)"}   
+                  </option>
+                  : <option value="">"선택해주세요"</option>} 
                   
                   <option value="1101">서울(도매)</option>
                   <option value="2101">부산(도매)</option>
@@ -218,14 +224,16 @@ const EditMemberInfo = () => {
            
             </AreaWrap>
            
-          
-            <Submit
-              type="submit"
-              onClick={() => {
-              editInfo();
-              }}>
-              수정하기
-            </Submit>
+            <BtnWrap>
+              <Submit
+                type="submit"
+                onClick={() => {
+                editInfo();
+                }}>
+                수정완료
+              </Submit>
+              <CancelBtn> 취소 </CancelBtn>
+            </BtnWrap>
           </ContentWrap>
         </Wrap>
     );
@@ -265,21 +273,14 @@ const ProfileImg = styled.img`
   border-radius: 70%;
   margin-left : 20px;
 `
-
-
 const ImgAndNames = styled.div`
   display : flex;
   flex-direction row: 
   align-items : center;
-  // align-self: center;
-  .imageUpload{
-    
-  }
   `
 const UploadImg = styled.div`
   display : flex;
   flex-direction : column;`
-
 
 const Names = styled.div`
   
@@ -349,22 +350,18 @@ const PrevAddress = styled.button`
   background-color : transparent;
   font-color : #02113B;
 `
-
 const EditAddressBtn = styled.button`
   font-size: 11px;
-  padding: 5px 15px;
-  border: 1px solid #A4A4A4;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
   background-color:transparent;
   cursor : pointer;
-  color: #A4A4A4;
+  color: #616161;
   &:hover {
-    border: 1.5px solid #A4A4A4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); 
-    color: #A4A4A4;
+    opacity : 0.7;
   }
 `
-
 const CropsWrap = styled.div`
   margin-top : 30px;
   margin-left : 20px;
@@ -373,21 +370,39 @@ const CropsWrap = styled.div`
   justify-content : space-between;
   align-itmes : center;
   text-align : center;
-  
 `
 const TitleAndCrops= styled.div`
   display : flex
   align-itmes : center;
   
 `
-
 const SmallTitleCrops = styled.span`
 font-size : 14px;
 font-color : #02113B;
 font-weight : 700;
 line-height: 40px;
+`
+const PreviousMyCrops = styled.div`
+margin-left : 50px;
+width : 300px;
 
 `
+
+const PreviousCropsList = styled.div`
+width : auto;
+height : auto;
+display : inline-block;
+flex-wrap : wrap;
+border : 1px solid #bfbfbf;
+padding : 4px 8px;
+font-color: #616161;
+font-size : 5px;
+border-radius : 10px;
+margin-right : 5px;
+flex-wrap: wrap;
+`
+
+const CropsContent = styled.div``
 
 const EditCropsBtn = styled.button`
   font-size: 11px;
@@ -402,18 +417,16 @@ const EditCropsBtn = styled.button`
     color: #A4A4A4;
   }
 `
-
-
 const Selec = styled.select`
-  color : #A4A4A4;
+  color : #616161;
   width: 200px;
   background-color: white;
-  height: 30px;
+  height: 37px;
   border-radius: 5px;
-  border: 1px solid #A4A4A4;
+  border: 1px solid #D8D8D8;
   padding-left: 10px;
   margin-left: 72px;
-  text-align : center;
+  ext-align : left
   font-size : 11px;
 `;
 
@@ -457,15 +470,39 @@ const AreaBtn = styled.button`
     color: #A4A4A4;
   }
 `
-const CountryCode = styled.div``;
 
-const Post = styled.div``;
+const BtnWrap = styled.div``
 
-const AddProfile = styled.div``;
-const Image= styled.img``;
 const Submit = styled.button`
   margin-top: 20px;
+  font-size: 11px;
+  color : white;
+  background-color: #22631c;
+  border : none;
+  padding : 4px 10px;
+  border-radius : 8px;
+  margin-left : 18px;
+  cursor : pointer;
+  &:hover {
+    opacity : 0.8;
+  }
 `;
+
+const CancelBtn = styled.button`
+  margin-top: 20px;
+  font-size: 11px;
+  color : #616161;
+  background-color: transparent;
+  border : 1px solid #bfbfbf;
+  padding : 4px 10px;
+  border-radius : 8px;
+  margin-left : 10px;
+  cursor : pointer;
+  &:hover {
+    opacity : 0.8;
+  }
+`;
+
 const Button = styled.button``
 const Text =styled.p``
 export default EditMemberInfo;
