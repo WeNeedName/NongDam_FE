@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import ScheduleModal from './ScheduleModal'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import moment from "moment";
+import "moment/locale/ko";
 
 
 const ScheduleWeek = () => {
@@ -14,6 +17,15 @@ const ScheduleWeek = () => {
     setScheduleId(id);
   }
 
+    // 최근내역 영역 스크롤 감지
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const updateScroll = () => {
+      setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+    };
+    useEffect(() => {
+      window.addEventListener("scroll", updateScroll);
+    });
+
   const currentScheduleList = useSelector(
     (state) => state.schedule.currentSchedule
   );
@@ -22,34 +34,42 @@ const ScheduleWeek = () => {
 
   return (
     <Wrap>
-      
+      <Title>이번 주 할 일</Title>
+      <ScheduleBoxWrap scrollPosition={scrollPosition}>
       {currentScheduleList !== undefined ? 
       currentScheduleList.map((sList, scheduleId) =>{
         return(
-        <ScheduleBox
+        <ScheduleBox 
         key={sList.id}
         onClick={() => {
           toggleModal(sList.id);
         }}
       >
           <div>
-            <TimeSmallWrap>
-              <SmallTitle>시작일</SmallTitle>
-              <Time>{sList.startTime}</Time></TimeSmallWrap>
-            <TimeSmallWrap>
-              <SmallTitle>종료일</SmallTitle>
-              <Time>{sList.endTime}</Time>
-            </TimeSmallWrap>
+          <TopWrap>
+            
+            <Todo>{sList.toDo}</Todo>
+            <MoreVertIcon />
+          </TopWrap>
+            <TimeWrap>
+              <Date>{moment(sList.startTime).format("M월 D일")}</Date>
+              <Time>{moment(sList.startTime).format("HH:mm")}</Time>
+              </TimeWrap>
+            <TimeWrap>
+            <Date>{moment(sList.endTime).format("M월 D일")}</Date>
+              <Time>{moment(sList.endTime).format("HH:mm")}</Time>
+            </TimeWrap>
           </div>
           <BottomWrap>
-            <button>{sList.crop}</button>   
-          </BottomWrap>
-          <BottomWrap>
-            <button>{sList.toDo}</button>
+            <Crop>
+              {sList.crop}
+            </Crop>
           </BottomWrap>
         </ScheduleBox>
-      )})
-    : null}
+       
+      )})  
+      : null}
+      </ScheduleBoxWrap>
     {isOpen && (
         <ScheduleModal
           isOpen={isOpen}
@@ -64,14 +84,23 @@ const ScheduleWeek = () => {
 };
 
 const Wrap = styled.div`
-  
-  height: 700px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ddd;
-  padding: 40px 0px;
+  padding: 30px ;
 `;
+const Title = styled.div`
+  font-size: 20px;
+  font-weight : 700;
+  margin-bottom: 20px`
+
+const ScheduleBoxWrap = styled.div`
+width: 100%;
+  padding-right: 70px;
+  height: 530px;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`
+
 
 const ScheduleBox = styled.div`
   width: 80%;
@@ -84,57 +113,58 @@ const ScheduleBox = styled.div`
   border-radius: 10px;
   margin: 10px 0px;
   cursor: pointer;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   &:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
   }
 `;
 
+const TopWrap = styled.div`
+display : flex;
+justify-content : space-between;
+
+`
+const Todo = styled.div`
+font-size : 18px;
+font-weight : 700;
+font-color: #02113B;
+margin-bottom : 10px;
+`
+
 const TimeWrap = styled.div`
 flex-direction:column;
+margin-bottom : 5px;
 `
 
 
-const TimeSmallWrap = styled.div`
-flex-direction: flex`
 
-const SmallTitle = styled.span`
-font-size: 20px;
-font-weight: bold;
-margin: 5px;
-`
+const Date = styled.span`
+  font-size: 14px;
+  margin-right : 3px;
+
+`;
+
 const Time = styled.span`
-  font-size: 18px;
-  
-`;
-
+  font-size: 14px;
+`
 const BottomWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 6px;
-`;
-const CategoryWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+display : flex;
+flex-direction: row;
+margin-right: 6px;`
 
-const FormCheckText = styled.span`
-  width: 60px;
-  height: 30px;
-  padding-bottom: 4px;
-  border-radius: 10px;
-  background: transparent;
-  border: 1px solid black;
+const Crop = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
-  cursor: pointer;
-  color: black;
-  &:hover {
-    background-color: black;
-    color: white;
-  }
+  padding: 2px 10px 4px 10px;
+  background: transparent;
+  border : 1px solid #616161;
+  border-radius : 100px;
+  
+  font-size : 8px;
+  color #616161
 `;
+
 
 export default ScheduleWeek;

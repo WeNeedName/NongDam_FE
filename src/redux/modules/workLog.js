@@ -15,20 +15,17 @@ const getWorkLogList = createAction(GET_WORKLOG_LIST, () => ({}))
 //InitialState = {
 const initialState ={  
   workLogList : [{
+    title : "비료뿌리는 날!", 
     crop : "복숭아",
-    startTime : "2022-07-11 07:20" ,
-    endTime : "2022-07-11 11:30" ,
+    date : "2022-07-11" ,
+    
     memo : "비료 10kg 주기",
-    subMaterial : [{
+    subMaterial : {
       type:0,
-      product:"세다세농약",
+      product:"좋은비료",
       use: "100ml"
-    }, {
-      type:1,
-      product:"유기농비료",
-      use: "200kg"
-    }],
-    harvest : 10,
+    },
+    harvest : 100,
     //images
    }
   ],

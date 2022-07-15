@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-// react-calendar 라이브러리
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "../../BigCalendarSchedule.css";
 
 // 컴포넌트
-
 import ToolBar from "./ToolbarSchedule";
-
 import Day from "./DaySchedule";
+import EventSchedule from "./EventSchedule";
+import EventScheduleModal from "./EventScheduleModal";
 import {
   getCurrentScheduleListDB,
   getScheduleListDB,
@@ -27,35 +26,55 @@ const ScheduleCalendar = () => {
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
 
   console.log(scheduleList)
-  console.log(yearMonth)
-  console.log(nowMonth)
+  // console.log(yearMonth)
+  // console.log(nowMonth)
  
+//큰 달력에서 모달 열기
+const [isOpen, setOpen] = useState(false);
+const [eventInfo, setEventInfo] = useState(null);
+const [eventDate, setEventDate] = useState([]);
 
+function toggleModal() {
+  setOpen(!isOpen);
+}
   return (
+    <>
     <Calendar
       events={scheduleList.map((list, id) => {
+        // 여기에 모달의 내용을 넣어볼까
         return {
-
           title:
-            list.crop,
+            list.toDo,
             allDay: false,
             start: new Date(list.startTime),
             end: new Date(list.endTime),
+            crop : list.crop
 
         };
       })}
       localizer={localizer}
       style={{ height: 500, width: 600 }}
       components={{
-
         toolbar: ToolBar,
-
         month: {
           dateHeader: Day,
         },
       }}
       setNowMonth={setNowMonth}
+
+      onSelectEvent={(eventInfo) => {
+        setEventInfo(eventInfo);
+        toggleModal();
+      }}
+      eventPropGetter={EventSchedule}
     />
+    {isOpen && (
+    <EventScheduleModal
+      isOpen={isOpen}
+      toggleModal={toggleModal}
+      eventInfo={eventInfo}
+      scheduleList={scheduleList}/>)}
+   </>
   );
 };
 

@@ -17,6 +17,7 @@ const WriteWorkLog =() => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = sessionStorage.getItem("jwtToken");
+    const refreshToken = sessionStorage.getItem("refreshToken");
     const myCropsList = useSelector((state) => state.users.user?.crops)
 
     const [title, setTitle] = useState("")
@@ -24,7 +25,7 @@ const WriteWorkLog =() => {
     const [date, setDate] = useState("")
     const [endTime, setEndTime] = useState("")
     const [memo, setMemo] = useState("")
-    const [subMaterial, setSubMaterial] = useState([])
+    //const [subMaterial, setSubMaterial] = useState([])
     
     const [type, setType] = useState(0);
     const [product, setProduct] = useState("");
@@ -32,49 +33,40 @@ const WriteWorkLog =() => {
     const [unit, setUnit] = useState("");
     const usage = use+unit
     
-    const subMaterialData = {
+ 
+    const subMaterial = {
       type: type,
       product : product,
       use : usage
     }
 
-    const [type1, setType1] = useState(0);
-    const [product1, setProduct1] = useState("");
-    const [use1, setUse1] = useState("");
-    const [unit1, setUnit1] = useState("");
-    const usage1 = use1+unit1
-    
-    const subMaterialData1 = {
-      type: type1,
-      product : product1,
-      use : usage1
-    }
-
-
+  
     const [harvest, setHarvest] = useState("")
     const [images, setImages] = useState("")
     
     const dateFormat = moment(date).format("YYYY-MM-DD")
     
     const numberCrop = Number(crop)
-    const addWorkLog = async () => {
+    const addWorkLog = async (event) => {
       const data = {
+              // title : title,
               crop : numberCrop,
               date : dateFormat,
               memo : memo,
-              subMaterial : subMaterialData,
+              subMaterial : subMaterial,
               harvest : harvest
       }
       let frm = new FormData();
       frm.append("data", JSON.stringify(data));
-      frm.append("Images",images)
+      frm.append("images",images)
       await axios({
         method: "post",
         url: "http://idontcare.shop/worklog",
         data : frm,
         headers : {
-          "Content-Type": "multipart / form-data",
-          Autorization :  `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+          RefreshToken: `Bearer ${refreshToken}`,
+          Autorization :  `Bearer ${token}`
         }
       })
       dispatch(
@@ -85,8 +77,8 @@ const WriteWorkLog =() => {
       );
       
       }
-    console.log(title, numberCrop, dateFormat, memo, subMaterialData, harvest, images)
-    console.log(type, product, use, unit)
+    console.log(title, numberCrop, dateFormat, memo, subMaterial, harvest, images)
+    //console.log(images)
     
     return(
         <Container>
@@ -97,7 +89,8 @@ const WriteWorkLog =() => {
               </TotalTitle>
               <ContentWrap>
                 <Work setTitle={setTitle} setCrop={setCrop} setDate={setDate} setMemo={setMemo} />
-                <SubMaterial setType={setType} setProduct={setProduct} setUse={setUse} setUnit={setUnit}/>
+                <SubMaterial setType={setType} setProduct={setProduct} setUse={setUse} setUnit={setUnit}
+                />
                 <Record setHarvest={setHarvest}/>
                 <WorkPhoto setImages={setImages}/>
               </ContentWrap>
@@ -129,7 +122,7 @@ const Wrap = styled.div`
   margin-top: 100px;
 `;
 const TotalTitle = styled.label`
-  font-size: 2rem;
+  font-size: 18px;
   font-weight: bold;
 `;
 const ContentWrap = styled.div`
