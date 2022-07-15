@@ -71,6 +71,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-off-range-bg {
   background: #F7F7F7;
   color: #AFB6AF;
+  
 }
 
 .rbc-header {
@@ -147,6 +148,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-today {
   /* 오늘 날짜 배경색 */
+  
   background-color: #C3EEBF50;
 }
 
@@ -206,6 +208,7 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-toolbar button:hover {
   color: #373a3c;
+  
   background-color: #e6e6e6;
   border-color: #adadad;
 }
@@ -255,12 +258,16 @@ button.rbc-input::-moz-focus-inner {
           box-shadow: none;
   margin: 0;
   padding: 2px 5px;
-  background-color: #D7EDF9;
+  
+  background-color: #C3EDBF;
   border-radius: 0px;
-  color: #2399DC;
+  color: #22631C;
   cursor: pointer;
   width: 100%;
-  text-align: left;
+  text-align: right;
+  font-size: 9px;
+
+
 }
 .rbc-slot-selecting .rbc-event, .rbc-slot-selecting .rbc-day-slot .rbc-background-event, .rbc-day-slot .rbc-slot-selecting .rbc-background-event {
   cursor: inherit;
@@ -289,9 +296,11 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-slot-selecting .rbc-event, .rbc-slot-selecting .rbc-day-slot .rbc-background-event, .rbc-day-slot .rbc-slot-selecting .rbc-background-event {
   cursor: inherit;
+  
   pointer-events: none;
 }
 .rbc-event-ex.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
+  
   /* background-color: #265985; */
 }
 .rbc-event-ex:focus, .rbc-day-slot .rbc-background-event:focus {
@@ -299,10 +308,12 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-event-label {
+  
   font-size: 80%;
 }
 
 .rbc-event-overlaps {
+  
   -webkit-box-shadow: -1px 1px 5px 0px rgba(51, 51, 51, 0.5);
           box-shadow: -1px 1px 5px 0px rgba(51, 51, 51, 0.5);
 }
@@ -377,6 +388,7 @@ button.rbc-input::-moz-focus-inner {
        user-select: none;
   -webkit-user-select: none;
   height: 100%;
+  
 }
 
 .rbc-month-header {
@@ -415,6 +427,7 @@ button.rbc-input::-moz-focus-inner {
   border-top: 1px solid #ddd;
 }
 
+/* 달력에서 날짜있는 부분*/
 .rbc-date-cell {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 0px;
@@ -422,6 +435,8 @@ button.rbc-input::-moz-focus-inner {
   min-width: 0;
   padding-right: 5px;
   text-align: right;
+  
+
 }
 .rbc-date-cell.rbc-now {
   font-weight: bold;
@@ -429,6 +444,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-date-cell > a, .rbc-date-cell > a:active, .rbc-date-cell > a:visited {
   color: inherit;
   text-decoration: none;
+  
 }
 
 .rbc-row-bg {

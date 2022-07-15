@@ -44,9 +44,6 @@ const Schedule = () => {
   }, [dispatch]);
   
 
-
-
-
   return (
     <Wrap>
       <Header currentPage="schedule"/>
@@ -88,9 +85,6 @@ const Wrap = styled.div`
     grid-template-columns: 1fr 95% 1fr;
     grid-template-rows: 70px minmax(320px, 400px) 1fr;
   }
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 const CalendarWrap = styled.div`
   padding: 30px 30px 36px 30px;
@@ -125,6 +119,7 @@ const AddScheduleBtn = styled.button`
   position: absolute;
   top: 36px;
   right: 30px;
+  cursor : pointer;
   &:hover {
     background-color: #22631c;
   }
@@ -140,23 +135,7 @@ const CurrentListWrap = styled.div`
   }
 `;
 
-const Blocked = styled.div`
-margin-top: 100px;
-width : 100vw;
-height: 100vh;
-background-color: #ffffff;
-opacity: 0.5;
-position: relative;
 
-.plzLogin{
-  display : flex;
-  justify-content: center;
-  align-items: center;
-  font-size : 10px;
-  color : #000;
-  position: absolute;
-}
-`
 
 
 
