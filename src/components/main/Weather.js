@@ -21,12 +21,10 @@ const Weather = () => {
       setCheckedInputs(e.target.id);
     }
   };
-  console.log(weatherData);
+
   useEffect(() => {
     dispatch(getWeatherDB());
   }, [dispatch]);
-
-  console.log(is_loaded);
 
   return (
     <Wrap>
@@ -105,7 +103,7 @@ const Weather = () => {
               />
             </ThumNail>
 
-            <ShimmerThumbnail className="thumNail" height={40 + "%"} rounded />
+            <ShimmerThumbnail className="thumNail" height={40} rounded />
           </ThumNailWrap>
         </>
       )}

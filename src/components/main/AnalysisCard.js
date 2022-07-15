@@ -96,7 +96,7 @@ const AnalysisCard = () => {
             <ThumNailChartWrap>
               <ShimmerThumbnail
                 className="thumNail-analysis"
-                height={50 + "%"}
+                height={50}
                 rounded
               />
             </ThumNailChartWrap>

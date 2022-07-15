@@ -39,7 +39,7 @@ const TodayMarketPrice = () => {
     productClsCode: checkedInputs,
     cropId:
       selectedCrops === 21 && userInfo !== null
-        ? userInfo.crops[0].id
+        ? userInfo?.crops[0]?.id
         : selectedCrops === 21
         ? selectedCrops
         : selectedCrops.value,
@@ -75,9 +75,9 @@ const TodayMarketPrice = () => {
           <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
           <Region>
             {TodaymarketPriceData
-              ? TodaymarketPriceData.country +
+              ? TodaymarketPriceData?.country +
                 " " +
-                TodaymarketPriceData.wholeSale +
+                TodaymarketPriceData?.wholeSale +
                 "시장"
               : null}
           </Region>
@@ -87,13 +87,13 @@ const TodayMarketPrice = () => {
               placeholder={"작물을 검색해보세요"}
               options={
                 userInfo !== null
-                  ? userInfo.crops.map((crops) => {
+                  ? userInfo?.crops.map((crops) => {
                       return {
                         label: "[" + crops.type + "]" + " " + crops.name,
                         value: crops.id,
                       };
                     })
-                  : cropsData.map((crops) => {
+                  : cropsData?.map((crops) => {
                       return {
                         label: "[" + crops.type + "]" + " " + crops.name,
                         value: crops.id,
@@ -140,9 +140,9 @@ const TodayMarketPrice = () => {
           <BottomWrap>
             <Hr />
             <CategoryTWrap>
-              <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
+              <CategoryT> {TodaymarketPriceData?.crop} </CategoryT>
               <DateT>
-                {TodaymarketPriceData.latestDate !== ""
+                {TodaymarketPriceData?.latestDate !== ""
                   ? moment(TodaymarketPriceData?.latestDate).format(
                       "YYYY.MM.DD"
                     ) +
@@ -152,7 +152,7 @@ const TodayMarketPrice = () => {
               </DateT>
             </CategoryTWrap>
 
-            {TodaymarketPriceData.latestDate !== "" ? (
+            {TodaymarketPriceData?.latestDate !== "" ? (
               <>
                 <PriceWrap>
                   <TodayPrice>

@@ -23,7 +23,7 @@ const MarketPriceCard = ({ cropsData }) => {
     (state) => state.main.searchMarketPrice_is_loaded
   );
 
-  const marketName = userInfo?.address.split(" ")[0];
+  // const marketName = userInfo?.address.split(" ")[0];
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -48,9 +48,9 @@ const MarketPriceCard = ({ cropsData }) => {
           <CategoryT>📈 작물 조회</CategoryT>
           <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
           <Region>
-            {marketName !== undefined
+            {/* {marketName !== undefined
               ? marketName + " " + "도소매시장"
-              : "서울 도소매시장"}
+              : "서울 도소매시장"} */}
           </Region>
           <StyledSelect
             // styles={customStyles}

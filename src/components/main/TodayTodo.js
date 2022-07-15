@@ -22,7 +22,6 @@ const TodayTodo = () => {
 
   // console.log(scheduleData[0].startTime, typeof scheduleData[0].startTime);
   // console.log(moment(scheduleData[0].startTime).format("HH:mm"));
-  console.log(scheduleData);
 
   return (
     <Wrap>

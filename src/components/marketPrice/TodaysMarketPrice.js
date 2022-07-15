@@ -22,8 +22,8 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
   );
   const userInfo = useSelector((state) => state.users.user);
 
-  const marketName = userInfo?.address.split(" ")[0];
-
+  //   const marketName = userInfo !== undefined && userInfo?.address.split(" ")[0];
+  console.log(userInfo);
   const [selectedCrops, setSelectedCrops] = useState(21);
   const [checkedInputs, setCheckedInputs] = useState("소매");
 
@@ -45,7 +45,7 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
 
   const marketPriceCategory = {
     productClsCode: checkedInputs,
-    cropId: selectedCrops === 21 ? selectedCrops : selectedCrops.value,
+    cropId: selectedCrops === 21 ? selectedCrops : selectedCrops?.value,
   };
 
   // 숫자에 콤마넣기
@@ -64,13 +64,12 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
     <Wrap>
       {is_loaded ? (
         <>
-          {" "}
           <Title>📈 오늘의 시세</Title>
           <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
           <Region>
-            {marketName !== undefined
+            {/* {marketName !== undefined
               ? marketName + " " + "도소매시장"
-              : "서울 도소매시장"}
+              : "서울 도소매시장"} */}
           </Region>
           <SelecWrap>
             <StyledSelect

@@ -120,6 +120,7 @@ const Income = () => {
 const Wrap = styled.div`
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 `;
 
 const Legend = styled.div`
