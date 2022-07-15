@@ -36,112 +36,101 @@ const Work = (props) => {
     if (e.target.checked) {
       props.setCrop(e.target.id);
     }
-  };
-
-  const changeRadioWork = (e) => {
-    if (e.target.checked) {
-      setMemo(e.target.id);
-      inputRef.current.value = e.target.id;
-      props.setMemo(inputRef.current.value);
-    }
-  };
-  const inputTime = (e) => {
-    props.setWorkTime(e.target.value);
-  };
-
-  //console.log(memo)
-  //console.log(cropTodo, startDateFormat, endDateFormat, memo);
-
-  return (
-    <TodoContentWrap>
-      <CategoryBigWrap>
-        <TitleInput
-          onChange={(e) => {
-            setMyTitle(e.target.value);
-            props.setTitle(e.target.value);
-          }}
-        />
-      </CategoryBigWrap>
-      <CategoryBigWrap>
-        <SmallTitle>작물</SmallTitle>
-        <CategoryWrap>
-          {myCropsList !== undefined
-            ? myCropsList.map((list) => {
-                return (
-                  <Label key={list.id}>
-                    <FormCheckLeft
-                      type="radio"
-                      id={list.id}
-                      name="radioButton"
-                      onChange={changeRadioCrops}
-                      value={checkedCrops}
-                    />
-                    <FormCheckText>{list.name}</FormCheckText>
-                  </Label>
-                );
-              })
-            : null}
-        </CategoryWrap>
-      </CategoryBigWrap>
-      <CategoryBigWrap>
-        <SmallTitle className="calender">작업 날짜</SmallTitle>
-        <DatePickers>
-          <DatePicker
-            className="startDatePicker"
-            selected={workDate}
-            onChange={(date) => {
-              setWorkDate(date);
-              props.setDate(date);
-            }}
-            minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
-            dateFormat="yyyy-MM-dd" // 시간 포맷 변경
-            locale={ko} // 한글로 변경
-            //inline//달력 보이게
-          />
-        </DatePickers>
-      </CategoryBigWrap>
-      <CategoryBigWrap>
-        <SmallTitle className="calender">작업시간</SmallTitle>
-        <TimeContent>
-          <TimeInput onChange={inputTime} placeholder="시간으로 입력해주세요" />{" "}
-          <p>시간</p>
-        </TimeContent>
-      </CategoryBigWrap>
-      <CategoryBigWrap>
-        <SmallTitle className="work">분류</SmallTitle>
-        <WorkCategoryWrap>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="비료뿌리기"
-              name="radioButton"
-              onChange={changeRadioWork}
-              value={checkedInputs}
-            />
-            <FormCheckText>비료뿌리기</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="농약치기"
-              name="radioButton"
-              onChange={changeRadioWork}
-              value={checkedInputs}
-            />
-            <FormCheckText>농약치기</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="수확"
-              name="radioButton"
-              onChange={changeRadioWork}
-              value={checkedInputs}
-            />
-            <FormCheckText>수확</FormCheckText>
-          </Label>
-          {/* <Label>
+    //console.log(memo)
+    //console.log(cropTodo, startDateFormat, endDateFormat, memo);
+    
+    return(
+        <TodoContentWrap>
+          <CategoryBigWrap>
+            <TitleInput
+            onChange={(e) =>{
+              setMyTitle(e.target.value)
+              props.setTitle(e.target.value)
+            }} />
+          </CategoryBigWrap>
+          <CategoryBigWrap>
+            <SmallTitle>작물</SmallTitle>
+            <CategoryWrap>
+              {myCropsList !== undefined ? 
+                myCropsList.map((list)=>{
+                return(
+                  <Label
+                  key={list.id}>
                   <FormCheckLeft
+                    type="radio"
+                    id={list.id}
+                    name="radioButton"
+                    onChange={changeRadioCrops}
+                    value={checkedCrops}
+                  />
+                  <FormCheckText>{list.name}</FormCheckText>
+                </Label>
+                )
+              }) : null 
+            }
+            </CategoryWrap>
+          </CategoryBigWrap>
+          <CategoryBigWrap>
+            <SmallTitle className="calender">작업 날짜</SmallTitle>
+            <DatePickers>
+              <DatePicker
+                  className="startDatePicker"
+                  selected={workDate}
+                  onChange={(date) => {
+                    setWorkDate(date)
+                    props.setDate(date)}}
+                  minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게 
+                  dateFormat="yyyy-MM-dd"// 시간 포맷 변경
+                  locale={ko}// 한글로 변경
+                  //inline//달력 보이게 
+              />
+            </DatePickers>
+          </CategoryBigWrap>
+          <CategoryBigWrap>
+              <SmallTitle className="calender">작업시간</SmallTitle>
+                <TimeContent>
+                <TimeInput
+                    onChange={inputTime}
+                    placeholder="시간으로 입력해주세요"
+                    /> <p>시간</p>
+                </TimeContent>
+          </CategoryBigWrap>
+          <CategoryBigWrap>
+          <SmallTitle className="work">분류</SmallTitle>
+            <WorkCategoryWrap>
+              <Label>
+                <FormCheckLeftWork
+                  type="radio"
+                  id="비료뿌리기"
+                  name="radioButtonWork"
+                  onChange={changeRadioWork}
+                  value={checkedInputs}
+                />
+                <FormCheckTextWork>비료뿌리기</FormCheckTextWork>
+              </Label>
+              <Label>
+                <FormCheckLeftWork
+                  type="radio"
+                  id="농약치기"
+                  name="radioButtonWork"
+                  onChange={changeRadioWork}
+                  value={checkedInputs}
+                />
+                <FormCheckTextWork>농약치기</FormCheckTextWork>
+              </Label>
+              <Label>
+                <FormCheckLeftWork
+                  type="radio"
+                  id="수확"
+                  name="radioButtonWork"
+                  onChange={changeRadioWork}
+                  value={checkedInputs}
+                />
+                <FormCheckTextWork>수확</FormCheckTextWork>
+                </Label>
+                {/* <Label>
+                  <FormCheckLeftWork
+
                     type="radio"
                     id="기타"
                     name="radioButton"
@@ -191,7 +180,8 @@ const TitleInput = styled.input`
 `;
 
 const CategoryWrap = styled.div`
-  margin-top: 10px;
+  margin-top : 10px;
+  display : flex;
 `;
 
 const SmallTitle = styled.label`
@@ -237,7 +227,7 @@ const FormCheckText = styled.span`
   width: 80px;
   height: 30px;
   padding-bottom: 4px;
-  border-radius: 10px;
+  border-radius: 20px;
   background: transparent;
   border: 1px solid black;
   display: flex;
@@ -267,6 +257,41 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label``;
+
+const FormCheckTextWork = styled.span`
+  width: 80px;
+  height: 30px;
+  padding-bottom: 4px;
+  border-radius: 20px;
+  background: transparent;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+  color: black;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`;
+
+const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    display: inline-block;
+    background: none;
+    text-align: center;
+    display: none;
+  }
+  &:checked + ${FormCheckTextWork} {
+    background: black;
+    color: white;
+  }
+  display: none;
+`;
+
+
 
 const TodoInput = styled.textarea`
   width: 80%;

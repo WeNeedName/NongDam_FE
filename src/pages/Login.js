@@ -49,53 +49,52 @@ const Login = () => {
             행복한 농사 생활을 위한 농담 <br />내 농장에 필요한 모든 걸 한 눈에
             보세요.
           </p>
-        </TopWrap>
+          </TopWrap>
+          
+          <InputBoxes>
+          <div className="icon">
+          {/* <PersonIcon /> */}
+          </div>
+            <IdInput
+              ref={idRef}
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder = "이메일"
+            />
+            <PwInput
+              type="password"
+              onChange={(e) => setPw(e.target.value)}
+              value={pw}
+              required
+              placeholder ="비밀번호"
+            />
+         </InputBoxes>
+          <p>
+            <LoginBtn
+              type="submit"
+              style={{ width: "100px" }}
+              onClick={() => {
+                logIn();
+              }}
+            >
+              로그인
+            </LoginBtn>
+          </p>
 
-        <InputBoxes>
-          <div className="icon">{/* <PersonIcon /> */}</div>
-          <IdInput
-            ref={idRef}
-            autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="이메일"
-          />
-          <PwInput
-            type="text"
-            onChange={(e) => setPw(e.target.value)}
-            value={pw}
-            required
-            placeholder="비밀번호"
-          />
-        </InputBoxes>
-        <p>
-          <LoginBtn
-            type="submit"
-            style={{ width: "100px" }}
-            onClick={() => {
-              logIn();
-            }}
-          >
-            로그인
-          </LoginBtn>
-        </p>
+          <p>
+            <SocialBtn
+              onClick={() => {
+                window.location.href = KAKAO_AUTH_URL;
+              }}
+              src={KakaoLogin}
+            />
+          </p>
+          <ToSignUp>
+            회원이 아니시라면? <br /> 
+              <a  href="/signup"> 회원가입</a>
+          </ToSignUp>
 
-        <p>
-          <SocialBtn
-            onClick={() => {
-              window.location.href = KAKAO_AUTH_URL;
-            }}
-            src={KakaoLogin}
-          />
-        </p>
-        <ToSignUp
-          onClick={() => {
-            navigate("/signup");
-          }}
-        >
-          회원이 아니시라면? <br />
-          회원가입
-        </ToSignUp>
       </Container>
     </>
   );

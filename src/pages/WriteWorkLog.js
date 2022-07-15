@@ -34,23 +34,24 @@ const WriteWorkLog =() => {
     const usage = use+unit
     
  
-    const subMaterial = {
+    const subMaterial = [{
       type: type,
       product : product,
       use : usage
-    }
+    }]
 
     const [harvest, setHarvest] = useState("")
     const [images, setImages] = useState("")    
     const dateFormat = moment(date).format("YYYY-MM-DD")
+    const numberTime = Number(workTime)
     const numberCrop = Number(crop)
     const addWorkLog = async (event) => {
       const data = {
-              // title : title,
+              title : title,
               crop : numberCrop,
               date : dateFormat,
               memo : memo,
-              workTime : workTime,
+              workTime : numberTime,
               subMaterial : subMaterial,
               harvest : harvest
       }
@@ -64,11 +65,11 @@ const WriteWorkLog =() => {
         headers : {
           "Content-Type": "multipart/form-data",
           RefreshToken: `Bearer ${refreshToken}`,
-          Autorization :  `Bearer ${token}`
+          Authorization :  `Bearer ${token}`
         }
       })
       dispatch(
-        addWorkLogDB(data) 
+        addWorkLogDB(data, images) 
       )
         .then(
           navigate("/worklog")

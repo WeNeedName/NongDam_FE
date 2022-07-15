@@ -87,7 +87,7 @@ const Wrap = styled.div`
   padding: 30px ;
 `;
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   font-weight : 700;
   margin-bottom: 20px`
 
