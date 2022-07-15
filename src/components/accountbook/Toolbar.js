@@ -26,7 +26,7 @@ export default function ToolBar(props) {
 
   useEffect(() => {
     dispatch(getAccountListDB(YYMM));
-    dispatch(getYearMonthDB(YYMM));
+    // dispatch(getYearMonthDB(YYMM));
   }, [click]);
 
   return (

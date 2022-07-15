@@ -6,7 +6,16 @@ border-radius: 4px;
 }
 
 .line {
-    width: 80px;
+    /* width: 80px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 6px 0px; */
+}
+
+.line-B {
+    width: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -38,6 +47,26 @@ border-radius: 4px;
     font-size: 8px;
     line-height: 16px;
     color: #02113B;
+}
+
+.date-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 16px;
+    color: #60636C80;
+}
+
+
+.data-name-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 16px;
+    color: #02113B;
+    margin-right: 4px;
 }
 
 .label-data {

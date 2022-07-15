@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const TodaysSalePrice = () => {
+const TodaysSalePrice = ({ salePrice }) => {
   const [kg, setKg] = useState(0);
   // 숫자에 콤마넣기
   function comma(str) {
@@ -13,21 +13,13 @@ const TodaysSalePrice = () => {
     str = String(str);
     return str.replace(/[^\d]+/g, "");
   }
-  // console.log(kg);
 
   function inputNumberFormat(e) {
     e.target.value = uncomma(e.target.value);
     setKg(e.target.value);
   }
 
-  const sellingPrice = Number(kg * 300);
-  // console.log(sellingPriceMin, sellingPrice, String(sellingPrice).split("."));
-  console.log(
-    sellingPrice,
-    String(sellingPrice).slice(0, -4) + "만",
-    String(sellingPrice).slice(-4, -3) + "천원",
-    String(sellingPrice).slice(-3) + "원"
-  );
+  const sellingPrice = Number(kg * salePrice);
 
   return (
     <Wrap>
@@ -45,30 +37,36 @@ const TodaysSalePrice = () => {
       </SumWrap>
       <BottomWrap>
         <Hr />
-        <SellingPrice>
-          {sellingPrice < 1000
-            ? kg * 300 + "원"
-            : sellingPrice < 10000
-            ? comma(Math.floor(kg * 0.3)) +
-              "천" +
-              " " +
-              String(sellingPrice).slice(-3) +
-              "원"
-            : String(sellingPrice).slice(-4, -3) === "0" &&
-              String(sellingPrice).slice(0, -4).length < 3
-            ? String(sellingPrice).slice(0, -4) +
-              "만" +
-              " " +
-              String(sellingPrice).slice(-3) +
-              "원"
-            : String(sellingPrice).slice(0, -4).length < 3
-            ? String(sellingPrice).slice(0, -4) +
-              "만" +
-              " " +
-              String(sellingPrice).slice(-4, -3) +
-              "천원"
-            : comma(String(sellingPrice).slice(0, -4)) + "만원"}
-        </SellingPrice>
+        {salePrice === 0 ? (
+          <NotFoundNoticeWrap>
+            <NotFoundNotice>판매 금액을 예상할 수 없습니다.</NotFoundNotice>
+          </NotFoundNoticeWrap>
+        ) : (
+          <SellingPrice>
+            {sellingPrice < 1000
+              ? kg * salePrice + "원"
+              : sellingPrice < 10000
+              ? String(sellingPrice).slice(-4, -3) +
+                "천" +
+                " " +
+                String(sellingPrice).slice(-3) +
+                "원"
+              : String(sellingPrice).slice(-4, -3) === "0" &&
+                String(sellingPrice).slice(0, -4).length < 3
+              ? String(sellingPrice).slice(0, -4) +
+                "만" +
+                " " +
+                String(sellingPrice).slice(-3) +
+                "원"
+              : String(sellingPrice).slice(0, -4).length < 3
+              ? String(sellingPrice).slice(0, -4) +
+                "만" +
+                " " +
+                String(sellingPrice).slice(-4, -3) +
+                "천원"
+              : comma(String(sellingPrice).slice(0, -4)) + "만원"}
+          </SellingPrice>
+        )}
       </BottomWrap>
     </Wrap>
   );
@@ -150,4 +148,18 @@ const Hr = styled.div`
   padding-right: 40px;
   border-bottom: 0.5px solid #dddddd;
 `;
+
+const NotFoundNoticeWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const NotFoundNotice = styled.span`
+  color: #787c87;
+  font-size: 11px;
+  margin-top: 20px;
+`;
+
 export default TodaysSalePrice;

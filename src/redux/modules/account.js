@@ -31,6 +31,7 @@ const getYearMonth = createAction(GET_YEAR_MONTH, (data) => ({ data }));
 
 // InitialState
 const initialState = {
+  is_loaded: false,
   accountList: [],
   currentAccount: [],
   yearMonth: {
@@ -160,6 +161,7 @@ export default handleActions(
 
     [GET_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
+        draft.is_loaded = true;
         draft.currentAccount = payload.currentAccount;
       }),
 

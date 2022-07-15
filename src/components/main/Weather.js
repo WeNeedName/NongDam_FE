@@ -3,11 +3,17 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getWeatherDB } from "../../redux/modules/main";
 import WeatherChart from "./WeatherChart";
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerCircularImage } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
+import "../../App.css";
 
 const Weather = () => {
   const dispatch = useDispatch();
   const weatherData = useSelector((state) => state.main.weather);
   const [checkedInputs, setCheckedInputs] = useState("hour");
+  const is_loaded = useSelector((state) => state.main.weather_is_loaded);
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -22,59 +28,85 @@ const Weather = () => {
 
   return (
     <Wrap>
-      <Title>⛅️ 농장 날씨</Title>
-      <MiddleWrap>
-        <MiddleLeftWrap>
-          <Region>{weatherData.address}</Region>
-          <IconWrap>
-            <Icon iconURL={weatherData.iconURL} />
-            <TempWrap>
-              <Temp>{weatherData.temp}°</Temp>
-              <WeatherT>{weatherData.weather}</WeatherT>
-            </TempWrap>
-          </IconWrap>
-        </MiddleLeftWrap>
-        <MiddleRightWrap>
-          <InfoWrap>
-            <Info>강수량</Info>
-            <Info>습도</Info>
-            <Info>이슬점</Info>
-            <Info>바람</Info>
-          </InfoWrap>
-          <InfoWrapRight>
-            <InfoNum>{weatherData.rn} mm</InfoNum>
-            <InfoNum>{weatherData.rhm} %</InfoNum>
-            <InfoNum>{weatherData.dewPoint} ℃</InfoNum>
-            <InfoNum>{weatherData.ws} m/s</InfoNum>
-          </InfoWrapRight>
-        </MiddleRightWrap>
-      </MiddleWrap>
-      <BottomWrap>
-        <CategoryWrap>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="hour"
-              name="radioButton"
-              onChange={changeRadio}
-              value={checkedInputs}
-              defaultChecked
-            />
-            <FormCheckText>시간별</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="day"
-              name="radioButton"
-              onChange={changeRadio}
-              value={checkedInputs}
-            />
-            <FormCheckText>주간</FormCheckText>
-          </Label>
-        </CategoryWrap>
-        <WeatherChart checkedInputs={checkedInputs} />
-      </BottomWrap>
+      {is_loaded ? (
+        <>
+          <Title>⛅️ 농장 날씨</Title>
+          <MiddleWrap>
+            <MiddleLeftWrap>
+              <Region>{weatherData.address}</Region>
+              <IconWrap>
+                <Icon iconURL={weatherData.iconURL} />
+                <TempWrap>
+                  <Temp>{weatherData.temp}°</Temp>
+                  <WeatherT>{weatherData.weather}</WeatherT>
+                </TempWrap>
+              </IconWrap>
+            </MiddleLeftWrap>
+            <MiddleRightWrap>
+              <InfoWrap>
+                <Info>강수량</Info>
+                <Info>습도</Info>
+                <Info>이슬점</Info>
+                <Info>바람</Info>
+              </InfoWrap>
+              <InfoWrapRight>
+                <InfoNum>{weatherData.rn} mm</InfoNum>
+                <InfoNum>{weatherData.rhm} %</InfoNum>
+                <InfoNum>{weatherData.dewPoint} ℃</InfoNum>
+                <InfoNum>{weatherData.ws} m/s</InfoNum>
+              </InfoWrapRight>
+            </MiddleRightWrap>
+          </MiddleWrap>
+          <BottomWrap>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="hour"
+                  name="radioButton"
+                  onChange={changeRadio}
+                  value={checkedInputs}
+                  defaultChecked
+                />
+                <FormCheckText>시간별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="day"
+                  name="radioButton"
+                  onChange={changeRadio}
+                  value={checkedInputs}
+                />
+                <FormCheckText>주간</FormCheckText>
+              </Label>
+            </CategoryWrap>
+            <WeatherChart checkedInputs={checkedInputs} />
+          </BottomWrap>
+        </>
+      ) : (
+        <>
+          <ShimmerTitle
+            className="thumNail-news-title"
+            line={1}
+            gap={10}
+            variant="secondary"
+          />
+          <ThumNailWrap>
+            <ThumNail>
+              <ShimmerCircularImage size={90} />
+              <ShimmerText
+                className="thumNail-text"
+                line={3}
+                gap={10}
+                variant="secondary"
+              />
+            </ThumNail>
+
+            <ShimmerThumbnail className="thumNail" height={40} rounded />
+          </ThumNailWrap>
+        </>
+      )}
     </Wrap>
   );
 };
@@ -91,6 +123,20 @@ const Wrap = styled.div`
     grid-column: 2 / 3;
     grid-row: 2 / 5;
   }
+`;
+
+const ThumNailWrap = styled.div`
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+const ThumNail = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const Title = styled.span`

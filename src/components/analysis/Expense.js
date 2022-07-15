@@ -139,6 +139,7 @@ const Expense = () => {
 const Wrap = styled.div`
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 `;
 
 const TopWrap = styled.div`

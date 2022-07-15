@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 // 컴포넌트
 import AnalysisSalesChart from "./AnalysisSalesChart";
 
 const AnalysisCard = () => {
   const navigate = useNavigate();
+  const is_loaded = useSelector((state) => state.main.analysis_is_loaded);
 
   const [checkedInputs, setCheckedInputs] = useState("sales");
 
@@ -19,66 +23,101 @@ const AnalysisCard = () => {
 
   return (
     <Wrap>
-      <TopWrap>
-        <Title>📊 농장 관리 현황</Title>
-        <ShowMoreBtn
-          onClick={() => {
-            navigate("/analysis");
-          }}
-        >
-          더 보기 &gt;
-        </ShowMoreBtn>
-      </TopWrap>
+      {is_loaded ? (
+        <>
+          <TopWrap>
+            <Title>📊 농장 관리 현황</Title>
+            <ShowMoreBtn
+              onClick={() => {
+                navigate("/analysis");
+              }}
+            >
+              더 보기 &gt;
+            </ShowMoreBtn>
+          </TopWrap>
 
-      <CategoryWrap>
-        <Label>
-          <FormCheckLeft
-            type="radio"
-            id="sales"
-            name="AnalysisRadioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-            defaultChecked
-          />
-          <FormCheckText>매출 현황</FormCheckText>
-        </Label>
-        <Label>
-          <FormCheckLeft
-            type="radio"
-            id="totalHarvest"
-            name="AnalysisRadioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
-          <FormCheckText>수확량</FormCheckText>
-        </Label>
-        <Label>
-          <FormCheckLeft
-            type="radio"
-            id="account"
-            name="AnalysisRadioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
-          <FormCheckText>수입 및 지출</FormCheckText>
-        </Label>
-        <Label>
-          <FormCheckLeft
-            type="radio"
-            id="workTime"
-            name="AnalysisRadioButton"
-            onChange={changeRadio}
-            value={checkedInputs}
-          />
-          <FormCheckText>작업시간</FormCheckText>
-        </Label>
-      </CategoryWrap>
-      <ChartWrap>
-        {checkedInputs === "sales" && <AnalysisSalesChart />}
-      </ChartWrap>
+          <CategoryWrap>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="sales"
+                name="AnalysisRadioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+                defaultChecked
+              />
+              <FormCheckText>매출 현황</FormCheckText>
+            </Label>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="totalHarvest"
+                name="AnalysisRadioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>수확량</FormCheckText>
+            </Label>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="account"
+                name="AnalysisRadioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>수입 및 지출</FormCheckText>
+            </Label>
+            <Label>
+              <FormCheckLeft
+                type="radio"
+                id="workTime"
+                name="AnalysisRadioButton"
+                onChange={changeRadio}
+                value={checkedInputs}
+              />
+              <FormCheckText>작업시간</FormCheckText>
+            </Label>
+          </CategoryWrap>
+          <ChartWrap>
+            {checkedInputs === "sales" && <AnalysisSalesChart />}
+          </ChartWrap>
+        </>
+      ) : (
+        <>
+          <ThumNailWrap>
+            <ShimmerTitle
+              className="thumNail-news-title"
+              line={1}
+              gap={10}
+              variant="secondary"
+            />
+            <ShimmerText className="thumNail-data-label" line={1} gap={10} />
+            <ThumNailChartWrap>
+              <ShimmerThumbnail
+                className="thumNail-analysis"
+                height={50}
+                rounded
+              />
+            </ThumNailChartWrap>
+          </ThumNailWrap>
+        </>
+      )}
     </Wrap>
   );
 };
+
+const ThumNailWrap = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const ThumNailChartWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 10px;
+`;
 
 const Wrap = styled.div`
   border: none;
