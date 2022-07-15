@@ -75,13 +75,13 @@ const Wrap = styled.div`
   height: 100vh;
   display: grid;
   grid-auto-rows: auto;
-  grid-template-columns: 1fr minmax(600px, 670px) 22% 1fr;
-  grid-template-rows: 70px minmax(580px, 650px) 1fr;
+  grid-template-columns: 1fr minmax(600px, 780px) 25% 1fr;
+  grid-template-rows: 80px minmax(640px, 740px) 1fr;
   justify-content: center;
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 26px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr 95% 1fr;
     grid-template-rows: 70px minmax(320px, 400px) 1fr;
   }

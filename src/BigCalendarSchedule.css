@@ -24,6 +24,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-calendar {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+          
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -390,7 +391,7 @@ button.rbc-input::-moz-focus-inner {
   height: 100%;
   
 }
-
+/* 달력 요일 헤더 */
 .rbc-month-header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -400,6 +401,7 @@ button.rbc-input::-moz-focus-inner {
   border-radius: 8px 8px 0px 0px;
   padding: 1px;
   margin: -1px;
+  /* align-items : center; */
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
