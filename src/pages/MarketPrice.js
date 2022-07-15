@@ -152,12 +152,12 @@ const BodyWrap = styled.div`
   align-items: stretch;
   justify-content: center; */
   display: grid;
-  grid-template-columns: 1fr repeat(3, minmax(20%, 23%)) 1fr;
+  grid-template-columns: 1fr repeat(3, minmax(20%, 27%)) 1fr;
   grid-auto-rows: auto;
   row-gap: 16px;
   column-gap: 20px;
   @media only screen and (max-width: 1220px) {
-    grid-template-columns: 1fr repeat(3, minmax(26%, 26%)) 1fr;
+    grid-template-columns: 1fr repeat(3, minmax(26%, 27%)) 1fr;
   }
   @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 90% 1fr;
@@ -168,9 +168,9 @@ const Title = styled.div`
   font-size: 18px;
   font-weight: 700;
   margin: 30px 0px;
-  margin-left: 14%;
+  margin-left: 9%;
   @media only screen and (max-width: 1220px) {
-    margin-left: 9.5%;
+    margin-left: 9%;
   }
 `;
 

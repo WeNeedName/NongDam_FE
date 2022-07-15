@@ -103,7 +103,11 @@ const Weather = () => {
               />
             </ThumNail>
 
-            <ShimmerThumbnail className="thumNail" height={40} rounded />
+            <ShimmerThumbnail
+              className="thumNail-weather"
+              height={140}
+              rounded
+            />
           </ThumNailWrap>
         </>
       )}
