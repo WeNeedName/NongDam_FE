@@ -201,6 +201,7 @@ const UserProfile = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 100px;
+  cursor: pointer;
   background-image: url(${(props) => props.profileImage});
   /* background-image: url(https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164422528068537909.jpeg?gif=1&w=1080); */
   background-position: center 30%;
