@@ -63,7 +63,7 @@ const Login = () => {
               placeholder = "이메일"
             />
             <PwInput
-              type="password"
+              type="text"
               onChange={(e) => setPw(e.target.value)}
               value={pw}
               required

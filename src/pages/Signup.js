@@ -97,7 +97,7 @@ const Signup = () => {
       {/* <form onSubmit={handleSubmit}> */}
       <InputBoxes>
         <EmailWrap>
-          <LabelEmail>이메일</LabelEmail>
+          <LabelE>이메일</LabelE>
           <input
             ref={emailRef}
             className="inputId"
@@ -135,7 +135,7 @@ const Signup = () => {
               onChangePw(e);
             }}
             placeholder="비밀번호(영문, 숫자 포함 8자 이상)"
-            type="password"
+            type="text"
           />
           {pwErr && (
             <PwErr>비밀번호는 영문, 숫자 포함 8자 이상이여야 합니다.</PwErr>
@@ -150,7 +150,7 @@ const Signup = () => {
               onChangePwCheck(e);
             }}
             placeholder="비밀번호 확인"
-            type="password"
+            type="text"
           />
           {!pwErr && pwCheckErr && <PwErr>비밀번호가 일치하지 않습니다.</PwErr>}
         </PwCheckWrap>
@@ -200,7 +200,9 @@ const EmailWrap = styled.div`
   margin: 10px;
 `;
 
-const LabelEmail = styled.label`
+const SelectEM = styled.select``;
+
+const LabelE = styled.label`
   color: rgb(
     ${(props) => (props.nickNameErr ? "255, 119, 119" : "41, 41, 41")}
   );
