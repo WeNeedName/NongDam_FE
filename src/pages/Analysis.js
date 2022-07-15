@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -15,6 +16,13 @@ import Expense from "../components/analysis/Expense";
 import WorkTime from "../components/analysis/WorkTime";
 
 const Analysis = () => {
+  const navigate = useNavigate();
+  const isLogin = sessionStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
+
   return (
     <>
       <Wrap>

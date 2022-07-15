@@ -1,55 +1,41 @@
-import {React, useState, useEffect, useRef} from 'react'
+import { React, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import {useSelector, useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInfoDB } from "../../redux/modules/users";
 //import {logOutDB} from '../redux/modules/users'
 
 //달력
 import DatePicker from "react-datepicker";
-import { addDays } from "date-fns"
+import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
 import moment from "moment";
 
-const Work =(props) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const inputRef = useRef();
+const Work = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const inputRef = useRef();
 
-    const [todo, setTodo] = useState("");
-    const [checkedInputs, setCheckedInputs] = useState("");
-    const [checkedCrops, setCheckedCrops] = useState("");
-    const [cropTodo, setCropTodo] = useState("")
-    const [work, setWork] = useState("");
-    const [memo, setMemo] = useState("");
-    const [workDate, setWorkDate] = useState(new Date());
-    const [myTitle, setMyTitle] = useState("")
-    
-    
-    //유저가 선택한 작물 불러오기  
-    useEffect(() => {
-      dispatch(getInfoDB());
-      }, []);
-    const myCropsList = useSelector((state) => state.users.user?.crops)
-    // console.log(myCropsList)
-    
-     const changeRadioCrops = (e) => {
-      if (e.target.checked) {
-        props.setCrop(e.target.id);
-      }
-    };
-    
-    const changeRadioWork = (e) => {
-      if (e.target.checked) {
-        setMemo(e.target.id)
-        inputRef.current.value=e.target.id
-        props.setMemo(inputRef.current.value);      
-      }
-    };
-    const inputTime = (e)=> {
-      props.setWorkTime(e.target.value)
+  const [todo, setTodo] = useState("");
+  const [checkedInputs, setCheckedInputs] = useState("");
+  const [checkedCrops, setCheckedCrops] = useState("");
+  const [cropTodo, setCropTodo] = useState("");
+  const [work, setWork] = useState("");
+  const [memo, setMemo] = useState("");
+  const [workDate, setWorkDate] = useState(new Date());
+  const [myTitle, setMyTitle] = useState("");
+
+  //유저가 선택한 작물 불러오기
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
+  const myCropsList = useSelector((state) => state.users.user?.crops);
+  // console.log(myCropsList)
+
+  const changeRadioCrops = (e) => {
+    if (e.target.checked) {
+      props.setCrop(e.target.id);
     }
-  
     //console.log(memo)
     //console.log(cropTodo, startDateFormat, endDateFormat, memo);
     
@@ -144,6 +130,7 @@ const Work =(props) => {
                 </Label>
                 {/* <Label>
                   <FormCheckLeftWork
+
                     type="radio"
                     id="기타"
                     name="radioButton"
@@ -152,92 +139,89 @@ const Work =(props) => {
                   />
                 <FormCheckText>기타</FormCheckText>
               </Label> */}
-            
-            </WorkCategoryWrap>
-          </CategoryBigWrap>
-          <CategoryBigWrap>
-            <SmallTitle className="todo">작업내용</SmallTitle>
-            <TodoInput
-              type="text"
-              ref={inputRef}
-              //defaultValue={memo}
-              onChange={(e)=>{
-                props.setMemo(e.target.value)
-              }}
-              placeholder="일정을 기록해주세요"
-            />
-          </CategoryBigWrap>
-        </TodoContentWrap>  
-        
-    )
-}
+        </WorkCategoryWrap>
+      </CategoryBigWrap>
+      <CategoryBigWrap>
+        <SmallTitle className="todo">작업내용</SmallTitle>
+        <TodoInput
+          type="text"
+          ref={inputRef}
+          //defaultValue={memo}
+          onChange={(e) => {
+            props.setMemo(e.target.value);
+          }}
+          placeholder="일정을 기록해주세요"
+        />
+      </CategoryBigWrap>
+    </TodoContentWrap>
+  );
+};
 
 const TodoContentWrap = styled.div`
-padding: 30px; 
-width: 93%;
-height: 520px;
-background-color: #fff;
-
-`
+  padding: 30px;
+  width: 93%;
+  height: 520px;
+  background-color: #fff;
+`;
 const CategoryBigWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-`  
+`;
 const TitleInput = styled.input`
-height : 30px;
-width: 500px;
-border-left : none;
-border-right : none;
-border-top : none;
-border-bottom : 1px solid #bfbfbf;
-font-size : 36px; 
-padding : 10px;
-`
+  height: 30px;
+  width: 500px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #bfbfbf;
+  font-size: 36px;
+  padding: 10px;
+`;
 
 const CategoryWrap = styled.div`
-margin-top : 10px;
-display : flex;
-
+  margin-top : 10px;
+  display : flex;
 `;
 
 const SmallTitle = styled.label`
-font-size: 18px;
-font-weight: 700;
-`
+  font-size: 18px;
+  font-weight: 700;
+`;
 
 const FakeCropContent = styled.div`
-display : inline-block;
-border : 1px solid #bfbfbf;
-font-color : #616161;
-font-size : 14px;
-width : auto;
-height : auto;
-padding : 4px 12px;
-border-radius : 13px;
-margin-right : 5px;
-`
+  display: inline-block;
+  border: 1px solid #bfbfbf;
+  font-color: #616161;
+  font-size: 14px;
+  width: auto;
+  height: auto;
+  padding: 4px 12px;
+  border-radius: 13px;
+  margin-right: 5px;
+`;
 
 const DatePickers = styled.div`
-margin-top : 3px;
-  .startDatePicker{
-    font-size:24px;
-    background-color:transparent;
-    color:black;
+  margin-top: 3px;
+  .startDatePicker {
+    font-size: 24px;
+    background-color: transparent;
+    color: black;
     border: none;
   }
-`
+`;
 const TimeInput = styled.input`
-width : 150px;
-padding : 3px;
-`
+  width: 150px;
+  padding: 3px;
+`;
 const TimeContent = styled.div`
-display : flex;`
+  display: flex;
+`;
 
 const WorkCategoryWrap = styled.div`
-display : flex;
-margin-top : 10px;
-`
+  display: flex;
+  margin-top: 10px;
+`;
 
 const FormCheckText = styled.span`
   width: 80px;
@@ -272,8 +256,7 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
   display: none;
 `;
 
-const Label = styled.label`
-`;
+const Label = styled.label``;
 
 const FormCheckTextWork = styled.span`
   width: 80px;
@@ -319,7 +302,7 @@ const TodoInput = styled.textarea`
   // border-bottom: 1px solid black;
   padding-right: 30px;
   margin-bottom: 20px;
-  border-radius : 10px;
+  border-radius: 10px;
   &::placeholder {
     color: #ddd;
     font-size: 15px;
@@ -340,6 +323,4 @@ const DoneBtn = styled.button`
   }
 `;
 
-
 export default Work;
-

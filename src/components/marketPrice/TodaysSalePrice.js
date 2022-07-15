@@ -28,22 +28,35 @@ const TodaysSalePrice = ({ salePrice }) => {
 
   return (
     <Wrap>
-      {userInfo?.address === "" ||
-        (userInfo?.crops.length === 0 && (
-          <NoticeWrap>
-            <NoticeT>
-              마이페이지에서 지역과 작물을 등록하시면
-              <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
-            </NoticeT>
-            <NoticeBtn
-              onClick={() => {
-                navigate("/mypage");
-              }}
-            >
-              등록하러 가기
-            </NoticeBtn>
-          </NoticeWrap>
-        ))}
+      {userInfo?.address === "" ? (
+        <NoticeWrap>
+          <NoticeT>
+            마이페이지에서 지역과 작물을 등록하시면
+            <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
+          </NoticeT>
+          <NoticeBtn
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          >
+            등록하러 가기
+          </NoticeBtn>
+        </NoticeWrap>
+      ) : userInfo?.crops.length === 0 ? (
+        <NoticeWrap>
+          <NoticeT>
+            마이페이지에서 지역과 작물을 등록하시면
+            <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
+          </NoticeT>
+          <NoticeBtn
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          >
+            등록하러 가기
+          </NoticeBtn>
+        </NoticeWrap>
+      ) : null}
       <CategoryT>💵 예상 판매 금액</CategoryT>
       <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
       <SumWrap>

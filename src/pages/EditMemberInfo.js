@@ -1,5 +1,4 @@
-
-import {React, useState, useEffect, useRef} from 'react'
+import { React, useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -10,9 +9,7 @@ import { editInfoDB } from "../redux/modules/users";
 import PopupDom from "../components/myPage/PopupDom";
 import PopupPostCode from "../components/myPage/PopupPostCode";
 import MyCrops from "../components/myPage/MyCrops";
-import axios from 'axios'
-
- 
+import axios from "axios";
 
 const EditMemberInfo = () => {
     const navigate = useNavigate();
@@ -38,82 +35,91 @@ const EditMemberInfo = () => {
     const [address, setAddress] = useState("")
     const [disable, setDisable] = useState(true);
 
-    const token = sessionStorage.getItem("jwtToken");
-    const refreshToken = sessionStorage.getItem("refreshToken");
-    
-    //console.log(nickname, crops, countryCode, profileImg, address)
-    
 
-    // 팝업창 상태 관리
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const openPostCode = () => {
-      setIsPopupOpen(true);
-    };
-    const closePostCode = () => {
-      setIsPopupOpen(false);
-    };
+  const previousNickname = userInfo?.nickname;
+  const previousAddress = userInfo?.address;
+  const previousCountryCode = userInfo?.countryCode;
+  const array = [];
+  const previousCrops = userInfo?.crops.map((list) => {
+    return array.push(list.id);
+  });
 
-    useEffect(() => {
-      dispatch(getInfoDB());
-    }, []); 
+  const previousProfileImg = userInfo?.profileImage;
+  console.log(previousProfileImg);
+  const [nickname, setNickname] = useState("");
+  const [crops, setCrops] = useState();
+  const [countryCode, setCountryCode] = useState(0);
+  const [profileImg, setProfileImg] = useState(""); //디폴트값으로 기본이미지 바꿔야됨
+  const [address, setAddress] = useState("");
+  const [disable, setDisable] = useState(true);
 
-    //console.log(userInfo);
-   
-    const onChangeFile = (e) => {
-      //console.log(e.target.files[0])
-      if(e.target && e.target.files[0]){
-        setProfileImg(e.target.files[0])
-      } 
-     }
-    //console.log(crops)
-    const editInfo = async (event) => {
-      const data = {
-        nickname: nickname === "" ? previousNickname : nickname,
-        address: address === "" ? previousAddress : address,
-        countryCode: countryCode === 0 ? previousCountryCode : countryCode,
-        crops: crops.length === 0 ? array : crops,
-      }
-      let frm = new FormData();
-      frm.append("data", JSON.stringify(data));
-      if(profileImg===""){
-        frm.append("profileImage", null)}
-      else{
-        frm.append("profileImage", profileImg)
-      }
-      console.log(data)
-      await axios({
-        method: "put",
-        url: "http://idontcare.shop/member",
-        data: frm,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          RefreshToken: `Bearer ${refreshToken}`,
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(
-        navigate("/mypage")
-      )
+  console.log(array);
+
+  const token = sessionStorage.getItem("jwtToken");
+  const refreshToken = sessionStorage.getItem("refreshToken");
+
+  //console.log(nickname, crops, countryCode, profileImg, address)
+
+  // 팝업창 상태 관리
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const openPostCode = () => {
+    setIsPopupOpen(true);
+  };
+  const closePostCode = () => {
+    setIsPopupOpen(false);
+  };
+
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
+
+  //console.log(userInfo);
+
+  const onChangeFile = (e) => {
+    //console.log(e.target.files[0])
+    if (e.target && e.target.files[0]) {
+      setProfileImg(e.target.files[0]);
+    }
+  };
+  //console.log(crops)
+  const editInfo = async (event) => {
+    const data = {
+      nickname: nickname === "" ? previousNickname : nickname,
+      address: address === "" ? previousAddress : address,
+      countryCode: countryCode === 0 ? previousCountryCode : countryCode,
+      crops: crops.length === 0 ? array : crops,
     };
-   console.log(previousProfileImg)
-   console.log(userInfo)
-    return (
-      <Wrap>
-          <Title>기본 정보</Title>
-          <ContentWrap>
-            <TopWrap>
-              <ImgAndNames>
-                <UploadImg>
-                  <label>
-                  <ProfileImg style={{backgroundImage: `url(${previousProfileImg})`}}/>
-                  </label>
-                  <input
-                  className="imageUpload"
-                  type="file"
-                  id="upload"
-                  name="imageUrl"
-                  onChange={onChangeFile}
-                  onClick={() => editInfo()}
+    let frm = new FormData();
+    frm.append("data", JSON.stringify(data));
+    if (profileImg === "") {
+      frm.append("profileImage", null);
+    } else {
+      frm.append("profileImage", profileImg);
+    }
+    console.log(data);
+    await axios({
+      method: "put",
+      url: "http://idontcare.shop/member",
+      data: frm,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        RefreshToken: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(navigate("/mypage"));
+  };
+  console.log(previousProfileImg);
+  console.log(userInfo);
+  return (
+    <Wrap>
+      <Title>기본 정보</Title>
+      <ContentWrap>
+        <TopWrap>
+          <ImgAndNames>
+            <UploadImg>
+              <label>
+                <ProfileImg
+                  style={{ backgroundImage: `url(${previousProfileImg})` }}
                 />
                 </UploadImg>
                 <Names>
@@ -238,36 +244,35 @@ const EditMemberInfo = () => {
         </Wrap>
     );
   }
+
 const Wrap = styled.div`
   border: none;
-  width : 100%
+  width: 100%;
   height: 100%;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 40px 40px 40px 40px;
-  grid-column: 3 / 5;  
-
-`
+  grid-column: 3 / 5;
+`;
 const Title = styled.span`
-  font-size : 18px;
-  font-weight : 700;
-`
-const ContentWrap = styled.div`
-`
+  font-size: 18px;
+  font-weight: 700;
+`;
+const ContentWrap = styled.div``;
 const TopWrap = styled.div`
   display: flex;
-  justify-content : space-between;
-  align-items : center;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
-`
+`;
 const ProfileImg = styled.img`
   width: 111px;
   height: 111px;
-  display : flex;
-  flex-direction : column;
+  display: flex;
+  flex-direction: column;
   background-size: cover;
-  justify-content : center;
+  justify-content: center;
   align-items: center;
   text-align: center;
   border-radius: 70%;
@@ -282,67 +287,68 @@ const UploadImg = styled.div`
   display : flex;
   flex-direction : column;`
 
-const Names = styled.div`
-  
-  display : flex;
-  flex-direction : column;  
-  text-align : start;
-  justify-content : center;
 
-  .userEmail{
-    margin-left : 20px;
+const Names = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  justify-content: center;
+
+  .userEmail {
+    margin-left: 20px;
     font-size: 11px;
   }
-`
+`;
 const EditNicknameWrap = styled.input`
   width: 70px;
-  margin-left : 17px;
+  margin-left: 17px;
   font-size: 18px;
   font-weight: 700;
-  border:none;
-  `
+  border: none;
+`;
 
 const EditBtn = styled.button`
   font-size: 11px;
   margin: 10px;
   padding: 5px 15px;
-  border: 1px solid #A4A4A4;
+  border: 1px solid #a4a4a4;
   border-radius: 3px;
-  margin-right : 30px;
-  background-color:transparent;
-  cursor : pointer;
-  color: #A4A4A4;
+  margin-right: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  color: #a4a4a4;
   &:hover {
-    border: 1.5px solid #A4A4A4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); 
-    color: #A4A4A4;
+    border: 1.5px solid #a4a4a4;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    color: #a4a4a4;
   }
-`
+`;
 const Line = styled.hr`
-  margin-top : 30px;
-  margin-bottom : 30px;
-  width : 95%;
-  border : solid 0.5px #d8d8d8;
-`
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 95%;
+  border: solid 0.5px #d8d8d8;
+`;
 const SmallTitle = styled.span`
-  font-size : 14px;
-  font-color : #02113B;
-  font-weight : 700;
-`
-const BottomWrap = styled.div``
+  font-size: 14px;
+  font-color: #02113b;
+  font-weight: 700;
+`;
+const BottomWrap = styled.div``;
 
 const AddressWrap = styled.div`
-margin-left : 20px;
-margin-right : 30px;
-display : flex;
-justify-content : space-between;
-align-items : center;`
+  margin-left: 20px;
+  margin-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const TitleAndAddress = styled.div`
-  display : flex; 
-  text-align : center;
-  align-items: center;  
-  `
+  display: flex;
+  text-align: center;
+  align-items: center;
+`;
 const PrevAddress = styled.button`
   margin-left : 100px;
   font-size : 14px;
@@ -388,6 +394,7 @@ width : 300px;
 
 `
 
+
 const PreviousCropsList = styled.div`
 width : auto;
 height : auto;
@@ -406,16 +413,17 @@ const CropsContent = styled.div``
 
 const EditCropsBtn = styled.button`
   font-size: 11px;
-  border: 1px solid #A4A4A4;
+  border: 1px solid #a4a4a4;
   border-radius: 3px;
-  background-color:transparent;
-  cursor : pointer;
-  color: #A4A4A4;
+  background-color: transparent;
+  cursor: pointer;
+  color: #a4a4a4;
   &:hover {
-    border: 1.5px solid #A4A4A4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); 
-    color: #A4A4A4;
+    border: 1.5px solid #a4a4a4;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    color: #a4a4a4;
   }
+
 `
 const Selec = styled.select`
   color : #616161;
@@ -430,46 +438,43 @@ const Selec = styled.select`
   font-size : 11px;
 `;
 
-
 const AreaWrap = styled.div`
-  margin-top : 30px;
-  margin-left : 20px;
-  margin-right : 27px;
-  display : flex;
-  justify-content : space-between;
-  align-itmes : center;
-  
-  
-`
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-right: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-itmes: center;
+`;
 const TitleAndArea = styled.div`
-  display : flex
-  align-itmes : center;
-  text-align : center;
-`
+  display: flex;
+  align-itmes: center;
+  text-align: center;
+`;
 
 const SmallTitleArea = styled.div`
-  font-size : 14px;
-  font-color : #02113B;
-  font-weight : 700;
+  font-size: 14px;
+  font-color: #02113b;
+  font-weight: 700;
   line-height: 40px;
-  
-
-`
+`;
 const AreaBtn = styled.button`
-  align-itmes : center;  
+  align-itmes: center;
   font-size: 11px;
   padding: 5px 15px;
-  border: 1px solid #A4A4A4;
+  border: 1px solid #a4a4a4;
   border-radius: 3px;
-  background-color:transparent;
-  cursor : pointer;
-  color: #A4A4A4;
+  background-color: transparent;
+  cursor: pointer;
+  color: #a4a4a4;
   &:hover {
-    border: 1.5px solid #A4A4A4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); 
-    color: #A4A4A4;
+    border: 1.5px solid #a4a4a4;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    color: #a4a4a4;
   }
+
 `
+
 
 const BtnWrap = styled.div``
 
@@ -505,4 +510,5 @@ const CancelBtn = styled.button`
 
 const Button = styled.button``
 const Text =styled.p``
+
 export default EditMemberInfo;
