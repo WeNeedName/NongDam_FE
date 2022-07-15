@@ -28,12 +28,12 @@ const MyCrops = ({ setCrops, previousCrops }) => {
   
   const beforeCrops = previousCrops!==undefined ?
   previousCrops.map((crops) => {
-    return (crops.type)
+    return (crops.name)
   }) : null
 
-console.log(beforeCrops)
-    console.log(_crops)
-    console.log(previousCrops)
+    //console.log(beforeCrops)
+    //console.log(_crops)
+    //console.log(previousCrops)
 
   return (
     <Container>

@@ -20,24 +20,32 @@ const EditMemberInfo = () => {
     const { id } = useParams();
     const fileInput = useRef();
     const userInfo = useSelector((state) => state.users.user);
-    console.log(userInfo)
-
+    
     const previousNickname = userInfo?.nickname;
     const previousAddress = userInfo?.address;
     const previousCountryCode = userInfo?.countryCode;
-    const previousCrops = userInfo?.crops;
-    const previousProfileImg = userInfo?.profileImg;
-    const defaultImageUrl = "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
-    const [nickname, setNickname] = useState(userInfo?.nickname);
-    const [crops, setCrops] = useState(userInfo?.crops);
-    const [countryCode, setCountryCode] = useState(userInfo?.countryCode);
-    const [profileImg, setProfileImg] = useState(defaultImageUrl)//디폴트값으로 기본이미지 바꿔야됨
-    const [address, setAddress] = useState(userInfo?.address)
+    const array = []
+    const previousCrops = userInfo?.crops.map((list) => {
+      return array.push(list.id)
+      });
+    
+    const previousProfileImg = userInfo?.profileImage;
+    console.log(previousProfileImg)
+    const [nickname, setNickname] = useState("");
+    const [crops, setCrops] = useState();
+    const [countryCode, setCountryCode] = useState(0);
+    const [profileImg, setProfileImg] = useState("")//디폴트값으로 기본이미지 바꿔야됨
+    const [address, setAddress] = useState("")
     const [disable, setDisable] = useState(true);
     
+    console.log(array)
+
     const token = sessionStorage.getItem("jwtToken");
     const refreshToken = sessionStorage.getItem("refreshToken");
     
+    //console.log(nickname, crops, countryCode, profileImg, address)
+    
+
     // 팝업창 상태 관리
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const openPostCode = () => {
@@ -49,32 +57,32 @@ const EditMemberInfo = () => {
 
     useEffect(() => {
       dispatch(getInfoDB());
-      setNickname(userInfo?.nickname)
-      setProfileImg(userInfo?.proifileImg)
-      setAddress(userInfo?.address)
-      setCrops(userInfo?.crops)
     }, []); 
-      //console.log(userInfo);
-   
- 
 
+    //console.log(userInfo);
+   
     const onChangeFile = (e) => {
       //console.log(e.target.files[0])
       if(e.target && e.target.files[0]){
         setProfileImg(e.target.files[0])
       } 
      }
-    console.log(crops)
+    //console.log(crops)
     const editInfo = async (event) => {
       const data = {
-        nickname: nickname,
-        address: address,
-        countryCode: countryCode,
-        crops: crops,
+        nickname: nickname === "" ? previousNickname : nickname,
+        address: address === "" ? previousAddress : address,
+        countryCode: countryCode === 0 ? previousCountryCode : countryCode,
+        crops: crops.length === 0 ? array : crops,
       }
       let frm = new FormData();
       frm.append("data", JSON.stringify(data));
-      frm.append("profileImage", profileImg)
+      if(profileImg===""){
+        frm.append("profileImage", null)}
+      else{
+        frm.append("profileImage", profileImg)
+      }
+      console.log(data)
       await axios({
         method: "put",
         url: "http://idontcare.shop/member",
@@ -85,8 +93,12 @@ const EditMemberInfo = () => {
           Authorization: `Bearer ${token}`,
         },
       })
+      .then(
+        navigate("/mypage")
+      )
     };
-    //console.log(userInfo?.countryCode)
+   console.log(previousProfileImg)
+   console.log(userInfo)
     return (
       <Wrap>
           <Title>기본 정보</Title>
@@ -95,7 +107,7 @@ const EditMemberInfo = () => {
               <ImgAndNames>
                 <UploadImg>
                   <label>
-                  <ProfileImg style={{backgroundImage: `url(${userInfo?.profileImage})`}}/>
+                  <ProfileImg style={{backgroundImage: `url(${previousProfileImg})`}}/>
                   </label>
                   <input
                   className="imageUpload"
@@ -162,10 +174,9 @@ const EditMemberInfo = () => {
                   onChange={(e) => setCountryCode(e.target.value)}>
                   <option value="">
                     {userInfo?.countryCode ? (  
-                    
                     userInfo?.countryCode === 1101 && "서울(도매)",
-                    userInfo?.countryCode === 2100 && "부산(도매)",
-
+                    userInfo?.countryCode === 2101 && "부산(도매)",
+                    userInfo?.countryCode === 2201 && "대구(도매)",
                     userInfo?.countryCode === 2300 && "인천(소매)",
                     userInfo?.countryCode === 2401 && "광주(도매)",
                     userInfo?.countryCode === 2501 && "대전(도매)",
@@ -180,16 +191,13 @@ const EditMemberInfo = () => {
                     userInfo?.countryCode === 3613 && "순천(소매)",
                     userInfo?.countryCode === 3714 && "안동(소매)",
                     userInfo?.countryCode === 3814 && "창원(소매)",
-                    userInfo?.countryCode === 3145 && "용인(소매)",
-                    userInfo?.countryCode === 2200 && "대구(도매)"
-                  
-
+                    userInfo?.countryCode === 3145 && "용인(소매)"
                   ) : "지역을 선택해주세용"}</option>
                   
                   
-                
-                  <option value="2100">부산(도매)</option>
-                  <option value="2200">대구(도매)</option>
+                  <option value="1101">서울(도매)</option>
+                  <option value="2101">부산(도매)</option>
+                  <option value="2201">대구(도매)</option>
                   <option value="2300">인천(소매)</option>
                   <option value="2401">광주(도매)</option>
                   <option value="2501">대전(도매)</option>
@@ -210,16 +218,11 @@ const EditMemberInfo = () => {
            
             </AreaWrap>
            
-            <AddProfile>
-              
-            
-            
-            </AddProfile>
+          
             <Submit
               type="submit"
               onClick={() => {
               editInfo();
-              navigate("/");
               }}>
               수정하기
             </Submit>

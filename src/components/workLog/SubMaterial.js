@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const SubMaterial =({setType, setProduct, setUse, setUnit }) => {
+const SubMaterial =({setType, setProduct, setUse, setUnit}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -16,11 +16,6 @@ const SubMaterial =({setType, setProduct, setUse, setUnit }) => {
     };
     
     
-    
-    
-
-
-
     return(     
         <TodoContent>
             <SmallTitle>부자재 사용량</SmallTitle>
@@ -35,7 +30,7 @@ const SubMaterial =({setType, setProduct, setUse, setUnit }) => {
                     setType(0)
                   }}
                 >
-                  농약
+                  비료
                 </button>
                 <button
                   name="type"
@@ -45,7 +40,7 @@ const SubMaterial =({setType, setProduct, setUse, setUnit }) => {
                     setType(1)
                   }}
                 >
-                  비료
+                  농약
                 </button>
               </div>
             <div className="content-tabs">
@@ -57,7 +52,7 @@ const SubMaterial =({setType, setProduct, setUse, setUnit }) => {
                   type="text" 
                   className="inputChemical"
                   name="product"
-                  placeholder="사용하신 농약을 입력해주세요" 
+                  placeholder="사용하신 비료를 입력해주세요" 
                   onChange={(e)=> {setProduct(e.target.value)}}
                   />
                   
@@ -89,7 +84,8 @@ const SubMaterial =({setType, setProduct, setUse, setUnit }) => {
                   name="product"
                   className="inputChemical"
                   onChange={(e)=> {setProduct(e.target.value)}}
-                  placeholder="사용하신 비료를 입력해주세요" />
+                  placeholder="사용하신 농약을 입력해주세요" />
+
                   <div className="innerSet">
                     <input className="quantity"
                     type="text" name="use"
