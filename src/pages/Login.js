@@ -7,8 +7,6 @@ import KakaoLogin from "../images/kakao_login_medium_narrow.png";
 import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
-import PersonIcon from '@mui/icons-material/Person';
-import { Translate } from "@mui/icons-material";
 
 const Login = () => {
   
@@ -39,39 +37,32 @@ const Login = () => {
     idRef.current.focus();
   }, [userSignIn]);
 
-  
   return (
     <>
     <Header />
       <Container>
-        <TopWrap>
-          <p className = "title">Nongdam</p>
-          <p className = "slogan"> 농장을 한 눈에 담다, 농담!</p>
-          <p className = "desc"> 행복한 농사 생활을 위한 농담 <br/>
-          내 농장에 필요한 모든 걸 한 눈에 보세요.
-          
-          </p>
-          </TopWrap>
-          
-          <InputBoxes>
-          <div className="icon">
-          {/* <PersonIcon /> */}
-          </div>
-            <IdInput
+        <section>
+          <h1>로그인페이지</h1>
+
+          <IdBox>
+            <label className="id">ID</label>
+            <input
               ref={idRef}
               autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder = "이메일"
             />
-            <PwInput
+          </IdBox>
+
+          <PwBox>
+            <label className="pw">PW</label>
+            <input
               type="text"
               onChange={(e) => setPw(e.target.value)}
               value={pw}
               required
-              placeholder ="비밀번호"
             />
-         </InputBoxes>
+          </PwBox>
           <p>
             <LoginBtn
               type="submit"
@@ -92,10 +83,13 @@ const Login = () => {
               src={KakaoLogin}
             />
           </p>
-          <ToSignUp>
-            회원이 아니시라면? <br /> 
-              <a  href="/signup"> 회원가입</a>
-          </ToSignUp>
+          <p>
+            회원이 아니시라면? <br />
+            <span className="line">
+              <a href="/signup"> 회원가입</a>
+            </span>
+          </p>
+        </section>
       </Container>
     </>
   );
@@ -103,91 +97,31 @@ const Login = () => {
 
 
 const Container = styled.div`
-margin-top: 150px;
-display: flex;
-flex-direction : column;
-justify-content: center;
-text-align : center;
-align-item : center;
-position : relative;
-`
-
-const TopWrap = styled.div`
-
-.title{
-  font-weight: 700;
-  font-size : 28px;
-  color : #318F27;
-  margin-bottom : 40px;
-}
-.slogan{
-  font-weight : 700;
-  font-size : 18px;
-}
-.desc {
-  font-size : 11px;
-  margin-top : 20px;
-  margin-bottom : 20px;
-  color : #666666;
-}
-
-
-`
+margin-top: 100px;`
 
 const InputBoxes = styled.div`
-
-display : flex;
-flex-direction : column;
-justify-content : center;
-align-items: center;
-
-.icon{
-  position : absolute;
-  
-  z-index : 1;
-}
+  display: flex;
+  flex-direction: column;
+  .inputId {
+    margin: 10px;
+  }
+  .inputPw {
+    margin: 10px;
+  }
 `;
 
+const IdBox = styled.div`
+  display: flex;
+`;
 
-const IdInput = styled.input`
-width : 180px;
-height : 30px;
-border : 1px solid #999999;
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
-border-bottom : none;
-
-
-::placeholder{
-  font-size : 10px;
-  padding-left : 20px;
-}
-
-
-`
-const PwInput = styled.input`
-width : 180px;
-height : 30px;
-border : 1px solid #999999;
-border-bottom-left-radius: 5px ;
-border-bottom-right-radius: 5px;
-
-::placeholder{
-  font-size : 10px;
-  padding-left : 20px;
-}
-`
-
-
-
+const PwBox = styled.div`
+  display: flex;
+`;
 const LoginBtn = styled.button``;
-const ToSignUp = styled.div``
 const SocialBtn = styled.img`
   cursor: pointer;
   :hover {
     box-shadow: 0 0 3px #142785;
   }
 `;
-
-
 export default Login;
