@@ -301,15 +301,15 @@ const FormCheckText = styled.span`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2px 10px 4px 10px;
+  padding: 4px 12px 6px 12px;
   background: transparent;
   border: 1px solid #bfbfbf;
   border-radius: 100px;
   width: auto;
   height: 16px;
-  margin-right: 6px;
+  margin-right: 12px;
   margin-bottom: 10px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   color: black;
   &:hover {

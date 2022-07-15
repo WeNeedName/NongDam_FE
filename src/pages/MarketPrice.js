@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../redux/modules/users";
 import Select from "react-select";
 import { getInfoDB } from "../redux/modules/users";
+import { useNavigate } from "react-router-dom";
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -24,15 +25,21 @@ const MarketPrice = () => {
   const [salePrice, setSalePrice] = useState(0);
   const cropsData = useSelector((state) => state.users.crops);
 
+  const navigate = useNavigate();
+
+  const isLogin = sessionStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
+
   const scrollRef = useRef(null);
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
   const [checkedInputs, setCheckedInputs] = useState("month");
 
   const userInfo = useSelector((state) => state.users.user);
-  const AllmarketPriceData = useSelector(
-    (state) => state.main.myCropsMarketPrice
-  );
+  console.log(userInfo);
 
   useEffect(() => {
     dispatch(getInfoDB());
@@ -42,8 +49,6 @@ const MarketPrice = () => {
   useEffect(() => {
     dispatch(getMyCropsMarketPriceDB(checkedInputs));
   }, [checkedInputs]);
-
-  console.log(AllmarketPriceData);
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -154,13 +159,7 @@ const MarketPrice = () => {
                   <GradationBox />
                 </>
               ) : null}
-              {/* <Div />
-          <Div /> */}
-              {/* <MyCropsMarketPriceCard />
-              <MyCropsMarketPriceCard />
-              <MyCropsMarketPriceCard />
-              <MyCropsMarketPriceCard /> */}
-              <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard checkedInputs={checkedInputs} />
             </MyCropsChartWrap>
           </>
         ) : null}
@@ -229,8 +228,8 @@ const FormCheckText = styled.span`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
-  border: 1px solid #ccc;
-  color: #ccc;
+  border: 1px solid #bbb;
+  color: #bbb;
   cursor: pointer;
   border-radius: 6px;
   &:hover {
@@ -277,7 +276,7 @@ const GradationBox = styled.div`
 const MyCropsChartWrap = styled.div`
   width: 100%;
   height: 100%;
-  margin-left: 11.5%;
+  /* margin-left: 11.5%; */
 
   padding-bottom: 10px;
   margin-bottom: 30px;
@@ -285,15 +284,15 @@ const MyCropsChartWrap = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   overflow-x: scroll;
-
+  padding-left: 11.5%;
   @media only screen and (max-width: 1220px) {
-    margin-left: 11.5%;
+    padding-left: 11.5%;
   }
   ::-webkit-scrollbar {
     display: none;
   }
   @media only screen and (max-width: 760px) {
-    margin-left: 5%;
+    padding-left: 5%;
   }
 `;
 

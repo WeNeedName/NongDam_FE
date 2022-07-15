@@ -20,10 +20,12 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
   const TodaymarketPriceData = useSelector(
     (state) => state.main.todayMarketPrice
   );
+  const marketPriceData = useSelector((state) => state.main.marketPrice);
   const userInfo = useSelector((state) => state.users.user);
 
-  const marketName = userInfo !== undefined && userInfo?.address.split(" ")[0];
-  console.log(userInfo);
+  const marketName =
+    marketPriceData !== undefined && marketPriceData[0]?.country;
+  console.log(marketName);
   const [selectedCrops, setSelectedCrops] = useState(21);
   const [checkedInputs, setCheckedInputs] = useState("소매");
 
@@ -59,30 +61,41 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
       setCheckedInputs(e.target.id);
     }
   };
-
   console.log(userInfo?.crops.length);
 
   return (
     <Wrap>
       {is_loaded ? (
         <>
-          {userInfo?.address === "" ||
-            (userInfo?.crops.length === 0 && (
-              <NoticeWrap>
-                <NoticeT>
-                  마이페이지에서 지역과 작물을 등록하시면
-                  <br />
-                  오늘의 시세 정보를 확인하실 수 있습니다
-                </NoticeT>
-                <NoticeBtn
-                  onClick={() => {
-                    navigate("/mypage");
-                  }}
-                >
-                  등록하러 가기
-                </NoticeBtn>
-              </NoticeWrap>
-            ))}
+          {userInfo?.address === "" ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물을 등록하시면
+                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : userInfo?.crops.length === 0 ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물을 등록하시면
+                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : null}
           <Title>📈 오늘의 시세</Title>
           <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
           <Region>
@@ -419,6 +432,7 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: white;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }

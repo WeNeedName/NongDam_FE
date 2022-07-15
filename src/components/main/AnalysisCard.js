@@ -11,6 +11,7 @@ import AnalysisSalesChart from "./AnalysisSalesChart";
 const AnalysisCard = () => {
   const navigate = useNavigate();
   const is_loaded = useSelector((state) => state.main.analysis_is_loaded);
+  const userInfo = useSelector((state) => state.users.user);
 
   const [checkedInputs, setCheckedInputs] = useState("sales");
 
@@ -21,10 +22,43 @@ const AnalysisCard = () => {
     }
   };
 
+  console.log(userInfo);
+
   return (
     <Wrap>
       {is_loaded ? (
         <>
+          {userInfo?.address === "" ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물 등록 후 서비스를 이용하시면
+                <br />
+                다양한 통계 정보를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : userInfo?.crops.length === 0 ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물 등록 후 서비스를 이용하시면
+                <br />
+                다양한 통계 정보를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : null}
           <TopWrap>
             <Title>📊 농장 관리 현황</Title>
             <ShowMoreBtn
@@ -127,6 +161,7 @@ const Wrap = styled.div`
   background-color: #fff;
   grid-column: 3 / 5;
   grid-row: 5 / 8;
+  position: relative;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 10 / 12;
@@ -195,5 +230,50 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const ChartWrap = styled.div``;
+
+const NoticeWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.9) 100%,
+    transparent 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+`;
+
+const NoticeT = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: #318f27;
+  text-align: center;
+`;
+
+const NoticeBtn = styled.button`
+  padding: 8px 18px;
+  margin-top: 20px;
+  background-color: #318f27;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  &:hover {
+    background-color: #22631c;
+  }
+`;
 
 export default AnalysisCard;

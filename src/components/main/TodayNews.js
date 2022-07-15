@@ -44,7 +44,8 @@ const TodayNews = () => {
                         <ContentsT imageURL={list.imageUrl}>
                           {list.title
                             .replaceAll("&quot;", "''")
-                            .replace(/(<br>|<br\/>|<br \/>)/g, " ")}
+                            .replace(/(<br>|<br\/>|<br \/>)/g, " ")
+                            .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")}
                         </ContentsT>
                         <InfoWrap>
                           <ContentsTInfo>{list.article}</ContentsTInfo>

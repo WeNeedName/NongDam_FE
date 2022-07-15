@@ -23,7 +23,15 @@ const MarketPriceCard = ({ cropsData }) => {
     (state) => state.main.searchMarketPrice_is_loaded
   );
 
-  const marketName = userInfo?.address.split(" ")[0];
+  const marketName =
+    marketPriceData !== undefined && marketPriceData[0]?.country;
+
+  // const marketName =
+  // AllmarketPriceData !== undefined &&
+  // AllmarketPriceData[0] !== undefined &&
+  // AllmarketPriceData[0][0]?.country;
+
+  console.log(marketPriceData[0]);
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -50,7 +58,7 @@ const MarketPriceCard = ({ cropsData }) => {
               <NoticeT>
                 마이페이지에서 지역을 등록하시면
                 <br />
-                작물별 시세 정보를 확인하실 수 있어요
+                작물별 시세 정보를 확인하실 수 있습니다
               </NoticeT>
               <NoticeBtn
                 onClick={() => {
@@ -276,6 +284,7 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: white;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }
