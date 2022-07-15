@@ -96,7 +96,7 @@ const WorkTime = () => {
             '<span class="label-data">' +
             series[seriesIndex][dataPointIndex] +
             '<span class="price-label">' +
-            "원" +
+            "시간" +
             "</span>" +
             "</span>" +
             "</div>" +

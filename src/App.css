@@ -36,3 +36,74 @@
     transform: rotate(360deg);
   }
 }
+
+.thumNail {
+height: 140px;
+margin-top: 30px;
+}
+
+.thumNail-text {
+  width: 100px;
+  height: 20px;
+  margin-left: 20px;
+  margin-bottom: 60px;
+}
+
+.thumNail-title {
+  width: 80%;
+  height: 10px;
+  margin-top: 10px;
+}
+
+.thumNail-selec {
+  width: 60%;
+  margin-top: 30px;
+}
+
+.thumNail-news-title {
+  width: 100px;
+  height: 10px;
+  margin-bottom: 8px;
+}
+
+.thumNail-news-image {
+  width: 16%;
+  height: 14px;
+  margin: 8px 0px;
+}
+
+.thumNail-news-text {
+  width: 40%;
+  height: 16px;
+  margin-left: 14px;
+}
+
+.thumNail-toDo-text {
+  width: 40%;
+  height: 16px;
+  margin-top: 10px;
+}
+
+.thumNail-analysis {
+  width: 100%;
+  height: 140px;
+}
+
+.thumNail-data-label {
+  width: 240px;
+  margin-top: 20px;
+}
+
+.thumNail-chart {
+  width: 100%;
+  height: 100%;
+  margin-top: 21px;
+}
+
+.thumNail-date {
+}
+
+.thumNail-price {
+  width: 100px;
+  margin-top: -6px;
+}

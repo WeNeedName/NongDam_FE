@@ -30,8 +30,8 @@ const TotalHarvest = () => {
     ],
     options: {
       markers: {
-        size: [2, 2, 2.5],
-        colors: ["#3152bf50", "#7EB3E350", "#7EE3AB"],
+        size: [2, 2, 2],
+        colors: ["#3152bf", "#7EB3E3", "#7EE3AB"],
         hover: {
           size: undefined,
           sizeOffset: 2,
@@ -54,8 +54,8 @@ const TotalHarvest = () => {
       },
       stroke: {
         curve: "straight",
-        width: [1.5, 1.5, 2.5],
-        colors: ["#3152bf50", "#7EB3E350", "#7EE3AB"], // 그래프 선 여기에 추가
+        width: [2, 2, 2],
+        colors: ["#3152bf", "#7EB3E3", "#7EE3AB"], // 그래프 선 여기에 추가
       },
       grid: {
         borderColor: "#ddd",
@@ -103,7 +103,7 @@ const TotalHarvest = () => {
             '<span class="label-data">' +
             series[seriesIndex][dataPointIndex] +
             '<span class="price-label">' +
-            "원" +
+            "kg" +
             "</span>" +
             "</span>" +
             "</div>" +
@@ -161,15 +161,15 @@ const TotalHarvest = () => {
             <YasisLabelBox>
               <YasisLabelWrap>
                 <YasisColorTipA />
-                <YasisLabel>비용</YasisLabel>
+                <YasisLabel>복숭아</YasisLabel>
               </YasisLabelWrap>
               <YasisLabelWrap>
                 <YasisColorTipB />
-                <YasisLabel>매출</YasisLabel>
+                <YasisLabel>감자</YasisLabel>
               </YasisLabelWrap>
               <YasisLabelWrap>
                 <YasisColorTipC />
-                <YasisLabel>순이익</YasisLabel>
+                <YasisLabel>고추</YasisLabel>
               </YasisLabelWrap>
             </YasisLabelBox>
           </ChartBox>

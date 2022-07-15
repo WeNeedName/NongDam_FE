@@ -103,7 +103,7 @@ const Sales = () => {
             '<span class="label-data">' +
             series[seriesIndex][dataPointIndex] +
             '<span class="price-label">' +
-            "원" +
+            "만원" +
             "</span>" +
             "</span>" +
             "</div>" +

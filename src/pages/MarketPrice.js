@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../redux/modules/users";
 import Select from "react-select";
+import { getInfoDB } from "../redux/modules/users";
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -13,18 +14,28 @@ import MarketPriceCard from "../components/marketPrice/MarketPriceCard";
 import MyCropsMarketPriceCard from "../components/marketPrice/MyCropsMarketPriceCard";
 import TodaysMarketPrice from "../components/marketPrice/TodaysMarketPrice";
 import TodaysSalePrice from "../components/marketPrice/TodaysSalePrice";
+import { getMyCropsMarketPriceDB } from "../redux/modules/main";
 
 const MarketPrice = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState(null);
   const [selectedCrops, setSelectedCrops] = useState([]);
   const [selectedCropsB, setSelectedCropsB] = useState([]);
-  const [selectedCropsC, setSelectedCropsC] = useState([]);
+  const [salePrice, setSalePrice] = useState(0);
   const cropsData = useSelector((state) => state.users.crops);
 
   const scrollRef = useRef(null);
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
+
+  const userInfo = useSelector((state) => state.users.user);
+  const AllmarketPriceData = useSelector(
+    (state) => state.main.myCropsMarketPrice
+  );
+
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
 
   const onDragStart = (e) => {
     e.preventDefault();
@@ -80,28 +91,41 @@ const MarketPrice = () => {
           <TodaysMarketPrice
             cropsData={cropsData}
             setSelectedCrops={setSelectedCropsB}
+            setSalePrice={setSalePrice}
+            salePrice={salePrice}
           />
           <TodaysSalePrice
             cropsData={cropsData}
-            setSelectedCrops={setSelectedCropsC}
+            selectedCropsB={selectedCropsB}
+            salePrice={salePrice}
           />
         </BodyWrap>
-        <Title>👀 내 작물 시세를 한 눈에</Title>
-        <MyCropsChartWrap
-          onMouseDown={onDragStart}
-          onMouseMove={isDrag ? onThrottleDragMove : null}
-          onMouseUp={onDragEnd}
-          onMouseLeave={onDragEnd}
-          ref={scrollRef}
-        >
-          <GradationBox />
-          <GradationBox />
-
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-          <MyCropsMarketPriceCard />
-        </MyCropsChartWrap>
+        {userInfo !== undefined && userInfo?.crops.length !== 0 ? (
+          <>
+            <Title>👀 내 작물 시세를 한 눈에</Title>
+            <MyCropsChartWrap
+              onMouseDown={onDragStart}
+              onMouseMove={isDrag ? onThrottleDragMove : null}
+              onMouseUp={onDragEnd}
+              onMouseLeave={onDragEnd}
+              ref={scrollRef}
+            >
+              {userInfo !== undefined && userInfo?.crops.length > 3 ? (
+                <>
+                  <GradationBox />
+                  <GradationBox />
+                </>
+              ) : null}
+              {/* <Div />
+          <Div /> */}
+              {/* <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard />
+              <MyCropsMarketPriceCard /> */}
+              <MyCropsMarketPriceCard />
+            </MyCropsChartWrap>
+          </>
+        ) : null}
       </Wrap>
     </div>
   );
@@ -180,6 +204,13 @@ const MyCropsChartWrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const Div = styled.div`
+  width: 400px;
+  height: 100px;
+  border: none;
+  background-color: red;
 `;
 
 export default MarketPrice;

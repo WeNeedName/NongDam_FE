@@ -9,7 +9,7 @@ import moment from "moment";
 import "../../BigCalendar.css";
 
 // 컴포넌트
-import ToolBar from "./Toolbar";
+import ToolBar from "./ToolBar";
 import Day from "./Day";
 import Event from "./Event";
 import AccountModal from "./AccountModal";
@@ -30,7 +30,7 @@ const CalendarBook = () => {
 
   useEffect(() => {
     dispatch(getAccountListDB(yearMonth));
-  }, [dispatch]);
+  }, [yearMonth]);
 
   // 장부내역 상세 모달 열기
   const [isOpen, setOpen] = useState(false);
@@ -103,9 +103,9 @@ const CalendarBook = () => {
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
           toolbar: ToolBar,
-          // month: {
-          //   dateHeader: Day,
-          // },
+          month: {
+            dateHeader: Day,
+          },
         }}
         onSelectEvent={(eventInfo) => {
           setEventInfo(eventInfo);
