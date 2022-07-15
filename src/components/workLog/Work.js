@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useRef} from 'react'
 import styled from "styled-components";
 import {useSelector, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import moment from "moment";
 const Work =(props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const inputRef = useRef();
 
     const [todo, setTodo] = useState("");
     const [checkedInputs, setCheckedInputs] = useState("");
@@ -43,7 +44,8 @@ const Work =(props) => {
     const changeRadioWork = (e) => {
       if (e.target.checked) {
         setMemo(e.target.id)
-        props.setMemo(e.target.id);      
+        inputRef.current.value=e.target.id
+        props.setMemo(inputRef.current.value);      
       }
     };
 
@@ -135,7 +137,7 @@ const Work =(props) => {
                 />
                 <FormCheckText>수확</FormCheckText>
                 </Label>
-                <Label>
+                {/* <Label>
                   <FormCheckLeft
                     type="radio"
                     id="기타"
@@ -144,7 +146,7 @@ const Work =(props) => {
                     value={checkedInputs}
                   />
                 <FormCheckText>기타</FormCheckText>
-              </Label>
+              </Label> */}
             
             </CategoryWrap>
           </CategoryBigWrap>
@@ -152,7 +154,8 @@ const Work =(props) => {
             <SmallTitle className="todo">작업내용</SmallTitle>
             <TodoInput
               type="text"
-              defaultValue={memo}
+              ref={inputRef}
+              //defaultValue={memo}
               onChange={(e)=>{
                 props.setMemo(e.target.value)
               }}

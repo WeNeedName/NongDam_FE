@@ -19,18 +19,22 @@ const WorkPhoto =({setImages}) => {
       });
     };
 
-    useEffect(()=> {
-      setImages(imageSrc);  
-    },[imageSrc]);
       
-
+    const onChangeFile = (e) => {
+      //console.log(e.target.files[0])
+        setImages(e.target.files[0])
+      } 
+     
+    
     return(
         <TodoContent>
         <SmallTitle>사진(선택사항)</SmallTitle>
         <CategoryBigWrap>
             <p className="upload">이미지 미리보기</p>
-              <InputBox type="file" onChange ={(e) => 
-              {encodeFileToBase64(e.target.files[0])
+              <InputBox type="file" 
+              onChange ={(e) => 
+              {{encodeFileToBase64(e.target.files[0])}
+               {onChangeFile(e)}
               }}
               />
             <div className="previe">

@@ -10,7 +10,7 @@ const Record =(props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [hRecord, setHRecord]=useState();
-    
+    const hRecordNumber = Number(hRecord)
    
 
     const handleAction = (e) => {
@@ -18,7 +18,7 @@ const Record =(props) => {
     }
 
     useEffect(()=> {
-      props.setHarvest(hRecord);  
+      props.setHarvest(hRecordNumber);  
     },[handleAction]);
     
     //console.log(hRecord)
