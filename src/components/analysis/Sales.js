@@ -194,12 +194,13 @@ const Wrap = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
 `;
 
 const ChartWrap = styled.div`
   width: 100%;
+  height: 70%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;

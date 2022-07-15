@@ -106,7 +106,7 @@ const Income = () => {
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="230"
+        width="260"
       />
       <Legend>
         <span>농산물 판매</span>

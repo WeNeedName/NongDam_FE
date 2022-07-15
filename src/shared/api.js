@@ -58,8 +58,8 @@ export const apis = {
   // 시세페이지
   loadMarketPrice: (data) =>
     api.get(`/marketprice?cropId=${data.cropId}&data=${data.data}`),
-  // firstLoadMyCropsMarketPrice: (data) => api.get(`/marketprices/${data}`),
-  firstLoadMyCropsMarketPrice: () => api.get("/marketprices"),
+  loadMyCropsMarketPrice: (data) => api.get(`/marketprices/${data}`),
+
   // loadMyCropsMarketPrice: (data) =>
   //   api.get(`/marketprice/${data.cropId}/${data.data}`),
 

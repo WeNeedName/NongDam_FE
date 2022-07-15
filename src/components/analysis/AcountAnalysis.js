@@ -43,11 +43,11 @@ const TitleWrap = styled.div`
 `;
 
 const SmileIcon = styled.span`
-  font-size: 20px;
+  font-size: 24px;
 `;
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   margin-left: 10px;
   text-align: left;
@@ -57,7 +57,7 @@ const BodyWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 export default AccountAnalysis;

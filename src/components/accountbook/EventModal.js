@@ -127,14 +127,14 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
 };
 
 const StyledModal = Modal.styled`
-  width: 300px;
+  width: 360px;
   background-color: white;
   border-radius: 10px;
   padding: 30px;
 `;
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 `;
 
@@ -143,7 +143,7 @@ const TopWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 6px 0px;
+  margin: 10px 0px;
 `;
 
 const PriceSumWrap = styled.div`
@@ -153,18 +153,19 @@ const PriceSumWrap = styled.div`
 `;
 
 const PriceSumNumIn = styled.span`
-  font-size: 11px;
+  font-size: 13px;
   color: #2399dc;
 `;
 
 const PriceSumNumEx = styled.span`
-  font-size: 11px;
+  font-size: 13px;
   color: #eb3333;
-  margin-left: 8px;
+  margin-left: 12px;
 `;
 
 const ListNum = styled.span`
   color: #aaa;
+  font-size: 14px;
 `;
 
 const EventWrap = styled.div`
@@ -182,7 +183,7 @@ const BodyWrap = styled.div`
 const Hr = styled.div`
   width: 100%;
   border-top: 1px solid #dddddd;
-  margin: 10px 0px;
+  margin: 14px 0px;
 `;
 
 const WhereToUseWrap = styled.div`
@@ -200,17 +201,17 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #616161;
   border-radius: 100px;
-  font-size: 8px;
+  font-size: 12px;
   color: #616161;
 `;
 
 const MemoT = styled.span`
-  font-size: 10px;
+  font-size: 12px;
   margin-left: 4px;
 `;
 
 const Price = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: ${(props) => (props.category === "수입" ? "#2399DC" : "#EB3333")};
 `;
 

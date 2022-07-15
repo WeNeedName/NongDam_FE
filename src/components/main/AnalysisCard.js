@@ -32,7 +32,7 @@ const AnalysisCard = () => {
                 navigate("/analysis");
               }}
             >
-              더 보기 &gt;
+              더 보기
             </ShowMoreBtn>
           </TopWrap>
 
@@ -142,8 +142,9 @@ const TopWrap = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 1.4em;
+  font-size: 20px;
   line-height: 10px;
+  margin-bottom: 4px;
 `;
 
 const ShowMoreBtn = styled.span`
@@ -157,14 +158,14 @@ const ShowMoreBtn = styled.span`
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 10px 0px;
+  margin: 10px 0px 16px 0px;
 `;
 
 const FormCheckText = styled.span`
   width: auto;
   height: 26px;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 24px;
   margin-right: 16px;
   background: transparent;
