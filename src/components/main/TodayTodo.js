@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { loadTodayScheduleDB } from "../../redux/modules/main";
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 // 날짜 포맷 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
@@ -11,6 +14,7 @@ const TodayTodo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const scheduleData = useSelector((state) => state.main.todayScheduleList);
+  const is_loaded = useSelector((state) => state.main.toDo_is_loaded);
 
   useEffect(() => {
     dispatch(loadTodayScheduleDB());
@@ -19,37 +23,74 @@ const TodayTodo = () => {
   // console.log(scheduleData[0].startTime, typeof scheduleData[0].startTime);
   // console.log(moment(scheduleData[0].startTime).format("HH:mm"));
   console.log(scheduleData);
+
   return (
     <Wrap>
-      <TopWrap>
-        <Title>📝 오늘의 할 일</Title>
-        <ShowMoreBtn
-          onClick={() => {
-            navigate("/schedule");
-          }}
-        >
-          더 보기 &gt;
-        </ShowMoreBtn>
-      </TopWrap>
-      {scheduleData.length >= 1 ? (
-        scheduleData.slice(0, 2).map((schedule, id) => {
-          return (
-            <ScheduleBox key={id}>
-              <Hr />
-              <ScheduleContent>{schedule?.toDo}</ScheduleContent>
-              <ScheduleTime>
-                {moment(schedule?.startTime).format("HH:mm")} -{" "}
-                {moment(schedule?.endTime).format("HH:mm")}
-              </ScheduleTime>
-            </ScheduleBox>
-          );
-        })
+      {is_loaded ? (
+        <>
+          <TopWrap>
+            <Title>📝 오늘의 할 일</Title>
+            <ShowMoreBtn
+              onClick={() => {
+                navigate("/schedule");
+              }}
+            >
+              더 보기 &gt;
+            </ShowMoreBtn>
+          </TopWrap>
+          {scheduleData.length >= 1 ? (
+            scheduleData.slice(0, 2).map((schedule, id) => {
+              return (
+                <ScheduleBox key={id}>
+                  <Hr />
+                  <ScheduleContent>{schedule?.toDo}</ScheduleContent>
+                  <ScheduleTime>
+                    {moment(schedule?.startTime).format("HH:mm")} -{" "}
+                    {moment(schedule?.endTime).format("HH:mm")}
+                  </ScheduleTime>
+                </ScheduleBox>
+              );
+            })
+          ) : (
+            <Guide> 오늘 일정을 등록해주세요.</Guide>
+          )}
+        </>
       ) : (
-        <Guide> 오늘 일정을 등록해주세요.</Guide>
+        <>
+          <ShimmerTitle
+            className="thumNail-news-title"
+            line={1}
+            gap={10}
+            variant="secondary"
+          />
+          <Margin />
+          <LoadWrap>
+            <ShimmerText className="thumNail-toDo-text" line={3} gap={10} />
+          </LoadWrap>
+          <Margin />
+          <LoadWrap>
+            <ShimmerText className="thumNail-toDo-text" line={3} gap={10} />
+          </LoadWrap>
+          <Margin />
+        </>
       )}
     </Wrap>
   );
 };
+
+const LoadWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Margin = styled.div`
+  height: 10px;
+  width: 100%;
+  border-bottom: 0.5px solid #dddddd;
+  margin-left: -20px;
+  padding-right: 40px;
+`;
 
 const Wrap = styled.div`
   border: none;

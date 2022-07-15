@@ -37,6 +37,15 @@ const getTodayNews = createAction(GET_TODAY_NEWS_LIST, (data) => ({
 
 // InitialState
 const initialState = {
+  //메인페이지 로딩
+  weather_is_loaded: false,
+  marketPrice_is_loaded: false,
+  toDo_is_loaded: false,
+  news_is_loaded: false,
+  analysis_is_loaded: true,
+  // 시세페이지 로딩
+  searchMarketPrice_is_loaded: false,
+
   weather: [],
   todayMarketPrice: [],
   marketPrice: [],
@@ -146,16 +155,19 @@ export default handleActions(
     // 오늘 날씨 조회
     [GET_WEATHER]: (state, { payload }) =>
       produce(state, (draft) => {
+        draft.weather_is_loaded = true;
         draft.weather = payload.data;
       }),
     // 오늘 시세 조회
     [GET_TODAY_MARKET_PRICE]: (state, { payload }) =>
       produce(state, (draft) => {
+        draft.marketPrice_is_loaded = true;
         draft.todayMarketPrice = payload.data;
       }),
     // 선택 작물 시세 조회
     [GET_MARKET_PRICE]: (state, { payload }) =>
       produce(state, (draft) => {
+        draft.searchMarketPrice_is_loaded = true;
         draft.marketPrice = payload.data;
       }),
     // 내 작물 시세 전체 조회
@@ -171,12 +183,13 @@ export default handleActions(
     // 오늘 일정 조회
     [GET_TODAY_SCHEDULE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
+        draft.toDo_is_loaded = true;
         draft.todayScheduleList = payload.data;
       }),
     // 오늘 뉴스 조회
     [GET_TODAY_NEWS_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(payload);
+        draft.news_is_loaded = true;
         draft.todayNews = payload.data;
       }),
   },

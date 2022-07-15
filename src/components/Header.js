@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOutDB } from "../redux/modules/users";
+import { getInfoDB } from "../redux/modules/users";
 
 // 이미지
 import Profile from "../images/Profile.png";
@@ -10,6 +11,7 @@ import Profile from "../images/Profile.png";
 const Haeder = ({ currentPage }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.users.user);
 
   const isLogin = sessionStorage.getItem("jwtToken");
   const [headerNav, setHeaderNav] = useState(currentPage);
@@ -19,6 +21,12 @@ const Haeder = ({ currentPage }) => {
       setHeaderNav(e.target.id);
     }
   };
+
+  useEffect(() => {
+    dispatch(getInfoDB());
+  }, []);
+
+  console.log(userInfo);
 
   return (
     <Wrap>
@@ -111,8 +119,7 @@ const Haeder = ({ currentPage }) => {
                 로그아웃
               </Menu>
               <UserProfile
-                src={Profile}
-                alt="프로필사진"
+                profileImage={userInfo?.profileImage}
                 onClick={() => {
                   navigate("/mypage");
                 }}
@@ -190,8 +197,14 @@ const Menu = styled.span`
   margin-right: 30px;
 `;
 
-const UserProfile = styled.img`
+const UserProfile = styled.div`
   width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background-image: url(${(props) => props.profileImage});
+  /* background-image: url(https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164422528068537909.jpeg?gif=1&w=1080); */
+  background-position: center 30%;
+  background-size: cover;
 `;
 
 const ProfileWrap = styled.div`

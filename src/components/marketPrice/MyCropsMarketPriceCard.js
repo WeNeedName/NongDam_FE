@@ -42,16 +42,11 @@ const MyCropsMarketPriceCard = () => {
     str = String(str);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
-  // 숫자만 입력가능
-  function uncomma(str) {
-    str = String(str);
-    return str.replace(/[^\d]+/g, "");
-  }
 
   // 유저 작물 전체 시세 리스트 요청
   useEffect(() => {
     dispatch(getMyCropsMarketPriceDB());
-  }, [userInfo]);
+  }, []);
 
   // // 월별/연도별 클릭 시 api 재요청
   // useEffect(() => {
@@ -62,45 +57,56 @@ const MyCropsMarketPriceCard = () => {
     userInfo !== undefined &&
     userInfo?.crops.map((list, index) => {
       // 내 작물 월별 그래프 데이터
-      const monthDay =
-        AllmarketPriceData[index][1] !== undefined
-          ? AllmarketPriceData[index][1]?.dateList.map((date) => {
-              return moment(date).format("YYYY.MM");
-            })
-          : AllmarketPriceData[index][1] !== undefined
-          ? AllmarketPriceData[index][0]?.dateList.map((date) => {
-              return moment(date).format("YYYY.MM");
-            })
-          : null;
+      // const monthDay =
+      //   AllmarketPriceData !== undefined &&
+      //   AllmarketPriceData[index][1] !== undefined
+      //     ? AllmarketPriceData[index][1]?.dateList.map((date) => {
+      //         return moment(date).format("YYYY.MM");
+      //       })
+      //     : AllmarketPriceData[index][1] !== undefined
+      //     ? AllmarketPriceData[index][0]?.dateList.map((date) => {
+      //         return moment(date).format("YYYY.MM");
+      //       })
+      //     : null;
 
-      const retailSalePriceList = AllmarketPriceData[index][1]?.priceList.map(
-        (price) => {
-          return Number(uncomma(price));
-        }
-      );
+      // const retailSalePriceList =
+      //   AllmarketPriceData[index] !== undefined &&
+      //   AllmarketPriceData[index][1]?.priceList.map((price) => {
+      //     return Number(uncomma(price));
+      //   });
 
-      const wholeSalePriceList =
-        AllmarketPriceData[index][0]?.priceList.length !== 0
-          ? AllmarketPriceData[index][0]?.priceList.map((price) => {
-              return Number(uncomma(price));
-            })
-          : null;
+      // const wholeSalePriceList =
+      //   AllmarketPriceData[index] !== undefined &&
+      //   AllmarketPriceData[index][0]?.priceList.length !== 0
+      //     ? AllmarketPriceData[index][0]?.priceList.map((price) => {
+      //         return Number(uncomma(price));
+      //       })
+      //     : null;
+
+      const monthDay = ["2022", "2022", "2022", "2022", "2022", "2022", "2022"];
+      const retailSalePriceList = [100, 200, 300, 200, 300, 200, 0];
+      const wholeSalePriceList = [100, 300, 300, 0, 400, 200, 0];
 
       // 내 작물 시세 데이터
       const monthState = {
         series: [
           {
-            name: AllmarketPriceData[index][0]?.wholeSale,
-            data: wholeSalePriceList,
+            name:
+              AllmarketPriceData[index] !== undefined &&
+              AllmarketPriceData[index][0]?.wholeSale,
+            data: AllmarketPriceData[index] !== undefined && wholeSalePriceList,
           },
           {
-            name: AllmarketPriceData[index][1]?.wholeSale,
-            data: retailSalePriceList,
+            name:
+              AllmarketPriceData[index] !== undefined &&
+              AllmarketPriceData[index][1]?.wholeSale,
+            data:
+              AllmarketPriceData[index] !== undefined && retailSalePriceList,
           },
         ],
         options: {
           markers: {
-            size: [2.5, 0],
+            size: [2, 2],
             colors: ["#7EB3E3", "#7EE3AB"],
             hover: {
               size: undefined,
@@ -308,7 +314,7 @@ const MyCropsMarketPriceCard = () => {
                   </YasisLabelBox>
                 </ChartBox>
                 <XasisWrap>
-                  {monthDay &&
+                  {monthDay !== undefined &&
                     monthDay.map((data, id) => {
                       return <Xasis key={id}>{data}</Xasis>;
                     })}

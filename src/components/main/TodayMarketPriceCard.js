@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTodayMarketPriceDB } from "../../redux/modules/main";
 import { getCropsListDB } from "../../redux/modules/users";
 import { getInfoDB } from "../../redux/modules/users";
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+
 // 날짜 포맷 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
@@ -18,6 +21,7 @@ const TodayMarketPrice = () => {
   );
   const cropsData = useSelector((state) => state.users.crops);
   const userInfo = useSelector((state) => state.users.user);
+  const is_loaded = useSelector((state) => state.main.marketPrice_is_loaded);
 
   useEffect(() => {
     dispatch(getInfoDB());
@@ -55,110 +59,130 @@ const TodayMarketPrice = () => {
 
   return (
     <Wrap>
-      <TopWrap>
-        <Title>📈 오늘의 시세</Title>
-        <ShowMoreBtn
-          onClick={() => {
-            navigate("/marketprice");
-          }}
-        >
-          더 보기 &gt;
-        </ShowMoreBtn>
-      </TopWrap>
+      {is_loaded ? (
+        <>
+          <TopWrap>
+            <Title>📈 오늘의 시세</Title>
+            <ShowMoreBtn
+              onClick={() => {
+                navigate("/marketprice");
+              }}
+            >
+              더 보기 &gt;
+            </ShowMoreBtn>
+          </TopWrap>
 
-      <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
-      <Region>
-        {TodaymarketPriceData
-          ? TodaymarketPriceData.country +
-            " " +
-            TodaymarketPriceData.wholeSale +
-            "시장"
-          : null}
-      </Region>
-      <SelecWrap>
-        <StyledSelect
-          name="crops"
-          placeholder={"작물을 검색해보세요"}
-          options={
-            userInfo !== null
-              ? userInfo.crops.map((crops) => {
-                  return {
-                    label: "[" + crops.type + "]" + " " + crops.name,
-                    value: crops.id,
-                  };
-                })
-              : cropsData.map((crops) => {
-                  return {
-                    label: "[" + crops.type + "]" + " " + crops.name,
-                    value: crops.id,
-                  };
-                })
-          }
-          classNamePrefix="react-select"
-          onChange={(value) => {
-            setSelectedCrops(value);
-          }}
-        />
-
-        <InputWrap>
-          <input
-            type="radio"
-            id="소매"
-            name="saleRadio"
-            value="소매"
-            onChange={changeRadio}
-            checked={checkedInputs === "소매" ? true : false}
-          />
-          <label htmlFor="wholeSale">소매</label>
-        </InputWrap>
-        <InputWrap>
-          <input
-            type="radio"
-            id="도매"
-            name="saleRadio"
-            onChange={changeRadio}
-            value="도매"
-            checked={checkedInputs === "도매" ? true : false}
-          />
-          <label htmlFor="retailSale">도매</label>
-        </InputWrap>
-      </SelecWrap>
-
-      <SearchBtn
-        onClick={() => {
-          dispatch(getTodayMarketPriceDB(marketPriceCategory));
-        }}
-      >
-        조회하기
-      </SearchBtn>
-      <BottomWrap>
-        <Hr />
-        <CategoryTWrap>
-          <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
-          <DateT>
-            {TodaymarketPriceData.latestDate !== ""
-              ? moment(TodaymarketPriceData?.latestDate).format("YYYY.MM.DD") +
+          <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
+          <Region>
+            {TodaymarketPriceData
+              ? TodaymarketPriceData.country +
                 " " +
-                "기준"
+                TodaymarketPriceData.wholeSale +
+                "시장"
               : null}
-          </DateT>
-        </CategoryTWrap>
+          </Region>
+          <SelecWrap>
+            <StyledSelect
+              name="crops"
+              placeholder={"작물을 검색해보세요"}
+              options={
+                userInfo !== null
+                  ? userInfo.crops.map((crops) => {
+                      return {
+                        label: "[" + crops.type + "]" + " " + crops.name,
+                        value: crops.id,
+                      };
+                    })
+                  : cropsData.map((crops) => {
+                      return {
+                        label: "[" + crops.type + "]" + " " + crops.name,
+                        value: crops.id,
+                      };
+                    })
+              }
+              classNamePrefix="react-select"
+              onChange={(value) => {
+                setSelectedCrops(value);
+              }}
+            />
 
-        {TodaymarketPriceData.latestDate !== "" ? (
-          <>
-            <PriceWrap>
-              <TodayPrice>
-                {comma(TodaymarketPriceData?.latestDatePrice)}
-              </TodayPrice>
-              <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
-            </PriceWrap>
-          </>
-        ) : (
-          <NotFoundNoticeWrap>
-            <NotFoundNotice>최근 조사된 데이터가 없습니다.</NotFoundNotice>
-          </NotFoundNoticeWrap>
-        )}
-      </BottomWrap>
+            <InputWrap>
+              <input
+                type="radio"
+                id="소매"
+                name="saleRadio"
+                value="소매"
+                onChange={changeRadio}
+                checked={checkedInputs === "소매" ? true : false}
+              />
+              <label htmlFor="wholeSale">소매</label>
+            </InputWrap>
+            <InputWrap>
+              <input
+                type="radio"
+                id="도매"
+                name="saleRadio"
+                onChange={changeRadio}
+                value="도매"
+                checked={checkedInputs === "도매" ? true : false}
+              />
+              <label htmlFor="retailSale">도매</label>
+            </InputWrap>
+          </SelecWrap>
+
+          <SearchBtn
+            onClick={() => {
+              dispatch(getTodayMarketPriceDB(marketPriceCategory));
+            }}
+          >
+            조회하기
+          </SearchBtn>
+          <BottomWrap>
+            <Hr />
+            <CategoryTWrap>
+              <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
+              <DateT>
+                {TodaymarketPriceData.latestDate !== ""
+                  ? moment(TodaymarketPriceData?.latestDate).format(
+                      "YYYY.MM.DD"
+                    ) +
+                    " " +
+                    "기준"
+                  : null}
+              </DateT>
+            </CategoryTWrap>
+
+            {TodaymarketPriceData.latestDate !== "" ? (
+              <>
+                <PriceWrap>
+                  <TodayPrice>
+                    {comma(TodaymarketPriceData?.latestDatePrice)}
+                  </TodayPrice>
+                  <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
+                </PriceWrap>
+              </>
+            ) : (
+              <NotFoundNoticeWrap>
+                <NotFoundNotice>최근 조사된 데이터가 없습니다.</NotFoundNotice>
+              </NotFoundNoticeWrap>
+            )}
+          </BottomWrap>
+        </>
+      ) : (
+        <>
+          <ShimmerTitle
+            className="thumNail-title"
+            line={2}
+            gap={10}
+            variant="secondary"
+          />
+          <ShimmerThumbnail className="thumNail-selec" height={40} rounded />
+          <BottomWrap>
+            <Hr />
+            <ShimmerThumbnail className="thumNail-selec" height={40} rounded />
+          </BottomWrap>
+        </>
+      )}
     </Wrap>
   );
 };
@@ -213,6 +237,9 @@ const StyledSelect = styled(Select)`
   width: 200px;
   height: 30px;
   margin: 0px 0px 20px 0px;
+  @media only screen and (max-width: 1220px) {
+    width: 160px;
+  }
 `;
 
 const SearchBtn = styled.button`
@@ -337,7 +364,8 @@ const InputWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-right: 6px;
+  margin: 0px 0px 0px 6px;
+  margin-bottom: 14px;
 `;
 
 const NotFoundNoticeWrap = styled.div`

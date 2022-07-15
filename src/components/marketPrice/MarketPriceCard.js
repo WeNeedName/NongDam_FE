@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { getMarketPriceDB } from "../../redux/modules/main";
 import { getInfoDB } from "../../redux/modules/users";
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
 // 컴포넌트
 import MarketPriceMonthChart from "./MarketPriceMonthChart";
@@ -17,6 +19,9 @@ const MarketPriceCard = ({ cropsData }) => {
   const [selectedCrops, setSelectedCrops] = useState(21);
   const marketPriceData = useSelector((state) => state.main.marketPrice);
   const userInfo = useSelector((state) => state.users.user);
+  const is_loaded = useSelector(
+    (state) => state.main.searchMarketPrice_is_loaded
+  );
 
   const marketName = userInfo?.address.split(" ")[0];
 
@@ -36,75 +41,88 @@ const MarketPriceCard = ({ cropsData }) => {
     data: checkedInputs,
   };
 
-  console.log(userInfo);
-
   return (
     <Wrap>
-      <CategoryT>📈 작물 조회</CategoryT>
-      <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
-      <Region>
-        {marketName !== undefined
-          ? marketName + " " + "도소매시장"
-          : "서울 도소매시장"}
-      </Region>
-
-      <StyledSelect
-        // styles={customStyles}
-        name="crops"
-        placeholder={"작물을 검색해보세요"}
-        options={
-          cropsData !== undefined
-            ? cropsData.map((crops) => {
-                return {
-                  label: "[" + crops.type + "]" + " " + crops.name,
-                  value: crops.id,
-                };
-              })
-            : null
-        }
-        classNamePrefix="react-select"
-        onChange={(value) => {
-          setSelectedCrops(value);
-        }}
-      />
-      <CategoryChartWrap>
-        <CategoryWrap>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="month"
-              name="AllCropsCaterory"
-              onChange={changeRadio}
-              value={checkedInputs}
-              defaultChecked
-            />
-            <FormCheckText>월별</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="year"
-              name="AllCropsCaterory"
-              onChange={changeRadio}
-              value={checkedInputs}
-            />
-            <FormCheckText>연도별</FormCheckText>
-          </Label>
-        </CategoryWrap>
-
-        {checkedInputs === "month" && (
-          <MarketPriceMonthChart
-            marketPriceData={marketPriceData}
-            selectedCrops={selectedCrops}
+      {is_loaded ? (
+        <>
+          <CategoryT>📈 작물 조회</CategoryT>
+          <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
+          <Region>
+            {marketName !== undefined
+              ? marketName + " " + "도소매시장"
+              : "서울 도소매시장"}
+          </Region>
+          <StyledSelect
+            // styles={customStyles}
+            name="crops"
+            placeholder={"작물을 검색해보세요"}
+            options={
+              cropsData !== undefined
+                ? cropsData.map((crops) => {
+                    return {
+                      label: "[" + crops.type + "]" + " " + crops.name,
+                      value: crops.id,
+                    };
+                  })
+                : null
+            }
+            classNamePrefix="react-select"
+            onChange={(value) => {
+              setSelectedCrops(value);
+            }}
           />
-        )}
-        {checkedInputs === "year" && (
-          <MarketPriceYearChart
-            marketPriceData={marketPriceData}
-            selectedCrops={selectedCrops}
+          <CategoryChartWrap>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="month"
+                  name="AllCropsCaterory"
+                  onChange={changeRadio}
+                  value={checkedInputs}
+                  defaultChecked
+                />
+                <FormCheckText>월별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="year"
+                  name="AllCropsCaterory"
+                  onChange={changeRadio}
+                  value={checkedInputs}
+                />
+                <FormCheckText>연도별</FormCheckText>
+              </Label>
+            </CategoryWrap>
+
+            {checkedInputs === "month" && (
+              <MarketPriceMonthChart
+                marketPriceData={marketPriceData}
+                selectedCrops={selectedCrops}
+              />
+            )}
+            {checkedInputs === "year" && (
+              <MarketPriceYearChart
+                marketPriceData={marketPriceData}
+                selectedCrops={selectedCrops}
+              />
+            )}
+          </CategoryChartWrap>
+        </>
+      ) : (
+        <>
+          <ShimmerTitle
+            className="thumNail-title"
+            line={2}
+            gap={10}
+            variant="secondary"
           />
-        )}
-      </CategoryChartWrap>
+          <ShimmerThumbnail className="thumNail-selec" height={40} rounded />
+
+          <ShimmerThumbnail className="thumNail-chart" height={140} rounded />
+        </>
+      )}
     </Wrap>
   );
 };

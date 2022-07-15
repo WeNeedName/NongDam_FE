@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { loadTodayNewsDB } from "../../redux/modules/main";
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 
 const TodayNews = () => {
   const dispatch = useDispatch();
   const TodayNewsData = useSelector((state) => state.main.todayNews);
+  const is_loaded = useSelector((state) => state.main.news_is_loaded);
 
   useEffect(() => {
     dispatch(loadTodayNewsDB());
@@ -15,46 +19,93 @@ const TodayNews = () => {
 
   return (
     <Wrap>
-      <Title>💬 오늘의 뉴스</Title>
-      <Margin />
-      <BoxWrap>
-        {TodayNewsData !== undefined &&
-          TodayNewsData.map((list, idx) => {
-            return (
-              <ContentsBoxWrap
-                key={idx}
-                onClick={() => {
-                  window.location.href = list.link;
-                }}
-              >
-                <ContentsWrap>
-                  {list.imageUrl !== "" ? (
-                    <ImageContent imageURL={list.imageUrl} />
-                  ) : null}
+      {is_loaded ? (
+        <>
+          <Title>💬 오늘의 뉴스</Title>
+          <Margin />
+          <BoxWrap>
+            {TodayNewsData !== undefined &&
+              TodayNewsData.map((list, idx) => {
+                return (
+                  <ContentsBoxWrap
+                    key={idx}
+                    onClick={() => {
+                      window.location.href = list.link;
+                    }}
+                  >
+                    <ContentsWrap>
+                      {list.imageUrl !== "" ? (
+                        <ImageContent imageURL={list.imageUrl} />
+                      ) : null}
 
-                  <ShowMoreBtn>더보기</ShowMoreBtn>
+                      <ShowMoreBtn>더보기</ShowMoreBtn>
 
-                  <TextWrap>
-                    <ContentsT imageURL={list.imageUrl}>
-                      {list.descript
-                        .replaceAll("&quot;", "''")
-                        .replace(/(<br>|<br\/>|<br \/>)/g, " ")}
-                    </ContentsT>
-                    <InfoWrap>
-                      <ContentsTInfo>서울신문</ContentsTInfo>
-                      <InfoHr />
-                      <ContentsTInfo>12시간 전</ContentsTInfo>
-                    </InfoWrap>
-                  </TextWrap>
-                </ContentsWrap>
-                <Hr />
-              </ContentsBoxWrap>
-            );
-          })}
-      </BoxWrap>
+                      <TextWrap>
+                        <ContentsT imageURL={list.imageUrl}>
+                          {list.title
+                            .replaceAll("&quot;", "''")
+                            .replace(/(<br>|<br\/>|<br \/>)/g, " ")}
+                        </ContentsT>
+                        <InfoWrap>
+                          <ContentsTInfo>{list.article}</ContentsTInfo>
+                          {list.article === "" ? null : <InfoHr />}
+
+                          <ContentsTInfo>{list.time}</ContentsTInfo>
+                        </InfoWrap>
+                      </TextWrap>
+                    </ContentsWrap>
+                    <Hr />
+                  </ContentsBoxWrap>
+                );
+              })}
+          </BoxWrap>
+        </>
+      ) : (
+        <>
+          <ShimmerTitle
+            className="thumNail-news-title"
+            line={1}
+            gap={10}
+            variant="secondary"
+          />
+          <Margin />
+          <LoadWrap>
+            <ShimmerThumbnail
+              className="thumNail-news-image"
+              height={50}
+              rounded
+            />
+            <ShimmerText className="thumNail-news-text" line={2} gap={10} />
+          </LoadWrap>
+          <Margin />
+          <LoadWrap>
+            <ShimmerThumbnail
+              className="thumNail-news-image"
+              height={50}
+              rounded
+            />
+            <ShimmerText className="thumNail-news-text" line={2} gap={10} />
+          </LoadWrap>
+          <Margin />
+          <LoadWrap>
+            <ShimmerThumbnail
+              className="thumNail-news-image"
+              height={50}
+              rounded
+            />
+            <ShimmerText className="thumNail-news-text" line={2} gap={10} />
+          </LoadWrap>
+        </>
+      )}
     </Wrap>
   );
 };
+
+const LoadWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 const Wrap = styled.div`
   /* height: 260px; */
@@ -133,15 +184,6 @@ const Hr = styled.div`
   margin-top: 10px;
 `;
 
-const Hr2 = styled.div`
-  width: 100%;
-  height: 1px;
-  margin-left: -16px;
-  padding-right: 32px;
-  border-bottom: 0.5px solid #dddddd;
-  margin: 10px 0px;
-`;
-
 const ContentsWrap = styled.div`
   width: 100%;
   height: auto;
@@ -171,7 +213,7 @@ const ContentsT = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
 
   display: -webkit-box;
