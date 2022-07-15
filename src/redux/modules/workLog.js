@@ -18,8 +18,8 @@ const initialState ={
     title : "비료뿌리는 날!", 
     crop : "복숭아",
     date : "2022-07-11" ,
-    
-    memo : "비료 10kg 주기",
+    workTime : 3,
+    memo : "오늘은 비료를 부렸다 50kg정도를 뿌렸고, 물은 100l정도 준 것 같다",
     subMaterial : {
       type:0,
       product:"좋은비료",

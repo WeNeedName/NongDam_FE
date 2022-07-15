@@ -27,43 +27,39 @@ const WorkPhoto =({setImages}) => {
      
     
     return(
-        <TodoContent>
+        <ImageContentWrap>
         <SmallTitle>사진(선택사항)</SmallTitle>
         <CategoryBigWrap>
-            <p className="upload">이미지 미리보기</p>
+            {/* <p className="upload">이미지 미리보기</p> */}
               <InputBox type="file" 
               onChange ={(e) => 
               {{encodeFileToBase64(e.target.files[0])}
                {onChangeFile(e)}
-              }}
-              />
-            <div className="previe">
+              }} />
+            <div className="preview">
             {imageSrc && <ImagePreview src={imageSrc} alt="preview-img" />}  
             </div>
             </CategoryBigWrap>
-    </TodoContent>  
+    </ImageContentWrap>  
     )
 }
-const TodoContent = styled.div`
-
-width: 93%;
-height: 10vh;
+const ImageContentWrap = styled.div`
+width: 200px;
+height: 80px;
 background-color: #fff;
-margin-bottom : 500px;
+padding-left : 30px;
+padding-top : 30px;
 `
-
 const SmallTitle = styled.label`
-font-size: 1.8em;
-font-weight: bold;
+font-size: 18px;
+font-weight: 700;
 `
 
 const CategoryBigWrap = styled.div`
   width: 60%
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin-top: 10px;
-  
 `;
 
 const InputBox = styled.input``

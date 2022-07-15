@@ -33,7 +33,6 @@ const Work =(props) => {
     const myCropsList = useSelector((state) => state.users.user?.crops)
     // console.log(myCropsList)
     
-    
      const changeRadioCrops = (e) => {
       if (e.target.checked) {
         props.setCrop(e.target.id);
@@ -55,19 +54,16 @@ const Work =(props) => {
     //console.log(cropTodo, startDateFormat, endDateFormat, memo);
     
     return(
-        <TodoContent>
+        <TodoContentWrap>
           <CategoryBigWrap>
-          <SmallTitle>일지제목</SmallTitle>
-          <input
-          onChange={(e) =>{
-            setMyTitle(e.target.value)
-            props.setTitle(e.target.value)
-          }}>
-
-          </input>
+            <TitleInput
+            onChange={(e) =>{
+              setMyTitle(e.target.value)
+              props.setTitle(e.target.value)
+            }} />
           </CategoryBigWrap>
           <CategoryBigWrap>
-            <SmallTitle>작물종류</SmallTitle>
+            <SmallTitle>작물</SmallTitle>
             <CategoryWrap>
               {myCropsList !== undefined ? 
                 myCropsList.map((list)=>{
@@ -86,10 +82,14 @@ const Work =(props) => {
                 )
               }) : null 
             }
+            <FakeCropContent>복숭아</FakeCropContent>
+            <FakeCropContent>고추</FakeCropContent>
+            <FakeCropContent>감자</FakeCropContent>
+            <FakeCropContent>고구마</FakeCropContent>
             </CategoryWrap>
           </CategoryBigWrap>
           <CategoryBigWrap>
-                <SmallTitle className="calender">날짜</SmallTitle>
+            <SmallTitle className="calender">작업 날짜</SmallTitle>
             <DatePickers>
               <DatePicker
                   className="startDatePicker"
@@ -102,20 +102,20 @@ const Work =(props) => {
                   locale={ko}// 한글로 변경
                   //inline//달력 보이게 
               />
-              
-             
             </DatePickers>
           </CategoryBigWrap>
           <CategoryBigWrap>
-                <SmallTitle className="calender">작업시간</SmallTitle>
-                    <input
+              <SmallTitle className="calender">작업시간</SmallTitle>
+                <TimeContent>
+                <TimeInput
                     onChange={inputTime}
                     placeholder="시간으로 입력해주세요"
-                    ></input> <span>시간</span>
+                    /> <p>시간</p>
+                </TimeContent>
           </CategoryBigWrap>
           <CategoryBigWrap>
           <SmallTitle className="work">분류</SmallTitle>
-            <CategoryWrap>
+            <WorkCategoryWrap>
               <Label>
                 <FormCheckLeft
                   type="radio"
@@ -157,7 +157,7 @@ const Work =(props) => {
                 <FormCheckText>기타</FormCheckText>
               </Label> */}
             
-            </CategoryWrap>
+            </WorkCategoryWrap>
           </CategoryBigWrap>
           <CategoryBigWrap>
             <SmallTitle className="todo">작업내용</SmallTitle>
@@ -171,49 +171,76 @@ const Work =(props) => {
               placeholder="일정을 기록해주세요"
             />
           </CategoryBigWrap>
-        </TodoContent>  
+        </TodoContentWrap>  
         
     )
 }
-const Container = styled.div`
-`
 
-const Wrap = styled.div`
-  
-`;
-const TodoContent = styled.div`
+const TodoContentWrap = styled.div`
 padding: 30px; 
 width: 93%;
-height: 28vh;
+height: 520px;
 background-color: #fff;
-`
-const SmallTitle = styled.label`
-font-size: 1.8em;
-font-weight: bold;
-`
-const TotalTitle = styled.label`
 
 `
+const CategoryBigWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+`  
+const TitleInput = styled.input`
+height : 30px;
+width: 500px;
+border-left : none;
+border-right : none;
+border-top : none;
+border-bottom : 1px solid #bfbfbf;
+font-size : 36px; 
+padding : 10px;
+`
+
+const CategoryWrap = styled.div`
+margin-top : 10px;
+`;
+
+const SmallTitle = styled.label`
+font-size: 18px;
+font-weight: 700;
+`
+
+const FakeCropContent = styled.div`
+display : inline-block;
+border : 1px solid #bfbfbf;
+font-color : #616161;
+font-size : 14px;
+width : auto;
+height : auto;
+padding : 4px 12px;
+border-radius : 13px;
+margin-right : 5px;
+`
+
 const DatePickers = styled.div`
-.startDatePicker{
-   width:50%;
-   height:2rem;
-   font-size:1.3rem;
-   font-weight:bold;
-   background-color:transparent;
-   color:black;
-   border: none;
-}
-.endDatePicker{
-  width:50%;
-  height:2rem;
-  font-size:1.3rem;
-  font-weight:bold;
-  background-color:transparent;
-  color:black;
-  border: none;
-}
-`    
+margin-top : 3px;
+  .startDatePicker{
+    font-size:24px;
+    background-color:transparent;
+    color:black;
+    border: none;
+  }
+`
+const TimeInput = styled.input`
+width : 150px;
+padding : 3px;
+`
+const TimeContent = styled.div`
+display : flex;`
+
+const WorkCategoryWrap = styled.div`
+display : flex;
+margin-top : 10px;
+`
+
 const FormCheckText = styled.span`
   width: 80px;
   height: 30px;
@@ -248,47 +275,18 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label`
-
 `;
-
-
-const CalenderBigWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  margin-top: 10px;
-`;
-
-const CategoryBigWrap = styled.div`
-  
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 10px;
-`;
-
-const CategoryBigWrapSub = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-`;
-const CategoryWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center  
-`;
-
 
 const TodoInput = styled.textarea`
   width: 80%;
   height: 10em;
   resize: none;
   font-size: 15px;
-  border: 1px solid black;
+  border: 1px solid #bfbfbf;
   // border-bottom: 1px solid black;
   padding-right: 30px;
   margin-bottom: 20px;
+  border-radius : 10px;
   &::placeholder {
     color: #ddd;
     font-size: 15px;

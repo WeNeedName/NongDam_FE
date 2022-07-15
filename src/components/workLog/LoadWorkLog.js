@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import loadWorkLogDB from "../../redux/modules/workLog"
 
 const LoadWorkLog = () => {
@@ -24,9 +25,9 @@ const LoadWorkLog = () => {
   
   return(
     <Container>
-      <Wrap className="Wrap">
-        <TopWrap className="TopWrap">
-          <Title className="TotalTitle"> 최근 영농일지</Title>
+      <Wrap className="wrap">
+        <TopWrap className="topWrap">
+          <Title className="totalTitle"> 최근 영농일지</Title>
           <BtnWrap>
             {/* <SearchByCrops></SearchByCrops> */}
             <SearchByDateBtn>날짜로 조회</SearchByDateBtn>
@@ -39,37 +40,40 @@ const LoadWorkLog = () => {
         </TopWrap>
         
         <BoxWrap
-          className = "BoxWrap">
+          className = "boxWrap">
           {workLogList !== undefined ? workLogList.map ((list)=>{
             return(   
-              <WorkLogBox className="WorkLogBox"
+              <WorkLogBox className="workLogBox"
               // onClick={() =>{
               //     toggleModal()
               //   }}
               >
-              <LeftContent>
-              <Content>
-                {list.title}
-                </Content>
-              <Content>
+              
+                <LeftContent>
+                <TitleContent>{list.title}</TitleContent>
+                <TimeContentWrap>
+                  <DateContent>{list.date}</DateContent>
+                  {/* <DurationContent>작업시간 : {list.workTime} 시간</DurationContent> */}
+                </TimeContentWrap>
+                <WorkContent className = "workMemoWrap">
                 
-                <div className="startDate"></div><p>{list.date}</p>
-            
-              </Content>
-              <Content>
-                {/* <SmallTitle>농작업</SmallTitle> */}
-                <p>{list.memo}</p>
-              </Content>
-              <Content>
-                <button>{list.crop}</button>
-              </Content>
-            
-              </LeftContent>
-              <RightContent>
-              <ImgContent>
-              <SmallTitle>사진</SmallTitle>
-              </ImgContent>
-              </RightContent>
+                {list.memo}
+                </WorkContent>
+                <CropContent>
+                  {list.crop}
+                </CropContent>
+              
+                </LeftContent>
+                
+                <RightContent>
+                  <MoreVertIcon 
+                  style={
+                    {marginLeft:"140px", marginBottom:"10px"}} />
+                  <ImgContent>
+                  <SmallTitle>사진</SmallTitle>
+                  </ImgContent>
+                </RightContent>
+              
 
         </WorkLogBox>
             )
@@ -87,9 +91,11 @@ align-items : center;
 const Wrap = styled.div`
 width : 630px;
 padding: 30px;
-display : flex;
+
 flex-direction : column;
 justify-content : center;
+background-color : #ffffff;
+border-radius: 10px;
 `
 
 const TopWrap = styled.div`
@@ -101,7 +107,7 @@ margin-bottom: 20px;
 const Title = styled.div`
 font-size : 20px;
 font-weight: 700;
-display : flex;
+
 `
 const BtnWrap = styled.div``
 
@@ -126,21 +132,23 @@ cursor : pointer;
 }
 `
 
-
 const BoxWrap=styled.div`
 flex-wrap: wrap;
-justify-content: flex-start;`
+
+`
 
 const WorkLogBox = styled.div`
 display: grid;
 grid-auto-rows: auto;
 grid-template-columns : 3fr 1fr;
-width: 600px;
+width: 580px;
+background-color : #ffffff;
+border-radius: 10px;
 height: auto;
 box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
 background: #fff
 border-radious: 6px;
-padding: 15px;
+padding: 25px;
 display: inline
 flex-direction : row;
 justify-content: center;
@@ -150,15 +158,55 @@ position : relative;
 //   box-shadow : 0px 6px 10px rgba(0, 0, 0, 0.15);
 // }
 `
-const LeftContent = styled.div``
-const RightContent = styled.div``
+
+const LeftContent = styled.div`
+margin-top: 5px;
+`
 
 
-const Content = styled.div`
+const TitleContent = styled.div`
+font-size : 24px;
+margin : 10px 0px;
+
+`
+const TimeContentWrap = styled.div`
+display : flex;
+margin : 10px 0px;
+`
+
+const DateContent = styled.div`
+font-size: 14px;
+margin-right : 3px;
+font-size : 
+`
+
+const DurationContent = styled.div`
+font-size: 14px;
+
+`
+const WorkContent = styled.div`
+font-size: 14px;
 display : flex
 flex-direction : row;
-justify-content : space-between`
+margin : 10px 0px;
+`
 
+const CropContent = styled.div`
+display : inline-block;
+
+border : 1px solid #bfbfbf;
+font-color : #616161;
+font-size : 14px;
+width : auto;
+height : auto;
+padding : 4px 12px;
+border-radius : 10px;
+`
+const RightContent = styled.div`
+margin-top : 0px;
+display: flex;
+flex-direction : column;
+justify-content : flex-end;`
 
 const ImgContent = styled.div`
 width : 150px;

@@ -40,12 +40,9 @@ const WriteWorkLog =() => {
       use : usage
     }
 
-    
     const [harvest, setHarvest] = useState("")
-    const [images, setImages] = useState("")
-    
+    const [images, setImages] = useState("")    
     const dateFormat = moment(date).format("YYYY-MM-DD")
-    
     const numberCrop = Number(crop)
     const addWorkLog = async (event) => {
       const data = {
@@ -76,31 +73,41 @@ const WriteWorkLog =() => {
         .then(
           navigate("/worklog")
       );
-      
       }
-    console.log(title, numberCrop, dateFormat, memo, subMaterial, harvest, images, workTime)
-    //console.log(workTime)
+      console.log(title, numberCrop, dateFormat, memo, subMaterial, harvest, images, workTime)
+      //console.log(workTime)
     
     return(
         <Container>
           <Header />
-            <Wrap>
-              <TotalTitle>
-                작업일지등록하기
-              </TotalTitle>
-              <ContentWrap>
-                <Work setTitle={setTitle} setCrop={setCrop} setDate={setDate} setMemo={setMemo} setWorkTime={setWorkTime} />
-                <SubMaterial setType={setType} setProduct={setProduct} setUse={setUse} setUnit={setUnit}
-                />
-                <Record setHarvest={setHarvest}/>
-                <WorkPhoto setImages={setImages}/>
-              </ContentWrap>
-              <DoneBtn
-              onClick={()=>{
-                addWorkLog()
-              }}>작성완료</DoneBtn>
-            </Wrap> 
+          <TotalWrap>
+            <TotalTitle>
+              영농일지 작성
+            </TotalTitle>
+                <Wrap>
+                  <ContentWrap>
+                    <Work setTitle={setTitle} setCrop={setCrop} setDate={setDate} setMemo={setMemo} setWorkTime={setWorkTime} />
+                    <SubMaterial setType={setType} setProduct={setProduct} setUse={setUse} setUnit={setUnit}
+                    />
+                    <Record setHarvest={setHarvest}/>
+                    <WorkPhoto setImages={setImages}/>
+                  </ContentWrap>
+                <BtnWrap>
+                  <DoneBtn
+                  onClick={()=>{
+                    addWorkLog()
+                  }}>작성완료</DoneBtn>
+                  <CancelBtn
+                  onClick={()=>{
+                    navigate("/worklog")
+                  }}>
+                    취소
+                  </CancelBtn>
+                </BtnWrap>
+              </Wrap> 
+          </TotalWrap>
         </Container>
+      
     )
 }
 
@@ -108,50 +115,67 @@ const Container = styled.div`
   backgroun-color: #ddd;
 `;
 
+const TotalWrap=styled.div`
+display : flex;
+flex-direction : column;
+align-items : center;
+text-align: left;
+justify-content : center;
+`
+const TotalTitle = styled.div`
+  margin-top : 100px;
+  margin-right : 890px;
+  font-size: 24px;
+  font-weight: 700;
+`;
 const Wrap = styled.div`
-  width: 60%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 954px;
+  height: 1008px;
   justify-content: center;
   align-items: center;
-  margin: auto;
   background-color: white;
   border-radius: 20px;
   position: relative;
   padding: 30px;
-  margin-top: 100px;
-`;
-const TotalTitle = styled.label`
-  font-size: 18px;
-  font-weight: bold;
-`;
-const ContentWrap = styled.div`
-
-padding: 10px; 
-width: 80%;
-height: 80vh;
-background-color: #fff;
-`
-const Submit = styled.button`
   margin-top: 20px;
+  
 `;
-const Button = styled.button``
 
+const ContentWrap = styled.div`
+// padding: 10px; 
+// width: 80%;
+// height: 80vh;
+// background-color: #fff;
+`
+
+const BtnWrap = styled.div`
+margin-left: 700px;
+margin-top: 60px;`
 
 const DoneBtn = styled.button`
-  margin-top: 200px;
   
-  width: 300px;
-  height: 40px;
-  background-color: black;
+  margin-right : 10px;
+  width: 80px;
+  height: 30px;
+  background-color: #22631c;
   color: white;
-  border: none;
+  border: 1px solid #22631c;
   border-radius: 8px;
   &:hover {
     opacity: 0.7;
   }
-
 `;
+
+const CancelBtn = styled.button`
+
+width: 80px;
+height: 30px;
+background-color : transparent;
+color: #616161;
+border: 1px solid #bfbfbf;
+border-radius: 8px;
+&:hover {
+  opacity: 0.7;
+}`
 
 export default WriteWorkLog;
