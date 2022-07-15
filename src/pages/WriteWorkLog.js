@@ -23,7 +23,7 @@ const WriteWorkLog =() => {
     const [title, setTitle] = useState("")
     const [crop, setCrop] = useState("")
     const [date, setDate] = useState("")
-    const [endTime, setEndTime] = useState("")
+    const [workTime, setWorkTime] = useState("")
     const [memo, setMemo] = useState("")
     //const [subMaterial, setSubMaterial] = useState([])
     
@@ -40,7 +40,7 @@ const WriteWorkLog =() => {
       use : usage
     }
 
-  
+    
     const [harvest, setHarvest] = useState("")
     const [images, setImages] = useState("")
     
@@ -53,6 +53,7 @@ const WriteWorkLog =() => {
               crop : numberCrop,
               date : dateFormat,
               memo : memo,
+              workTime : workTime,
               subMaterial : subMaterial,
               harvest : harvest
       }
@@ -77,8 +78,8 @@ const WriteWorkLog =() => {
       );
       
       }
-    console.log(title, numberCrop, dateFormat, memo, subMaterial, harvest, images)
-    //console.log(images)
+    console.log(title, numberCrop, dateFormat, memo, subMaterial, harvest, images, workTime)
+    //console.log(workTime)
     
     return(
         <Container>
@@ -88,7 +89,7 @@ const WriteWorkLog =() => {
                 작업일지등록하기
               </TotalTitle>
               <ContentWrap>
-                <Work setTitle={setTitle} setCrop={setCrop} setDate={setDate} setMemo={setMemo} />
+                <Work setTitle={setTitle} setCrop={setCrop} setDate={setDate} setMemo={setMemo} setWorkTime={setWorkTime} />
                 <SubMaterial setType={setType} setProduct={setProduct} setUse={setUse} setUnit={setUnit}
                 />
                 <Record setHarvest={setHarvest}/>
