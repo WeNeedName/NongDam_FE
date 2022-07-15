@@ -183,7 +183,7 @@ const AnalysisSalesChart = () => {
 
 const ChartWrap = styled.div`
   width: 100%;
-  height: 60%;
+  height: 230px;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;

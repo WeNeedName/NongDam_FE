@@ -1,5 +1,5 @@
 .tooltip-box {
-padding: 4px 6px;
+padding: 6px 20px 6px 10px;
 border: 1px solid #E3E3E3;
 box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 border-radius: 4px;
@@ -44,16 +44,17 @@ border-radius: 4px;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 400;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 16px;
     color: #02113B;
+    margin-left: 2px;
 }
 
 .date-label {
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 400;
-    font-size: 8px;
+    font-size: 11px;
     line-height: 16px;
     color: #60636C80;
 }
@@ -63,7 +64,7 @@ border-radius: 4px;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
-    font-size: 8px;
+    font-size: 12px;
     line-height: 16px;
     color: #02113B;
     margin-right: 4px;
@@ -73,7 +74,7 @@ border-radius: 4px;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
     color: #02113B;
 }

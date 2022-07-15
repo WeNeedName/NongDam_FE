@@ -94,7 +94,7 @@ const Weather = () => {
           />
           <ThumNailWrap>
             <ThumNail>
-              <ShimmerCircularImage size={90} />
+              <ShimmerCircularImage size={110} />
               <ShimmerText
                 className="thumNail-text"
                 line={3}
@@ -105,7 +105,7 @@ const Weather = () => {
 
             <ShimmerThumbnail
               className="thumNail-weather"
-              height={140}
+              height={160}
               rounded
             />
           </ThumNailWrap>
@@ -141,11 +141,12 @@ const ThumNail = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* justify-content: center; */
 `;
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 20px;
   line-height: 10px;
 `;
 
@@ -175,9 +176,9 @@ const MiddleRightWrap = styled.div`
 
 const Region = styled.span`
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 16px;
   line-height: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 `;
 
 const IconWrap = styled.div`
@@ -191,17 +192,19 @@ const TempWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 6px;
 `;
 
 const Temp = styled.span`
   font-weight: 500;
-  font-size: 3.8em;
+  font-size: 46px;
   line-height: 48px;
+  margin-bottom: 4px;
 `;
 
 const WeatherT = styled.span`
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 14px;
   line-height: 28px;
   margin-left: -8px;
 `;
@@ -228,9 +231,10 @@ const InfoWrapRight = styled.div`
 `;
 
 const Info = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 24px;
   color: #787c87;
+  margin-bottom: 2px;
 `;
 
 const InfoNum = styled.span`
@@ -239,6 +243,7 @@ const InfoNum = styled.span`
   line-height: 24px;
   margin-left: 30px;
   color: #02113b;
+  margin-bottom: 2px;
 `;
 
 const BottomWrap = styled.div`
@@ -255,7 +260,7 @@ const FormCheckText = styled.span`
   width: auto;
   height: 26px;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 24px;
   margin-right: 4px;
   background: transparent;

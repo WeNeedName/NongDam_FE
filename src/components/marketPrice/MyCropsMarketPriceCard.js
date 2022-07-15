@@ -19,7 +19,7 @@ import "moment/locale/ko";
 const MyCropsMarketPriceCard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const marketPriceData = useSelector((state) => state.main.myCropMarketPrice);
+  const marketPriceData = useSelector((state) => state.main.myCropsMarketPrice);
 
   const AllmarketPriceData = useSelector(
     (state) => state.main.myCropsMarketPrice
@@ -43,15 +43,7 @@ const MyCropsMarketPriceCard = () => {
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
 
-  // 유저 작물 전체 시세 리스트 요청
-  useEffect(() => {
-    dispatch(getMyCropsMarketPriceDB());
-  }, []);
-
-  // // 월별/연도별 클릭 시 api 재요청
-  // useEffect(() => {
-  //   dispatch(getMyCropMarketPriceDB());
-  // }, []);
+  const data = "month";
 
   return (
     userInfo !== undefined &&
@@ -224,105 +216,82 @@ const MyCropsMarketPriceCard = () => {
       };
 
       return (
-        <Wrap key={index}>
-          <div>
-            <RowWrap>
-              <CategoryT>
-                {marketName !== undefined
-                  ? marketName + " " + "도소매시장"
-                  : "서울 도소매시장"}
-              </CategoryT>
-              <Hr />
-              <CategoryT>{list.name}</CategoryT>
-            </RowWrap>
-          </div>
+        <>
+          <Wrap key={index}>
+            <div>
+              <RowWrap>
+                <CategoryT>
+                  {marketName !== undefined
+                    ? marketName + " " + "도소매시장"
+                    : "서울 도소매시장"}
+                </CategoryT>
+                <Hr />
+                <CategoryT>{list.name}</CategoryT>
+              </RowWrap>
+            </div>
+            <CategoryChartWrap>
+              {checkedInputs === "month" && AllmarketPriceData !== undefined ? (
+                <>
+                  <ChartBox>
+                    <ApexCharts
+                      options={monthState.options}
+                      series={monthState.series}
+                      type="line"
+                      height={92 + "%"}
+                    />
 
-          <CategoryChartWrap>
-            <CategoryWrap>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="month"
-                  name={list.id}
-                  onChange={changeRadio}
-                  value={checkedInputs}
-                  defaultChecked
-                />
-                <FormCheckText>월별</FormCheckText>
-              </Label>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="year"
-                  name={list.id}
-                  onChange={changeRadio}
-                  value={checkedInputs}
-                />
-                <FormCheckText>연도별</FormCheckText>
-              </Label>
-            </CategoryWrap>
+                    <YasisLabelBox>
+                      <YasisLabelWrap>
+                        <YasisColorTipA />
+                        <YasisLabel>소매</YasisLabel>
+                      </YasisLabelWrap>
+                      <YasisLabelWrap>
+                        <YasisColorTipB />
+                        <YasisLabel>도매</YasisLabel>
+                      </YasisLabelWrap>
+                    </YasisLabelBox>
+                  </ChartBox>
+                  <XasisWrap>
+                    {monthDay !== undefined &&
+                      monthDay.map((data, id) => {
+                        return <Xasis key={id}>{data}</Xasis>;
+                      })}
+                  </XasisWrap>
+                </>
+              ) : null}
 
-            {checkedInputs === "month" && AllmarketPriceData !== undefined ? (
-              <>
-                <ChartBox>
-                  <ApexCharts
-                    options={monthState.options}
-                    series={monthState.series}
-                    type="line"
-                    height={92 + "%"}
-                  />
+              {checkedInputs === "year" && AllmarketPriceData !== undefined ? (
+                <>
+                  <ChartBox>
+                    <ApexCharts
+                      options={monthState.options}
+                      series={monthState.series}
+                      type="line"
+                      height={92 + "%"}
+                    />
 
-                  <YasisLabelBox>
-                    <YasisLabelWrap>
-                      <YasisColorTipA />
-                      <YasisLabel>소매</YasisLabel>
-                    </YasisLabelWrap>
-                    <YasisLabelWrap>
-                      <YasisColorTipB />
-                      <YasisLabel>도매</YasisLabel>
-                    </YasisLabelWrap>
-                  </YasisLabelBox>
-                </ChartBox>
-                <XasisWrap>
-                  {monthDay !== undefined &&
-                    monthDay.map((data, id) => {
-                      return <Xasis key={id}>{data}</Xasis>;
-                    })}
-                </XasisWrap>
-              </>
-            ) : null}
-
-            {checkedInputs === "year" && AllmarketPriceData !== undefined ? (
-              <>
-                <ChartBox>
-                  <ApexCharts
-                    options={monthState.options}
-                    series={monthState.series}
-                    type="line"
-                    height={92 + "%"}
-                  />
-
-                  <YasisLabelBox>
-                    <YasisLabelWrap>
-                      <YasisColorTipA />
-                      <YasisLabel>소매</YasisLabel>
-                    </YasisLabelWrap>
-                    <YasisLabelWrap>
-                      <YasisColorTipB />
-                      <YasisLabel>도매</YasisLabel>
-                    </YasisLabelWrap>
-                  </YasisLabelBox>
-                </ChartBox>
-                <XasisWrap>
-                  {monthDay !== undefined &&
-                    monthDay.map((data, id) => {
-                      return <Xasis key={id}>{data}</Xasis>;
-                    })}
-                </XasisWrap>
-              </>
-            ) : null}
-          </CategoryChartWrap>
-        </Wrap>
+                    <YasisLabelBox>
+                      <YasisLabelWrap>
+                        <YasisColorTipA />
+                        <YasisLabel>소매</YasisLabel>
+                      </YasisLabelWrap>
+                      <YasisLabelWrap>
+                        <YasisColorTipB />
+                        <YasisLabel>도매</YasisLabel>
+                      </YasisLabelWrap>
+                    </YasisLabelBox>
+                  </ChartBox>
+                  <XasisWrap>
+                    {monthDay !== undefined &&
+                      monthDay.map((data, id) => {
+                        return <Xasis key={id}>{data}</Xasis>;
+                      })}
+                  </XasisWrap>
+                </>
+              ) : null}
+            </CategoryChartWrap>
+          </Wrap>
+        </>
       );
     })
   );
@@ -356,6 +325,12 @@ const Hr = styled.div`
   margin: 2px 4px 0px 4px;
 `;
 
+const CategoryWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 8px 0px;
+`;
+
 const CategoryChartWrap = styled.div`
   width: 100%;
   display: flex;
@@ -369,13 +344,7 @@ const CategoryChartWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 1rem;
-`;
-
-const CategoryWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 8px 0px;
+  font-size: 16px;
 `;
 
 const FormCheckText = styled.span`
@@ -414,7 +383,7 @@ const Label = styled.label``;
 
 const ChartBox = styled.div`
   width: 100%;
-  margin-top: 6px;
+  margin-top: 30px;
   background: #fafafa;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
   border-radius: 4px;
@@ -431,14 +400,12 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
 const YasisLabelBox = styled.div`
-  max-width: 150px;
-  width: 76px;
-  height: auto;
+  padding: 4px 6px;
   background-color: #ffffff;
   /* border: 1px solid #e3e3e3; */
   border-radius: 4px;
@@ -467,7 +434,7 @@ const YasisColorTipA = styled.div`
   width: 7px;
   height: 3px;
   background: #7ee3ab;
-  margin-right: 4px;
+  margin-right: 6px;
   @media only screen and (max-width: 760px) {
     width: 4px;
     height: 4px;
@@ -478,7 +445,8 @@ const YasisColorTipB = styled.div`
   width: 7px;
   height: 3px;
   background: #7eb3e3;
-  margin-right: 4px;
+  margin-right: 6px;
+  margin-left: 10px;
   @media only screen and (max-width: 760px) {
     width: 4px;
     height: 4px;
@@ -486,7 +454,7 @@ const YasisColorTipB = styled.div`
 `;
 
 const YasisLabel = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
@@ -500,6 +468,11 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.div`
   color: #6f6f6f;
+`;
+
+const Div = styled.div`
+  width: 400px;
+  height: 100%;
 `;
 
 export default MyCropsMarketPriceCard;

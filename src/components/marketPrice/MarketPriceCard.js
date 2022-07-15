@@ -32,8 +32,6 @@ const MarketPriceCard = ({ cropsData }) => {
     }
   };
 
-  console.log(marketPriceData);
-
   useEffect(() => {
     dispatch(getMarketPriceDB(data));
   }, [checkedInputs, selectedCrops]);
@@ -150,7 +148,7 @@ const Wrap = styled.div`
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 20px 20px 16px 20px;
+  padding: 24px 24px 20px 20px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -164,12 +162,13 @@ const Wrap = styled.div`
 `;
 
 const Region = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   margin: 10px 0px;
 `;
 
 const SubTitle = styled.span`
+  font-size: 12px;
   margin: 4px 0px;
 `;
 
@@ -186,12 +185,15 @@ const CategoryChartWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 10px;
+  margin-bottom: 10px;
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 4px;
   /* margin: 8px 0px; */
 `;
 
@@ -199,14 +201,14 @@ const FormCheckText = styled.span`
   width: auto;
   height: 26px;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 24px;
   margin-right: 4px;
   background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 12px;
   cursor: pointer;
   color: black;
   &:hover {
@@ -260,13 +262,14 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 24px;
   color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
-  padding: 8px 14px;
+  padding: 8px 18px;
   margin-top: 20px;
   background-color: #318f27;
   border: none;
