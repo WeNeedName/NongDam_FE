@@ -1,44 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 
-// 이미지
-import Profile from "../images/Profile.png";
-
-// js파일
+// 컴포넌트
 import Header from "../components/Header";
 import Weather from "../components/main/Weather";
-import MarketPriceCard from "../components/main/MarketPriceCard";
+import MarketPriceCard from "../components/main/TodayMarketPriceCard";
 import TodayTodo from "../components/main/TodayTodo";
-import SalesCard from "../components/main/SalesCard";
-
+import AnalysisCard from "../components/main/AnalysisCard";
+import TodayNews from "../components/main/TodayNews";
+import TodayPost from "../components/main/TodayPost";
 
 const Main = () => {
   return (
-    <div>
-      <Header />
-      <Weather />
-      <MarketPriceCard />
-      <TodayTodo />
-      <SalesCard />
-    </div>
+    <>
+      <Wrap>
+        <Header currentPage="main" />
+        <Weather />
+        <MarketPriceCard />
+        <TodayTodo />
+        <AnalysisCard />
+        <TodayNews />
+        {/* <TodayPost /> */}
+      </Wrap>
+    </>
   );
 };
 
-const Nav = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
-`;
-
-const Menu = styled.span`
-  margin-right: 10px;
-`;
-
-const UserProfile = styled.img`
-  width: 40px;
+const Wrap = styled.div`
+  width: 100vw;
+  max-width: 1920px;
+  height: auto;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-template-columns: 1fr repeat(3, 23.2%) 1fr;
+  grid-template-rows: 70px repeat(7, 13%) 0;
+  justify-content: center;
+  flex-flow: wrap;
+  row-gap: 16px;
+  column-gap: 20px;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 1220px) {
+    grid-template-columns: 1fr repeat(3, 26%) 1fr;
+  }
+  @media only screen and (max-width: 760px) {
+    grid-template-columns: 1fr 90% 1fr;
+    grid-template-rows: 70px repeat(12, auto) 0px;
+  }
 `;
 
 export default Main;

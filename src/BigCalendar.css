@@ -5,12 +5,6 @@
   margin: 0;
 }
 
-button.rbc-btn {
-  overflow: visible;
-  text-transform: none;
-  -webkit-appearance: button;
-  cursor: pointer;
-}
 
 button[disabled].rbc-btn {
   cursor: not-allowed;
@@ -65,11 +59,12 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-off-range {
-  color: #999999;
+  /* color: #999999; */
 }
-
+/* 이전, 다음달 날짜영역 */
 .rbc-off-range-bg {
-  background: #e6e6e6;
+  background: #F7F7F7;
+  color: #AFB6AF;
 }
 
 .rbc-header {
@@ -85,14 +80,14 @@ button.rbc-input::-moz-focus-inner {
   font-weight: bold;
   font-size: 90%;
   min-height: 0;
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
 }
 .rbc-header + .rbc-header {
-  border-left: 1px solid #ddd;
+  /* border-left: 1px solid #ddd; */
 }
 .rbc-rtl .rbc-header + .rbc-header {
   border-left-width: 0;
-  border-right: 1px solid #ddd;
+  /* border-right: 1px solid #ddd; */
 }
 .rbc-header > a, .rbc-header > a:active, .rbc-header > a:visited {
   color: inherit;
@@ -145,7 +140,8 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-today {
-  background-color: #eaf6ff;
+  /* 오늘 날짜 배경색 */
+  background-color: #C3EEBF50;
 }
 
 .rbc-toolbar {
@@ -244,6 +240,7 @@ button.rbc-input::-moz-focus-inner {
   margin-left: 10px;
 }
 
+/* 이벤트 CSS */
 .rbc-event, .rbc-day-slot .rbc-background-event {
   border: none;
   -webkit-box-sizing: border-box;
@@ -278,7 +275,6 @@ button.rbc-input::-moz-focus-inner {
           box-shadow: none;
   margin: 0;
   padding: 2px 5px;
-  background-color: #FBCCCC;
   border-radius: 0px;
   color: #2399DC;
   cursor: pointer;
@@ -341,7 +337,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-selected-cell {
   background-color: rgba(0, 0, 0, 0.1);
 }
-
+/* 이벤트 2개 이상일 때  */
 .rbc-show-more {
   background-color: rgba(255, 255, 255, 0.3);
   z-index: 4;
@@ -358,6 +354,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-month-view {
   position: relative;
   border: 1px solid #ddd;
+  border-radius: 8px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -375,11 +372,16 @@ button.rbc-input::-moz-focus-inner {
   -webkit-user-select: none;
   height: 100%;
 }
-
+/* 달력 요일 헤더 */
 .rbc-month-header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 24px;
+  background-color: #C3EEBF;
+  border-radius: 8px 8px 0px 0px;
+  padding: 4px;
+  margin: -1px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;

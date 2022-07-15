@@ -3,6 +3,8 @@ import thunk from "redux-thunk";
 import users from "./modules/users";
 import main from "./modules/main";
 import account from "./modules/account";
+import schedule from "./modules/schedule";
+import workLog from "./modules/workLog";
 import { createBrowserHistory } from "history";
 
 export const history = createBrowserHistory();
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
   users,
   main,
   account,
+  schedule,
+  workLog,
 });
 
 // 미들웨어들을 모아두는 곳

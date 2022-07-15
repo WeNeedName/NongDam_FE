@@ -2,129 +2,251 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 // 차트 라이브러리
-import ReactApexChart from "react-apexcharts";
+import ApexCharts from "react-apexcharts";
 // date 가공 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
 import dayjs from "dayjs";
 
 const WorkTime = () => {
-  const [data, setData] = useState(null);
+  const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
 
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
+  const slaes = ["600", "400", "200", "0"];
 
+  // 시간별 날씨 그래프 데이터
   const state = {
     series: [
       {
-        name: "1분기",
-        data: [10, 13],
+        name: "순이익",
+        data: [-100, 100, 100, 300, 300, 100],
       },
-      {
-        name: "2분기",
-        data: [17, 20],
-      },
-      {
-        name: "3분기",
-        data: [44, 46],
-      },
-      {
-        name: "4분기",
-        data: [21, 27],
-      },
-      //   {
-      //     name: "Tank Picture",
-      //     data: [12, 17, 11, 9, 15, 11, 20],
-      //   },
-      //   {
-      //     name: "Bucket Slope",
-      //     data: [9, 7, 5, 8, 6, 9, 4],
-      //   },
-      //   {
-      //     name: "Reborn Kid",
-      //     data: [25, 12, 19, 32, 25, 24, 10],
-      //   },
     ],
     options: {
-      chart: {
-        type: "bar",
-        height: 350,
-        stacked: true,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
+      markers: {
+        size: [2, 2, 2.5],
+        colors: "#7EE3AB",
+        hover: {
+          size: undefined,
+          sizeOffset: 2,
         },
+      },
+      legend: {
+        show: false,
+      },
+      chart: {
+        type: "line",
+        zoom: {
+          enabled: false,
+        },
+        toolbar: {
+          show: false,
+        },
+      },
+      dataLabels: {
+        enabled: false,
       },
       stroke: {
-        width: 1,
-        colors: ["#fff"],
+        curve: "straight",
+        width: [1.5, 1.5, 2.5],
+        colors: "#7EE3AB", // 그래프 선 여기에 추가
       },
-      //   title: {
-      //     text: "Fiction Books Sales",
-      //   },
-      xaxis: {
-        categories: [2022, 2021],
-        labels: {
-          formatter: function (val) {
-            return val + "K";
+      grid: {
+        borderColor: "#ddd",
+        strokeDashArray: 1.6, // 가로축 점선
+        row: {
+          colors: ["transparent", "transparent", "transparent"], // 배경색
+        },
+        column: {
+          colors: ["transparent", "transparent", "transparent"],
+        },
+        xaxis: {
+          lines: {
+            show: false,
           },
         },
-      },
-      yaxis: {
-        title: {
-          text: undefined,
+        yaxis: {
+          lines: {
+            show: true, // 그리드선
+          },
+        },
+        padding: {
+          top: -2,
+          right: 20,
+          bottom: -10,
+          left: 20,
         },
       },
       tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + "K";
-          },
+        x: {
+          show: false,
+        },
+        style: {
+          fontSize: "12px",
+          fontFamily: undefined,
+        },
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="tooltip-box">' +
+            '<div class="line">' +
+            '<span class="price-label">' +
+            "2021년 9월" +
+            "</span>" +
+            "</div>" +
+            '<div class="line-bottom">' +
+            '<span class="label-data">' +
+            series[seriesIndex][dataPointIndex] +
+            '<span class="price-label">' +
+            "시간" +
+            "</span>" +
+            "</span>" +
+            "</div>" +
+            "</div>"
+          );
         },
       },
-      fill: {
-        opacity: 1,
+      xaxis: {
+        categories: day,
+        labels: {
+          formatter: function (value) {
+            return value;
+          },
+          style: {
+            fontSize: "0px",
+          },
+        },
+        position: "top", // x축 라벨
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+        tooltip: {
+          enabled: false,
+        },
       },
-      legend: {
-        position: "top",
-        horizontalAlign: "left",
-        offsetX: 40,
+      yaxis: {
+        show: false,
+        min: undefined,
+        max: undefined,
       },
     },
   };
 
   return (
-    <Wrap>
-      <TopWrap>
-        <h3>작업시간</h3>
-        <span>기간선택</span>
-      </TopWrap>
-      <ReactApexChart
-        options={state.options}
-        series={state.series}
-        type="bar"
-        height={260}
-      />
-    </Wrap>
+    <>
+      <Wrap>
+        <TitleWrap>
+          <SmileIcon>💪</SmileIcon>
+          <Title>
+            작년에 비해 올해 작업 시간이 <br />
+            20% 감소했어요
+          </Title>
+        </TitleWrap>
+        <ChartWrap>
+          <YasisWrap>
+            {slaes.map((data, id) => {
+              return <Yasis key={id}>{data}</Yasis>;
+            })}
+          </YasisWrap>
+
+          <ChartBox>
+            <ApexCharts
+              options={state.options}
+              series={state.series}
+              type="line"
+              height={100 + "%"}
+            />
+          </ChartBox>
+          <XasisWrap>
+            {day.map((data, id) => {
+              return <Xasis key={id}>{data}</Xasis>;
+            })}
+          </XasisWrap>
+        </ChartWrap>
+      </Wrap>
+    </>
   );
 };
 
-const Wrap = styled.div`
-  width: 500px;
-  height: 400px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+const ChartWrap = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  row-gap: 4px;
+  column-gap: 8px;
+  cursor: pointer;
 `;
 
-const TopWrap = styled.div`
+const YasisWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+`;
+
+const Yasis = styled.span`
+  font-size: 8px;
+  color: #666666;
+`;
+
+const ChartBox = styled.div`
+  width: 100%;
+  margin-top: 6px;
+  background: #fafafa;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
+  border-radius: 4px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  position: relative;
+`;
+
+const XasisWrap = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  margin: 0px 10px;
+  /* margin-top: 4px; */
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+`;
+
+const Xasis = styled.span`
+  font-size: 8px;
+  color: #666666;
+`;
+
+const Wrap = styled.div`
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  grid-column: 7 / 10;
+  grid-row: 2 / 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const TitleWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const SmileIcon = styled.span`
+  font-size: 20px;
+`;
+
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 10px;
+  text-align: left;
 `;
 
 export default WorkTime;

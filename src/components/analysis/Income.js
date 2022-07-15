@@ -20,7 +20,33 @@ const Income = () => {
         type: "donut",
       },
       legend: {
-        position: "right",
+        show: false,
+      },
+      dataLabels: {
+        enabled: true,
+        textAnchor: "right",
+        distributed: true,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          fontSize: "12px",
+          fontFamily: "Noto Sans KR",
+          fontWeight: "700",
+          colors: [
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+            "white",
+          ],
+        },
+        dropShadow: {
+          enabled: true,
+          color: "#aaa",
+        },
       },
       responsive: [
         {
@@ -40,16 +66,30 @@ const Income = () => {
             // },
             labels: {
               show: true,
-              total: {
-                showAlways: true,
+              name: {
+                // 데이터 라벨 커스텀
                 show: true,
-                label: "총 금액",
-                fontSize: "12px",
+                fontSize: "22px",
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 700,
+                color: undefined,
+                offsetY: 6,
+                formatter: function (val) {
+                  return val;
+                },
+              },
+
+              total: {
+                showAlways: false,
+                show: true,
+                label: "지출",
+                fontSize: "18px",
+                fontWeight: "700",
                 color: "black",
               },
               value: {
                 fontSize: "22px",
-                show: true,
+                show: false,
                 color: "blue",
               },
             },
@@ -62,36 +102,34 @@ const Income = () => {
 
   return (
     <Wrap>
-      <TopWrap>
-        <h3>수입</h3>
-        <span>기간선택</span>
-      </TopWrap>
-
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="480"
+        width="230"
       />
+      <Legend>
+        <span>농산물 판매</span>
+        <span>정부보조금</span>
+        <span>기타수입</span>
+      </Legend>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 440px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
-`;
-
-const TopWrap = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  cursor: pointer;
+`;
+
+const Legend = styled.div`
+  display: flex;
+  flex-direction: column;
+  span {
+    font-size: 8px;
+    margin: 2px;
+  }
 `;
 
 export default Income;
