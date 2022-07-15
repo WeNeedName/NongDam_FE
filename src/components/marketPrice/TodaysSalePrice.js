@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const TodaysSalePrice = ({ salePrice }) => {
+  const userInfo = useSelector((state) => state.users.user);
+  const navigate = useNavigate();
+
   const [kg, setKg] = useState(0);
   // 숫자에 콤마넣기
   function comma(str) {
@@ -23,6 +28,21 @@ const TodaysSalePrice = ({ salePrice }) => {
 
   return (
     <Wrap>
+      {userInfo?.address === "" && (
+        <NoticeWrap>
+          <NoticeT>
+            마이페이지에서 지역을 등록하시면
+            <br />내 작물의 예상판매 금액을 확인하실 수 있어요
+          </NoticeT>
+          <NoticeBtn
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          >
+            등록하러 가기
+          </NoticeBtn>
+        </NoticeWrap>
+      )}
       <CategoryT>💵 예상 판매 금액</CategoryT>
       <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
       <SumWrap>
@@ -83,6 +103,7 @@ const Wrap = styled.div`
   background-color: #fff;
   grid-column: 4 / 5;
   grid-row: 1 / 2;
+  position: relative;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 4 / 5;
@@ -160,6 +181,49 @@ const NotFoundNotice = styled.span`
   color: #787c87;
   font-size: 11px;
   margin-top: 20px;
+`;
+
+const NoticeWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.9) 100%,
+    transparent 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+`;
+
+const NoticeT = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  color: #318f27;
+  text-align: center;
+`;
+
+const NoticeBtn = styled.button`
+  padding: 8px 14px;
+  margin-top: 20px;
+  background-color: #318f27;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  &:hover {
+    background-color: #22631c;
+  }
 `;
 
 export default TodaysSalePrice;

@@ -108,7 +108,6 @@ const LoadWrap = styled.div`
 `;
 
 const Wrap = styled.div`
-  /* height: 260px; */
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;

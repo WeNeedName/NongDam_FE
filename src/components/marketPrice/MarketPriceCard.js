@@ -47,7 +47,18 @@ const MarketPriceCard = ({ cropsData }) => {
         <>
           {userInfo?.address === "" && (
             <NoticeWrap>
-              <NoticeT> 마이페이지에서 지역을 등록해주세요.</NoticeT>
+              <NoticeT>
+                마이페이지에서 지역을 등록하시면
+                <br />
+                작물별 시세 정보를 확인하실 수 있어요
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
             </NoticeWrap>
           )}
           <CategoryT>📈 작물 조회</CategoryT>
@@ -228,9 +239,14 @@ const NoticeWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   z-index: 100;
-  background: linear-gradient(to top, #fff 30%, transparent 75%);
-
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.9) 100%,
+    transparent 100%
+  );
   position: absolute;
   top: 0;
   left: 0;
@@ -244,6 +260,20 @@ const NoticeT = styled.span`
   font-weight: 600;
   font-size: 12px;
   color: #318f27;
+  text-align: center;
+`;
+
+const NoticeBtn = styled.button`
+  padding: 8px 14px;
+  margin-top: 20px;
+  background-color: #318f27;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  &:hover {
+    background-color: #22631c;
+  }
 `;
 
 export default MarketPriceCard;
