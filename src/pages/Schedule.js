@@ -24,7 +24,12 @@ const Schedule = () => {
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
   //  상세 모달 열기
   const [isOpen, setOpen] = useState(false);
-  const isLogin = sessionStorage.getItem("jwtToken")
+  const isLogin = sessionStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
+
   function toggleModal(id) {
     setOpen(!isOpen);
   }
@@ -38,33 +43,30 @@ const Schedule = () => {
     dispatch(getCurrentScheduleListDB());
   }, [dispatch]);
 
-  
   useEffect(() => {
     dispatch(getScheduleListDB(yearMonth));
   }, [dispatch]);
-  
 
   return (
     <Wrap>
-      <Header currentPage="schedule"/>
-        <>
-      <CalendarWrap>
-        <ScheduleCalendar />
-        <AddScheduleBtn
-        onClick={() => {
-          toggleModal();
-        }}
-      >
-        + 기록하기
-      </AddScheduleBtn>
-      </CalendarWrap>
-      <CurrentListWrap>
-        <ScheduleWeek />
-      </CurrentListWrap>  
-      
-      {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal}/>}
+      <Header currentPage="schedule" />
+      <>
+        <CalendarWrap>
+          <ScheduleCalendar />
+          <AddScheduleBtn
+            onClick={() => {
+              toggleModal();
+            }}
+          >
+            + 기록하기
+          </AddScheduleBtn>
+        </CalendarWrap>
+        <CurrentListWrap>
+          <ScheduleWeek />
+        </CurrentListWrap>
+
+        {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
       </>
-      
     </Wrap>
   );
 };
@@ -119,7 +121,7 @@ const AddScheduleBtn = styled.button`
   position: absolute;
   top: 36px;
   right: 30px;
-  cursor : pointer;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }
@@ -134,9 +136,5 @@ const CurrentListWrap = styled.div`
     grid-row: 3 / 4;
   }
 `;
-
-
-
-
 
 export default Schedule;

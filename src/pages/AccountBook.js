@@ -21,6 +21,12 @@ const AccountBook = () => {
     dispatch(getCurrentAccountListDB());
   }, [dispatch]);
 
+  const isLogin = sessionStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
+
   // 장부내역 상세 모달 열기
   const [isOpen, setOpen] = useState(false);
 
@@ -112,16 +118,17 @@ const AddAccountBtn = styled.button`
   justify-content: center;
   align-items: center;
   padding: 4px 15px;
-  width: 80px;
-  height: 24px;
+  width: auto;
+  height: 26px;
   background: #318f27;
   border: none;
   border-radius: 50px;
   color: white;
-  font-size: 10px;
+  font-size: 12px;
   position: absolute;
   top: 36px;
   right: 30px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }

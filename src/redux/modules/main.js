@@ -97,26 +97,12 @@ export const getMarketPriceDB = (data) => {
   };
 };
 // 내 작물 시세 전체조회
-export const getMyCropsMarketPriceDB = () => {
-  return async function (dispatch) {
-    apis
-      .firstLoadMyCropsMarketPrice()
-      .then((response) => {
-        dispatch(getMyCropsMarketPrice(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-};
-
-// 내 작물 시세 조회
-export const getMyCropMarketPriceDB = (data) => {
+export const getMyCropsMarketPriceDB = (data) => {
   return async function (dispatch) {
     apis
       .loadMyCropsMarketPrice(data)
       .then((response) => {
-        dispatch(getMyCropMarketPrice(response.data));
+        dispatch(getMyCropsMarketPrice(response.data));
       })
       .catch((error) => {
         console.log(error);
@@ -174,11 +160,6 @@ export default handleActions(
     [GET_MY_CROPS_MARKET_PRICE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.myCropsMarketPrice = payload.data;
-      }),
-    // 내 작물 시세 조회
-    [GET_MY_CROP_MARKET_PRICE]: (state, { payload }) =>
-      produce(state, (draft) => {
-        draft.myCropMarketPrice = payload.data;
       }),
     // 오늘 일정 조회
     [GET_TODAY_SCHEDULE_LIST]: (state, { payload }) =>

@@ -26,8 +26,6 @@ const Haeder = ({ currentPage }) => {
     dispatch(getInfoDB());
   }, []);
 
-  console.log(userInfo);
-
   return (
     <Wrap>
       <Nav>
@@ -40,72 +38,76 @@ const Haeder = ({ currentPage }) => {
           >
             Nongdam
           </Logo>
+          {isLogin ? (
+            <>
+              {" "}
+              <CategoryWrap>
+                <FormCheckText
+                  id="main"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                  currentPage={headerNav}
+                >
+                  홈
+                </FormCheckText>
 
-          <CategoryWrap>
-            <FormCheckText
-              id="main"
-              onClick={() => {
-                navigate("/");
-              }}
-              currentPage={headerNav}
-            >
-              홈
-            </FormCheckText>
+                <FormCheckText
+                  id="analysis"
+                  onClick={() => {
+                    navigate("/analysis");
+                    setHeaderNav(headerNav);
+                  }}
+                  currentPage={headerNav}
+                >
+                  농장 관리 현황
+                </FormCheckText>
 
-            <FormCheckText
-              id="analysis"
-              onClick={() => {
-                navigate("/analysis");
-                setHeaderNav(headerNav);
-              }}
-              currentPage={headerNav}
-            >
-              농장 관리 현황
-            </FormCheckText>
+                <FormCheckText
+                  id="marketPrice"
+                  onClick={() => {
+                    navigate("/marketprice");
+                    setHeaderNav(headerNav);
+                  }}
+                  currentPage={headerNav}
+                >
+                  시세
+                </FormCheckText>
 
-            <FormCheckText
-              id="marketPrice"
-              onClick={() => {
-                navigate("/marketprice");
-                setHeaderNav(headerNav);
-              }}
-              currentPage={headerNav}
-            >
-              시세
-            </FormCheckText>
+                <FormCheckText
+                  id="schedule"
+                  onClick={() => {
+                    navigate("/schedule");
+                    setHeaderNav(headerNav);
+                  }}
+                  currentPage={headerNav}
+                >
+                  일정
+                </FormCheckText>
 
-            <FormCheckText
-              id="schedule"
-              onClick={() => {
-                navigate("/schedule");
-                setHeaderNav(headerNav);
-              }}
-              currentPage={headerNav}
-            >
-              일정
-            </FormCheckText>
+                <FormCheckText
+                  id="accountbook"
+                  onClick={() => {
+                    navigate("/accountbook");
+                    setHeaderNav(headerNav);
+                  }}
+                  currentPage={headerNav}
+                >
+                  장부
+                </FormCheckText>
 
-            <FormCheckText
-              id="accountbook"
-              onClick={() => {
-                navigate("/accountbook");
-                setHeaderNav(headerNav);
-              }}
-              currentPage={headerNav}
-            >
-              장부
-            </FormCheckText>
-
-            <FormCheckText
-              id="workLog"
-              onClick={() => {
-                navigate("/worklog");
-              }}
-              currentPage={headerNav}
-            >
-              영농일지
-            </FormCheckText>
-          </CategoryWrap>
+                <FormCheckText
+                  id="workLog"
+                  onClick={() => {
+                    navigate("/worklog");
+                  }}
+                  currentPage={headerNav}
+                >
+                  영농일지
+                </FormCheckText>
+              </CategoryWrap>
+            </>
+          ) : null}
         </NavLeft>
 
         <ProfileWrap>
@@ -125,15 +127,7 @@ const Haeder = ({ currentPage }) => {
                 }}
               />
             </>
-          ) : (
-            <Menu
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              로그인
-            </Menu>
-          )}
+          ) : null}
         </ProfileWrap>
       </Nav>
     </Wrap>

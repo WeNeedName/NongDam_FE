@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //컴포넌트
 import Main from "./pages/Main";
@@ -21,6 +22,14 @@ import WorkLog from "./pages/WorkLog";
 import WirteWorkLog from "./pages/WriteWorkLog";
 
 function App() {
+  const navigate = useNavigate();
+
+  const isLogin = sessionStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
+
   return (
     <>
       <GlobalStyle />
