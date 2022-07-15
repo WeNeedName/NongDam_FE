@@ -202,12 +202,13 @@ const YasisWrap = styled.div`
 `;
 
 const Yasis = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
 const ChartBox = styled.div`
   width: 100%;
+  height: 95%;
   margin-top: 6px;
   background: #fafafa;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
@@ -279,7 +280,7 @@ const YasisColorTipC = styled.div`
 `;
 
 const YasisLabel = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
@@ -292,10 +293,11 @@ const XasisWrap = styled.div`
   /* margin-top: 4px; */
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+  /* margin-top: 10px; */
 `;
 
 const Xasis = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 export default AnalysisSalesChart;

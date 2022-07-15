@@ -64,7 +64,7 @@ const Wrap = styled.div`
   column-gap: 26px;
   @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 95% 1fr;
-    grid-template-rows: 70px minmax(560px, 600px) 1fr;
+    grid-template-rows: 70px minmax(320px, 400px) 1fr;
   }
 `;
 
