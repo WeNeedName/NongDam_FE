@@ -26,7 +26,6 @@ const Work =(props) => {
     const [myTitle, setMyTitle] = useState("")
     
     
-    
     //유저가 선택한 작물 불러오기  
     useEffect(() => {
       dispatch(getInfoDB());
@@ -48,7 +47,9 @@ const Work =(props) => {
         props.setMemo(inputRef.current.value);      
       }
     };
-
+    const inputTime = (e)=> {
+      props.setWorkTime(e.target.value)
+    }
   
     //console.log(memo)
     //console.log(cropTodo, startDateFormat, endDateFormat, memo);
@@ -88,7 +89,7 @@ const Work =(props) => {
             </CategoryWrap>
           </CategoryBigWrap>
           <CategoryBigWrap>
-                <SmallTitle className="calender">작업시간</SmallTitle>
+                <SmallTitle className="calender">날짜</SmallTitle>
             <DatePickers>
               <DatePicker
                   className="startDatePicker"
@@ -101,8 +102,16 @@ const Work =(props) => {
                   locale={ko}// 한글로 변경
                   //inline//달력 보이게 
               />
+              
              
             </DatePickers>
+          </CategoryBigWrap>
+          <CategoryBigWrap>
+                <SmallTitle className="calender">작업시간</SmallTitle>
+                    <input
+                    onChange={inputTime}
+                    placeholder="시간으로 입력해주세요"
+                    ></input> <span>시간</span>
           </CategoryBigWrap>
           <CategoryBigWrap>
           <SmallTitle className="work">분류</SmallTitle>

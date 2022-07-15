@@ -13,17 +13,8 @@ const WorkLog =() => {
 
     return(
         <Container>
-           <Header />
-         {/* <p>영농일지페이지입니다.</p> */}
-         <LoadWorkLog />
-        <button
-        onClick={()=>{
-          navigate("/writeworklog")
-        }}
-        
-        >일지등록하기</button>
-        
-        
+            <Header />
+            <LoadWorkLog />
         </Container>
     )
 }

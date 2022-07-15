@@ -483,14 +483,17 @@ border-radius: 8px;
 border: none;
 margin-left: 10px;
 padding: 4px 15px;
+cursor : pointer;
+border : 1px solid #22631C;
+
 &:hover {
-  border : 1px solid #22631C;
-  background-color: white;
-  color: #22631C;
+  border : 1px solid #318f27;
+  background: #22631C;
+  opacity : 0.8;
+  color: #ffffff;
   font-weight : 400;
 }
 `
-
 
 const Btn = styled.button`
   background-color: transparent;
@@ -499,6 +502,7 @@ const Btn = styled.button`
   border: 1px solid #bfbfbf;
   margin-left: 10px;
   padding: 4px 10px;
+  cursor : pointer;
   &:hover {
     background-color: #22631C;
     border : 1px solid #22631C;

@@ -142,19 +142,19 @@ const Haeder = ({ currentPage }) => {
 
 const Wrap = styled.div`
   width: 100vw;
-  height: 70px;
+  height: 80px;
   background: #ffffff;
   box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.08);
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr repeat(3, 24%) 1fr;
+  grid-template-columns: 1fr repeat(3, 28%) 1fr;
   /* grid-column: 1 / 6;
   grid-row: 1 / 2; */
   position: fixed;
   top: 0;
   left: 0;
   @media only screen and (max-width: 1220px) {
-    grid-template-columns: 1fr repeat(3, 27%) 1fr;
+    grid-template-columns: 1fr repeat(3, 28%) 1fr;
   }
   @media only screen and (max-width: 760px) {
     grid-column: 1 / 4;

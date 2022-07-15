@@ -41,7 +41,7 @@ function toggleModal() {
     <>
     <Calendar
       events={scheduleList.map((list, id) => {
-        // 여기에 모달의 내용을 넣어볼까
+        // 여기에 모달의 내용 삽입
         return {
           title:
             list.toDo,
