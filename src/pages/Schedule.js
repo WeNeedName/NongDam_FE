@@ -111,13 +111,13 @@ const AddScheduleBtn = styled.button`
   justify-content: center;
   align-items: center;
   padding: 4px 15px;
-  width: 80px;
-  height: 24px;
+  width: auto;
+  height: 26px;
   background: #318f27;
   border: none;
   border-radius: 50px;
   color: white;
-  font-size: 10px;
+  font-size: 12px;
   position: absolute;
   top: 36px;
   right: 30px;

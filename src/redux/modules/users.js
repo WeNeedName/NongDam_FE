@@ -57,7 +57,7 @@ export const logInDB = (user) => {
         const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
         console.log(DecodedToken);
-        sessionStorage.setItem("refreshToken",refreshToken)
+        sessionStorage.setItem("refreshToken", refreshToken);
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");
@@ -74,10 +74,8 @@ export const logInDB = (user) => {
       })
       .catch((err) => {
         let code = err.response.status;
-        if(code == 403)
-          window.alert("이메일 인증완료가 필요합니다.")
-        else
-          window.alert("잘못된 로그인 정보 입니다.");
+        if (code == 403) window.alert("이메일 인증완료가 필요합니다.");
+        else window.alert("잘못된 로그인 정보 입니다.");
         console.log(err);
       });
   };
@@ -90,6 +88,14 @@ export const kakaoLogInDB = (data) => {
       .kakaoLogIn(data)
       .then((res) => {
         console.log(res);
+        const token = res.headers.authorization;
+        const refreshToken = res.headers.refreshtoken;
+        const DecodedToken = jwt_decode(token);
+        console.log(DecodedToken);
+        sessionStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("jwtToken", token);
+        window.alert("환영합니다!");
+        window.location.assign("/");
         dispatch(kakaoLogIn(data));
       })
       .catch((err) => {
@@ -116,7 +122,7 @@ export const getInfoDB = () => {
 //회원정보수정
 export const editInfoDB = (user) => {
   return async function (dispatch) {
-    console.log(user)
+    console.log(user);
     await apis
       .editUserInfo(user)
       .then((res) => {
@@ -132,11 +138,9 @@ export const editInfoDB = (user) => {
 //비밀번호변경
 export const editPwDB = (user) => {
   return async function (dispatch) {
-    await apis.editPw(user)
-    .then((res) => {
-      console.log(res)
-      dispatch(changePw(res.data))
-      .catch((err) => {
+    await apis.editPw(user).then((res) => {
+      console.log(res);
+      dispatch(changePw(res.data)).catch((err) => {
         console.log(err);
       });
     });
@@ -194,7 +198,7 @@ export default handleActions(
 
     [EDIT_INFO]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state,action)
+        console.log(state, action);
         //draft.user = action.payload.user
       }),
 

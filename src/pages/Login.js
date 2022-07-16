@@ -38,6 +38,8 @@ const Login = () => {
     idRef.current.focus();
   }, [userSignIn]);
 
+  //const goToSignUp = navigate("/signup");
+
   return (
     <>
       <Header />
@@ -49,52 +51,54 @@ const Login = () => {
             행복한 농사 생활을 위한 농담 <br />내 농장에 필요한 모든 걸 한 눈에
             보세요.
           </p>
-          </TopWrap>
-          
-          <InputBoxes>
-          <div className="icon">
-          {/* <PersonIcon /> */}
-          </div>
-            <IdInput
-              ref={idRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder = "이메일"
-            />
-            <PwInput
-              type="password"
-              onChange={(e) => setPw(e.target.value)}
-              value={pw}
-              required
-              placeholder ="비밀번호"
-            />
-         </InputBoxes>
-          <p>
-            <LoginBtn
-              type="submit"
-              style={{ width: "100px" }}
-              onClick={() => {
-                logIn();
-              }}
-            >
-              로그인
-            </LoginBtn>
-          </p>
+        </TopWrap>
 
-          <p>
-            <SocialBtn
-              onClick={() => {
-                window.location.href = KAKAO_AUTH_URL;
-              }}
-              src={KakaoLogin}
-            />
-          </p>
-          <ToSignUp>
-            회원이 아니시라면? <br /> 
-              <a  href="/signup"> 회원가입</a>
-          </ToSignUp>
+        <InputBoxes>
+          <div className="icon">{/* <PersonIcon /> */}</div>
+          <IdInput
+            ref={idRef}
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="이메일"
+          />
+          <PwInput
+            type="password"
+            onChange={(e) => setPw(e.target.value)}
+            value={pw}
+            required
+            placeholder="비밀번호"
+          />
+        </InputBoxes>
+        <SubmitBtns>
+          <LoginBtn
+            type="submit"
+            onClick={() => {
+              logIn();
+            }}
+          >
+            로그인
+          </LoginBtn>
 
+          <SocialBtn
+            onClick={() => {
+              window.location.href = KAKAO_AUTH_URL;
+            }}
+            src={KakaoLogin}
+          />
+        </SubmitBtns>
+        <ToSignUp>
+          회원이 아니시라면?
+          <span
+            onClick={() => {
+              navigate("/signup");
+            }}
+            style={{ marginLeft: "10px", fontWeight: "500" }}
+          >
+            회원가입
+          </span>
+          {/* <a href="/signup"> 회원가입</a> */}
+        </ToSignUp>
       </Container>
     </>
   );
@@ -113,13 +117,13 @@ const Container = styled.div`
 const TopWrap = styled.div`
   .title {
     font-weight: 700;
-    font-size: 28px;
+    font-size: 30px;
     color: #318f27;
     margin-bottom: 40px;
   }
   .slogan {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
   }
   .desc {
     font-size: 11px;
@@ -168,9 +172,36 @@ const PwInput = styled.input`
   }
 `;
 
-const LoginBtn = styled.button``;
-const ToSignUp = styled.div``;
+const SubmitBtns = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoginBtn = styled.button`
+  width: 185px;
+  height: 35px;
+  justidfy-content: center;
+  text-align: center;
+  padding: 4px 13px;
+  background-color: #22631c;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  size: 11px;
+  margin: 10px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+const ToSignUp = styled.div`
+  margin-top: 10px;
+`;
 const SocialBtn = styled.img`
+  width: 185px;
+  height: auto;
   cursor: pointer;
   :hover {
     box-shadow: 0 0 3px #142785;

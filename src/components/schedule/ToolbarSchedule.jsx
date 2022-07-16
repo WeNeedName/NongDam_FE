@@ -65,15 +65,15 @@ const ToolbarWrap = styled.div`
 `;
 
 const YearMonthTitle = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   margin: 0px 12px;
   margin-bottom: 4px;
 `;
 
 const Btn = styled.button`
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   background: #318f27;
   border: none;
   border-radius: 100%;
@@ -91,8 +91,8 @@ const TriangleIconL = styled.div`
   border-left: 5.5px solid white;
   border-right: 5.5px solid transparent;
   position: absolute;
-  right: 6px;
-  top: 4.5px;
+  right: 8px;
+  top: 6px;
   transform: rotate(180deg);
 `;
 
@@ -100,6 +100,9 @@ const TriangleIconR = styled.div`
   width: 0;
   height: 0;
   color: white;
+  position: absolute;
+  right: 1px;
+  top: 6px;
   border-bottom: 3.5px solid transparent;
   border-top: 3.5px solid transparent;
   border-left: 5.5px solid white;
