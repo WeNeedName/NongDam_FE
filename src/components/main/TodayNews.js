@@ -45,7 +45,9 @@ const TodayNews = () => {
                           {list.title
                             .replaceAll("&quot;", "''")
                             .replace(/(<br>|<br\/>|<br \/>)/g, " ")
-                            .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")}
+                            .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")
+                            .replace(`&lt;`, " ")
+                            .replace(`&gt;`, " ")}
                         </ContentsT>
                         <InfoWrap>
                           <ContentsTInfo>{list.article}</ContentsTInfo>

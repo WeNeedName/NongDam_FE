@@ -25,8 +25,8 @@ export default function ToolBar(props) {
   const accountList = useSelector((state) => state.account.accountList);
 
   useEffect(() => {
-    dispatch(getAccountListDB(YYMM));
-    // dispatch(getYearMonthDB(YYMM));
+    // dispatch(getAccountListDB(YYMM));
+    dispatch(getYearMonthDB(YYMM));
   }, [click]);
 
   return (
