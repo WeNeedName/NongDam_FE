@@ -1,10 +1,12 @@
 import { React, useState, useEffect } from "react";
 import Header from "../components/Header";
 import MyPageMenu from "../components/myPage/MyPageMenu";
-import EditMemberInfo from "./EditMemberInfo";
+import MemberInfo from "../components/myPage/MemberInfo";
+import EditMemberInfo from "../components/myPage/EditMemberInfo";
+import EditPw from "../components/myPage/EditPw";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import { getInfoDB } from "../redux/modules/users";
 
 const MyPage = () => {
@@ -29,7 +31,11 @@ const MyPage = () => {
     <Wrap>
       <Header />
       <MyPageMenu />
-      <EditMemberInfo />
+      <MemberInfo />
+      <Routes>
+        <Route path="/mypage/editinfo" element={<EditMemberInfo />} />
+        <Route path="/mypage/editpw" element={<EditPw />} />
+      </Routes>
     </Wrap>
   );
 };

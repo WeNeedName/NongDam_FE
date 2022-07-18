@@ -1,6 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL = "http://idontcare.shop";
+const baseURL = "https://idontcare.shop";
 
 const api = axios.create({
   baseURL: baseURL,
