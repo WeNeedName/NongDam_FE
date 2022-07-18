@@ -76,12 +76,3 @@
 <h4>FE - Github Actions CI/CD 구축</h4>
 <h4>FE - 디자인 적용, keyframes 애니메이션으로 UX 강화</h4>
 <h4>BE - 서버 안정화 (CPU점유율, DB응답속도 최적화)</h4>
-iguration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
