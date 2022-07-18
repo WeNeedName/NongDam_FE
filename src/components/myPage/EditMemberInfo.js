@@ -499,7 +499,6 @@ const SmallTitleArea = styled.div`
   line-height: 40px;
 `;
 const AreaBtn = styled.button`
-  align-itmes: center;
   font-size: 11px;
   padding: 5px 15px;
   border: 1px solid #a4a4a4;

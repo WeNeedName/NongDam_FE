@@ -108,7 +108,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  align-item: center;
+  align-items: center;
   position: relative;
 `;
 
@@ -180,7 +180,7 @@ const SubmitBtns = styled.div`
 const LoginBtn = styled.button`
   width: 185px;
   height: 35px;
-  justidfy-content: center;
+  justify-content: center;
   text-align: center;
   padding: 4px 13px;
   background-color: #22631c;
