@@ -171,6 +171,7 @@ const WorkTime = () => {
 
 const ChartWrap = styled.div`
   width: 100%;
+  height: 60%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
@@ -239,11 +240,11 @@ const TitleWrap = styled.div`
 `;
 
 const SmileIcon = styled.span`
-  font-size: 20px;
+  font-size: 24px;
 `;
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   margin-left: 10px;
   text-align: left;

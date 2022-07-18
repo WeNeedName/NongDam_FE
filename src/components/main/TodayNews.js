@@ -44,7 +44,10 @@ const TodayNews = () => {
                         <ContentsT imageURL={list.imageUrl}>
                           {list.title
                             .replaceAll("&quot;", "''")
-                            .replace(/(<br>|<br\/>|<br \/>)/g, " ")}
+                            .replace(/(<br>|<br\/>|<br \/>)/g, " ")
+                            .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")
+                            .replace(`&lt;`, " ")
+                            .replace(`&gt;`, " ")}
                         </ContentsT>
                         <InfoWrap>
                           <ContentsTInfo>{list.article}</ContentsTInfo>
@@ -126,7 +129,7 @@ const Wrap = styled.div`
 `;
 
 const BoxWrap = styled.div`
-  height: 238px;
+  height: 290px;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -135,7 +138,7 @@ const BoxWrap = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 20px;
   line-height: 10px;
 `;
 
@@ -208,18 +211,18 @@ const InfoWrap = styled.div`
 `;
 
 const ContentsT = styled.div`
-  width: ${(props) => (props.imageURL === "" ? "270px" : "180px")};
+  width: ${(props) => (props.imageURL === "" ? "290px" : "200px")};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
 
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
   @media only screen and (max-width: 1220px) {
-    width: ${(props) => (props.imageURL === "" ? "80%" : "150px")};
+    width: ${(props) => (props.imageURL === "" ? "80%" : "170px")};
   }
   @media only screen and (max-width: 760px) {
     width: ${(props) => (props.imageURL === "" ? "90%" : "190px")};
@@ -228,7 +231,7 @@ const ContentsT = styled.div`
 
 const ContentsTInfo = styled.div`
   font-weight: 400;
-  font-size: 8px;
+  font-size: 10px;
 `;
 
 const ImageContent = styled.div`

@@ -23,7 +23,15 @@ const MarketPriceCard = ({ cropsData }) => {
     (state) => state.main.searchMarketPrice_is_loaded
   );
 
-  const marketName = userInfo?.address.split(" ")[0];
+  const marketName =
+    marketPriceData !== undefined && marketPriceData[0]?.country;
+
+  // const marketName =
+  // AllmarketPriceData !== undefined &&
+  // AllmarketPriceData[0] !== undefined &&
+  // AllmarketPriceData[0][0]?.country;
+
+  console.log(marketPriceData[0]);
 
   // 항목 선택
   const changeRadio = (e) => {
@@ -31,8 +39,6 @@ const MarketPriceCard = ({ cropsData }) => {
       setCheckedInputs(e.target.id);
     }
   };
-
-  console.log(marketPriceData);
 
   useEffect(() => {
     dispatch(getMarketPriceDB(data));
@@ -52,7 +58,7 @@ const MarketPriceCard = ({ cropsData }) => {
               <NoticeT>
                 마이페이지에서 지역을 등록하시면
                 <br />
-                작물별 시세 정보를 확인하실 수 있어요
+                작물별 시세 정보를 확인하실 수 있습니다
               </NoticeT>
               <NoticeBtn
                 onClick={() => {
@@ -150,7 +156,7 @@ const Wrap = styled.div`
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 20px 20px 16px 20px;
+  padding: 24px 24px 20px 20px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -164,12 +170,13 @@ const Wrap = styled.div`
 `;
 
 const Region = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   margin: 10px 0px;
 `;
 
 const SubTitle = styled.span`
+  font-size: 12px;
   margin: 4px 0px;
 `;
 
@@ -186,12 +193,15 @@ const CategoryChartWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 10px;
+  margin-bottom: 10px;
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 4px;
   /* margin: 8px 0px; */
 `;
 
@@ -199,14 +209,14 @@ const FormCheckText = styled.span`
   width: auto;
   height: 26px;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 24px;
   margin-right: 4px;
   background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 12px;
   cursor: pointer;
   color: black;
   &:hover {
@@ -260,19 +270,21 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 24px;
   color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
-  padding: 8px 14px;
+  padding: 8px 18px;
   margin-top: 20px;
   background-color: #318f27;
   border: none;
   border-radius: 4px;
   color: white;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }

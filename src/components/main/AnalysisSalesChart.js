@@ -103,7 +103,7 @@ const AnalysisSalesChart = () => {
             '<span class="label-data">' +
             series[seriesIndex][dataPointIndex] +
             '<span class="price-label">' +
-            "원" +
+            "만원" +
             "</span>" +
             "</span>" +
             "</div>" +
@@ -183,7 +183,7 @@ const AnalysisSalesChart = () => {
 
 const ChartWrap = styled.div`
   width: 100%;
-  height: 60%;
+  height: 230px;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;

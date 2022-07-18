@@ -195,7 +195,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
         >
           작성완료
         </DoneBtn>
-        <CancelBtn>취소</CancelBtn>
+        <CancelBtn onClick={toggleModal}>취소</CancelBtn>
       </BtnWrap>
     </StyledModal>
   );
@@ -306,6 +306,7 @@ const Selec = styled.select`
   padding: 0px 6px;
   color: #616161;
   border-radius: 6px;
+  cursor: pointer;
 `;
 
 const MemoInput = styled.textarea`
@@ -330,6 +331,7 @@ const DoneBtn = styled.button`
   color: white;
   border: none;
   font-size: 11px;
+  cursor: pointer;
   &:hover {
     opacity: 0.7;
   }
@@ -344,6 +346,7 @@ const CancelBtn = styled.button`
   border: 1px solid #616161;
   margin-left: 6px;
   font-size: 11px;
+  cursor: pointer;
   &:hover {
     opacity: 0.7;
   }

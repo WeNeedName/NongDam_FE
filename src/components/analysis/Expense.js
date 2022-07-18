@@ -118,7 +118,7 @@ const Expense = () => {
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="230"
+        width="260"
       />
       <Legend>
         <span>비료</span>

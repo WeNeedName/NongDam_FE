@@ -1,6 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL = "http://idontcare.shop";
+const baseURL = "https://idontcare.shop";
 
 const api = axios.create({
   baseURL: baseURL,
@@ -58,8 +58,8 @@ export const apis = {
   // 시세페이지
   loadMarketPrice: (data) =>
     api.get(`/marketprice?cropId=${data.cropId}&data=${data.data}`),
-  // firstLoadMyCropsMarketPrice: (data) => api.get(`/marketprices/${data}`),
-  firstLoadMyCropsMarketPrice: () => api.get("/marketprices"),
+  loadMyCropsMarketPrice: (data) => api.get(`/marketprices/${data}`),
+
   // loadMyCropsMarketPrice: (data) =>
   //   api.get(`/marketprice/${data.cropId}/${data.data}`),
 

@@ -23,42 +23,34 @@ const Record =(props) => {
     
     //console.log(hRecord)
     return(     
-        <TodoContent>
+        <RecordContentWrap>
             <SmallTitle>수확량 기록하기</SmallTitle>
-            
             <CategoryBigWrap>
-                  
                   <InnerSet>
                     <InputBox className="quantity"
                     type="text"
                     name="quantity"
                     placeholder="kg단위로 입력해주세요" 
-                    onChange = {handleAction}/>
-                    
-                    {/* <Select className="measure"
-                    name="unit"
-                    onChange={handleAction}>
-                    <option value="">단위를 선택해주세요</option>
-                    <option value="ml">ml</option>
-                    <option value="l">l</option>
-                    <option value="kg">kg</option>
-                    </Select> */}
+                    onChange = {handleAction}/>  
+                  
                   </InnerSet>
                 </CategoryBigWrap>
-        </TodoContent>  
+        </RecordContentWrap>  
       )
 }
 
-const TodoContent = styled.div`
-
+const RecordContentWrap = styled.div`
 width: 93%;
-height: 10vh;
+height: 50px;
 background-color: #fff;
+padding-left: 30px; 
+padding-top : 20px;
 `
 
 const SmallTitle = styled.label`
-font-size: 1.8em;
-font-weight: bold;
+font-size: 18px;
+font-weight: 700;
+
 `
 
 const CategoryBigWrap = styled.div`
@@ -81,7 +73,9 @@ background-color: white;
 height: 30px;
 border-radius: 10px;
 border: 1px solid black;
-padding-left: 10px;`
+padding-left: 10px;
+text-align : left`
+
 
 
 

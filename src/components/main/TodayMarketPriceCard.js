@@ -57,10 +57,42 @@ const TodayMarketPrice = () => {
     }
   };
 
+  console.log(TodaymarketPriceData);
+
   return (
     <Wrap>
       {is_loaded ? (
         <>
+          {" "}
+          {userInfo?.address === "" ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물을 등록하시면
+                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : userInfo?.crops.length === 0 ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물을 등록하시면
+                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : null}
           <TopWrap>
             <Title>📈 오늘의 시세</Title>
             <ShowMoreBtn
@@ -68,10 +100,9 @@ const TodayMarketPrice = () => {
                 navigate("/marketprice");
               }}
             >
-              더 보기 &gt;
+              더 보기
             </ShowMoreBtn>
           </TopWrap>
-
           <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
           <Region>
             {TodaymarketPriceData
@@ -129,7 +160,6 @@ const TodayMarketPrice = () => {
               <label htmlFor="retailSale">도매</label>
             </InputWrap>
           </SelecWrap>
-
           <SearchBtn
             onClick={() => {
               dispatch(getTodayMarketPriceDB(marketPriceCategory));
@@ -197,6 +227,7 @@ const Wrap = styled.div`
   background-color: #fff;
   grid-column: 3 / 4;
   grid-row: 2 / 5;
+  position: relative;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 7 / 10;
@@ -208,6 +239,7 @@ const TopWrap = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2px;
 `;
 
 const ShowMoreBtn = styled.span`
@@ -220,17 +252,20 @@ const ShowMoreBtn = styled.span`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 1.4em;
+  font-size: 20px;
+  line-height: 10px;
+  margin-bottom: 4px;
 `;
 
 const Region = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   margin: 10px 0px;
 `;
 
 const SubTitle = styled.span`
   margin: 4px 0px;
+  font-size: 12px;
 `;
 
 const StyledSelect = styled(Select)`
@@ -243,9 +278,9 @@ const StyledSelect = styled(Select)`
 `;
 
 const SearchBtn = styled.button`
-  width: 60px;
-  height: 24px;
-  font-size: 11px;
+  width: 66px;
+  height: 28px;
+  font-size: 12px;
   color: #616161;
   padding: 4px;
   background: #ffffff;
@@ -277,31 +312,32 @@ const PriceWrap = styled.div`
 
 const TodayPrice = styled.span`
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 30px;
 `;
 
 const TodayPriceT = styled.span`
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 14px;
   margin-left: 4px;
 `;
 
 const CategoryTWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 4px;
   align-items: flex-end;
 `;
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 13px;
+  font-size: 15px;
 `;
 
 const DateT = styled.span`
-  font-size: 10px;
+  font-size: 12px;
   color: #6f6f6f;
-  margin-left: 6px;
+  margin-left: 10px;
 `;
 
 const SelecWrap = styled.div`
@@ -318,7 +354,7 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   width: 40px;
   height: 18px;
-  font-size: 10px;
+  font-size: 12px;
   padding-bottom: 4px;
   border-radius: 100px;
   background: transparent;
@@ -378,8 +414,53 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 20px;
+`;
+
+const NoticeWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.9) 100%,
+    transparent 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+`;
+
+const NoticeT = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: #318f27;
+  text-align: center;
+`;
+
+const NoticeBtn = styled.button`
+  padding: 8px 18px;
+  margin-top: 20px;
+  background-color: #318f27;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  &:hover {
+    background-color: #22631c;
+  }
 `;
 
 export default TodayMarketPrice;

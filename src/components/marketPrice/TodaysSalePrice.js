@@ -28,11 +28,11 @@ const TodaysSalePrice = ({ salePrice }) => {
 
   return (
     <Wrap>
-      {userInfo?.address === "" && (
+      {userInfo?.address === "" ? (
         <NoticeWrap>
           <NoticeT>
-            마이페이지에서 지역을 등록하시면
-            <br />내 작물의 예상판매 금액을 확인하실 수 있어요
+            마이페이지에서 지역과 작물을 등록하시면
+            <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
           </NoticeT>
           <NoticeBtn
             onClick={() => {
@@ -42,7 +42,21 @@ const TodaysSalePrice = ({ salePrice }) => {
             등록하러 가기
           </NoticeBtn>
         </NoticeWrap>
-      )}
+      ) : userInfo?.crops.length === 0 ? (
+        <NoticeWrap>
+          <NoticeT>
+            마이페이지에서 지역과 작물을 등록하시면
+            <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
+          </NoticeT>
+          <NoticeBtn
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          >
+            등록하러 가기
+          </NoticeBtn>
+        </NoticeWrap>
+      ) : null}
       <CategoryT>💵 예상 판매 금액</CategoryT>
       <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
       <SumWrap>
@@ -97,7 +111,7 @@ const Wrap = styled.div`
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 20px 20px 16px 20px;
+  padding: 24px 24px 20px 20px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -112,12 +126,14 @@ const Wrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 10px;
+  margin-bottom: 10px;
 `;
 
 const Info = styled.span`
   font-weight: 400;
-  font-size: 8px;
+  font-size: 12px;
   margin-top: 4px;
 `;
 
@@ -130,7 +146,7 @@ const SumWrap = styled.div`
 
 const TodayPriceSumT = styled.span`
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 14px;
   margin-left: 4px;
   align-self: flex-end;
   margin-bottom: 8px;
@@ -144,7 +160,7 @@ const SellingPrice = styled.span`
 `;
 
 const KgInput = styled.input`
-  width: 96px;
+  width: 120px;
   height: 30px;
   background: #fafafa;
   box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
@@ -172,14 +188,16 @@ const Hr = styled.div`
 
 const NotFoundNoticeWrap = styled.div`
   width: 100%;
+  height: 200px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  /* align-items: center;
+  justify-content: center; */
 `;
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 20px;
 `;
 
@@ -208,13 +226,14 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 24px;
   color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
-  padding: 8px 14px;
+  padding: 8px 18px;
   margin-top: 20px;
   background-color: #318f27;
   border: none;

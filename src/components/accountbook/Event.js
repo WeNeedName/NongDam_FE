@@ -13,6 +13,7 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     display: "block",
     marginTop: "4px",
     textAlign: "right",
+    fontSize: "13px",
   };
 
   return {

@@ -20,10 +20,12 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
   const TodaymarketPriceData = useSelector(
     (state) => state.main.todayMarketPrice
   );
+  const marketPriceData = useSelector((state) => state.main.marketPrice);
   const userInfo = useSelector((state) => state.users.user);
 
-  //   const marketName = userInfo !== undefined && userInfo?.address.split(" ")[0];
-  console.log(userInfo);
+  const marketName =
+    marketPriceData !== undefined && marketPriceData[0]?.country;
+  console.log(marketName);
   const [selectedCrops, setSelectedCrops] = useState(21);
   const [checkedInputs, setCheckedInputs] = useState("소매");
 
@@ -59,17 +61,17 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
       setCheckedInputs(e.target.id);
     }
   };
+  console.log(userInfo?.crops.length);
 
   return (
     <Wrap>
       {is_loaded ? (
         <>
-          {userInfo?.address === "" && (
+          {userInfo?.address === "" ? (
             <NoticeWrap>
               <NoticeT>
-                마이페이지에서 지역을 등록하시면
-                <br />
-                오늘의 시세 정보를 확인하실 수 있어요
+                마이페이지에서 지역과 작물을 등록하시면
+                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
               </NoticeT>
               <NoticeBtn
                 onClick={() => {
@@ -79,13 +81,27 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
                 등록하러 가기
               </NoticeBtn>
             </NoticeWrap>
-          )}
+          ) : userInfo?.crops.length === 0 ? (
+            <NoticeWrap>
+              <NoticeT>
+                마이페이지에서 지역과 작물을 등록하시면
+                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
+              </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
+            </NoticeWrap>
+          ) : null}
           <Title>📈 오늘의 시세</Title>
           <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
           <Region>
-            {/* {marketName !== undefined
+            {marketName !== undefined
               ? marketName + " " + "도소매시장"
-              : "서울 도소매시장"} */}
+              : "서울 도소매시장"}
           </Region>
           <SelecWrap>
             <StyledSelect
@@ -198,7 +214,7 @@ const Wrap = styled.div`
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 20px 20px 16px 20px;
+  padding: 24px 24px 20px 20px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -210,55 +226,42 @@ const Wrap = styled.div`
     grid-row: 3 / 4;
   }
 `;
-
 const Title = styled.span`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 10px;
+  margin-bottom: 10px;
 `;
 
 const Region = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   margin: 10px 0px;
 `;
 
 const SubTitle = styled.span`
   margin: 4px 0px;
+  font-size: 12px;
 `;
 
 const StyledSelect = styled(Select)`
   width: 200px;
-  height: 20px;
+  height: 30px;
   margin: 0px 0px 20px 0px;
   @media only screen and (max-width: 1220px) {
     width: 160px;
   }
 `;
 
-const RadioWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 8px;
-`;
-
-const InputWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-right: 6px;
-`;
-
 const SearchBtn = styled.button`
-  width: 60px;
-  height: 24px;
-  font-size: 11px;
+  width: 66px;
+  height: 28px;
+  font-size: 12px;
   color: #616161;
   padding: 4px;
   background: #ffffff;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
-  margin-top: 12px;
   &:hover {
     color: black;
     border: 1px solid black;
@@ -268,7 +271,7 @@ const SearchBtn = styled.button`
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 const Hr = styled.div`
@@ -280,18 +283,37 @@ const Hr = styled.div`
 `;
 
 const PriceWrap = styled.div`
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 `;
 
 const TodayPrice = styled.span`
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 30px;
 `;
 
 const TodayPriceT = styled.span`
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 14px;
   margin-left: 4px;
+`;
+
+const CategoryTWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 4px;
+  align-items: flex-end;
+`;
+
+const CategoryT = styled.span`
+  font-weight: 700;
+  font-size: 15px;
+`;
+
+const DateT = styled.span`
+  font-size: 12px;
+  color: #6f6f6f;
+  margin-left: 10px;
 `;
 
 const SelecWrap = styled.div`
@@ -300,34 +322,74 @@ const SelecWrap = styled.div`
   align-items: center;
 `;
 
-const CategoryTWrap = styled.div`
+const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
-  align-items: flex-end;
 `;
 
-const CategoryT = styled.span`
-  font-weight: 700;
-  font-size: 13px;
+const FormCheckText = styled.span`
+  width: 40px;
+  height: 18px;
+  font-size: 12px;
+  padding-bottom: 4px;
+  border-radius: 100px;
+  background: transparent;
+  border: 1px solid #616161;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  color: #616161;
+  cursor: pointer;
+  &:hover {
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
+  }
 `;
 
-const DateT = styled.span`
-  font-size: 10px;
-  color: #6f6f6f;
-  margin-left: 6px;
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
+  }
+  &:checked + ${FormCheckText} {
+    color: black;
+    font-weight: 700;
+    border: 1px solid black;
+  }
+  display: none;
+`;
+
+const Label = styled.label``;
+
+const RadioWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 10px;
+`;
+
+const InputWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0px 0px 0px 6px;
+  margin-bottom: 14px;
 `;
 
 const NotFoundNoticeWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
 `;
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 11px;
+  font-size: 13px;
   margin-top: 20px;
 `;
 
@@ -356,19 +418,21 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 24px;
   color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
-  padding: 8px 14px;
+  padding: 8px 18px;
   margin-top: 20px;
   background-color: #318f27;
   border: none;
   border-radius: 4px;
   color: white;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }

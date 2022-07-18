@@ -39,11 +39,9 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
           return Number(uncomma(price));
         })
       : null;
-
+  console.log(wholeSalePriceList);
   const cropName =
     selectedCrops === 21 ? null : selectedCrops?.label.split(" ")[1];
-
-  console.log(retailSalePriceList);
 
   // 선택 작물 월별 데이터
   const state = {
@@ -126,7 +124,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
           show: false,
         },
         style: {
-          fontSize: "12px",
+          fontSize: "14px",
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
@@ -249,14 +247,12 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
 const YasisLabelBox = styled.div`
-  max-width: 150px;
-  width: 24%;
-  height: auto;
+  padding: 4px 6px;
   background-color: #ffffff;
   /* border: 1px solid #e3e3e3; */
   border-radius: 4px;
@@ -285,7 +281,7 @@ const YasisColorTipA = styled.div`
   width: 7px;
   height: 3px;
   background: #7ee3ab;
-  margin-right: 4px;
+  margin-right: 6px;
   @media only screen and (max-width: 760px) {
     width: 4px;
     height: 4px;
@@ -296,7 +292,8 @@ const YasisColorTipB = styled.div`
   width: 7px;
   height: 3px;
   background: #7eb3e3;
-  margin-right: 4px;
+  margin-right: 6px;
+  margin-left: 10px;
   @media only screen and (max-width: 760px) {
     width: 4px;
     height: 4px;
@@ -304,7 +301,7 @@ const YasisColorTipB = styled.div`
 `;
 
 const YasisLabel = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
@@ -318,6 +315,7 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.div`
   color: #6f6f6f;
+  font-size: 13px;
 `;
 
 export default MarketPriceChart;

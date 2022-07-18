@@ -41,7 +41,7 @@ function toggleModal() {
     <>
     <Calendar
       events={scheduleList.map((list, id) => {
-        // 여기에 모달의 내용 삽입
+        // 여기에 달력 모달 내용 삽입
         return {
           title:
             list.toDo,
@@ -53,7 +53,7 @@ function toggleModal() {
         };
       })}
       localizer={localizer}
-      style={{ height: 500, width: 600 }}
+      style={{ height: 100 + "%", width: 100 + "%"}}
       components={{
         toolbar: ToolBar,
         month: {
@@ -78,12 +78,12 @@ function toggleModal() {
   );
 };
 
-const Nav = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
-`;
+// const Nav = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-between;
+//   margin-top: 30px;
+// `;
 
 export default ScheduleCalendar;

@@ -23,9 +23,11 @@ export default function Day(props) {
           <div className="rbc-row ">
             <DayWrap className="rbc-date-cell" role="cell">
               <DayBtn type="button" role="cell">
+                <DayLabel>
                 {String(date.getDate()).length === 1
                   ? "0" + String(date.getDate())
                   : String(date.getDate())}
+                  </DayLabel>
               </DayBtn>
             </DayWrap>
           </div>
@@ -37,6 +39,7 @@ export default function Day(props) {
 const TopWrap = styled.div`
   /* border-top: 1px solid #ddd; */
   width: 100%;
+  margin-top: 4px;
 `;
 
 const Wrap = styled.div`
@@ -51,3 +54,9 @@ const DayBtn = styled.button`
   background-color: transparent;
   border: none;
 `;
+
+const DayLabel = styled.span`
+  font-size: 13px;
+  font-weight: 700;
+  color: #22641c;
+`

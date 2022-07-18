@@ -105,7 +105,7 @@ const WeatherChart = (props) => {
           show: false,
         },
         style: {
-          fontSize: "12px",
+          fontSize: "14px",
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
@@ -143,7 +143,7 @@ const WeatherChart = (props) => {
           },
           style: {
             colors: "#666666",
-            fontSize: "12px",
+            fontSize: "14px",
             fontFamily: "Noto Sans KR",
             fontWeight: 400,
             cssClass: "apexcharts-xaxis-label",
@@ -184,6 +184,7 @@ const WeatherChart = (props) => {
 };
 
 const ChartBox = styled.div`
+  height: 200px;
   margin-top: 14px;
   padding: 0px 20px 0px 20px;
   background: #fafafa;

@@ -24,7 +24,12 @@ const Schedule = () => {
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
   //  상세 모달 열기
   const [isOpen, setOpen] = useState(false);
-  const isLogin = sessionStorage.getItem("jwtToken")
+  const isLogin = sessionStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
+
   function toggleModal(id) {
     setOpen(!isOpen);
   }
@@ -38,33 +43,30 @@ const Schedule = () => {
     dispatch(getCurrentScheduleListDB());
   }, [dispatch]);
 
-  
   useEffect(() => {
     dispatch(getScheduleListDB(yearMonth));
   }, [dispatch]);
-  
 
   return (
     <Wrap>
-      <Header currentPage="schedule"/>
-        <>
-      <CalendarWrap>
-        <ScheduleCalendar />
-        <AddScheduleBtn
-        onClick={() => {
-          toggleModal();
-        }}
-      >
-        + 기록하기
-      </AddScheduleBtn>
-      </CalendarWrap>
-      <CurrentListWrap>
-        <ScheduleWeek />
-      </CurrentListWrap>  
-      
-      {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal}/>}
+      <Header currentPage="schedule" />
+      <>
+        <CalendarWrap>
+          <ScheduleCalendar />
+          <AddScheduleBtn
+            onClick={() => {
+              toggleModal();
+            }}
+          >
+            + 기록하기
+          </AddScheduleBtn>
+        </CalendarWrap>
+        <CurrentListWrap>
+          <ScheduleWeek />
+        </CurrentListWrap>
+
+        {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
       </>
-      
     </Wrap>
   );
 };
@@ -75,13 +77,13 @@ const Wrap = styled.div`
   height: 100vh;
   display: grid;
   grid-auto-rows: auto;
-  grid-template-columns: 1fr minmax(600px, 670px) 22% 1fr;
-  grid-template-rows: 70px minmax(580px, 650px) 1fr;
+  grid-template-columns: 1fr minmax(600px, 780px) 25% 1fr;
+  grid-template-rows: 80px minmax(640px, 740px) 1fr;
   justify-content: center;
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 26px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr 95% 1fr;
     grid-template-rows: 70px minmax(320px, 400px) 1fr;
   }
@@ -109,17 +111,17 @@ const AddScheduleBtn = styled.button`
   justify-content: center;
   align-items: center;
   padding: 4px 15px;
-  width: 80px;
-  height: 24px;
+  width: auto;
+  height: 26px;
   background: #318f27;
   border: none;
   border-radius: 50px;
   color: white;
-  font-size: 10px;
+  font-size: 12px;
   position: absolute;
   top: 36px;
   right: 30px;
-  cursor : pointer;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }
@@ -134,9 +136,5 @@ const CurrentListWrap = styled.div`
     grid-row: 3 / 4;
   }
 `;
-
-
-
-
 
 export default Schedule;
