@@ -128,7 +128,7 @@ const WriteWorkLog = () => {
 };
 
 const Container = styled.div`
-  backgroun-color: #ddd;
+  background-color: #ddd;
 `;
 
 const TotalWrap = styled.div`

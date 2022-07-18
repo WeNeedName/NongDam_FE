@@ -41,8 +41,6 @@ const EditMemberInfo = () => {
   const token = sessionStorage.getItem("jwtToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
 
-  //console.log(nickname, crops, countryCode, profileImg, address)
-
   // 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
@@ -55,8 +53,6 @@ const EditMemberInfo = () => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-
-  //console.log(userInfo);
 
   const onChangeFile = (e) => {
     //console.log(e.target.files[0])
@@ -442,7 +438,6 @@ const SmallTitleArea = styled.div`
   line-height: 40px;
 `;
 const AreaBtn = styled.button`
-  align-itmes: center;
   font-size: 11px;
   padding: 5px 15px;
   border: 1px solid #a4a4a4;
