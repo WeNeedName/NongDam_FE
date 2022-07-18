@@ -63,7 +63,6 @@ const TodayMarketPrice = () => {
     <Wrap>
       {is_loaded ? (
         <>
-          {" "}
           {userInfo?.address === "" ? (
             <NoticeWrap>
               <NoticeT>
@@ -306,9 +305,7 @@ const Hr = styled.div`
   border-bottom: 0.5px solid #dddddd;
 `;
 
-const PriceWrap = styled.div`
-  /* margin-bottom: 16px; */
-`;
+const PriceWrap = styled.div``;
 
 const TodayPrice = styled.span`
   font-weight: 500;
