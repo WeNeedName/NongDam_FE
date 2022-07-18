@@ -28,7 +28,6 @@ const Main = () => {
         <TodayTodo />
         <AnalysisCard />
         <TodayNews />
-        {/* <TodayPost /> */}
       </Wrap>
     </>
   );
