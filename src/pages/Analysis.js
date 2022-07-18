@@ -27,12 +27,9 @@ const Analysis = () => {
     <>
       <Wrap>
         <Header currentPage="analysis" />
-
         <Sales />
         <TotalHarvest />
-
         <AccountAnalysis />
-
         <WorkTime />
       </Wrap>
     </>
