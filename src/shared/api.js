@@ -60,9 +60,6 @@ export const apis = {
     api.get(`/marketprice?cropId=${data.cropId}&data=${data.data}`),
   loadMyCropsMarketPrice: (data) => api.get(`/marketprices/${data}`),
 
-  // loadMyCropsMarketPrice: (data) =>
-  //   api.get(`/marketprice/${data.cropId}/${data.data}`),
-
   //장부
   loadAccountBook: (date) => api.get(`accountbook/${date.year}-${date.month}`),
   loadCurrentAccount: () => api.get("/accountbook"),
