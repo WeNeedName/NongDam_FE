@@ -9,7 +9,7 @@ import moment from "moment";
 import "../../BigCalendar.css";
 
 // 컴포넌트
-import ToolBar from "./ToolBar";
+//import ToolBar from "./ToolBar";
 import Day from "./Day";
 import Event from "./Event";
 import AccountModal from "./AccountModal";
@@ -102,7 +102,7 @@ const CalendarBook = () => {
         localizer={localizer}
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
-          toolbar: ToolBar,
+          //toolbar: ToolBar,
           month: {
             dateHeader: Day,
           },
