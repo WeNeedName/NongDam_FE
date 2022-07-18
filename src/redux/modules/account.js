@@ -203,6 +203,43 @@ export default handleActions(
         });
       }),
 
+    // 최근내역, 월별 내역에 내역 수정
+    // [MODIFI_ACCOUNT]: (state, { payload }) =>
+    //   produce(state, (draft) => {
+    //     console.log(state, payload);
+    //     draft.currentAccount.unshift(payload.account);
+    //     console.log(state.currentAccount);
+
+    //   const new_account_list = draft.currentAccount.map((l, idx) => {
+    //     console.log(...l);
+    //     console.log(payload.account.id, l.id);
+    //     if (payload.account.id === l.id) {
+    //       return { ...l };
+    //     } else {
+    //       return l;
+    //     }
+    //   });
+    //   return { ...draft, currentAccount: new_account_list };
+    // }),
+
+    //   draft.accountList.unshift(payload.account);
+    //   draft.accountList = draft.accountList.map((account) => {
+    //     console.log(account);
+    //     if (Number(account.id) === Number(payload.account.id)) {
+    //       return {
+    //         ...account,
+    //         date: payload.account.date,
+    //         id: payload.account.id,
+    //         memo: payload.account.memo,
+    //         price: payload.account.price,
+    //         type: payload.account.type,
+    //       };
+    //     } else {
+    //       return account;
+    //     }
+    //   });
+    // }),
+
     [DELETE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(payload);
