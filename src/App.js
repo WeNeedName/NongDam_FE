@@ -41,8 +41,8 @@ function App() {
         <Route path="/marketprice" element={<MarketPrice />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/mypage/editmemberinfo" element={<EditMemberInfo />} />
-        <Route path="/mypage/editpw" element={<EditPw />} />
+        <Route path="/editmemberinfo" element={<EditMemberInfo />} />
+        <Route path="/editpw" element={<EditPw />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/worklog" element={<WorkLog />} />
         <Route path="/WriteWorkLog" element={<WirteWorkLog />} />

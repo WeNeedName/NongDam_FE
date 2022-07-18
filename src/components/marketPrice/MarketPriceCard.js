@@ -26,13 +26,6 @@ const MarketPriceCard = ({ cropsData }) => {
   const marketName =
     marketPriceData !== undefined && marketPriceData[0]?.country;
 
-  // const marketName =
-  // AllmarketPriceData !== undefined &&
-  // AllmarketPriceData[0] !== undefined &&
-  // AllmarketPriceData[0][0]?.country;
-
-  console.log(marketPriceData[0]);
-
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {

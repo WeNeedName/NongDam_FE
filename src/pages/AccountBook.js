@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCurrentAccountListDB } from "../redux/modules/account";
 
-// 이미지
-import Profile from "../images/Profile.png";
-
 // 컴포넌트
 import Header from "../components/Header";
 import AccountWeek from "../components/accountbook/AccountWeek";
