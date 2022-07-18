@@ -240,6 +240,7 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: white;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }
