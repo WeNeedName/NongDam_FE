@@ -1,15 +1,16 @@
 import { React, useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
-import Header from "../components/Header";
+import Header from "../Header";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getInfoDB } from "../redux/modules/users";
-import { editInfoDB } from "../redux/modules/users";
-import PopupDom from "../components/myPage/PopupDom";
-import PopupPostCode from "../components/myPage/PopupPostCode";
-import MyCrops from "../components/myPage/MyCrops";
+import { getInfoDB } from "../../redux/modules/users";
+import { editInfoDB } from "../../redux/modules/users";
+import PopupDom from "./PopupDom";
+import PopupPostCode from "./PopupPostCode";
+import MyCrops from "./MyCrops";
 import axios from "axios";
+import { SubmitBtn, CancelBtn } from "../../elements/Buttons";
 
 const EditMemberInfo = () => {
   const navigate = useNavigate();
@@ -32,14 +33,17 @@ const EditMemberInfo = () => {
   const [nickname, setNickname] = useState("");
   const [crops, setCrops] = useState();
   const [countryCode, setCountryCode] = useState(0);
-  const [profileImg, setProfileImg] = useState(""); //디폴트값으로 기본이미지 바꿔야됨
+  const [profileImg, setProfileImg] = useState("");
   const [address, setAddress] = useState("");
   const [disable, setDisable] = useState(true);
+  const [ImgSrc, setImgSrc] = useState("");
 
   console.log(array);
 
   const token = sessionStorage.getItem("jwtToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
+
+  console.log(nickname, crops, countryCode, profileImg, address);
 
   // 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -54,41 +58,54 @@ const EditMemberInfo = () => {
     dispatch(getInfoDB());
   }, []);
 
+  //console.log(userInfo);
+
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImgSrc(reader.result);
+        resolve();
+      };
+    });
+  };
+
   const onChangeFile = (e) => {
     //console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
+      setImgSrc(e.target.id[0]);
       setProfileImg(e.target.files[0]);
     }
   };
-  //console.log(crops)
-  const editInfo = async (event) => {
-    const data = {
-      nickname: nickname === "" ? previousNickname : nickname,
-      address: address === "" ? previousAddress : address,
-      countryCode: countryCode === 0 ? previousCountryCode : countryCode,
-      crops: crops.length === 0 ? array : crops,
-    };
-    let frm = new FormData();
-    frm.append("data", JSON.stringify(data));
-    if (profileImg === "") {
-      frm.append("profileImage", null);
-    } else {
-      frm.append("profileImage", profileImg);
-    }
-    console.log(data);
-    await axios({
-      method: "put",
-      url: "http://idontcare.shop/member",
-      data: frm,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        RefreshToken: `Bearer ${refreshToken}`,
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(navigate("/mypage"));
-  };
-  console.log(previousProfileImg);
-  console.log(userInfo);
+
+  // const editInfo = async (event) => {
+  //   const data = {
+  //     nickname: nickname === "" ? previousNickname : nickname,
+  //     address: address === "" ? previousAddress : address,
+  //     countryCode: countryCode === 0 ? previousCountryCode : countryCode,
+  //     crops: crops.length === 0 ? array : crops,
+  //   };
+  //   let frm = new FormData();
+  //   frm.append("data", JSON.stringify(data));
+  //   if (profileImg === "") {
+  //     frm.append("profileImage", null);
+  //   } else {
+  //     frm.append("profileImage", profileImg);
+  //   }
+  //   console.log(data);
+  //   await axios({
+  //     method: "put",
+  //     url: "https://idontcare.shop/member",
+  //     data: frm,
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //       RefreshToken: `Bearer ${refreshToken}`,
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }).then(navigate("/mypage"));
+  // };
+
   return (
     <Wrap>
       <Title>기본 정보</Title>
@@ -96,12 +113,30 @@ const EditMemberInfo = () => {
         <TopWrap>
           <ImgAndNames>
             <UploadImg>
-              <label>
-                <ProfileImg
-                  style={{ backgroundImage: `url(${previousProfileImg})` }}
-                />{" "}
-              </label>
+              <div className="preview">
+                {profileImg ? (
+                  <ProfileImg src={ImgSrc} alt="preview" />
+                ) : (
+                  <ProfileImg
+                    style={{ backgroundImage: `url(${previousProfileImg})` }}
+                  />
+                )}
+              </div>
+              <Label htmlFor="inputImage">이미지 업로드</Label>
+              <ImageBtn
+                type="file"
+                id="inputImage"
+                onChange={(e) => {
+                  {
+                    encodeFileToBase64(e.target.files[0]);
+                  }
+                  {
+                    onChangeFile(e);
+                  }
+                }}
+              />
             </UploadImg>
+
             <Names>
               <EditNicknameWrap
                 label="닉네임"
@@ -123,7 +158,7 @@ const EditMemberInfo = () => {
             {/* {address} */}
           </TitleAndAddress>
           {/* 버튼 클릭 시 팝업 생성 */}
-          <EditAddressBtn
+          <CancelBtn
             type="button"
             onClick={() => {
               openPostCode();
@@ -132,7 +167,7 @@ const EditMemberInfo = () => {
           >
             {" "}
             주소검색
-          </EditAddressBtn>
+          </CancelBtn>
         </AddressWrap>
         <div id="popupDom">
           {/* 팝업 생성 기준 div */}
@@ -211,17 +246,17 @@ const EditMemberInfo = () => {
           </TitleAndArea>
         </AreaWrap>
 
-        <BtnWrap>
-          <Submit
+        {/* <BtnWrap>
+          <SubmitBtn
             type="submit"
             onClick={() => {
               editInfo();
             }}
           >
             수정완료
-          </Submit>
+          </SubmitBtn>
           <CancelBtn> 취소 </CancelBtn>
-        </BtnWrap>
+        </BtnWrap> */}
       </ContentWrap>
     </Wrap>
   );
@@ -306,6 +341,28 @@ const EditBtn = styled.button`
     color: #a4a4a4;
   }
 `;
+
+const ImageBtn = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  margin-top: 20px;
+  margin-left: 30px;
+  width: 70px;
+  font-size: 11px;
+  color: #616161;
+  background-color: transparent;
+  border: 1px solid #bfbfbf;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const Line = styled.hr`
   margin-top: 30px;
   margin-bottom: 30px;
@@ -438,6 +495,7 @@ const SmallTitleArea = styled.div`
   line-height: 40px;
 `;
 const AreaBtn = styled.button`
+  align-itmes: center;
   font-size: 11px;
   padding: 5px 15px;
   border: 1px solid #a4a4a4;
@@ -454,35 +512,20 @@ const AreaBtn = styled.button`
 
 const BtnWrap = styled.div``;
 
-const Submit = styled.button`
-  margin-top: 20px;
-  font-size: 11px;
-  color: white;
-  background-color: #22631c;
-  border: none;
-  padding: 4px 10px;
-  border-radius: 8px;
-  margin-left: 18px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const CancelBtn = styled.button`
-  margin-top: 20px;
-  font-size: 11px;
-  color: #616161;
-  background-color: transparent;
-  border: 1px solid #bfbfbf;
-  padding: 4px 10px;
-  border-radius: 8px;
-  margin-left: 10px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
+// const SubmitBtn = styled.button`
+//   margin-top: 20px;
+//   font-size: 11px;
+//   color: white;
+//   background-color: #22631c;
+//   border: none;
+//   padding: 4px 10px;
+//   border-radius: 8px;
+//   margin-left: 18px;
+//   cursor: pointer;
+//   &:hover {
+//     opacity: 0.8;
+//   }
+// `;
 
 const Button = styled.button``;
 const Text = styled.p``;

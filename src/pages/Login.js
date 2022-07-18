@@ -38,8 +38,6 @@ const Login = () => {
     idRef.current.focus();
   }, [userSignIn]);
 
-  //const goToSignUp = navigate("/signup");
-
   return (
     <>
       <Header />
