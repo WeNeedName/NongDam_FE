@@ -1,11 +1,11 @@
 name: Deploy to Production
     
-    on:
-      push:
+on:
+  push: # 적용될 액션
         branches:
           - master
     
-    jobs:
+jobs:
       deploy:
         name: Build, Deploy to S3 bucket
         runs-on: [ubuntu-latest]
@@ -36,5 +36,5 @@ name: Deploy to Production
               AWS_S3_BUCKET: nongdam.site
               AWS_ACCESS_KEY_ID: ${{ secrets. AWS_IAM_MANAGER_KEY_ID }}
               AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-              AWS_REGION: Asia Pacific (Seoul) ap-northeast-2
+              AWS_REGION: ap-northeast-2
               SOURCE_DIR: 'dist'
