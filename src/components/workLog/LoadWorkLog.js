@@ -140,26 +140,26 @@ const BoxWrap = styled.div`
 `;
 
 const WorkLogBox = styled.div`
-display: grid;
-grid-auto-rows: auto;
-grid-template-columns : 3fr 1fr;
-width: 580px;
-background-color : #ffffff;
-border-radius: 10px;
-height: auto;
-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
-background: #fff
-border-radious: 6px;
-padding: 25px;
-display: inline
-flex-direction : row;
-justify-content: center;
-position : relative;
-margin-bottom: 30px;
-//cursor : pointer;
-// &:hover {
-//   box-shadow : 0px 6px 10px rgba(0, 0, 0, 0.15);
-// }
+  display: grid;
+  grid-auto-rows: auto;
+  grid-template-columns: 3fr 1fr;
+  width: 580px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: auto;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  border-radious: 6px;
+  padding: 25px;
+  display: inline;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 30px;
+  //cursor : pointer;
+  // &:hover {
+  //   box-shadow : 0px 6px 10px rgba(0, 0, 0, 0.15);
+  // }
 `;
 
 const LeftContent = styled.div`
@@ -179,19 +179,19 @@ const TimeContentWrap = styled.div`
 const DateContent = styled.div`
   font-size: 14px;
   margin-right: 3px;
-  font-size: ;
+  /* font-size: ; */
 `;
 
 const DurationContent = styled.div`
   font-size: 14px;
 `;
 const WorkContent = styled.div`
-font-size: 14px;
-display : flex
-flex-direction : row;
-margin : 10px 0px;
-margin-right : 10px;
-line-height : 20px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+  margin-right: 10px;
+  line-height: 20px;
 `;
 
 const CropContent = styled.div`

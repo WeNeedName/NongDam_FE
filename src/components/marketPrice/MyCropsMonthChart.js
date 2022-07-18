@@ -35,11 +35,6 @@ const MarketPriceChart = ({ checkedInputs, MyCrops, index }) => {
     return str.replace(/[^\d]+/g, "");
   }
 
-  const data = {
-    cropId: MyCrops?.id,
-    data: checkedInputs,
-  };
-
   const day = ["2022", "2022", "2022", "2022", "2022", "2022", , "2022"];
 
   // const day =
