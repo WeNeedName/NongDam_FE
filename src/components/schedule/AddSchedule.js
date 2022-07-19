@@ -68,7 +68,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
 
   const [noCrop, setNoCrop] = useState();
   const goMyPage = () => {
-    navigate("/mypage");
+    navigate("/mypage/editmemberinfo");
   };
 
   return (

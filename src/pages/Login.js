@@ -91,7 +91,7 @@ const Login = () => {
             onClick={() => {
               navigate("/signup");
             }}
-            style={{ marginLeft: "10px", fontWeight: "500" }}
+            style={{ marginLeft: "10px", fontWeight: "500", cursor: "pointer" }}
           >
             회원가입
           </span>
