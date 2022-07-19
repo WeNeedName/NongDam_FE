@@ -182,7 +182,7 @@ const Hr = styled.div`
   width: 100%;
   height: 1px;
   margin-left: -20px;
-  padding-right: 40px;
+  padding-right: 44px;
   border-bottom: 0.5px solid #dddddd;
 `;
 
@@ -240,6 +240,7 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: white;
   font-size: 12px;
+  cursor: pointer;
   &:hover {
     background-color: #22631c;
   }
