@@ -5,7 +5,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]    # main 브랜치에서 push, pull_request 이벤트가 일어났을 때 실행
+    branches: [ master ] 
 
 jobs:
   build:
