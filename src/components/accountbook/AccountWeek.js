@@ -11,7 +11,7 @@ import "moment/locale/ko";
 // 컴포넌트
 import AccountModal from "./AccountModal";
 
-const AccountWeek = () => {
+const AccountWeek = ({ currentAccount_list, accountList }) => {
   const dispatch = useDispatch();
 
   const [checkedInputs, setCheckedInputs] = useState("전체");
@@ -40,16 +40,39 @@ const AccountWeek = () => {
     }
   };
 
-  const currentAccount_list = useSelector(
-    (state) => state.account.currentAccount
-  );
-
   const is_loaded = useSelector((state) => state.account.is_loaded);
 
   // 항목(전체, 수입, 지출) 필터링
   const filteredCategory =
     currentAccount_list !== undefined &&
     currentAccount_list.filter((v) => v.category === checkedInputs);
+
+  // 월 전체내역 수입 총합
+  const filteredIncome =
+    accountList && accountList.filter((v) => v.category === "수입");
+  const filteredIncomePrice =
+    filteredIncome &&
+    filteredIncome.map((v) => {
+      return v.price;
+    });
+  const IncomeSum = filteredIncomePrice.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
+
+  // 월 전체내역 지출 총합
+  const filtereExpense =
+    accountList && accountList.filter((v) => v.category === "지출");
+  const filteredExpensePrice =
+    filtereExpense &&
+    filtereExpense.map((v) => {
+      return v.price;
+    });
+
+  const ExpenseSum = filteredExpensePrice.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
+
+  console.log(IncomeSum, ExpenseSum);
 
   return (
     <Wrap>
@@ -226,56 +249,55 @@ const AccountWeek = () => {
             />
           )}
         </>
-      ) : (
-        <AccountBoxWrap>
-          <AccountBox>
-            <BoxTopWrapB>
-              <BoxTopWrap>
-                <ShimmerThumbnail
-                  className="thumNail-date"
-                  width={10 + "%"}
-                  height={16}
-                  rounded
-                />
-              </BoxTopWrap>
-            </BoxTopWrapB>
+      ) : // <AccountBoxWrap>
+      //   <AccountBox>
+      //     <BoxTopWrapB>
+      //       <BoxTopWrap>
+      //         <ShimmerThumbnail
+      //           className="thumNail-date"
+      //           width={10 + "%"}
+      //           height={16}
+      //           rounded
+      //         />
+      //       </BoxTopWrap>
+      //     </BoxTopWrapB>
 
-            <PriceNum>
-              <ShimmerButton size="sm" />
-            </PriceNum>
-            <BottomWrap>
-              <ShimmerThumbnail
-                className="thumNail-price"
-                height={20}
-                rounded
-              />
-            </BottomWrap>
-          </AccountBox>
-          <AccountBox>
-            <BoxTopWrapB>
-              <BoxTopWrap>
-                <ShimmerThumbnail
-                  className="thumNail-date"
-                  width={10 + "%"}
-                  height={16}
-                  rounded
-                />
-              </BoxTopWrap>
-            </BoxTopWrapB>
+      //     <PriceNum>
+      //       <ShimmerButton size="sm" />
+      //     </PriceNum>
+      //     <BottomWrap>
+      //       <ShimmerThumbnail
+      //         className="thumNail-price"
+      //         height={20}
+      //         rounded
+      //       />
+      //     </BottomWrap>
+      //   </AccountBox>
+      //   <AccountBox>
+      //     <BoxTopWrapB>
+      //       <BoxTopWrap>
+      //         <ShimmerThumbnail
+      //           className="thumNail-date"
+      //           width={10 + "%"}
+      //           height={16}
+      //           rounded
+      //         />
+      //       </BoxTopWrap>
+      //     </BoxTopWrapB>
 
-            <PriceNum>
-              <ShimmerButton size="sm" />
-            </PriceNum>
-            <BottomWrap>
-              <ShimmerThumbnail
-                className="thumNail-price"
-                height={20}
-                rounded
-              />
-            </BottomWrap>
-          </AccountBox>
-        </AccountBoxWrap>
-      )}
+      //     <PriceNum>
+      //       <ShimmerButton size="sm" />
+      //     </PriceNum>
+      //     <BottomWrap>
+      //       <ShimmerThumbnail
+      //         className="thumNail-price"
+      //         height={20}
+      //         rounded
+      //       />
+      //     </BottomWrap>
+      //   </AccountBox>
+      // </AccountBoxWrap>
+      null}
     </Wrap>
   );
 };
@@ -333,6 +355,7 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label``;
+
 // scrollPosition
 const Gradient = styled.div`
   width: 100%;
@@ -341,6 +364,7 @@ const Gradient = styled.div`
   z-index: 100;
   background-color: red;
 `;
+
 const AccountBoxWrap = styled.div`
   width: 100%;
   padding-right: 70px;
@@ -393,10 +417,6 @@ const Category = styled.span`
   border-radius: 100px;
   font-size: 8px;
   color: ${(props) => (props.category === "수입" ? "#39a4e0" : "#EC4646")};
-
-  /* position: absolute;
-  top: 17px;
-  left: 86px; */
 `;
 
 const PriceNum = styled.span`

@@ -9,13 +9,13 @@ import moment from "moment";
 import "../../BigCalendar.css";
 
 // 컴포넌트
-//import ToolBar from "./ToolBar";
+import ToolBar from "./ToolBar";
 import Day from "./Day";
 import Event from "./Event";
 import AccountModal from "./AccountModal";
 import EventModal from "./EventModal";
 
-const CalendarBook = () => {
+const CalendarBook = ({ accountList }) => {
   const dispatch = useDispatch();
   const [eventInfo, setEventInfo] = useState(null);
   const [income, setIncome] = useState(0);
@@ -24,13 +24,6 @@ const CalendarBook = () => {
 
   moment.locale("ko-KR");
   const localizer = momentLocalizer(moment);
-
-  const accountList = useSelector((state) => state.account.accountList);
-  const yearMonth = useSelector((state) => state.account.yearMonth);
-
-  useEffect(() => {
-    dispatch(getAccountListDB(yearMonth));
-  }, [yearMonth]);
 
   // 장부내역 상세 모달 열기
   const [isOpen, setOpen] = useState(false);
@@ -45,25 +38,26 @@ const CalendarBook = () => {
   const convertCalendarData = (accountList) => {
     let mappedData = new Map();
     // 내역이 있는 날짜 수만큼 [0, 0] 만들기
-    accountList.map((list) => {
-      let original;
-      let insertData = [];
-      // 날짜별로 [0, 0] 생성 (만약 날짜가 중복되면 기존 value 그대로 get)
-      if (mappedData.has(list.date)) original = mappedData.get(list.date);
-      else original = [0, 0];
-      // 수입이면 [+ 수입액, 0]
-      if (list.type < 3) {
-        insertData.push(original[0] + list.price);
-        insertData.push(original[1]);
-      }
-      // 지출이면 [0, + 지출액]
-      else {
-        insertData.push(original[0]);
-        insertData.push(original[1] + list.price);
-      }
-      // mappedData = {key :"2022-07-14" vaue:[10000, 0]}
-      mappedData.set(list.date, insertData);
-    });
+    accountList !== undefined &&
+      accountList.map((list) => {
+        let original;
+        let insertData = [];
+        // 날짜별로 [0, 0] 생성 (만약 날짜가 중복되면 기존 value 그대로 get)
+        if (mappedData.has(list.date)) original = mappedData.get(list.date);
+        else original = [0, 0];
+        // 수입이면 [+ 수입액, 0]
+        if (list.type < 3) {
+          insertData.push(original[0] + list.price);
+          insertData.push(original[1]);
+        }
+        // 지출이면 [0, + 지출액]
+        else {
+          insertData.push(original[0]);
+          insertData.push(original[1] + list.price);
+        }
+        // mappedData = {key :"2022-07-14" vaue:[10000, 0]}
+        mappedData.set(list.date, insertData);
+      });
 
     let convertedData = [];
     // Array.from(mappedData.keys()) = 내역있는 날짜 배열
@@ -102,7 +96,7 @@ const CalendarBook = () => {
         localizer={localizer}
         style={{ height: 100 + "%", width: 100 + "%" }}
         components={{
-          //toolbar: ToolBar,
+          toolbar: ToolBar,
           month: {
             dateHeader: Day,
           },
