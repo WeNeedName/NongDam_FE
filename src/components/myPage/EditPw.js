@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import styled from "styled-components";
-import Header from "../Header";
-import MyPageMenu from "./MyPageMenu";
+import { SubmitBtn } from "../../elements/Buttons";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { editPwDB } from "../../redux/modules/users";
@@ -44,60 +43,102 @@ const EditPw = () => {
     dispatch(editPwDB(oldAndNewPws));
   };
   return (
-    <>
-      <Header />
-      <MyPageMenu />
+    <Wrap>
+      <Title>비밀번호 변경</Title>
       <EditPwWrap>
-        <p>기존비번</p>
-        <input
-          onChange={(e) => {
-            setOldPw(e.target.value);
-          }}
-          placeholder="기존 비밀번호"
-          type="text"
-        />
-        <p>비번변경</p>
-        <input
-          //newPwErr={newPwErr}
-          onChange={(e) => {
-            onChangePw(e);
-          }}
-          placeholder="비밀번호(영문, 숫자 포함 8자 이상)"
-          type="text"
-        />
-        {newPwErr && (
-          <NewPwErr>비밀번호는 영문, 숫자 포함 8자 이상이여야 합니다.</NewPwErr>
-        )}
-        {newPwErr2 && <NewPwErr>기존 비밀번호와 같습니다.</NewPwErr>}
+        <EachBoxWrap>
+          <SmallTitle>현재 비밀번호</SmallTitle>
+          <PwInputBox
+            onChange={(e) => {
+              setOldPw(e.target.value);
+            }}
+            //placeholder="기존 비밀번호"
+            type="text"
+          />
+        </EachBoxWrap>
+        <EachBoxWrap>
+          <SmallTitle>비번변경</SmallTitle>
+          <PwInputBox
+            //newPwErr={newPwErr}
+            onChange={(e) => {
+              onChangePw(e);
+            }}
+            //placeholder="비밀번호(영문, 숫자 포함 8자 이상)"
+            type="text"
+          />
+          {newPwErr && (
+            <NewPwErr>
+              비밀번호는 영문, 숫자 포함 8자 이상이여야 합니다.
+            </NewPwErr>
+          )}
+          {newPwErr2 && <NewPwErr>기존 비밀번호와 같습니다.</NewPwErr>}
+        </EachBoxWrap>
+        <EachBoxWrap>
+          <SmallTitle>비번변경확인</SmallTitle>
+          <PwInputBox
+            //newPwCheckErr={newPwCheckErr}
+            onChange={(e) => {
+              onChangePwCheck(e);
+            }}
+            //placeholder="비밀번호 확인"
+            type="text"
+          />
 
-        <p>비번변경확인</p>
-        <input
-          //newPwCheckErr={newPwCheckErr}
-          onChange={(e) => {
-            onChangePwCheck(e);
-          }}
-          placeholder="비밀번호 확인"
-          type="text"
-        />
-
-        {!newPwErr && newPwCheckErr && (
-          <NewPwErr>비밀번호가 일치하지 않습니다.</NewPwErr>
-        )}
-        <Submit
+          {!newPwErr && newPwCheckErr && (
+            <NewPwErr>비밀번호가 일치하지 않습니다.</NewPwErr>
+          )}
+        </EachBoxWrap>
+        <SubmitBtn
           type="submit"
           onClick={() => {
             editMyPw(oldPw, newPw);
           }}
+          style={{
+            marginLeft: "600px",
+          }}
         >
-          수정하기
-        </Submit>
+          변경하기
+        </SubmitBtn>
       </EditPwWrap>
-    </>
+    </Wrap>
   );
 };
+const Wrap = styled.div`
+  border: none;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 40px 40px 40px 40px;
+  grid-column: 3 / 5;
+`;
+const Title = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+`;
 const EditPwWrap = styled.div`
   margin-top: 70px;
 `;
-const NewPwErr = styled.div``;
+const PwInputBox = styled.input`
+  border: 1px solid #999999;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 4px;
+  width: 300px;
+  height: 28px;
+`;
+const SmallTitle = styled.div`
+  font-size: 13px;
+`;
+
+const NewPwErr = styled.div`
+  margin-top: 6px;
+  font-color: #666666;
+`;
+
+const EachBoxWrap = styled.div`
+  margin-bottom: 20px;
+`;
 const Submit = styled.button``;
 export default EditPw;

@@ -40,27 +40,24 @@ const EditMemberInfo = () => {
   const [disable, setDisable] = useState(true);
   const [ImgSrc, setImgSrc] = useState("");
 
-  console.log(array);
+  const modalCloseRef = useRef();
 
   const token = sessionStorage.getItem("jwtToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
 
-  console.log(nickname, crops, countryCode, profileImg, address);
+  // console.log(nickname, crops, countryCode, profileImg, address);
 
   // 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
     setIsPopupOpen(true);
   };
-  const closePostCode = () => {
-    setIsPopupOpen(false);
-  };
 
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
 
-  //console.log(userInfo);
+  console.log(address);
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -109,9 +106,9 @@ const EditMemberInfo = () => {
   };
 
   return (
-    <Wrap>
-      <Header />
-      <MyPageMenu />
+    <Wrap ref={modalCloseRef}>
+      {/* <Header />
+      <MyPageMenu /> */}
       <Title>기본 정보</Title>
       <ContentWrap>
         <TopWrap>
@@ -158,26 +155,35 @@ const EditMemberInfo = () => {
         <AddressWrap>
           <TitleAndAddress>
             <SmallTitle>주소</SmallTitle>
-            <PrevAddress>{userInfo?.address}</PrevAddress>
+            {address ? (
+              <AddressContent>{address}</AddressContent>
+            ) : (
+              <AddressContent>{userInfo?.address}</AddressContent>
+            )}
+
             {/* {address} */}
           </TitleAndAddress>
           {/* 버튼 클릭 시 팝업 생성 */}
-          <CancelBtn
+          <AddressBtn
             type="button"
             onClick={() => {
               openPostCode();
             }}
             value={address}
           >
-            {" "}
             주소검색
-          </CancelBtn>
+          </AddressBtn>
         </AddressWrap>
         <div id="popupDom">
           {/* 팝업 생성 기준 div */}
           {isPopupOpen && (
             <PopupDom>
-              <PopupPostCode onClose={closePostCode} setAddress={setAddress} />
+              <PopupPostCode
+                modalCloseRef={modalCloseRef}
+                isPopupOpen={isPopupOpen}
+                setIsPopupOpen={setIsPopupOpen}
+                setAddress={setAddress}
+              />
             </PopupDom>
           )}
         </div>
@@ -374,6 +380,7 @@ const Line = styled.hr`
   border: solid 0.5px #d8d8d8;
 `;
 const SmallTitle = styled.span`
+  min-width: 30px;
   font-size: 14px;
   font-color: #02113b;
   font-weight: 700;
@@ -393,19 +400,25 @@ const TitleAndAddress = styled.div`
   text-align: center;
   align-items: center;
 `;
-const PrevAddress = styled.button`
-  margin-left: 100px;
+const AddressContent = styled.button`
+  max-width: 420px;
+  margin-left: 80px;
   font-size: 14px;
   border: none;
   background-color: transparent;
   font-color: #02113b;
+  overflow-wrap: break-word;
+  text-align: left;
 `;
-const EditAddressBtn = styled.button`
+const AddressBtn = styled.button`
   font-size: 11px;
+  width: 65px;
   padding: 4px 10px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   background-color: transparent;
+
+  margin-right: 170px;
   cursor: pointer;
   color: #616161;
   &:hover {
@@ -432,8 +445,9 @@ const SmallTitleCrops = styled.span`
   line-height: 40px;
 `;
 const PreviousMyCrops = styled.div`
-  margin-left: 50px;
+  margin-left: 80px;
   width: 300px;
+  text-align: start;
 `;
 
 const PreviousCropsList = styled.div`

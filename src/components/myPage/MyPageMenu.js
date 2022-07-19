@@ -42,7 +42,7 @@ const MyPageMenu = () => {
             비밀번호 변경
           </span>
 
-          <span className="myContent">내 게시물</span>
+          {/* <span className="myContent">내 게시물</span> */}
           <span
             className="logOut"
             onClick={() => {
