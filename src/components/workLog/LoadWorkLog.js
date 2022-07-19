@@ -1,12 +1,10 @@
-import { flexbox } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import loadWorkLogDB from "../../redux/modules/workLog";
 
-const LoadWorkLog = () => {
+const LoadWorkLog = ({ workLogList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
   const [workLogId, setWorkLogId] = useState();
@@ -17,11 +15,7 @@ const LoadWorkLog = () => {
     setWorkLogId(id);
   }
 
-  const workLogList = useSelector((state) => state?.workLog?.workLogList);
-  console.log(workLogList);
-  // useEffect(() => {
-  //   dispatch(loadWorkLogDB())
-  // },[])
+  //const workLogList = useSelector((state) => state?.workLog?.workLogList);
 
   return (
     <Container>
@@ -37,49 +31,47 @@ const LoadWorkLog = () => {
                 navigate("/writeworklog");
               }}
             >
-              {" "}
-              + 기록하기{" "}
+              + 기록하기
             </WriteBtn>
           </BtnWrap>
         </TopWrap>
 
         <BoxWrap className="boxWrap">
-          {workLogList !== undefined
-            ? workLogList.map((list) => {
+          {/* {workLogList !== undefined
+            ? workLogList.map((list, v) => {
                 return (
-                  <WorkLogBox
-                    className="workLogBox"
-                    // onClick={() =>{
-                    //     toggleModal()
-                    //   }}
-                  >
-                    <LeftContent>
-                      <TitleContent>{list.title}</TitleContent>
-                      <TimeContentWrap>
-                        <DateContent>{list.date}</DateContent>
-                        {/* <DurationContent>작업시간 : {list.workTime} 시간</DurationContent> */}
-                      </TimeContentWrap>
-                      <WorkContent className="workMemoWrap">
-                        {list.memo}
-                      </WorkContent>
-                      <CropContent>{list.crop}</CropContent>
-                    </LeftContent>
+                  <div key={v}>
+                    <WorkLogBox
+                      className="workLogBox"
+                    >
+                      <LeftContent>
+                        <TitleContent>{list?.title}</TitleContent>
+                        <TimeContentWrap>
+                          <DateContent>{list?.date}</DateContent>
+                          
+                        </TimeContentWrap>
+                        <WorkContent className="workMemoWrap">
+                          {list?.memo}
+                        </WorkContent>
+                        <CropContent>{list?.crop}</CropContent>
+                      </LeftContent>
 
-                    <RightContent>
-                      <MoreVertIcon
-                        style={{ marginLeft: "140px", marginBottom: "10px" }}
-                      />
-                      <ImgContent
-                        style={{
-                          backgroundImage: `url(${list.images})`,
-                          backgroundSize: "cover",
-                        }}
-                      ></ImgContent>
-                    </RightContent>
-                  </WorkLogBox>
+                      <RightContent>
+                        <MoreVertIcon
+                          style={{ marginLeft: "140px", marginBottom: "10px" }}
+                        />
+                        <ImgContent
+                          style={{
+                            backgroundImage: `url(${list?.images})`,
+                            backgroundSize: "cover",
+                          }}
+                        ></ImgContent>
+                      </RightContent>
+                    </WorkLogBox>
+                  </div>
                 );
               })
-            : null}
+            : null} */}
         </BoxWrap>
       </Wrap>
     </Container>
@@ -114,11 +106,12 @@ const Title = styled.div`
 const BtnWrap = styled.div``;
 
 const SearchByCrops = styled.button``;
+
 const SearchByDateBtn = styled.button`
   margin-left: 10px;
   padding: 4px 15px;
   border-radius: 10px;
-  font-color: #616161;
+  color: #616161;
   border: 1px solid #bfbfbf;
   background-color: transparent;
 `;
@@ -149,9 +142,8 @@ const WorkLogBox = styled.div`
   height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   background: #fff;
-  border-radious: 6px;
+  border-radius: 6px;
   padding: 25px;
-  display: inline;
   flex-direction: row;
   justify-content: center;
   position: relative;
@@ -179,7 +171,6 @@ const TimeContentWrap = styled.div`
 const DateContent = styled.div`
   font-size: 14px;
   margin-right: 3px;
-  /* font-size: ; */
 `;
 
 const DurationContent = styled.div`
@@ -187,7 +178,6 @@ const DurationContent = styled.div`
 `;
 const WorkContent = styled.div`
   font-size: 14px;
-  display: flex;
   flex-direction: row;
   margin: 10px 0px;
   margin-right: 10px;
@@ -198,7 +188,7 @@ const CropContent = styled.div`
   display: inline-block;
 
   border: 1px solid #bfbfbf;
-  font-color: #616161;
+  color: #616161;
   font-size: 14px;
   width: auto;
   height: auto;

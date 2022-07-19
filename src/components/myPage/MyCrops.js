@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../../redux/modules/users";
 import Select from "react-select";
-import { isDayjs } from "dayjs";
-import { toBeChecked } from "@testing-library/jest-dom/dist/matchers";
 
 const MyCrops = ({ setCrops, previousCrops }) => {
   const dispatch = useDispatch();
@@ -23,9 +21,6 @@ const MyCrops = ({ setCrops, previousCrops }) => {
   useEffect(() => {
     setCrops(_crops);
   }, [selectedCrops]);
-  // console.log(_crops)
-  // console.log(cropsData)
-  // console.log(selectedCrops)
 
   return (
     <Container>
@@ -73,4 +68,5 @@ const Selec = styled.select`
   border: 1px solid black;
   padding-left: 10px;
 `;
+
 export default MyCrops;
