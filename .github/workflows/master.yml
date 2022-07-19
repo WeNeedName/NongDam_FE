@@ -1,40 +1,44 @@
-name: Deploy to Production
-    
+# master.yml
+name: master
+
 on:
-  push: # 적용될 액션
-        branches:
-          - master
-    
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]    # main 브랜치에서 push, pull_request 이벤트가 일어났을 때 실행
+
 jobs:
-      deploy:
-        name: Build, Deploy to S3 bucket
-        runs-on: [ubuntu-latest]
-    
-        strategy:
-          matrix:
-            node-version: [12.16.x]
-    
-        steps:
-          - uses: actions/checkout@v2
-    
-          - name: Use Node.js ${{ matrix.node-version }}
-            uses: actions/setup-node@v1
-            with:
-              node-version: ${{ matrix.node-version }}
-    
-          - name: install Dependencies
-            run: yarn
-    
-          - name: Build
-            run: yarn build
-    
-          - name: Transfer to S3 for serving static
-            uses: jakejarvis/s3-sync-action@master
-            with:
-              args: --acl public-read --follow-symlinks --delete
-            env:
-              AWS_S3_BUCKET: nongdam.site
-              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
-              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-              AWS_REGION: ap-northeast-2
-              SOURCE_DIR: 'dist'
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@master
+
+      - name: Cache node modules  # node modules 캐싱
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-master-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: Deploy
+        env:
+           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
+           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            build s3://nongdam.site
+
+
+
+
