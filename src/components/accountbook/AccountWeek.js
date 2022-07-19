@@ -11,7 +11,7 @@ import "moment/locale/ko";
 // 컴포넌트
 import AccountModal from "./AccountModal";
 
-const AccountWeek = ({ currentAccount_list, accountList }) => {
+const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
   const dispatch = useDispatch();
 
   const [checkedInputs, setCheckedInputs] = useState("전체");
@@ -72,10 +72,30 @@ const AccountWeek = ({ currentAccount_list, accountList }) => {
     return acc + cur;
   }, 0);
 
-  console.log(IncomeSum, ExpenseSum);
-
   return (
     <Wrap>
+      <MonthAccountBox>
+        <TopWrap>
+          <Title>{moment(yearMonth.month).format("M")}월 결산</Title>
+          <ShowMoreBtn>더보기</ShowMoreBtn>
+        </TopWrap>
+        <BodyWrap>
+          <CategoryA>수입</CategoryA>
+          <PriceNum>
+            {"+" +
+              String(IncomeSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,") +
+              "원"}
+          </PriceNum>
+        </BodyWrap>
+        <BodyWrap>
+          <CategoryB>지출</CategoryB>
+          <PriceNum>
+            {"-" +
+              String(ExpenseSum).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,") +
+              "원"}
+          </PriceNum>
+        </BodyWrap>
+      </MonthAccountBox>
       <Title>최근 내역</Title>
       <CategoryWrap>
         <Label>
@@ -112,7 +132,6 @@ const AccountWeek = ({ currentAccount_list, accountList }) => {
       </CategoryWrap>
       {is_loaded ? (
         <>
-          {/* <Gradient scrollPosition={scrollPosition} /> */}
           <AccountBoxWrap scrollPosition={scrollPosition}>
             {currentAccount_list !== undefined && checkedInputs === "전체"
               ? currentAccount_list.map((list, accountId) => {
@@ -240,6 +259,7 @@ const AccountWeek = ({ currentAccount_list, accountList }) => {
                   );
                 })}
           </AccountBoxWrap>
+
           {isOpen && (
             <AccountModal
               isOpen={isOpen}
@@ -306,10 +326,76 @@ const Wrap = styled.div`
   padding: 30px;
 `;
 
+const MonthAccountBox = styled.div`
+  max-width: 300px;
+  width: 90%;
+  margin-bottom: 20px;
+  margin-top: -28px;
+  height: auto;
+  padding: 10px 10px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  position: relative;
+  /* cursor: pointer;
+  &:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+  } */
+`;
+
+const TopWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0px;
+`;
+
 const Title = styled.div`
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 20px;
+`;
+
+const ShowMoreBtn = styled.div`
+  font-size: 11px;
+  color: #8e8f93;
+  cursor: pointer;
+  margin: 4px 8px;
+`;
+
+const CategoryA = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 10px 4px 10px;
+  background: #d7edf9;
+  border-radius: 100px;
+  font-size: 8px;
+  color: #39a4e0;
+`;
+
+const CategoryB = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 10px 4px 10px;
+  background: #facccc;
+  border-radius: 100px;
+  font-size: 8px;
+  color: #ec4646;
 `;
 
 const CategoryWrap = styled.div`
@@ -330,7 +416,7 @@ const FormCheckText = styled.span`
   width: auto;
   height: 16px;
   margin-right: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   font-size: 13px;
   cursor: pointer;
   color: black;
@@ -356,21 +442,12 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-// scrollPosition
-const Gradient = styled.div`
-  width: 100%;
-  height: 530px;
-  background: linear-gradient(to top, transparent, #f5f5f5 70%);
-  z-index: 100;
-  background-color: red;
-`;
-
 const AccountBoxWrap = styled.div`
   width: 100%;
   padding-right: 70px;
-  height: 584px;
-  /* border-top: 30px solid linear-gradient(to top, transparent, red 70%); */
-  /* background-color: red; */
+  padding-left: 2px;
+  height: 460px;
+  padding-bottom: 10px;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -378,16 +455,17 @@ const AccountBoxWrap = styled.div`
 `;
 
 const AccountBox = styled.div`
+  max-width: 300px;
   width: 90%;
   height: auto;
-  padding: 10px 10px 10px 16px;
+  padding: 10px 10px 16px 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: #ffffff;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
-  margin: 10px 0px;
+  margin: 0px 0px 10px 0px;
   position: relative;
   /* cursor: pointer;
   &:hover {
