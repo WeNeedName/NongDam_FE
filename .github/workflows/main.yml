@@ -22,11 +22,11 @@ jobs:
             with:
               node-version: ${{ matrix.node-version }}
     
-          - name: Npm install
-            run: npm install
+          - name: install Dependencies
+            run: yarn
     
           - name: Build
-            run: npm run build
+            run: yarn build
     
           - name: Transfer to S3 for serving static
             uses: jakejarvis/s3-sync-action@master
