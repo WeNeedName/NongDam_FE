@@ -108,7 +108,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  align-item: center;
+  align-items: center;
   position: relative;
 `;
 

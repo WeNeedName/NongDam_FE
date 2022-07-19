@@ -6,9 +6,6 @@ import Select from "react-select";
 import { getInfoDB } from "../redux/modules/users";
 import { useNavigate } from "react-router-dom";
 
-// 이미지
-import Profile from "../images/Profile.png";
-
 // 컴포넌트 파일
 import Header from "../components/Header";
 import MarketPriceCard from "../components/marketPrice/MarketPriceCard";
@@ -19,7 +16,6 @@ import { getMyCropsMarketPriceDB } from "../redux/modules/main";
 
 const MarketPrice = () => {
   const dispatch = useDispatch();
-  const [category, setCategory] = useState(null);
   const [selectedCrops, setSelectedCrops] = useState([]);
   const [selectedCropsB, setSelectedCropsB] = useState([]);
   const [salePrice, setSalePrice] = useState(0);
@@ -56,7 +52,7 @@ const MarketPrice = () => {
       setCheckedInputs(e.target.id);
     }
   };
-
+  // 드래그
   const onDragStart = (e) => {
     e.preventDefault();
     setIsDrag(true);
@@ -173,11 +169,6 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  /* display: grid;
-  grid-template-columns: 1fr 72% 1fr;
-  @media only screen and (max-width: 1220px) {
-    grid-template-columns: 1fr 81% 1fr;
-  } */
 `;
 
 const BodyWrap = styled.div`

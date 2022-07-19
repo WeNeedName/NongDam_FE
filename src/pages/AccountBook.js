@@ -3,23 +3,29 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCurrentAccountListDB } from "../redux/modules/account";
-
-// 이미지
-import Profile from "../images/Profile.png";
+import { getAccountListDB } from "../redux/modules/account";
 
 // 컴포넌트
 import Header from "../components/Header";
 import AccountWeek from "../components/accountbook/AccountWeek";
-import CalendarBook from "../components/accountbook/AccountCalendar";
+import AccountCalendar from "../components/accountbook/AccountCalendar";
 import AccountWrite from "../components/accountbook/AccountWrite";
 
 const AccountBook = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const accountList = useSelector((state) => state.account.accountList);
+  const yearMonth = useSelector((state) => state.account.yearMonth);
+  const currentAccount_list = useSelector(
+    (state) => state.account.currentAccount
+  );
   useEffect(() => {
     dispatch(getCurrentAccountListDB());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAccountListDB(yearMonth));
+  }, [yearMonth]);
 
   const isLogin = sessionStorage.getItem("jwtToken");
 
@@ -38,7 +44,7 @@ const AccountBook = () => {
     <Wrap>
       <Header currentPage="accountbook" />
       <CalendarWrap>
-        <CalendarBook />
+        <AccountCalendar accountList={accountList} />
         <AddAccountBtn
           onClick={() => {
             toggleModal();
@@ -48,7 +54,10 @@ const AccountBook = () => {
         </AddAccountBtn>
       </CalendarWrap>
       <CuurentListWrap>
-        <AccountWeek />
+        <AccountWeek
+          currentAccount_list={currentAccount_list}
+          accountList={accountList}
+        />
       </CuurentListWrap>
 
       {isOpen && <AccountWrite isOpen={isOpen} toggleModal={toggleModal} />}

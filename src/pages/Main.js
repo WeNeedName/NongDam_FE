@@ -9,7 +9,6 @@ import MarketPriceCard from "../components/main/TodayMarketPriceCard";
 import TodayTodo from "../components/main/TodayTodo";
 import AnalysisCard from "../components/main/AnalysisCard";
 import TodayNews from "../components/main/TodayNews";
-import TodayPost from "../components/main/TodayPost";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ const Main = () => {
         <TodayTodo />
         <AnalysisCard />
         <TodayNews />
-        {/* <TodayPost /> */}
       </Wrap>
     </>
   );
