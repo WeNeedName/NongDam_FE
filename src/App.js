@@ -11,9 +11,6 @@ import MarketPrice from "./pages/MarketPrice";
 import AccountWrite from "./components/accountbook/AccountWrite";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import EditMemberInfo from "./components/myPage/EditMemberInfo";
-import EditPw from "./components/myPage/EditPw";
-
 import MyPage from "./pages/MyPage";
 import OauthFilter from "./pages/OauthFilter";
 import Schedule from "./pages/Schedule";
@@ -41,9 +38,7 @@ function App() {
         <Route path="/marketprice" element={<MarketPrice />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-        <Route path="/editpw" element={<EditPw />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/*" element={<MyPage />} />
         <Route path="/worklog" element={<WorkLog />} />
         <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />

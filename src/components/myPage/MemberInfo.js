@@ -113,27 +113,8 @@ const EditMemberInfo = () => {
         <TopWrap>
           <ImgAndNames>
             <UploadImg>
-              <div className="preview">
-                {profileImg ? (
-                  <ProfileImg src={ImgSrc} alt="preview" />
-                ) : (
-                  <ProfileImg
-                    style={{ backgroundImage: `url(${previousProfileImg})` }}
-                  />
-                )}
-              </div>
-              <Label htmlFor="inputImage">이미지 업로드</Label>
-              <ImageBtn
-                type="file"
-                id="inputImage"
-                onChange={(e) => {
-                  {
-                    encodeFileToBase64(e.target.files[0]);
-                  }
-                  {
-                    onChangeFile(e);
-                  }
-                }}
+              <ProfileImg
+                style={{ backgroundImage: `url(${previousProfileImg})` }}
               />
             </UploadImg>
 
@@ -158,16 +139,6 @@ const EditMemberInfo = () => {
             {/* {address} */}
           </TitleAndAddress>
           {/* 버튼 클릭 시 팝업 생성 */}
-          <CancelBtn
-            type="button"
-            onClick={() => {
-              openPostCode();
-            }}
-            value={address}
-          >
-            {" "}
-            주소검색
-          </CancelBtn>
         </AddressWrap>
         <div id="popupDom">
           {/* 팝업 생성 기준 div */}
@@ -190,7 +161,6 @@ const EditMemberInfo = () => {
                   );
                 })}
               </PreviousMyCrops>
-              <MyCrops setCrops={setCrops} previousCrops={previousCrops} />
             </CropsContent>
           </TitleAndCrops>
         </CropsWrap>
@@ -198,9 +168,9 @@ const EditMemberInfo = () => {
           <TitleAndArea>
             <SmallTitleArea>시세지역</SmallTitleArea>
 
-            <Selec onChange={(e) => setCountryCode(e.target.value)}>
+            <Area>
               {userInfo?.countryCode ? (
-                <option value="">
+                <>
                   {userInfo?.countryCode === 1101 && "서울(도매)"}
                   {userInfo?.countryCode === 2101 && "부산(도매)"}
                   {userInfo?.countryCode === 2201 && "대구(도매)"}
@@ -219,30 +189,11 @@ const EditMemberInfo = () => {
                   {userInfo?.countryCode === 3714 && "안동(소매)"}
                   {userInfo?.countryCode === 3814 && "창원(소매)"}
                   {userInfo?.countryCode === 3145 && "용인(소매)"}
-                </option>
+                </>
               ) : (
-                <option value="">"선택해주세요"</option>
+                <option value="">희망 지역을 선택해주세요</option>
               )}
-
-              <option value="1101">서울(도매)</option>
-              <option value="2101">부산(도매)</option>
-              <option value="2201">대구(도매)</option>
-              <option value="2300">인천(소매)</option>
-              <option value="2401">광주(도매)</option>
-              <option value="2501">대전(도매)</option>
-              <option value="2601">울산(소매)</option>
-              <option value="3111">수원(소매)</option>
-              <option value="3211">춘천(소매)</option>
-              <option value="3311">청주(소매)</option>
-              <option value="3511">전주(소매)</option>
-              <option value="3711">포항(소매)</option>
-              <option value="3911">제주(소매)</option>
-              <option value="3113">의정부(소매)</option>
-              <option value="3613">순천(소매)</option>
-              <option value="3714">안동(소매)</option>
-              <option value="3814">창원(소매)</option>
-              <option value="3145">용인(소매)</option>
-            </Selec>
+            </Area>
           </TitleAndArea>
         </AreaWrap>
 
@@ -428,7 +379,8 @@ const SmallTitleCrops = styled.span`
   line-height: 40px;
 `;
 const PreviousMyCrops = styled.div`
-  margin-left: 50px;
+  margin-left: 20px;
+  margin-top: 10px;
   width: 300px;
 `;
 
@@ -461,18 +413,6 @@ const EditCropsBtn = styled.button`
     color: #a4a4a4;
   }
 `;
-const Selec = styled.select`
-  color: #616161;
-  width: 200px;
-  background-color: white;
-  height: 37px;
-  border-radius: 5px;
-  border: 1px solid #d8d8d8;
-  padding-left: 10px;
-  margin-left: 72px;
-  text-align: left;
-  font-size: 11px;
-`;
 
 const AreaWrap = styled.div`
   margin-top: 30px;
@@ -494,38 +434,13 @@ const SmallTitleArea = styled.div`
   font-weight: 700;
   line-height: 40px;
 `;
-const AreaBtn = styled.button`
-  align-itmes: center;
-  font-size: 11px;
-  padding: 5px 15px;
-  border: 1px solid #a4a4a4;
-  border-radius: 3px;
-  background-color: transparent;
-  cursor: pointer;
-  color: #a4a4a4;
-  &:hover {
-    border: 1.5px solid #a4a4a4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-    color: #a4a4a4;
-  }
+const Area = styled.div`
+  font-size: 14px;
+  margin-left: 78px;
+  margin-top: 12px;
 `;
 
 const BtnWrap = styled.div``;
-
-// const SubmitBtn = styled.button`
-//   margin-top: 20px;
-//   font-size: 11px;
-//   color: white;
-//   background-color: #22631c;
-//   border: none;
-//   padding: 4px 10px;
-//   border-radius: 8px;
-//   margin-left: 18px;
-//   cursor: pointer;
-//   &:hover {
-//     opacity: 0.8;
-//   }
-// `;
 
 const Button = styled.button``;
 const Text = styled.p``;

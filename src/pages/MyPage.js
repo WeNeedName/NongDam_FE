@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import MyPageMenu from "../components/myPage/MyPageMenu";
 import MemberInfo from "../components/myPage/MemberInfo";
@@ -12,6 +12,7 @@ import { getInfoDB } from "../redux/modules/users";
 const MyPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const modalCloseRef = useRef();
 
   useEffect(() => {
     if (!isLogin) navigate("/login");
@@ -31,10 +32,10 @@ const MyPage = () => {
     <Wrap>
       <Header />
       <MyPageMenu />
-      <MemberInfo />
       <Routes>
-        <Route path="/mypage/editinfo" element={<EditMemberInfo />} />
-        <Route path="/mypage/editpw" element={<EditPw />} />
+        <Route path="/" element={<MemberInfo />} />
+        <Route path="/editmemberinfo" element={<EditMemberInfo />} />
+        <Route path="/editpw" element={<EditPw />} />
       </Routes>
     </Wrap>
   );

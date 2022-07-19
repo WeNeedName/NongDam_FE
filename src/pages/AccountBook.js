@@ -57,6 +57,7 @@ const AccountBook = () => {
         <AccountWeek
           currentAccount_list={currentAccount_list}
           accountList={accountList}
+          yearMonth={yearMonth}
         />
       </CuurentListWrap>
 
