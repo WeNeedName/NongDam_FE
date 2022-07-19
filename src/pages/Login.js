@@ -91,7 +91,7 @@ const Login = () => {
             onClick={() => {
               navigate("/signup");
             }}
-            style={{ marginLeft: "10px", fontWeight: "500" }}
+            style={{ marginLeft: "10px", fontWeight: "500", cursor: "pointer" }}
           >
             회원가입
           </span>
@@ -180,7 +180,7 @@ const SubmitBtns = styled.div`
 const LoginBtn = styled.button`
   width: 185px;
   height: 35px;
-  justidfy-content: center;
+  justify-content: center;
   text-align: center;
   padding: 4px 13px;
   background-color: #22631c;
