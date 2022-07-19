@@ -29,7 +29,6 @@ const EditMemberInfo = () => {
   });
 
   const previousProfileImg = userInfo?.profileImage;
-  console.log(previousProfileImg);
   const [nickname, setNickname] = useState("");
   const [crops, setCrops] = useState();
   const [countryCode, setCountryCode] = useState(0);
@@ -37,74 +36,9 @@ const EditMemberInfo = () => {
   const [address, setAddress] = useState("");
   const [disable, setDisable] = useState(true);
   const [ImgSrc, setImgSrc] = useState("");
-
-  console.log(array);
-
-  const token = sessionStorage.getItem("jwtToken");
-  const refreshToken = sessionStorage.getItem("refreshToken");
-
-  console.log(nickname, crops, countryCode, profileImg, address);
-
-  // 팝업창 상태 관리
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const openPostCode = () => {
-    setIsPopupOpen(true);
-  };
-  const closePostCode = () => {
-    setIsPopupOpen(false);
-  };
-
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-
-  //console.log(userInfo);
-
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImgSrc(reader.result);
-        resolve();
-      };
-    });
-  };
-
-  const onChangeFile = (e) => {
-    //console.log(e.target.files[0])
-    if (e.target && e.target.files[0]) {
-      setImgSrc(e.target.id[0]);
-      setProfileImg(e.target.files[0]);
-    }
-  };
-
-  // const editInfo = async (event) => {
-  //   const data = {
-  //     nickname: nickname === "" ? previousNickname : nickname,
-  //     address: address === "" ? previousAddress : address,
-  //     countryCode: countryCode === 0 ? previousCountryCode : countryCode,
-  //     crops: crops.length === 0 ? array : crops,
-  //   };
-  //   let frm = new FormData();
-  //   frm.append("data", JSON.stringify(data));
-  //   if (profileImg === "") {
-  //     frm.append("profileImage", null);
-  //   } else {
-  //     frm.append("profileImage", profileImg);
-  //   }
-  //   console.log(data);
-  //   await axios({
-  //     method: "put",
-  //     url: "https://idontcare.shop/member",
-  //     data: frm,
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //       RefreshToken: `Bearer ${refreshToken}`,
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then(navigate("/mypage"));
-  // };
 
   return (
     <Wrap>
@@ -119,13 +53,7 @@ const EditMemberInfo = () => {
             </UploadImg>
 
             <Names>
-              <EditNicknameWrap
-                label="닉네임"
-                onChange={(e) => setNickname(e.target.value)}
-                defaultValue={previousNickname}
-                className="EditNickname"
-                placeholder="닉네임을 기입해주세요"
-              />
+              <EditNicknameWrap>{previousNickname}</EditNicknameWrap>
               <span className="userEmail">{userInfo?.email}</span>
             </Names>
           </ImgAndNames>
@@ -136,18 +64,9 @@ const EditMemberInfo = () => {
           <TitleAndAddress>
             <SmallTitle>주소</SmallTitle>
             <PrevAddress>{userInfo?.address}</PrevAddress>
-            {/* {address} */}
           </TitleAndAddress>
-          {/* 버튼 클릭 시 팝업 생성 */}
         </AddressWrap>
-        <div id="popupDom">
-          {/* 팝업 생성 기준 div */}
-          {isPopupOpen && (
-            <PopupDom>
-              <PopupPostCode onClose={closePostCode} setAddress={setAddress} />
-            </PopupDom>
-          )}
-        </div>
+
         <CropsWrap>
           <TitleAndCrops>
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
@@ -191,7 +110,7 @@ const EditMemberInfo = () => {
                   {userInfo?.countryCode === 3145 && "용인(소매)"}
                 </>
               ) : (
-                <option value="">희망 지역을 선택해주세요</option>
+                <option value="">희망 지역이 아직 선택되지 않았네요</option>
               )}
             </Area>
           </TitleAndArea>
@@ -268,7 +187,7 @@ const Names = styled.div`
     font-size: 11px;
   }
 `;
-const EditNicknameWrap = styled.input`
+const EditNicknameWrap = styled.span`
   width: 70px;
   margin-left: 17px;
   font-size: 18px;
@@ -322,7 +241,7 @@ const Line = styled.hr`
 `;
 const SmallTitle = styled.span`
   font-size: 14px;
-  font-color: #02113b;
+  color: #02113b;
   font-weight: 700;
 `;
 const BottomWrap = styled.div``;
@@ -345,7 +264,7 @@ const PrevAddress = styled.button`
   font-size: 14px;
   border: none;
   background-color: transparent;
-  font-color: #02113b;
+  color: #02113b;
 `;
 const EditAddressBtn = styled.button`
   font-size: 11px;
@@ -365,21 +284,22 @@ const CropsWrap = styled.div`
   margin-right: 27px;
   display: flex;
   justify-content: space-between;
-  align-itmes: center;
+  align-items: center;
   text-align: center;
 `;
 const TitleAndCrops = styled.div`
   display: flex;
-  align-itmes: center;
+  align-items: center;
 `;
 const SmallTitleCrops = styled.span`
   font-size: 14px;
-  font-color: #02113b;
+  color: #02113b;
   font-weight: 700;
   line-height: 40px;
 `;
 const PreviousMyCrops = styled.div`
-  margin-left: 20px;
+  text-align: start;
+  margin-left: 88px;
   margin-top: 10px;
   width: 300px;
 `;
@@ -391,7 +311,7 @@ const PreviousCropsList = styled.div`
   flex-wrap: wrap;
   border: 1px solid #bfbfbf;
   padding: 4px 8px;
-  font-color: #616161;
+  color: #616161;
   font-size: 5px;
   border-radius: 10px;
   margin-right: 5px;
@@ -420,17 +340,17 @@ const AreaWrap = styled.div`
   margin-right: 27px;
   display: flex;
   justify-content: space-between;
-  align-itmes: center;
+  align-items: center;
 `;
 const TitleAndArea = styled.div`
   display: flex;
-  align-itmes: center;
+  align-items: center;
   text-align: center;
 `;
 
 const SmallTitleArea = styled.div`
   font-size: 14px;
-  font-color: #02113b;
+  color: #02113b;
   font-weight: 700;
   line-height: 40px;
 `;
