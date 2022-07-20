@@ -8,7 +8,7 @@ const GET_WORKLOG_LIST = "GET_WORKLOG_LIST";
 
 //Action Creator
 const createWorkLog = createAction(CREATE_WORKLOG, (data) => ({ data }));
-const getWorkLogList = createAction(GET_WORKLOG_LIST, () => ({}));
+const getWorkLogList = createAction(GET_WORKLOG_LIST, (list) => ({ list }));
 
 //InitialState = {
 const initialState = {
@@ -63,7 +63,6 @@ const initialState = {
 };
 
 //Middleware
-
 export const addWorkLogDB = (data) => {
   return async function (dispatch) {
     dispatch(createWorkLog(data));
@@ -76,21 +75,20 @@ export const addWorkLogDB = (data) => {
   };
 };
 
-// export const loadWorkLogDB = () => {
-//   return async function (dispatch) {
-//     // apis
-//     // .loadWorkLog()
-//     dispatch(getWorkLogList())
-//     .then((res) => {
-//       console.log(res)
-
-//     })
-//     .catch((err) => {
-//       window.alert("영농일지를 불러오는 중에 오류가 발생했습니다.");
-//       console.log(err)
-//     });
-//   }
-// }
+export const loadWorkLogListDB = () => {
+  return async function (dispatch) {
+    await apis
+      .loadWorkLogList()
+      .then((res) => {
+        console.log(res);
+        dispatch(getWorkLogList(res.list));
+      })
+      .catch((err) => {
+        window.alert("영농일지를 불러오는 중에 오류가 발생했습니다.");
+        console.log(err);
+      });
+  };
+};
 
 //reducer
 export default handleActions(
@@ -104,7 +102,7 @@ export default handleActions(
     [GET_WORKLOG_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(state, payload);
-        draft.workLogList = draft.workLogList;
+        draft.workLogList = payload.workLogList;
       }),
   },
   initialState

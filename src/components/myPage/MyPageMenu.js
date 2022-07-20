@@ -61,13 +61,13 @@ const Wrap = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #fff;
-  box-shadow 0px 2px 3px rbga(0, 0, 0, 0.25);
-  border-radius : 16px;
+  box-shadow: 0px 2px 3px rbga(0, 0, 0, 0.25);
+  border-radius: 16px;
   padding: 20px 20px 16px 20px;
   grid-column: 2 /3;
   // position : relative;
-  display : flex;
-  justify-content : center;
+  display: flex;
+  justify-content: center;
 `;
 const ContentWrap = styled.div`
   width: 80%;
@@ -91,7 +91,7 @@ const ProfileImg = styled.img`
 `;
 
 const SmallInfo = styled.div`
-  font-color: #02113b;
+  color: #02113b;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,7 +101,7 @@ const SmallInfo = styled.div`
 const UserNickname = styled.span`
   font-size: 18px;
   font-weight: 700;
-  width-height: 10px;
+  height: 25px;
   align-items: center;
   text-align: center;
   font-feature-settings: "tnum" on, "lnum" on;
@@ -121,7 +121,7 @@ const BottomWrap = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  font-color: #02113b;
+  color: #02113b;
   display: flex;
   flex-direction: column;
   line-height: 35px;

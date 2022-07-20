@@ -13,6 +13,7 @@ import PopupPostCode from "./PopupPostCode";
 import MyCrops from "./MyCrops";
 import axios from "axios";
 import { SubmitBtn, CancelBtn } from "../../elements/Buttons";
+import Select from "react-select";
 
 const EditMemberInfo = () => {
   const navigate = useNavigate();
@@ -382,7 +383,7 @@ const Line = styled.hr`
 const SmallTitle = styled.span`
   min-width: 30px;
   font-size: 14px;
-  font-color: #02113b;
+  color: #02113b;
   font-weight: 700;
 `;
 const BottomWrap = styled.div``;
@@ -406,7 +407,7 @@ const AddressContent = styled.button`
   font-size: 14px;
   border: none;
   background-color: transparent;
-  font-color: #02113b;
+  color: #02113b;
   overflow-wrap: break-word;
   text-align: left;
 `;
@@ -431,16 +432,16 @@ const CropsWrap = styled.div`
   margin-right: 27px;
   display: flex;
   justify-content: space-between;
-  align-itmes: center;
+  align-items: center;
   text-align: center;
 `;
 const TitleAndCrops = styled.div`
   display: flex;
-  align-itmes: center;
+  align-items: center;
 `;
 const SmallTitleCrops = styled.span`
   font-size: 14px;
-  font-color: #02113b;
+  color: #02113b;
   font-weight: 700;
   line-height: 40px;
 `;
@@ -457,7 +458,7 @@ const PreviousCropsList = styled.div`
   flex-wrap: wrap;
   border: 1px solid #bfbfbf;
   padding: 4px 8px;
-  font-color: #616161;
+  color: #616161;
   font-size: 5px;
   border-radius: 10px;
   margin-right: 5px;
@@ -498,21 +499,22 @@ const AreaWrap = styled.div`
   margin-right: 27px;
   display: flex;
   justify-content: space-between;
-  align-itmes: center;
+  align-items: center;
 `;
 const TitleAndArea = styled.div`
   display: flex;
-  align-itmes: center;
+  align-items: center;
   text-align: center;
 `;
 
 const SmallTitleArea = styled.div`
   font-size: 14px;
-  font-color: #02113b;
+  color: #02113b;
   font-weight: 700;
   line-height: 40px;
 `;
 const AreaBtn = styled.button`
+  align-items: center;
   font-size: 11px;
   padding: 5px 15px;
   border: 1px solid #a4a4a4;

@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import loadWorkLogDB from "../../redux/modules/workLog";
 
-const LoadWorkLog = () => {
+const LoadWorkLog = ({ workLogList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
   const [workLogId, setWorkLogId] = useState();
@@ -16,7 +15,9 @@ const LoadWorkLog = () => {
     setWorkLogId(id);
   }
 
+
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
+
 
   return (
     <Container>
@@ -38,42 +39,41 @@ const LoadWorkLog = () => {
         </TopWrap>
 
         <BoxWrap className="boxWrap">
-          {workLogList !== undefined
-            ? workLogList.map((list) => {
+          {/* {workLogList !== undefined
+            ? workLogList.map((list, v) => {
                 return (
-                  <WorkLogBox
-                    className="workLogBox"
-                    // onClick={() =>{
-                    //     toggleModal()
-                    //   }}
-                  >
-                    <LeftContent>
-                      <TitleContent>{list.title}</TitleContent>
-                      <TimeContentWrap>
-                        <DateContent>{list.date}</DateContent>
-                        {/* <DurationContent>작업시간 : {list.workTime} 시간</DurationContent> */}
-                      </TimeContentWrap>
-                      <WorkContent className="workMemoWrap">
-                        {list.memo}
-                      </WorkContent>
-                      <CropContent>{list.crop}</CropContent>
-                    </LeftContent>
+                  <div key={v}>
+                    <WorkLogBox
+                      className="workLogBox"
+                    >
+                      <LeftContent>
+                        <TitleContent>{list?.title}</TitleContent>
+                        <TimeContentWrap>
+                          <DateContent>{list?.date}</DateContent>
+                          
+                        </TimeContentWrap>
+                        <WorkContent className="workMemoWrap">
+                          {list?.memo}
+                        </WorkContent>
+                        <CropContent>{list?.crop}</CropContent>
+                      </LeftContent>
 
-                    <RightContent>
-                      <MoreVertIcon
-                        style={{ marginLeft: "140px", marginBottom: "10px" }}
-                      />
-                      <ImgContent
-                        style={{
-                          backgroundImage: `url(${list.images})`,
-                          backgroundSize: "cover",
-                        }}
-                      ></ImgContent>
-                    </RightContent>
-                  </WorkLogBox>
+                      <RightContent>
+                        <MoreVertIcon
+                          style={{ marginLeft: "140px", marginBottom: "10px" }}
+                        />
+                        <ImgContent
+                          style={{
+                            backgroundImage: `url(${list?.images})`,
+                            backgroundSize: "cover",
+                          }}
+                        ></ImgContent>
+                      </RightContent>
+                    </WorkLogBox>
+                  </div>
                 );
               })
-            : null}
+            : null} */}
         </BoxWrap>
       </Wrap>
     </Container>
