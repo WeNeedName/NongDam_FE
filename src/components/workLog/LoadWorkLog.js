@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const LoadWorkLog = ({ workLogList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
+
+  //const goToDetail = navigate(`/detail/${workLogList.id}`);
   const [workLogId, setWorkLogId] = useState();
-  //모달 열기
-  const [isOpen, setOpen] = useState(false);
-  function toggleModal(id) {
-    setOpen(!isOpen);
-    setWorkLogId(id);
-  }
 
   //const workLogList = useSelector((state) => state?.workLog?.workLogList);
 
@@ -36,29 +32,36 @@ const LoadWorkLog = ({ workLogList }) => {
           </BtnWrap>
         </TopWrap>
 
-        <BoxWrap className="boxWrap">
-          {/* {workLogList !== undefined
-            ? workLogList.map((list, v) => {
-                return (
-                  <div key={v}>
-                    <WorkLogBox
-                      className="workLogBox"
-                    >
+        {workLogList !== undefined
+          ? workLogList.map((list, i) => {
+              // console.log(list);
+
+              return (
+                <BoxWrap
+                  className="boxWrap"
+                  onClick={() => {
+                    navigate(`/worklog/detail/${list.id}`);
+                  }}
+                  key={i}
+                >
+                  <div>
+                    <WorkLogBox className="workLogBox">
                       <LeftContent>
                         <TitleContent>{list?.title}</TitleContent>
                         <TimeContentWrap>
                           <DateContent>{list?.date}</DateContent>
-                          
                         </TimeContentWrap>
                         <WorkContent className="workMemoWrap">
                           {list?.memo}
                         </WorkContent>
                         <CropContent>{list?.crop}</CropContent>
                       </LeftContent>
-
                       <RightContent>
                         <MoreVertIcon
-                          style={{ marginLeft: "140px", marginBottom: "10px" }}
+                          style={{
+                            marginLeft: "140px",
+                            marginBottom: "10px",
+                          }}
                         />
                         <ImgContent
                           style={{
@@ -69,10 +72,10 @@ const LoadWorkLog = ({ workLogList }) => {
                       </RightContent>
                     </WorkLogBox>
                   </div>
-                );
-              })
-            : null} */}
-        </BoxWrap>
+                </BoxWrap>
+              );
+            })
+          : null}
       </Wrap>
     </Container>
   );

@@ -96,7 +96,7 @@ export const apis = {
   //일지(worklog)
   addWorkLog: (data) => formApi.post("/worklog", data),
   loadWorkLogList: () => api.get("/worklog"),
-  loadWorkLog: (worklogid) => api.get(`/worklog/${worklogid}`),
+  loadWorkLog: (id) => api.get(`/worklog/${id}`),
   deleteWorkLog: (worklogid) => api.delete(`/worklog/${worklogid}`),
   editWorkLog: (worklogid, data) => api.patch(`/worklog/${worklogid}/update`),
 };
