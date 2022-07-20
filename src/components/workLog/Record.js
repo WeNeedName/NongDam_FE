@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { handleActions } from "redux-actions";
 
 const Record = (props) => {
   const navigate = useNavigate();
@@ -51,7 +50,7 @@ const SmallTitle = styled.label`
 `;
 
 const CategoryBigWrap = styled.div`
-  width: 60%
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
