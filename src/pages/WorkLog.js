@@ -2,7 +2,6 @@ import { React, useState, useEffect } from "react";
 import { useNavigate, Routes, Route, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import LoadWorkLog from "../components/workLog/LoadWorkLog";
-import DetailWorkLog from "../components/workLog/DetailWorkLog";
 import styled from "styled-components";
 import { loadWorkLogListDB, loadWorkLogDB } from "../redux/modules/workLog";
 
