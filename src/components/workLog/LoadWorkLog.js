@@ -1,4 +1,3 @@
-import { flexbox } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,10 +17,6 @@ const LoadWorkLog = () => {
   }
 
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
-  console.log(workLogList);
-  // useEffect(() => {
-  //   dispatch(loadWorkLogDB())
-  // },[])
 
   return (
     <Container>
@@ -37,8 +32,7 @@ const LoadWorkLog = () => {
                 navigate("/writeworklog");
               }}
             >
-              {" "}
-              + 기록하기{" "}
+              + 기록하기
             </WriteBtn>
           </BtnWrap>
         </TopWrap>
@@ -114,11 +108,12 @@ const Title = styled.div`
 const BtnWrap = styled.div``;
 
 const SearchByCrops = styled.button``;
+
 const SearchByDateBtn = styled.button`
   margin-left: 10px;
   padding: 4px 15px;
   border-radius: 10px;
-  font-color: #616161;
+  color: #616161;
   border: 1px solid #bfbfbf;
   background-color: transparent;
 `;
@@ -149,9 +144,8 @@ const WorkLogBox = styled.div`
   height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   background: #fff;
-  border-radious: 6px;
+  border-radius: 6px;
   padding: 25px;
-  display: inline;
   flex-direction: row;
   justify-content: center;
   position: relative;
@@ -179,7 +173,6 @@ const TimeContentWrap = styled.div`
 const DateContent = styled.div`
   font-size: 14px;
   margin-right: 3px;
-  /* font-size: ; */
 `;
 
 const DurationContent = styled.div`
@@ -187,7 +180,6 @@ const DurationContent = styled.div`
 `;
 const WorkContent = styled.div`
   font-size: 14px;
-  display: flex;
   flex-direction: row;
   margin: 10px 0px;
   margin-right: 10px;
@@ -198,7 +190,7 @@ const CropContent = styled.div`
   display: inline-block;
 
   border: 1px solid #bfbfbf;
-  font-color: #616161;
+  color: #616161;
   font-size: 14px;
   width: auto;
   height: auto;

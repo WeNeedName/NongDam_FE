@@ -10,6 +10,7 @@ import moment from "moment";
 import "moment/locale/ko";
 // 컴포넌트
 import AccountModal from "./AccountModal";
+import AccountListModal from "./AccountListModal";
 
 const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
   const dispatch = useDispatch();
@@ -19,11 +20,18 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
   const [accountId, setAccountId] = useState(null);
   // 장부내역 상세 모달 열기
   const [isOpen, setOpen] = useState(false);
+  // 장부 전체내역 모달 열기
+  const [isOpenList, setOpenList] = useState(false);
 
   function toggleModal(id) {
     setOpen(!isOpen);
     setAccountId(id);
   }
+
+  function MonthListToggleModal() {
+    setOpenList(!isOpenList);
+  }
+
   // 최근내역 영역 스크롤 감지
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
@@ -71,13 +79,20 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
   const ExpenseSum = filteredExpensePrice.reduce((acc, cur) => {
     return acc + cur;
   }, 0);
+  const month = moment(yearMonth.year + "-" + yearMonth.month).format("M");
 
   return (
     <Wrap>
       <MonthAccountBox>
         <TopWrap>
-          <Title>{moment(yearMonth.month).format("M")}월 결산</Title>
-          <ShowMoreBtn>더보기</ShowMoreBtn>
+          <Title>{month}월 결산</Title>
+          <ShowMoreBtn
+            onClick={() => {
+              MonthListToggleModal();
+            }}
+          >
+            더보기
+          </ShowMoreBtn>
         </TopWrap>
         <BodyWrap>
           <CategoryA>수입</CategoryA>
@@ -130,194 +145,155 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
           <FormCheckText>지출</FormCheckText>
         </Label>
       </CategoryWrap>
-      {is_loaded ? (
-        <>
-          <AccountBoxWrap scrollPosition={scrollPosition}>
-            {currentAccount_list !== undefined && checkedInputs === "전체"
-              ? currentAccount_list.map((list, accountId) => {
-                  return (
-                    <AccountBox key={list.id}>
-                      <BoxTopWrapB>
-                        <BoxTopWrap>
-                          <Day>{moment(list.date).format("M월 D일")}</Day>
+      <>
+        <AccountBoxWrap scrollPosition={scrollPosition}>
+          {currentAccount_list !== undefined && checkedInputs === "전체"
+            ? currentAccount_list.map((list, accountId) => {
+                return (
+                  <AccountBox key={list.id}>
+                    <BoxTopWrapB>
+                      <BoxTopWrap>
+                        <Day>{moment(list.date).format("M월 D일")}</Day>
 
-                          <Category category={list.category}>
-                            {list.category === "수입" ? "수입" : "지출"}
-                          </Category>
-                        </BoxTopWrap>
-                        <DotWrap
-                          onClick={() => {
-                            toggleModal(list.id);
-                          }}
-                        >
-                          <Dot />
-                          <Dot />
-                          <Dot />
-                        </DotWrap>
-                      </BoxTopWrapB>
+                        <Category category={list.category}>
+                          {list.category === "수입" ? "수입" : "지출"}
+                        </Category>
+                      </BoxTopWrap>
+                      <DotWrap
+                        onClick={() => {
+                          toggleModal(list.id);
+                        }}
+                      >
+                        <Dot />
+                        <Dot />
+                        <Dot />
+                      </DotWrap>
+                    </BoxTopWrapB>
 
-                      <PriceNum>
-                        {list.category === "수입"
-                          ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
-                            "+" +
-                            String(list.price).replace(
-                              /(\d)(?=(?:\d{3})+(?!\d))/g,
-                              "$1,"
-                            ) +
-                            "원"
-                          : "-" +
-                            String(list.price).replace(
-                              /(\d)(?=(?:\d{3})+(?!\d))/g,
-                              "$1,"
-                            ) +
-                            "원"}
-                      </PriceNum>
-                      <WhereTo>사용처</WhereTo>
-                      <BottomWrap>
-                        <WhereToUseType>
-                          {list.type === 0 && "농산물 판매"}
-                          {list.type === 1 && "정부보조금"}
-                          {list.type === 2 && "기타수입"}
-                          {list.type === 3 && "비료"}
-                          {list.type === 4 && "종자/종묘"}
-                          {list.type === 5 && "농약"}
-                          {list.type === 6 && "농기계"}
-                          {list.type === 7 && "기타 농자재"}
-                          {list.type === 8 && "유통비 및 판매 경비"}
-                          {list.type === 9 && "고용노동비"}
-                          {list.type === 10 && "임차료"}
-                          {list.type === 11 && "수도광열비"}
-                          {list.type === 12 && "기타 지출"}
-                        </WhereToUseType>
-                      </BottomWrap>
-                    </AccountBox>
-                  );
-                })
-              : currentAccount_list !== undefined &&
-                filteredCategory.map((list, id) => {
-                  return (
-                    <AccountBox
-                      key={list.id}
-                      onClick={() => {
-                        toggleModal(list.id);
-                      }}
-                    >
-                      <BoxTopWrapB>
-                        <BoxTopWrap>
-                          <Day>{moment(list.date).format("M월 D일")}</Day>
+                    <PriceNum>
+                      {list.category === "수입"
+                        ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
+                          "+" +
+                          String(list.price).replace(
+                            /(\d)(?=(?:\d{3})+(?!\d))/g,
+                            "$1,"
+                          ) +
+                          "원"
+                        : "-" +
+                          String(list.price).replace(
+                            /(\d)(?=(?:\d{3})+(?!\d))/g,
+                            "$1,"
+                          ) +
+                          "원"}
+                    </PriceNum>
+                    <WhereTo>사용처</WhereTo>
+                    <BottomWrap>
+                      <WhereToUseType>
+                        {list.type === 0 && "농산물 판매"}
+                        {list.type === 1 && "정부보조금"}
+                        {list.type === 2 && "기타수입"}
+                        {list.type === 3 && "비료"}
+                        {list.type === 4 && "종자/종묘"}
+                        {list.type === 5 && "농약"}
+                        {list.type === 6 && "농기계"}
+                        {list.type === 7 && "기타 농자재"}
+                        {list.type === 8 && "유통비 및 판매 경비"}
+                        {list.type === 9 && "고용노동비"}
+                        {list.type === 10 && "임차료"}
+                        {list.type === 11 && "수도광열비"}
+                        {list.type === 12 && "기타 지출"}
+                      </WhereToUseType>
+                    </BottomWrap>
+                  </AccountBox>
+                );
+              })
+            : currentAccount_list !== undefined &&
+              filteredCategory.map((list, id) => {
+                return (
+                  <AccountBox
+                    key={list.id}
+                    onClick={() => {
+                      toggleModal(list.id);
+                    }}
+                  >
+                    <BoxTopWrapB>
+                      <BoxTopWrap>
+                        <Day>{moment(list.date).format("M월 D일")}</Day>
 
-                          <Category category={list.category}>
-                            {list.category === "수입" ? "수입" : "지출"}
-                          </Category>
-                        </BoxTopWrap>
-                        <DotWrap
-                          onClick={() => {
-                            toggleModal(list.id);
-                          }}
-                        >
-                          <Dot />
-                          <Dot />
-                          <Dot />
-                        </DotWrap>
-                      </BoxTopWrapB>
+                        <Category category={list.category}>
+                          {list.category === "수입" ? "수입" : "지출"}
+                        </Category>
+                      </BoxTopWrap>
+                      <DotWrap
+                        onClick={() => {
+                          toggleModal(list.id);
+                        }}
+                      >
+                        <Dot />
+                        <Dot />
+                        <Dot />
+                      </DotWrap>
+                    </BoxTopWrapB>
 
-                      <PriceNum>
-                        {list.category === "수입"
-                          ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
-                            "+" +
-                            String(list.price).replace(
-                              /(\d)(?=(?:\d{3})+(?!\d))/g,
-                              "$1,"
-                            ) +
-                            "원"
-                          : "-" +
-                            String(list.price).replace(
-                              /(\d)(?=(?:\d{3})+(?!\d))/g,
-                              "$1,"
-                            ) +
-                            "원"}
-                      </PriceNum>
-                      <WhereTo>사용처</WhereTo>
-                      <BottomWrap>
-                        <WhereToUseType>
-                          {list.type === 0 && "농산물 판매"}
-                          {list.type === 1 && "정부보조금"}
-                          {list.type === 2 && "기타수입"}
-                          {list.type === 3 && "비료"}
-                          {list.type === 4 && "종자/종묘"}
-                          {list.type === 5 && "농약"}
-                          {list.type === 6 && "농기계"}
-                          {list.type === 7 && "기타 농자재"}
-                          {list.type === 8 && "유통비 및 판매 경비"}
-                          {list.type === 9 && "고용노동비"}
-                          {list.type === 10 && "임차료"}
-                          {list.type === 11 && "수도광열비"}
-                          {list.type === 12 && "기타 지출"}
-                        </WhereToUseType>
-                      </BottomWrap>
-                    </AccountBox>
-                  );
-                })}
-          </AccountBoxWrap>
+                    <PriceNum>
+                      {list.category === "수입"
+                        ? // 수입이면 + , 지출이면 - 붙이고 숫자에 콤마넣기
+                          "+" +
+                          String(list.price).replace(
+                            /(\d)(?=(?:\d{3})+(?!\d))/g,
+                            "$1,"
+                          ) +
+                          "원"
+                        : "-" +
+                          String(list.price).replace(
+                            /(\d)(?=(?:\d{3})+(?!\d))/g,
+                            "$1,"
+                          ) +
+                          "원"}
+                    </PriceNum>
+                    <WhereTo>사용처</WhereTo>
+                    <BottomWrap>
+                      <WhereToUseType>
+                        {list.type === 0 && "농산물 판매"}
+                        {list.type === 1 && "정부보조금"}
+                        {list.type === 2 && "기타수입"}
+                        {list.type === 3 && "비료"}
+                        {list.type === 4 && "종자/종묘"}
+                        {list.type === 5 && "농약"}
+                        {list.type === 6 && "농기계"}
+                        {list.type === 7 && "기타 농자재"}
+                        {list.type === 8 && "유통비 및 판매 경비"}
+                        {list.type === 9 && "고용노동비"}
+                        {list.type === 10 && "임차료"}
+                        {list.type === 11 && "수도광열비"}
+                        {list.type === 12 && "기타 지출"}
+                      </WhereToUseType>
+                    </BottomWrap>
+                  </AccountBox>
+                );
+              })}
+        </AccountBoxWrap>
 
-          {isOpen && (
-            <AccountModal
-              isOpen={isOpen}
-              toggleModal={toggleModal}
-              accountId={accountId}
-              currentAccount_list={currentAccount_list}
-            />
-          )}
-        </>
-      ) : // <AccountBoxWrap>
-      //   <AccountBox>
-      //     <BoxTopWrapB>
-      //       <BoxTopWrap>
-      //         <ShimmerThumbnail
-      //           className="thumNail-date"
-      //           width={10 + "%"}
-      //           height={16}
-      //           rounded
-      //         />
-      //       </BoxTopWrap>
-      //     </BoxTopWrapB>
+        {isOpen && (
+          <AccountModal
+            isOpen={isOpen}
+            toggleModal={toggleModal}
+            accountId={accountId}
+            currentAccount_list={currentAccount_list}
+          />
+        )}
 
-      //     <PriceNum>
-      //       <ShimmerButton size="sm" />
-      //     </PriceNum>
-      //     <BottomWrap>
-      //       <ShimmerThumbnail
-      //         className="thumNail-price"
-      //         height={20}
-      //         rounded
-      //       />
-      //     </BottomWrap>
-      //   </AccountBox>
-      //   <AccountBox>
-      //     <BoxTopWrapB>
-      //       <BoxTopWrap>
-      //         <ShimmerThumbnail
-      //           className="thumNail-date"
-      //           width={10 + "%"}
-      //           height={16}
-      //           rounded
-      //         />
-      //       </BoxTopWrap>
-      //     </BoxTopWrapB>
-
-      //     <PriceNum>
-      //       <ShimmerButton size="sm" />
-      //     </PriceNum>
-      //     <BottomWrap>
-      //       <ShimmerThumbnail
-      //         className="thumNail-price"
-      //         height={20}
-      //         rounded
-      //       />
-      //     </BottomWrap>
-      //   </AccountBox>
-      // </AccountBoxWrap>
-      null}
+        {isOpenList && (
+          <AccountListModal
+            accountList={accountList}
+            isOpenList={isOpenList}
+            MonthListToggleModal={MonthListToggleModal}
+            month={month}
+            ExpenseSum={ExpenseSum}
+            IncomeSum={IncomeSum}
+          />
+        )}
+      </>
     </Wrap>
   );
 };

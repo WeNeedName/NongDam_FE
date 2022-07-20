@@ -10,7 +10,6 @@ export default function ToolBar(props) {
   const [click, setClick] = useState(false);
 
   const { date } = props;
-  console.log(props);
 
   const navigate = (action) => {
     props.onNavigate(action);
@@ -21,7 +20,6 @@ export default function ToolBar(props) {
   const month = moment(date).format("MM");
   const year = moment(date).format("YYYY");
   const YYMM = { month: month, year: year };
-  console.log(YYMM);
 
   useEffect(() => {
     dispatch(getYearMonthDB(YYMM));
