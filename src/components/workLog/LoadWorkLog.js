@@ -15,7 +15,9 @@ const LoadWorkLog = ({ workLogList }) => {
     setWorkLogId(id);
   }
 
-  //const workLogList = useSelector((state) => state?.workLog?.workLogList);
+
+  const workLogList = useSelector((state) => state?.workLog?.workLogList);
+
 
   return (
     <Container>

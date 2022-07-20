@@ -136,7 +136,6 @@ export const deleteAccountDB = (id) => {
   return async function (dispatch) {
     try {
       console.log("장부를 삭제할거야!");
-
       await apis.deleteAccount(id);
       dispatch(deleteAccount(id));
     } catch (error) {

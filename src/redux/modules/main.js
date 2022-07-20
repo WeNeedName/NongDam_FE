@@ -82,8 +82,7 @@ export const getTodayMarketPriceDB = (data) => {
         console.log(error);
       });
   };
-};
-// 선택 작물 시세 조회
+}; // 선택 작물 시세 조회
 export const getMarketPriceDB = (data) => {
   return async function (dispatch) {
     apis
