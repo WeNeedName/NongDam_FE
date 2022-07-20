@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import Header from "../Header";
-import { loadWorkLogDB } from "../../redux/modules/workLog";
+import Header from "../components/Header";
+import { loadWorkLogDB } from "../redux/modules/workLog";
 
 const DetailWorkLog = () => {
   const navigate = useNavigate();

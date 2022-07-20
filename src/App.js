@@ -17,7 +17,7 @@ import Schedule from "./pages/Schedule";
 // import AddSchedule from "./components/schedule/AddSchedule";
 import WorkLog from "./pages/WorkLog";
 import WirteWorkLog from "./pages/WriteWorkLog";
-import DetailWorkLog from "./components/workLog/DetailWorkLog";
+import DetailWorkLog from "./pages/DetailWorkLog";
 
 function App() {
   const navigate = useNavigate();
