@@ -17,8 +17,6 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(eventInfo);
-
   // accountList date 포맷 가공
   const eventInfoDay = moment(eventInfo.start).format("YYYY-MM-DD");
   const eventInfoDayFormat = moment(eventInfo.start).format("M월 D일");
@@ -206,8 +204,15 @@ const WhereToUseType = styled.div`
 `;
 
 const MemoT = styled.span`
+  width: 186px;
   font-size: 12px;
-  margin-left: 4px;
+  margin-left: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; // 원하는 라인수
+  -webkit-box-orient: vertical;
 `;
 
 const Price = styled.span`

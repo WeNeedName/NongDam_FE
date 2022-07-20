@@ -49,7 +49,7 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
     str = String(str);
     return str.replace(/[^\d]+/g, "");
   }
-  // 월 리스트 만들기
+  // x축 월 리스트 만들기
   const today = new Date();
   const month = moment(today).format("YYYY.MM");
   let day = new Date();
@@ -62,7 +62,7 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
   });
   newMonthDateList.unshift(month);
   const monthDate = newMonthDateList.reverse();
-  // 연도 리스트 만들기
+  // x축 연도 리스트 만들기
   const myYearList = Array.from([day, day, day, day, day], (x) =>
     x.setYear(x.getFullYear() - 1)
   );

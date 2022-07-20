@@ -93,8 +93,10 @@ export const apis = {
   editSchedule: (id, schedule) => api.put(`/schedule/${id}`, schedule),
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
 
-  //일지(worklog) (수정필요)
+  //일지(worklog)
   addWorkLog: (data) => formApi.post("/worklog", data),
-  loadWorkLogList: () => api.get("/worklog"), //확정 아님
-  loadWorkLog: () => api.get("/worklog"), //확정 아님
+  loadWorkLogList: () => api.get("/worklog"),
+  loadWorkLog: (worklogid) => api.get(`/worklog/${worklogid}`),
+  deleteWorkLog: (worklogid) => api.delete(`/worklog/${worklogid}`),
+  editWorkLog: (worklogid, data) => api.patch(`/worklog/${worklogid}/update`),
 };
