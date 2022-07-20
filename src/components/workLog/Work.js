@@ -56,6 +56,7 @@ const Work = (props) => {
     <TodoContentWrap>
       <CategoryBigWrap>
         <TitleInput
+          placeholder="제목을 작성해주세요"
           onChange={(e) => {
             setMyTitle(e.target.value);
             props.setTitle(e.target.value);
@@ -198,18 +199,6 @@ const CategoryWrap = styled.div`
 const SmallTitle = styled.label`
   font-size: 18px;
   font-weight: 700;
-`;
-
-const FakeCropContent = styled.div`
-  display: inline-block;
-  border: 1px solid #bfbfbf;
-  font-color: #616161;
-  font-size: 14px;
-  width: auto;
-  height: auto;
-  padding: 4px 12px;
-  border-radius: 13px;
-  margin-right: 5px;
 `;
 
 const DatePickers = styled.div`
