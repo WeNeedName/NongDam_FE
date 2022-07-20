@@ -1,16 +1,19 @@
 import { React, useState, useEffect } from "react";
+import { useNavigate, Routes, Route, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import LoadWorkLog from "../components/workLog/LoadWorkLog";
+import DetailWorkLog from "../components/workLog/DetailWorkLog";
 import styled from "styled-components";
-import loadWorkLogListDB from "../redux/modules/workLog";
+import { loadWorkLogListDB, loadWorkLogDB } from "../redux/modules/workLog";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 //import {logOutDB} from '../redux/modules/users'
 
 const WorkLog = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const isLogin = sessionStorage.getItem("jwtToken");
 
   useEffect(() => {
@@ -22,12 +25,12 @@ const WorkLog = () => {
   }, []);
 
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
-  console.log(workLogList);
-
+  const workLogOne = useSelector((state) => state?.workLog?.workLog);
+  console.log(workLogOne);
   return (
     <Container>
       <Header />
-      <LoadWorkLog />
+      <LoadWorkLog workLogList={workLogList} />
     </Container>
   );
 };

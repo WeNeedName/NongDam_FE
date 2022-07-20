@@ -61,7 +61,7 @@ const SmallTitle = styled.label`
 `;
 
 const CategoryBigWrap = styled.div`
-  width: 60%
+  width: 60%;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
