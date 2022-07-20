@@ -64,7 +64,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
   console.log(checkedCrops, startDateFormat, endDateFormat, memo);
 
-  //console.log(myCropsList)
+  console.log(myCropsList);
 
   const [noCrop, setNoCrop] = useState();
   const goMyPage = () => {
@@ -110,7 +110,9 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                                 onChange={changeRadioCrops}
                                 value={checkedCrops}
                               />
-                              <FormCheckText>{list.name}</FormCheckText>
+                              <FormCheckText>
+                                {"[" + list.type + "]" + " " + list.name}
+                              </FormCheckText>
                             </Label>
                           );
                         })

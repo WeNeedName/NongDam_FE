@@ -117,7 +117,13 @@ const ScheduleModal = ({
                                 onChange={changeRadioCrops}
                                 value={checkedCrops}
                               />
-                              <FormCheckText>{list.name}</FormCheckText>
+                              <FormCheckText>
+                                {"[" +
+                                  list.crop.type +
+                                  "]" +
+                                  " " +
+                                  list.crop.name}
+                              </FormCheckText>
                             </Label>
                           );
                         })
@@ -126,7 +132,9 @@ const ScheduleModal = ({
                 </>
               ) : (
                 <CropLoadWrap>
-                  <CropName>{schedule.crop}</CropName>
+                  <CropName>
+                    {"[" + schedule.crop.type + "]" + " " + schedule.crop.name}
+                  </CropName>
                 </CropLoadWrap>
               )}
             </CropWrap>
