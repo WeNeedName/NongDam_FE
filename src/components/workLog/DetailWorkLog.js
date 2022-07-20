@@ -5,16 +5,17 @@ import styled from "styled-components";
 import Header from "../Header";
 import { loadWorkLogDB } from "../../redux/modules/workLog";
 
-const DetailWorkLog = ({ workLog }) => {
+const DetailWorkLog = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const params = useParams();
+  const workLogOne = useSelector((state) => state.workLog.workLog);
 
   useEffect(() => {
-    dispatch(loadWorkLogDB(params.id));
+    // dispatch(loadWorkLogDB(params.id));
   }, []);
 
-  console.log(params.id);
+  console.log(workLogOne);
 
   return (
     <>

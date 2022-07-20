@@ -41,9 +41,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/mypage/*" element={<MyPage />} />
         <Route path="/worklog/" element={<WorkLog />} />
-        <Route path="/worklog/detail">
-          <Route path=":id" element={<DetailWorkLog />} />
-        </Route>
+        <Route path="/worklog/detail/:id" element={<DetailWorkLog />} />
         <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />
         {/* <Route path="/addSchedule" element={<AddSchedule />} /> */}
