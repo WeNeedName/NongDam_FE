@@ -2,35 +2,53 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-// 이미지
-import Profile from "../images/Profile.png";
+import {
+  getIncomeDB,
+  getExpenseDB,
+  getWorktimeDB,
+  getSalesDB,
+  getTotalHarvestDB,
+} from "../redux/modules/analysis";
 
 // 컴포넌트
 import Header from "../components/Header";
 import Sales from "../components/analysis/Sales";
 import TotalHarvest from "../components/analysis/TotalHarvest";
 import AccountAnalysis from "../components/analysis/AcountAnalysis";
-import Income from "../components/analysis/Income";
-import Expense from "../components/analysis/Expense";
+import Income from "../components/analysis/Expense";
+import Expense from "../components/analysis/Income";
 import WorkTime from "../components/analysis/WorkTime";
 
 const Analysis = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isLogin = sessionStorage.getItem("jwtToken");
+  const incomeData = useSelector((state) => state.analysis.income);
+  const expenseData = useSelector((state) => state.analysis.expense);
+  const workTimeData = useSelector((state) => state.analysis.worktime);
+  const salesData = useSelector((state) => state.analysis.sales);
+  const totalHarvestData = useSelector((state) => state.analysis.totalharvest);
 
   useEffect(() => {
     if (!isLogin) navigate("/login");
   }, []);
 
+  useEffect(() => {
+    dispatch(getIncomeDB());
+    dispatch(getExpenseDB());
+    dispatch(getWorktimeDB());
+    dispatch(getSalesDB());
+    dispatch(getTotalHarvestDB());
+  }, [dispatch]);
+
   return (
     <>
       <Wrap>
         <Header currentPage="analysis" />
-        <Sales />
-        <TotalHarvest />
-        <AccountAnalysis />
-        <WorkTime />
+        <Sales salesData={salesData} />
+        <TotalHarvest totalHarvestData={totalHarvestData} />
+        <AccountAnalysis incomeData={incomeData} expenseData={expenseData} />
+        <WorkTime workTimeData={workTimeData} />
       </Wrap>
     </>
   );

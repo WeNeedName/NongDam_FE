@@ -8,7 +8,8 @@ import moment from "moment";
 import "moment/locale/ko";
 import dayjs from "dayjs";
 
-const WorkTime = () => {
+const WorkTime = ({ workTimeData }) => {
+  console.log(workTimeData);
   const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
 
   const slaes = ["600", "400", "200", "0"];

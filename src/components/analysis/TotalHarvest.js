@@ -7,11 +7,11 @@ import ApexCharts from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const TotalHarvest = () => {
+const TotalHarvest = ({ totalHarvestData }) => {
   const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
 
   const slaes = ["600", "400", "200", "0"];
-
+  // console.log(totalHarvestData);
   // 시간별 날씨 그래프 데이터
   const state = {
     series: [
@@ -238,7 +238,7 @@ const ChartBox = styled.div`
 
 const YasisLabelBox = styled.div`
   max-width: 150px;
-  width: 24%;
+  width: 28%;
   height: auto;
   background: #ffffff;
   border: 1px solid #e3e3e3;
@@ -247,7 +247,7 @@ const YasisLabelBox = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  margin: 6px 20px;
+  margin: 10px 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -298,7 +298,7 @@ const YasisColorTipC = styled.div`
 `;
 
 const YasisLabel = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 

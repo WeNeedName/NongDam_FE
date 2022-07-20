@@ -7,21 +7,42 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const Income = () => {
-  const [data, setData] = useState(null);
+const Income = ({ incomeData }) => {
+  const incomeNumList =
+    incomeData.data &&
+    incomeData.data.map((data) => {
+      return Number(data);
+    });
 
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
+  const labelList =
+    incomeData.labels &&
+    incomeData.labels.map((data) => {
+      return data.replaceAll("_", " ");
+    });
+
+  // 숫자에 콤마넣기
+  function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  }
 
   const donutData = {
-    series: [80, 40, 20],
+    series: incomeNumList !== undefined ? incomeNumList : [1, 1, 1],
     options: {
       chart: {
         type: "donut",
       },
       legend: {
         show: false,
+        position: "right",
+        // fontSize: "8px",
       },
+
+      responsive: [
+        {
+          breakpoint: 480,
+        },
+      ],
       dataLabels: {
         enabled: true,
         textAnchor: "right",
@@ -29,9 +50,9 @@ const Income = () => {
         offsetX: 0,
         offsetY: 0,
         style: {
-          fontSize: "12px",
+          fontSize: "16px",
           fontFamily: "Noto Sans KR",
-          fontWeight: "700",
+          fontWeight: "500",
           colors: [
             "white",
             "white",
@@ -45,25 +66,33 @@ const Income = () => {
         },
         dropShadow: {
           enabled: true,
-          color: "#aaa",
+          color: "#5D5D5D",
         },
       },
-      responsive: [
-        {
-          breakpoint: 480,
+      tooltip: {
+        style: {
+          fontSize: "14px",
+          fontFamily: "Noto Sans KR",
         },
-      ],
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="donut-tooltip-box">' +
+            '<span class="donut-label-data">' +
+            labelList[seriesIndex] +
+            "</span>" +
+            '<span class="donut-price-data">' +
+            comma(series[seriesIndex]) +
+            "원" +
+            "</span>" +
+            "</div>"
+          );
+        },
+      },
+
       plotOptions: {
         pie: {
+          expandOnClick: false,
           donut: {
-            // hollow: {
-            //   margin: 15,
-            //   size: '70%',
-            //   image: '../../css/images/a-icon.jpg',
-            //   imageWidth: 64,
-            //   imageHeight: 64,
-            //   imageClipped: false
-            // },
             labels: {
               show: true,
               name: {
@@ -74,34 +103,45 @@ const Income = () => {
                 fontWeight: 700,
                 color: undefined,
                 offsetY: 6,
-                formatter: function (val) {
-                  return val;
-                },
               },
 
               total: {
                 showAlways: false,
                 show: true,
-                label: "지출",
+                label: "수입",
                 fontSize: "18px",
                 fontWeight: "700",
                 color: "black",
               },
               value: {
-                fontSize: "22px",
+                fontSize: "12px",
                 show: false,
-                color: "blue",
+                color: "black",
+                // formatter: function (w) {
+                //   return w.globals.seriesTotals.reduce((a, b) => {
+                //     return a + b;
+                //   }, 0);
+                // },
               },
             },
           },
         },
       },
-      labels: ["농산물 판매", "정부보조금", "기타수입"],
+
+      labels:
+        labelList !== undefined
+          ? labelList
+          : ["농산물 판매", "정부 보조금", "기타 수입"],
     },
   };
 
   return (
     <Wrap>
+      {/* <TopWrap> */}
+      {/* <h3>지출</h3> */}
+      {/* <span>기간선택</span> */}
+      {/* </TopWrap> */}
+
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
@@ -109,9 +149,10 @@ const Income = () => {
         width="260"
       />
       <Legend>
-        <span>농산물 판매</span>
-        <span>정부보조금</span>
-        <span>기타수입</span>
+        {labelList !== undefined &&
+          labelList.map((data, idx) => {
+            return <span key={idx}>{data}</span>;
+          })}
       </Legend>
     </Wrap>
   );
@@ -123,11 +164,18 @@ const Wrap = styled.div`
   cursor: pointer;
 `;
 
+const TopWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const Legend = styled.div`
   display: flex;
   flex-direction: column;
   span {
-    font-size: 8px;
+    font-size: 10.5px;
     margin: 2px;
   }
 `;

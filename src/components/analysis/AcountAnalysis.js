@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-//컴포넌트
-import Expense from "./Expense";
-import Income from "./Income";
+import { useDispatch, useSelector } from "react-redux";
 
-const AccountAnalysis = () => {
+//컴포넌트
+import Income from "./Income";
+import Expense from "./Expense";
+
+const AccountAnalysis = ({ incomeData, expenseData }) => {
   return (
     <IncomeWrap>
       <TitleWrap>
@@ -16,8 +18,8 @@ const AccountAnalysis = () => {
         <div></div>
       </TitleWrap>
       <BodyWrap>
-        <Expense />
-        <Income />
+        <Income incomeData={incomeData} />
+        <Expense expenseData={expenseData} />
       </BodyWrap>
     </IncomeWrap>
   );
