@@ -46,7 +46,6 @@ const Wrap = styled.div`
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 20px;
-  margin-bottom: 30px;
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, 27.5%) 1fr;
   }
