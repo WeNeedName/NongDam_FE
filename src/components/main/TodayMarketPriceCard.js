@@ -57,8 +57,6 @@ const TodayMarketPrice = () => {
     }
   };
 
-  console.log(TodaymarketPriceData);
-
   return (
     <Wrap>
       {is_loaded ? (
