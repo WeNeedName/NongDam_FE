@@ -8,7 +8,7 @@ import Expense from "./Expense";
 
 const AccountAnalysis = ({ incomeData, expenseData }) => {
   return (
-    <IncomeWrap>
+    <Wrap>
       <TitleWrap>
         <SmileIcon>😀</SmileIcon>
         <Title>
@@ -21,19 +21,18 @@ const AccountAnalysis = ({ incomeData, expenseData }) => {
         <Income incomeData={incomeData} />
         <Expense expenseData={expenseData} />
       </BodyWrap>
-    </IncomeWrap>
+    </Wrap>
   );
 };
 
-const IncomeWrap = styled.div`
+const Wrap = styled.div`
   grid-column: 2 / 7;
   grid-row: 2 / 3;
 
   background: #ffffff;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 20px;
-
+  padding: 20px 20px 30px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

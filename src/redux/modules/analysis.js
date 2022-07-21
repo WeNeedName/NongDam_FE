@@ -74,10 +74,10 @@ export const getWorktimeDB = () => {
   };
 };
 // 5년간 매출통계 조회
-export const getSalesDB = () => {
+export const getSalesDB = (data) => {
   return async function (dispatch) {
     apis
-      .loadSales()
+      .loadSales(data)
       .then((response) => {
         console.log(response);
         dispatch(getSales(response.data));
@@ -88,10 +88,10 @@ export const getSalesDB = () => {
   };
 };
 // 5년간 수확량 조회
-export const getTotalHarvestDB = () => {
+export const getTotalHarvestDB = (data) => {
   return async function (dispatch) {
     apis
-      .loadTotalHarvest()
+      .loadTotalHarvest(data)
       .then((response) => {
         dispatch(getTortalHarvest(response.data));
       })

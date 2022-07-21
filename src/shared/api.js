@@ -104,6 +104,6 @@ export const apis = {
   loadIncome: () => api.get("/income"),
   loadExpense: () => api.get("/expense"),
   loadWorkTime: () => api.get("/worktime"),
-  loadSales: () => api.get("/sales"),
-  loadTotalHarvest: () => api.get("/totalharvest"),
+  loadSales: (data) => api.get(`/sales/${data}`),
+  loadTotalHarvest: (data) => api.get(`/totalharvest/${data}`),
 };

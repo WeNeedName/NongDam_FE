@@ -22,6 +22,9 @@ import WorkTime from "../components/analysis/WorkTime";
 const Analysis = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [harvestCaterory, setHarvestCaterory] = useState("month");
+  const [salesCategory, setSalesCategory] = useState("month");
+
   const isLogin = sessionStorage.getItem("jwtToken");
   const incomeData = useSelector((state) => state.analysis.income);
   const expenseData = useSelector((state) => state.analysis.expense);
@@ -37,18 +40,33 @@ const Analysis = () => {
     dispatch(getIncomeDB());
     dispatch(getExpenseDB());
     dispatch(getWorktimeDB());
-    dispatch(getSalesDB());
-    dispatch(getTotalHarvestDB());
+    dispatch(getSalesDB(salesCategory));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getTotalHarvestDB(harvestCaterory));
+  }, [harvestCaterory]);
+
+  useEffect(() => {
+    dispatch(getSalesDB(salesCategory));
+  }, [salesCategory]);
 
   return (
     <>
       <Wrap>
         <Header currentPage="analysis" />
-        <Sales salesData={salesData} />
-        <TotalHarvest totalHarvestData={totalHarvestData} />
         <AccountAnalysis incomeData={incomeData} expenseData={expenseData} />
         <WorkTime workTimeData={workTimeData} />
+        <TotalHarvest
+          totalHarvestData={totalHarvestData}
+          setHarvestCaterory={setHarvestCaterory}
+          harvestCaterory={harvestCaterory}
+        />
+        <Sales
+          salesData={salesData}
+          setSalesCategory={setSalesCategory}
+          salesCategory={salesCategory}
+        />
       </Wrap>
     </>
   );
@@ -67,6 +85,7 @@ const Wrap = styled.div`
   row-gap: 16px;
   column-gap: 16px;
   background: #f5f5f5;
+  margin-bottom: 20px;
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(8, 7.8%) 1fr;
     grid-template-rows: 90px 320px 320px 0;
