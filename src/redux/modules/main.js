@@ -42,7 +42,7 @@ const initialState = {
   marketPrice_is_loaded: false,
   toDo_is_loaded: false,
   news_is_loaded: false,
-  analysis_is_loaded: true,
+  analysis_is_loaded: false,
   // 시세페이지 로딩
   searchMarketPrice_is_loaded: false,
 

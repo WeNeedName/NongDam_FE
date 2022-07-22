@@ -40,7 +40,6 @@ const Analysis = () => {
     dispatch(getIncomeDB());
     dispatch(getExpenseDB());
     dispatch(getWorktimeDB());
-    dispatch(getSalesDB(salesCategory));
   }, [dispatch]);
 
   useEffect(() => {

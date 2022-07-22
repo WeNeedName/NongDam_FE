@@ -21,11 +21,20 @@ import TodayNews from "../components/main/TodayNews";
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [salesCategory, setSalesCategory] = useState("month");
+  const [harvestCaterory, setHarvestCaterory] = useState("month");
 
   const isLogin = sessionStorage.getItem("jwtToken");
+  const incomeData = useSelector((state) => state.analysis.income);
+  const expenseData = useSelector((state) => state.analysis.expense);
   const salesData = useSelector((state) => state.analysis.sales);
+  const totalHarvestData = useSelector((state) => state.analysis.totalharvest);
+
+  useEffect(() => {
+    dispatch(getIncomeDB());
+    dispatch(getExpenseDB());
+    dispatch(getWorktimeDB());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isLogin) navigate("/login");
@@ -35,6 +44,10 @@ const Main = () => {
     dispatch(getSalesDB(salesCategory));
   }, [salesCategory]);
 
+  useEffect(() => {
+    dispatch(getTotalHarvestDB(harvestCaterory));
+  }, [harvestCaterory]);
+
   return (
     <>
       <Wrap>
@@ -42,7 +55,12 @@ const Main = () => {
         <Weather />
         <MarketPriceCard />
         <TodayTodo />
-        <AnalysisCard salesData={salesData} />
+        <AnalysisCard
+          salesData={salesData}
+          totalHarvestData={totalHarvestData}
+          incomeData={incomeData}
+          expenseData={expenseData}
+        />
         <TodayNews />
       </Wrap>
     </>
@@ -51,9 +69,7 @@ const Main = () => {
 
 const Wrap = styled.div`
   width: 100vw;
-  /* height: 100vh; */
   max-width: 1920px;
-  /* height: auto; */
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 1fr repeat(3, 25%) 1fr;
