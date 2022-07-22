@@ -53,7 +53,7 @@ function App() {
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    font-family: "Noto Sans KR";
+    font-family: "Noto Sans KR", sans-serif;
     color:  #02113B;
     margin: 0;
     padding: 0;

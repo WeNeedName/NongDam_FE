@@ -1,7 +1,6 @@
-.App {
-  text-align: center;
-}
-
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url(//db.onlinewebfonts.com/c/bde89ab00cb34cc906059b3cbdd513dc?family=SF+Pro+Rounded);
+@font-face {font-family: "SF Pro Rounded"; src: url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.eot"); src: url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.woff") format("woff"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.svg#SF Pro Rounded") format("svg"); }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
