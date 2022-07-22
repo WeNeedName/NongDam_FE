@@ -154,6 +154,9 @@ const ThumNailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media only screen and (max-width: 760px) {
+    margin-top: 30px;
+  }
 `;
 
 const ThumNail = styled.div`

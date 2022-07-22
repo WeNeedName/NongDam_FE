@@ -381,16 +381,10 @@ const Wrap = styled.div`
 `;
 
 const EndWrap = styled.div`
-  width: 8%;
+  width: 12%;
   height: 100%;
   border: none;
-  border-radius: 10px;
-  padding: 20px 20px 16px 20px;
-  display: flex;
-  flex-direction: column;
   background-color: #f5f5f5;
-  margin-right: 20px;
-  cursor: pointer;
 `;
 
 const RowWrap = styled.div`
