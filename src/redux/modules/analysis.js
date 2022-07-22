@@ -65,7 +65,6 @@ export const getWorktimeDB = () => {
     apis
       .loadWorkTime()
       .then((response) => {
-        console.log(response.data);
         dispatch(getWorktime(response.data));
       })
       .catch((error) => {
@@ -79,7 +78,6 @@ export const getSalesDB = (data) => {
     apis
       .loadSales(data)
       .then((response) => {
-        console.log(response);
         dispatch(getSales(response.data));
       })
       .catch((error) => {

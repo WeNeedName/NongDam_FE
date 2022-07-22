@@ -8,18 +8,26 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const TotalHarvestChart = ({ totalHarvestData }) => {
-  const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
+  // y축 [0 - 사잇값 - 최댓값] 배열 만들기
+  const allDataList = [];
+  totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((list, idx) => {
+      return allDataList.push(...list.data);
+    });
+  const allDataListSort = allDataList.sort((a, b) => b - a);
+  const largestNumber = Number(allDataListSort[0]);
+  const mathPow = Math.pow(10, allDataListSort[0]?.length - 1);
+  const mathRound = Math.ceil(largestNumber / mathPow) * mathPow;
 
-  const slaes = ["600", "400", "200", "0"];
-  let data = [];
-  //   const newDataList =
-  //     data &&
-  //     data.map((list) => {
-  //       return String(list);
-  //     });
+  const range = (start, stop, step) =>
+    Array.from(
+      { length: (stop - start) / step + 1 },
+      (_, i) => start + i * step
+    );
 
-  console.log(data);
+  const yaxis = range(0, mathRound, mathRound / 4).reverse();
 
+  // 수확량 차트 state.series 값 배열
   const seriesList =
     totalHarvestData.datas !== undefined &&
     totalHarvestData.datas.map((data) => {
@@ -33,6 +41,8 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
       return data.name;
     });
 
+  const lineWidthArr = Array.from({ length: 7 }, (v, i) => (v = 2));
+
   // 내 작물 월별 수확량 차트 state
   const state = {
     series:
@@ -41,7 +51,7 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
         : [{ name: "", data: ["0", "0", "0", "0", "0", "0"] }],
     options: {
       markers: {
-        size: [2, 2, 2],
+        size: lineWidthArr,
         colors: [
           "#3152bf",
           "#7EB3E3",
@@ -74,7 +84,7 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
       },
       stroke: {
         curve: "straight",
-        width: [2, 2, 2],
+        width: lineWidthArr,
         colors: [
           "#3152bf",
           "#7EB3E3",
@@ -177,7 +187,6 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
           offsetX: 0,
           offsetY: 0,
           formatter: (value) => {
-            data.push(value);
             return value;
           },
         },
@@ -189,10 +198,10 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
     <>
       <ChartWrap>
         <YasisWrap>
-          {/* {slaes !== undefined &&
-            slaes.map((list, id) => {
+          {yaxis !== undefined &&
+            yaxis.map((list, id) => {
               return <Yasis key={id}>{list}</Yasis>;
-            })} */}
+            })}
         </YasisWrap>
 
         <ChartBox>

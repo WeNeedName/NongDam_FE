@@ -7,58 +7,33 @@ import ApexCharts from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const TotalHarvestChart = ({ salesData }) => {
-  // 1. y축 [0 - 사잇값 - 최댓값] 배열 만들기
-  const allDataList = [];
-  salesData.datas !== undefined &&
-    salesData.datas.map((list, idx) => {
-      return allDataList.push(...list.data);
-    });
-  const allDataListSort = allDataList.sort((a, b) => b - a);
-  const largestNumber = Number(allDataListSort[0]);
-  const smallestNumber = Number(allDataListSort[allDataListSort.length - 1]);
-  // 1-1. 만원 단위로 절사
-  const largestNumberWon = Math.floor(largestNumber / 10000);
-  const smallestNumberWon = Math.floor(smallestNumber / 10000);
+const TotalHarvestYearChart = ({ totalHarvestData }) => {
+  const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
 
-  const mathPow =
-    allDataListSort[0]?.length >= 2
-      ? Math.pow(10, String(largestNumberWon).length - 1)
-      : 1;
-  const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
-
-  const range = (start, stop, step) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (_, i) => start + i * step
-    );
-  const yaxis = range(smallestNumberWon, mathRound, mathRound / 4).reverse();
-
-  // 2. 수확량 차트 state.series 값 배열
+  const slaes = ["600", "400", "200", "0"];
+  console.log(totalHarvestData);
   const seriesList =
-    salesData.datas !== undefined &&
-    salesData.datas.map((data) => {
+    totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((data) => {
       return data;
     });
 
-  // 3. 데이터 label 리스트
-  const dataLabelList =
-    salesData.datas !== undefined &&
-    salesData.datas.map((data) => {
+  // 내 작물 name 리스트
+  const cropNameList =
+    totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((data) => {
       return data.name;
     });
 
-  const lineWidthArr = Array.from({ length: 7 }, (v, i) => (v = 2));
-
-  // 4. 내 작물 월별 수확량 차트 state
+  // 내 작물 연도별 수확량 차트 state
   const state = {
     series:
-      salesData.datas !== undefined
+      totalHarvestData.datas !== undefined
         ? seriesList
         : [{ name: "", data: ["0", "0", "0", "0", "0", "0"] }],
     options: {
       markers: {
-        size: lineWidthArr,
+        size: [2, 2, 2],
         colors: [
           "#3152bf",
           "#7EB3E3",
@@ -91,7 +66,7 @@ const TotalHarvestChart = ({ salesData }) => {
       },
       stroke: {
         curve: "straight",
-        width: lineWidthArr,
+        width: [2, 2, 2],
         colors: [
           "#3152bf",
           "#7EB3E3",
@@ -126,7 +101,7 @@ const TotalHarvestChart = ({ salesData }) => {
           top: -2,
           right: 20,
           bottom: -10,
-          left: 0,
+          left: 20,
         },
       },
       tooltip: {
@@ -138,19 +113,18 @@ const TotalHarvestChart = ({ salesData }) => {
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          const price = Math.floor(series[seriesIndex][dataPointIndex] / 10000);
           return (
             '<div class="tooltip-box">' +
             '<div class="line">' +
             '<span class="crop-label">' +
-            dataLabelList[seriesIndex] +
+            cropNameList[seriesIndex] +
             "</span>" +
             "</div>" +
             '<div class="line-bottom">' +
             '<span class="kg-label-data">' +
-            price +
+            series[seriesIndex][dataPointIndex] +
             '<span class="kg-label">' +
-            "만원" +
+            "kg" +
             "</span>" +
             "</span>" +
             "</div>" +
@@ -159,7 +133,8 @@ const TotalHarvestChart = ({ salesData }) => {
         },
       },
       xaxis: {
-        categories: salesData?.xlabel !== undefined && salesData?.xlabel,
+        categories:
+          totalHarvestData?.xlabel !== undefined && totalHarvestData?.xlabel,
         labels: {
           formatter: function (value) {
             return value;
@@ -180,7 +155,7 @@ const TotalHarvestChart = ({ salesData }) => {
         },
       },
       yaxis: {
-        show: true,
+        show: false,
         min: undefined,
         max: undefined,
         labels: {
@@ -204,23 +179,23 @@ const TotalHarvestChart = ({ salesData }) => {
   return (
     <>
       <ChartWrap>
-        <YasisWrap>
-          {yaxis !== undefined &&
-            yaxis.map((list, id) => {
+        {/* <YasisWrap>
+          {data !== undefined &&
+            data.map((list, id) => {
               return <Yasis key={id}>{list}</Yasis>;
             })}
-        </YasisWrap>
+        </YasisWrap> */}
 
         <ChartBox>
           <ApexCharts
             options={state.options}
             series={state.series}
             type="line"
-            height={94 + "%"}
+            height={100 + "%"}
           />
           <YasisLabelBox>
-            {dataLabelList &&
-              dataLabelList.map((list, idx) => {
+            {cropNameList &&
+              cropNameList.map((list, idx) => {
                 return (
                   <YasisLabelWrap key={idx}>
                     <YasisColorTip index={idx} />
@@ -231,8 +206,8 @@ const TotalHarvestChart = ({ salesData }) => {
           </YasisLabelBox>
         </ChartBox>
         <XasisWrap>
-          {salesData?.xlabel !== undefined &&
-            salesData?.xlabel.map((data, id) => {
+          {totalHarvestData?.xlabel !== undefined &&
+            totalHarvestData?.xlabel.map((data, id) => {
               return <Xasis key={id}>{data}</Xasis>;
             })}
         </XasisWrap>
@@ -243,12 +218,14 @@ const TotalHarvestChart = ({ salesData }) => {
 
 const ChartWrap = styled.div`
   width: 100%;
-  height: 70%;
-  display: grid;
+  height: 76%;
+  /* display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
   row-gap: 4px;
-  column-gap: 8px;
+  column-gap: 8px; */
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   margin-top: 12px;
 `;
@@ -269,6 +246,7 @@ const Yasis = styled.span`
 
 const ChartBox = styled.div`
   width: 100%;
+  height: 300px;
   margin-top: 6px;
   background: #fafafa;
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
@@ -343,10 +321,9 @@ const XasisWrap = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  margin: 0px 10px;
-  /* margin-top: 4px; */
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
+  margin: 10px 10px;
+  /* grid-column: 2 / 3;
+  grid-row: 2 / 3; */
 `;
 
 const Xasis = styled.span`
@@ -354,4 +331,4 @@ const Xasis = styled.span`
   color: #666666;
 `;
 
-export default TotalHarvestChart;
+export default TotalHarvestYearChart;
