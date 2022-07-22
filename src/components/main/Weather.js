@@ -269,6 +269,9 @@ const InfoNum = styled.span`
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 760px) {
+    height: 290px;
+  }
 `;
 
 const CategoryWrap = styled.div`

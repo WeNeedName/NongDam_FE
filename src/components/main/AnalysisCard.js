@@ -8,7 +8,7 @@ import { ShimmerText } from "react-shimmer-effects";
 // 컴포넌트
 import AnalysisSalesChart from "./AnalysisSalesChart";
 
-const AnalysisCard = () => {
+const AnalysisCard = ({ salesData }) => {
   const navigate = useNavigate();
   const is_loaded = useSelector((state) => state.main.analysis_is_loaded);
   const userInfo = useSelector((state) => state.users.user);
@@ -22,7 +22,7 @@ const AnalysisCard = () => {
     }
   };
 
-  console.log(userInfo);
+  console.log(salesData);
 
   return (
     <Wrap>
@@ -113,7 +113,9 @@ const AnalysisCard = () => {
             </Label>
           </CategoryWrap>
           <ChartWrap>
-            {checkedInputs === "sales" && <AnalysisSalesChart />}
+            {checkedInputs === "sales" && (
+              <AnalysisSalesChart salesData={salesData} />
+            )}
           </ChartWrap>
         </>
       ) : (
@@ -228,7 +230,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-const ChartWrap = styled.div``;
+const ChartWrap = styled.div`
+  width: 100%;
+  height: 70%;
+`;
 
 const NoticeWrap = styled.div`
   width: 100%;
