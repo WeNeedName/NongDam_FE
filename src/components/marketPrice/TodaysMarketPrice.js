@@ -25,7 +25,7 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
 
   const marketName =
     marketPriceData !== undefined && marketPriceData[0]?.country;
-  console.log(marketName);
+
   const [selectedCrops, setSelectedCrops] = useState(21);
   const [checkedInputs, setCheckedInputs] = useState("소매");
 
@@ -61,7 +61,6 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
       setCheckedInputs(e.target.id);
     }
   };
-  console.log(userInfo?.crops.length);
 
   return (
     <Wrap>

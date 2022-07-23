@@ -28,7 +28,7 @@ const WorkLog = () => {
 
   return (
     <Container>
-      <Header />
+      <Header currentPage="workLog" />
       <LoadWorkLog workLogList={workLogList} />
     </Container>
   );

@@ -70,7 +70,6 @@ const WorkTimeBarChart = ({ workTimeData }) => {
       : 1;
   const smallNumMathRound =
     Math.ceil(smallestNumber / smallNumMathPow) * smallNumMathPow;
-  console.log(mathRound, smallNumMathRound);
 
   const range = (start, stop, step) =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => {
@@ -101,7 +100,10 @@ const WorkTimeBarChart = ({ workTimeData }) => {
   };
 
   const state = {
-    series: seriesList,
+    series:
+      workTimeData.datas !== undefined
+        ? seriesList
+        : [{ name: "", data: ["0", "0", "0", "0", "0", "0"] }],
     options: {
       legend: {
         show: false,

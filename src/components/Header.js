@@ -26,8 +26,6 @@ const Haeder = ({ currentPage }) => {
     dispatch(getInfoDB());
   }, []);
 
-  console.log(userInfo);
-
   return (
     <Wrap>
       <Nav>
@@ -180,7 +178,7 @@ const Logo = styled.span`
   font-weight: 400 !important;
   font-size: 34px;
   line-height: 100%;
-  color: #318f27;
+  color: #55a349;
   margin-right: 30px;
   cursor: pointer;
   @media only screen and (max-width: 760px) {
