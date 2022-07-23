@@ -126,7 +126,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     showTimeSelect
-                    minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                     locale={ko} // 한글로 변경
                     //inline//달력 보이게

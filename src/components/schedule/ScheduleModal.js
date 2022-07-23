@@ -106,7 +106,7 @@ const ScheduleModal = ({
                     {myCropsList !== undefined
                       ? myCropsList.map((list, idx) => {
                           //setCheckedCrops(.id)
-                          //console.log(list)
+                          console.log(list);
                           return (
                             <Label key={list.id}>
                               <FormCheckLeft
@@ -118,11 +118,8 @@ const ScheduleModal = ({
                                 value={checkedCrops}
                               />
                               <FormCheckText>
-                                {"[" +
-                                  list.crop.type +
-                                  "]" +
-                                  " " +
-                                  list.crop.name}
+                                {list !== undefined &&
+                                  "[" + list?.type + "]" + " " + list?.name}
                               </FormCheckText>
                             </Label>
                           );
@@ -446,7 +443,7 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
 const InputMemo = styled.textarea`
   width: 300px;
   font-size: 15px;
-  font-color: #616161;
+  color: #616161;
   padding-top: 10px;
   padding-right: 10px;
   padding-left: 10px;
@@ -457,7 +454,7 @@ const InputMemo = styled.textarea`
 
 const WorkContent = styled.div`
   font-size: 18px;
-  font-color: #616161;
+  color: #616161;
   padding-top: 10px;
   padding-right: 10px;
   padding-left: 10px;
