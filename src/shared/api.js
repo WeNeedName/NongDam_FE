@@ -79,7 +79,7 @@ export const apis = {
   logout: () => api.post("/"),
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
-  editUserInfo: (id, data) => formApi.put(`/member/{memberid}`, id, data),
+  //editUserInfo: (id, data) => formApi.put(`/member/${memberid}`, id, data),
   editPw: (data) => api.put(`/member/{memberid}/password`, data),
 
   loadCropsList: () => api.get("/crops"),
@@ -97,6 +97,6 @@ export const apis = {
   addWorkLog: (data) => formApi.post("/worklog", data),
   loadWorkLogList: () => api.get("/worklog"),
   loadWorkLog: (id) => api.get(`/worklog/${id}`),
-  deleteWorkLog: (worklogid) => api.delete(`/worklog/${worklogid}`),
-  editWorkLog: (worklogid, data) => api.patch(`/worklog/${worklogid}/update`),
+  deleteWorkLog: (id) => api.delete(`/worklog/${id}`),
+  // editWorkLog: (id, data) => api.patch(`/worklog/${worklogid}/update`, id, data),
 };

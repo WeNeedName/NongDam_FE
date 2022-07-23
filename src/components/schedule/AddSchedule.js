@@ -64,7 +64,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
   console.log(checkedCrops, startDateFormat, endDateFormat, memo);
 
-  //console.log(myCropsList)
+  console.log(myCropsList);
 
   const [noCrop, setNoCrop] = useState();
   const goMyPage = () => {
@@ -110,7 +110,9 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                                 onChange={changeRadioCrops}
                                 value={checkedCrops}
                               />
-                              <FormCheckText>{list.name}</FormCheckText>
+                              <FormCheckText>
+                                {"[" + list.type + "]" + " " + list.name}
+                              </FormCheckText>
                             </Label>
                           );
                         })
@@ -124,7 +126,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     showTimeSelect
-                    minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                     locale={ko} // 한글로 변경
                     //inline//달력 보이게

@@ -16,13 +16,12 @@ const Signup = () => {
   const [userNickname, setUserNickname] = useState("");
   const [userName, setUserName] = useState("");
   const [success, setSuccess] = useState(false);
+  const [empty, setEmpty] = useState(false);
 
   const userSignUp = useSelector((state) => state.users.users);
 
-  //const userId = email + "@" +userMail
   //이메일 검사
   const [userIdErr, setUserIdErr] = useState(false);
-
   const onChangeUserId = (e) => {
     const userIdRegex =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -204,7 +203,9 @@ const Signup = () => {
             signUp(email, pw, userName, userNickname);
           }}
           disabled={
-            !email || !pw || !pwCheck || userIdErr || pwCheckErr ? true : false
+            !email || !pw || !pwCheck || !userIdErr || !pwCheckErr
+              ? true
+              : false
           }
         >
           회원가입
@@ -220,7 +221,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  align-item: center;
+
   position: relative;
 `;
 
@@ -296,7 +297,7 @@ const InfoPw = styled.div`
   margin-right: 60px;
   margin-top: 3px;
   font-size: 11px;
-  font-color: #666666;
+  color: #666666;
 `;
 
 const PwErr = styled.div`
@@ -330,7 +331,7 @@ const InfoPc = styled.div`
   margin-right: 100px;
   margin-top: 3px;
   font-size: 11px;
-  font-color: #666666;
+  color: #666666;
 `;
 
 const PwCheckOk = styled.div`
@@ -367,7 +368,7 @@ const SignUpBtn = styled.button`
   width: 253px;
   height: 40px;
   flex-direction: center;
-  align-text: center;
+
   justify-content: center;
   text-align: center;
   padding: 4px 13px;

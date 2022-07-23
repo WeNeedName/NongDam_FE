@@ -96,7 +96,7 @@ const EditMemberInfo = () => {
     console.log(data);
     await axios({
       method: "put",
-      url: "https://idontcare.shop/member",
+      url: `https://idontcare.shop/member`,
       data: frm,
       headers: {
         "Content-Type": "multipart/form-data",
@@ -193,12 +193,14 @@ const EditMemberInfo = () => {
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
             <CropsContent>
               <PreviousMyCrops>
-                {userInfo?.crops.map((list) => {
-                  return (
+                {userInfo?.crops.map((list, idx) => {
+                  <div key={idx}>
+                    return (
                     <PreviousCropsList>
                       {"[" + list.type + "]" + " " + list.name}
                     </PreviousCropsList>
-                  );
+                    );
+                  </div>;
                 })}
               </PreviousMyCrops>
               <MyCrops setCrops={setCrops} previousCrops={previousCrops} />
