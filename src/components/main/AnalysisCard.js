@@ -10,12 +10,14 @@ import AnalysisSalesChart from "./AnalysisSalesChart";
 import AnalysisTotalHarvestChart from "./AnalysisTotalHarvestChart";
 import Income from "./Income";
 import Expense from "./Expense";
+import WorkTimeBarChart from "./WorkTimeBarChart";
 
 const AnalysisCard = ({
   salesData,
   totalHarvestData,
   expenseData,
   incomeData,
+  workTimeData,
 }) => {
   const navigate = useNavigate();
   const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
@@ -126,10 +128,33 @@ const AnalysisCard = ({
               <AnalysisTotalHarvestChart totalHarvestData={totalHarvestData} />
             )}
             {checkedInputs === "account" && (
-              <BodyWrap>
-                <Income incomeData={incomeData} />
-                <Expense expenseData={expenseData} />
-              </BodyWrap>
+              <>
+                {incomeData?.data.length !== 0 &&
+                expenseData?.data.length !== 0 ? (
+                  <BodyWrap>
+                    <Income incomeData={incomeData} />
+                    <Expense expenseData={expenseData} />
+                  </BodyWrap>
+                ) : (
+                  <NoticeWrap>
+                    <NoticeT>
+                      지금 농장장부를 기록하고
+                      <br />
+                      수입 및 지출을 알아보세요!
+                    </NoticeT>
+                    <NoticeBtn
+                      onClick={() => {
+                        navigate("/accountbook");
+                      }}
+                    >
+                      기록하러 가기
+                    </NoticeBtn>
+                  </NoticeWrap>
+                )}
+              </>
+            )}
+            {checkedInputs === "workTime" && (
+              <WorkTimeBarChart workTimeData={workTimeData} />
             )}
           </ChartWrap>
         </>
@@ -281,6 +306,7 @@ const NoticeWrap = styled.div`
   bottom: 0;
   left: 0;
   border-radius: 10px;
+  margin-bottom: 13px;
 `;
 
 const NoticeT = styled.span`
