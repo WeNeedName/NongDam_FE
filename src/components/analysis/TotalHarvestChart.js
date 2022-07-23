@@ -24,8 +24,10 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
       { length: (stop - start) / step + 1 },
       (_, i) => start + i * step
     );
-
-  const yaxis = range(0, mathRound, mathRound / 4).reverse();
+  const yaxis =
+    allDataListSort[0] !== 0
+      ? range(0, mathRound, mathRound / 4).reverse()
+      : ["0", "0", "0", "0", "0"];
 
   // 수확량 차트 state.series 값 배열
   const seriesList =

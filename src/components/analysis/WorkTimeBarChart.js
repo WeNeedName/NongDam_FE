@@ -79,9 +79,11 @@ const WorkTimeBarChart = ({ workTimeData }) => {
       const mathRound = Math.ceil(num / mathPow) * mathPow;
       return mathRound;
     });
-  const yaxis = range(0, mathRound, mathRound / 4);
-  // yaxis.push(mathRound);
-  // yaxis.unshift(0);
+
+  const yaxis =
+    sumListSort[0] !== 0
+      ? range(0, mathRound, mathRound / 4)
+      : ["0", "0", "0", "0", "0"];
 
   // 증가율 구하기
   const rate = (sumListCopy[1] / sumListCopy[0]) * 100;

@@ -28,12 +28,14 @@ const AnalysisSalesChart = ({ salesData }) => {
   const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
 
   const range = (start, stop, step) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (_, i) => start + i * step
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
+      Math.round(start + i * step)
     );
-  const yaxis = range(smallestNumberWon, mathRound, mathRound / 4).reverse();
-
+  const yaxis =
+    allDataListSort[0] !== 0
+      ? range(smallestNumberWon, mathRound, mathRound / 4).reverse()
+      : ["0", "0", "0", "0", "0"];
+  console.log(allDataListSort);
   // 2. 수확량 차트 state.series 값 배열
   const seriesList =
     salesData.datas !== undefined &&
