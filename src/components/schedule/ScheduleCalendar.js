@@ -110,11 +110,12 @@ const MonthChangeBtn = styled.div`
   border: 1px solid #bfbfbf;
   border-radius: 13px;
   padding: 3.5px 13px;
+  color: #616161;
   font-size: 14px;
   background-color: transparent;
   position: absolute;
-  left: 74%;
-  top: 4.8%;
+  left: 75%;
+  top: 4.7%;
   cursor: pointer;
   &:hover {
     opacity: 0.7;
