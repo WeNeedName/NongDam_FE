@@ -34,8 +34,6 @@ const LoadWorkLog = ({ workLogList }) => {
 
         {workLogList !== undefined
           ? workLogList.map((list, i) => {
-              // console.log(list);
-
               return (
                 <BoxWrap
                   className="boxWrap"
@@ -54,7 +52,7 @@ const LoadWorkLog = ({ workLogList }) => {
                         <WorkContent className="workMemoWrap">
                           {list?.memo}
                         </WorkContent>
-                        <CropContent>{list?.crop}</CropContent>
+                        <CropContent>{list?.crop?.type}</CropContent>
                       </LeftContent>
                       <RightContent>
                         <MoreVertIcon
@@ -63,12 +61,14 @@ const LoadWorkLog = ({ workLogList }) => {
                             marginBottom: "10px",
                           }}
                         />
-                        <ImgContent
-                          style={{
-                            backgroundImage: `url(${list?.images})`,
-                            backgroundSize: "cover",
-                          }}
-                        ></ImgContent>
+                        {list.images[0] !== undefined ? (
+                          <ImgContent
+                            style={{
+                              backgroundImage: `url(${list?.images})`,
+                              backgroundSize: "cover",
+                            }}
+                          />
+                        ) : null}
                       </RightContent>
                     </WorkLogBox>
                   </div>
@@ -86,13 +86,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const Wrap = styled.div`
   width: 630px;
   padding: 30px;
-
   flex-direction: column;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: transparent;
   border-radius: 10px;
 `;
 
@@ -103,7 +103,7 @@ const TopWrap = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 `;
 const BtnWrap = styled.div``;
@@ -116,7 +116,7 @@ const SearchByDateBtn = styled.button`
   border-radius: 10px;
   color: #616161;
   border: 1px solid #bfbfbf;
-  background-color: transparent;
+  background-color: #fff;
 `;
 const WriteBtn = styled.button`
   margin-left: 10px;

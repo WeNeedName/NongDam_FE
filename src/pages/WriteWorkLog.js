@@ -10,7 +10,7 @@ import { addWorkLogDB } from "../redux/modules/workLog";
 import Work from "../components/workLog/Work";
 import WorkPhoto from "../components/workLog/WorkPhoto";
 import SubMaterial from "../components/workLog/SubMaterial";
-import Record from "../components/workLog/Record";
+import Harvest from "../components/workLog/Harvest";
 
 const WriteWorkLog = () => {
   const navigate = useNavigate();
@@ -21,54 +21,83 @@ const WriteWorkLog = () => {
 
   const [title, setTitle] = useState("");
   const [crop, setCrop] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [workTime, setWorkTime] = useState("");
   const [memo, setMemo] = useState("");
   //const [subMaterial, setSubMaterial] = useState([])
 
-  const [type, setType] = useState(0);
-  const [product, setProduct] = useState("");
-  const [use, setUse] = useState("");
-  const [unit, setUnit] = useState("");
-  const usage = use + unit;
+  const [type0, setType0] = useState(0);
+  const [product0, setProduct0] = useState("");
+  const [use0, setUse0] = useState("");
+  const [unit0, setUnit0] = useState("");
+  const usage0 = use0 + unit0;
 
-  const subMaterial = [
-    {
-      type: type,
-      product: product,
-      use: usage,
-    },
-  ];
+  const [type1, setType1] = useState(1);
+  const [product1, setProduct1] = useState("");
+  const [use1, setUse1] = useState("");
+  const [unit1, setUnit1] = useState("");
+  const usage1 = use1 + unit1;
 
-  const [harvest, setHarvest] = useState("");
+  const subMaterial0 = {
+    type: type0,
+    product: product0,
+    use: usage0,
+  };
+
+  const subMaterial1 = {
+    type: type1,
+    product: product1,
+    use: usage1,
+  };
+
+  const subMaterial = [subMaterial0, subMaterial1];
+
+  const [harvest, setHarvest] = useState(0);
   const [images, setImages] = useState("");
   const dateFormat = moment(date).format("YYYY-MM-DD");
   const numberTime = Number(workTime);
   const numberCrop = Number(crop);
+  const numberHarvest = Number(harvest);
+  const [message, setMessage] = useState(false);
+
+  // useEffect(() => {
+  //   if (title || crop || date || workTime || memo === null) {
+  //     window.alert("빈 칸을 채워주세요");
+  //   }
+  // }, [message]);
+
   const addWorkLog = async (event) => {
-    const data = {
-      title: title,
-      crop: numberCrop,
-      date: dateFormat,
-      memo: memo,
-      workTime: numberTime,
-      subMaterial: subMaterial,
-      harvest: harvest,
-    };
-    let frm = new FormData();
-    frm.append("data", JSON.stringify(data));
-    frm.append("images", images);
-    await axios({
-      method: "post",
-      url: "https://idontcare.shop/worklog",
-      data: frm,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        RefreshToken: `Bearer ${refreshToken}`,
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    dispatch(addWorkLogDB(data, images)).then(navigate("/worklog"));
+    if (!title || !crop || !date || !workTime || !memo) {
+      window.alert("빈 칸을 채워주세요");
+    } else {
+      const data = {
+        title: title,
+        crop: numberCrop,
+        date: dateFormat,
+        memo: memo,
+        workTime: numberTime,
+        subMaterial: subMaterial,
+        harvest: numberHarvest,
+      };
+      let frm = new FormData();
+      frm.append("data", JSON.stringify(data));
+      if (images === "") {
+        frm.append("images", "");
+      } else {
+        frm.append("images", images);
+      }
+      await axios({
+        method: "post",
+        url: "https://idontcare.shop/worklog",
+        data: frm,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          RefreshToken: `Bearer ${refreshToken}`,
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(addWorkLogDB(data, images)).then(navigate("/worklog"));
+    }
   };
   console.log(
     title,
@@ -97,18 +126,31 @@ const WriteWorkLog = () => {
               setWorkTime={setWorkTime}
             />
             <SubMaterial
-              setType={setType}
-              setProduct={setProduct}
-              setUse={setUse}
-              setUnit={setUnit}
+              setType0={setType0}
+              setProduct0={setProduct0}
+              product0={product0}
+              setUse0={setUse0}
+              use0={use0}
+              setUnit0={setUnit0}
+              unit0={unit0}
+              setType1={setType1}
+              setProduct1={setProduct1}
+              product1={product1}
+              setUse1={setUse1}
+              use1={use1}
+              setUnit1={setUnit1}
+              unit1={unit1}
             />
-            <Record setHarvest={setHarvest} />
+            <Harvest setHarvest={setHarvest} />
             <WorkPhoto setImages={setImages} />
           </ContentWrap>
+
           <BtnWrap>
             <DoneBtn
               onClick={() => {
-                addWorkLog();
+                {
+                  addWorkLog();
+                }
               }}
             >
               작성완료
@@ -128,10 +170,11 @@ const WriteWorkLog = () => {
 };
 
 const Container = styled.div`
-  background-color: #ddd;
+  background-color: #f5f5f5;
 `;
 
 const TotalWrap = styled.div`
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,12 +183,13 @@ const TotalWrap = styled.div`
 `;
 const TotalTitle = styled.div`
   margin-top: 100px;
-  margin-right: 890px;
+  margin-right: 600px;
   font-size: 24px;
   font-weight: 700;
 `;
 const Wrap = styled.div`
-  width: 954px;
+  width: 700px;
+
   height: 1008px;
   justify-content: center;
   align-items: center;
@@ -157,15 +201,16 @@ const Wrap = styled.div`
 `;
 
 const ContentWrap = styled.div`
-  // padding: 10px;
-  // width: 80%;
-  // height: 80vh;
-  // background-color: #fff;
+  padding: 10px;
+  width: 80%;
+  height: 80vh;
 `;
 
 const BtnWrap = styled.div`
-  margin-left: 700px;
-  margin-top: 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 300px;
 `;
 
 const DoneBtn = styled.button`
