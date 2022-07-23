@@ -43,6 +43,9 @@ const Income = ({ incomeData }) => {
           breakpoint: 480,
         },
       ],
+      fill: {
+        colors: ["#44D600", "#33C2FF", "#2B9CEF"],
+      },
       dataLabels: {
         enabled: true,
         textAnchor: "right",
@@ -127,7 +130,6 @@ const Income = ({ incomeData }) => {
           },
         },
       },
-
       labels:
         labelList !== undefined
           ? labelList
