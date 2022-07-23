@@ -39,7 +39,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
           return Number(uncomma(price));
         })
       : null;
-  console.log(wholeSalePriceList);
+
   const cropName =
     selectedCrops === 21 ? null : selectedCrops?.label.split(" ")[1];
 

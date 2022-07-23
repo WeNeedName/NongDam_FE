@@ -35,7 +35,6 @@ const MarketPrice = () => {
   const [checkedInputs, setCheckedInputs] = useState("month");
 
   const userInfo = useSelector((state) => state.users.user);
-  console.log(userInfo);
 
   useEffect(() => {
     dispatch(getInfoDB());

@@ -130,7 +130,6 @@ export default handleActions(
     // 5년간 작업시간 조회
     [GET_WORKTIME]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(payload);
         draft.worktime_is_loaded = true;
         draft.worktime = payload.data;
       }),
