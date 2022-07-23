@@ -29,7 +29,7 @@ const ScheduleWeek = () => {
     (state) => state.schedule.currentSchedule
   );
 
-  //console.log(currentScheduleList)
+  console.log(currentScheduleList);
 
   return (
     <Wrap>
@@ -59,7 +59,9 @@ const ScheduleWeek = () => {
                     </TimeWrap>
                   </div>
                   <BottomWrap>
-                    <Crop>{sList.crop}</Crop>
+                    <Crop>
+                      {"[" + sList.crop.type + "]" + " " + sList.crop.name}
+                    </Crop>
                   </BottomWrap>
                 </ScheduleBox>
               );
@@ -121,7 +123,7 @@ const TopWrap = styled.div`
 const Todo = styled.div`
   font-size: 18px;
   font-weight: 700;
-  font-color: #02113b;
+  color: #02113b;
   margin-bottom: 10px;
 `;
 

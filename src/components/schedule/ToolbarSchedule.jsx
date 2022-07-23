@@ -24,10 +24,9 @@ export default function ToolbarSchedule(props) {
   const month = moment(date).format("MM");
   const year = moment(date).format("YYYY");
   const YYMM = { month: month, year: year };
+  const [view, setView] = useState("month");
   console.log(YYMM);
 
-  const accountList = useSelector((state) => state.account.accountList);
-  console.log(accountList);
   
   // useEffect(() => {
   //   dispatch(getAccountListDB(YYMM));
@@ -36,22 +35,19 @@ export default function ToolbarSchedule(props) {
 
   return (
     <ToolbarWrap>
-    
-     
         {/* <button type="button" onClick={navigate.bind(null, "TODAY")}>
           이번달
         </button> */}
         <Btn type="button" onClick={navigate.bind(null, "PREV")}>
         <TriangleIconL />
         </Btn>
+        
         <YearMonthTitle className="rbc-toolbar-label">{`${date.getFullYear()}년 ${
           date.getMonth() + 1
         }월`}</YearMonthTitle>
         <Btn type="button" onClick={navigate.bind(null, "NEXT")}>
         <TriangleIconR />
         </Btn>
-     
-    
     </ToolbarWrap>
   );
 }
@@ -62,6 +58,7 @@ const ToolbarWrap = styled.div`
   justify-content: flex-start;
   margin-bottom: 20px;
   align-items: center;
+  margin-top: 10px;
 `;
 
 const YearMonthTitle = styled.span`

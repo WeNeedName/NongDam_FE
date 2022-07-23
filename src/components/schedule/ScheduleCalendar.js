@@ -6,7 +6,7 @@ import moment from "moment";
 import "../../BigCalendarSchedule.css";
 
 // 컴포넌트
-import ToolBar from "./ToolbarSchedule";
+import ToolBarSchedule from "./ToolBarSchedule";
 import Day from "./DaySchedule";
 import EventSchedule from "./EventSchedule";
 import EventScheduleModal from "./EventScheduleModal";
@@ -25,56 +25,76 @@ const ScheduleCalendar = () => {
   const scheduleList = useSelector((state) => state.schedule.scheduleList);
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
 
-  console.log(scheduleList)
+  console.log(scheduleList);
   // console.log(yearMonth)
   // console.log(nowMonth)
- 
-//큰 달력에서 모달 열기
-const [isOpen, setOpen] = useState(false);
-const [eventInfo, setEventInfo] = useState(null);
-const [eventDate, setEventDate] = useState([]);
 
-function toggleModal() {
-  setOpen(!isOpen);
-}
+  //큰 달력에서 모달 열기
+  const [isOpen, setOpen] = useState(false);
+  const [eventInfo, setEventInfo] = useState(null);
+  const [eventDate, setEventDate] = useState([]);
+  const [view, setView] = useState("month");
+
+  function toggleModal() {
+    setOpen(!isOpen);
+  }
   return (
     <>
-    <Calendar
-      events={scheduleList.map((list, id) => {
-        // 여기에 달력 모달 내용 삽입
-        return {
-          title:
-            list.toDo,
+      {view === "day" ? (
+        <MonthChangeBtn
+          onClick={(e) => {
+            if (view === "month") {
+              setView("day");
+            } else {
+              setView("month");
+            }
+          }}
+        >
+          {" "}
+          month
+        </MonthChangeBtn>
+      ) : null}
+
+      <Calendar
+        events={scheduleList.map((list, id) => {
+          // 여기에 달력 모달 내용 삽입
+          <div key={id} />;
+          return {
+            title: list.toDo,
             allDay: false,
             start: new Date(list.startTime),
             end: new Date(list.endTime),
-            crop : list.crop
+            crop: list.crop,
+          };
+        })}
+        localizer={localizer}
+        style={{ height: 100 + "%", width: 100 + "%" }}
+        components={{
+          toolbar: ToolBarSchedule,
+          month: {
+            dateHeader: Day,
+          },
+        }}
+        defaultView="month"
+        view={view}
+        onView={(view) => setView(view)}
+        setNowMonth={setNowMonth}
+        onSelectEvent={(eventInfo) => {
+          setEventInfo(eventInfo);
+          toggleModal();
+        }}
+        eventPropGetter={EventSchedule}
+      />
 
-        };
-      })}
-      localizer={localizer}
-      style={{ height: 100 + "%", width: 100 + "%"}}
-      components={{
-        toolbar: ToolBar,
-        month: {
-          dateHeader: Day,
-        },
-      }}
-      setNowMonth={setNowMonth}
-
-      onSelectEvent={(eventInfo) => {
-        setEventInfo(eventInfo);
-        toggleModal();
-      }}
-      eventPropGetter={EventSchedule}
-    />
-    {isOpen && (
-    <EventScheduleModal
-      isOpen={isOpen}
-      toggleModal={toggleModal}
-      eventInfo={eventInfo}
-      scheduleList={scheduleList}/>)}
-   </>
+      {isOpen && (
+        <EventScheduleModal
+          isOpen={isOpen}
+          toggleModal={toggleModal}
+          eventInfo={eventInfo}
+          scheduleList={scheduleList}
+        />
+      )}
+    </>
   );
 };
 
@@ -85,5 +105,24 @@ function toggleModal() {
 //   justify-content: space-between;
 //   margin-top: 30px;
 // `;
+
+const MonthChangeBtn = styled.div`
+  border: 1px solid #bfbfbf;
+  border-radius: 13px;
+  padding: 3.5px 13px;
+  font-size: 14px;
+  background-color: transparent;
+  position: absolute;
+  left: 74%;
+  top: 4.8%;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  @media only screen and (max-width: 760px) {
+    left: 74%;
+    top: 4.8%;
+  }
+`;
 
 export default ScheduleCalendar;

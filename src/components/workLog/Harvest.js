@@ -6,16 +6,16 @@ import { useNavigate } from "react-router-dom";
 const Record = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [hRecord, setHRecord] = useState();
-  const hRecordNumber = Number(hRecord);
+  // const [hRecord, setHRecord] = useState();
+  // const hRecordNumber = Number(hRecord);
 
   const handleAction = (e) => {
-    setHRecord(e.target.value);
+    props.setHarvest(e.target.value);
   };
 
-  useEffect(() => {
-    props.setHarvest(hRecordNumber);
-  }, [handleAction]);
+  // useEffect(() => {
+  //   props.setHarvest(hRecordNumber);
+  // }, [handleAction]);
 
   //console.log(hRecord)
   return (
@@ -27,9 +27,9 @@ const Record = (props) => {
             className="quantity"
             type="text"
             name="quantity"
-            placeholder="kg단위로 입력해주세요"
             onChange={handleAction}
           />
+          <p className="kg">kg</p>
         </InnerSet>
       </CategoryBigWrap>
     </RecordContentWrap>
@@ -40,8 +40,7 @@ const RecordContentWrap = styled.div`
   width: 93%;
   height: 50px;
   background-color: #fff;
-  padding-left: 30px;
-  padding-top: 20px;
+  margin-top: 20px;
 `;
 
 const SmallTitle = styled.label`
@@ -50,28 +49,26 @@ const SmallTitle = styled.label`
 `;
 
 const CategoryBigWrap = styled.div`
-  width: 60%;
+  width: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 10px;
 `;
 
-const InputBox = styled.input``;
+const InputBox = styled.input`
+  width: 40px;
+  font-size: 14px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+`;
 
 const InnerSet = styled.div`
   display: flex;
-`;
-
-const Select = styled.select`
-  margin-left: 20px;
-  width: 170px;
-  background-color: white;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid black;
-  padding-left: 10px;
-  text-align: left;
+  align-items: center;
+  .kg {
+    font-size: 14px;
+  }
 `;
 
 export default Record;
