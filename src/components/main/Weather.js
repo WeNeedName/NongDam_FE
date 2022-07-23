@@ -33,36 +33,22 @@ const Weather = () => {
     <Wrap>
       {is_loaded ? (
         <>
-          {userInfo?.address === "" ? (
+          {userInfo?.address === "" && (
             <NoticeWrap>
               <NoticeT>
-                마이페이지에서 지역을 등록하시면
+                지금 지역 정보를 등록하고
                 <br />
-                실시간 날씨를 확인하실 수 있습니다
+                농장 날씨를 확인해보세요!
               </NoticeT>
               <NoticeBtn
                 onClick={() => {
-                  navigate("/mypage");
+                  navigate("/mypage/editmemberinfo");
                 }}
               >
                 등록하러 가기
               </NoticeBtn>
             </NoticeWrap>
-          ) : userInfo?.crops.length === 0 ? (
-            <NoticeWrap>
-              <NoticeT>
-                마이페이지에서 지역과 작물을 등록하시면
-                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
-              </NoticeT>
-              <NoticeBtn
-                onClick={() => {
-                  navigate("/mypage");
-                }}
-              >
-                등록하러 가기
-              </NoticeBtn>
-            </NoticeWrap>
-          ) : null}
+          )}
           <Title>⛅️ 농장 날씨</Title>
           <MiddleWrap>
             <MiddleLeftWrap>
@@ -168,6 +154,9 @@ const ThumNailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media only screen and (max-width: 760px) {
+    margin-top: 30px;
+  }
 `;
 
 const ThumNail = styled.div`
@@ -283,6 +272,9 @@ const InfoNum = styled.span`
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 760px) {
+    height: 290px;
+  }
 `;
 
 const CategoryWrap = styled.div`
@@ -326,7 +318,7 @@ const Label = styled.label``;
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -334,12 +326,12 @@ const NoticeWrap = styled.div`
   z-index: 100;
   background: linear-gradient(
     to top,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.9) 100%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 100%,
     transparent 100%
   );
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   border-radius: 10px;
 `;
@@ -351,21 +343,20 @@ const NoticeT = styled.span`
   font-weight: 600;
   font-size: 14px;
   line-height: 24px;
-  color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 20px;
-  background-color: #318f27;
+  margin-top: 4px;
+  background-color: transparent;
   border: none;
   border-radius: 4px;
-  color: white;
+  color: #1aacff;
   font-size: 12px;
   cursor: pointer;
   &:hover {
-    background-color: #22631c;
+    font-weight: 600;
   }
 `;
 

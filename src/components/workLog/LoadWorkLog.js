@@ -11,8 +11,6 @@ const LoadWorkLog = ({ workLogList }) => {
   //const goToDetail = navigate(`/detail/${workLogList.id}`);
   const [workLogId, setWorkLogId] = useState();
 
-  //const workLogList = useSelector((state) => state?.workLog?.workLogList);
-
   return (
     <Container>
       <Wrap className="wrap">

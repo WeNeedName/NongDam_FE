@@ -39,7 +39,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
           return Number(uncomma(price));
         })
       : null;
-  console.log(wholeSalePriceList);
+
   const cropName =
     selectedCrops === 21 ? null : selectedCrops?.label.split(" ")[1];
 
@@ -306,7 +306,7 @@ const YasisLabel = styled.span`
 `;
 
 const NotFoundNoticeWrap = styled.div`
-  height: 165px;
+  height: 167px;
   display: flex;
   flex-direction: column;
   justify-content: center;

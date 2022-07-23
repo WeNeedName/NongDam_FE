@@ -1,9 +1,21 @@
 .tooltip-box {
+background-color: white;
 padding: 6px 20px 6px 10px;
 border: 1px solid #E3E3E3;
 box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 border-radius: 4px;
 }
+
+.donut-tooltip-box {
+    background-color: white;
+    padding: 6px 10px 6px 10px;
+    border: 1px solid #E3E3E3;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+
+    }
 
 .line {
     /* width: 80px; */
@@ -50,6 +62,27 @@ border-radius: 4px;
     margin-left: 2px;
 }
 
+.kg-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #02113B;
+    margin-left: 2px;
+}
+
+.crop-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #02113B;
+    margin-left: 2px;
+}
+
+
 .date-label {
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -77,4 +110,33 @@ border-radius: 4px;
     font-size: 14px;
     line-height: 20px;
     color: #02113B;
+}
+
+.kg-label-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #02113B;
+}
+
+.donut-label-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    color: #02113B;
+}
+
+
+.donut-price-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #02113B;
+    margin-top: 4px;
 }

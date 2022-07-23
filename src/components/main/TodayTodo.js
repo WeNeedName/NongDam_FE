@@ -103,6 +103,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 5 / 7;
+    height: 200px;
   }
 `;
 

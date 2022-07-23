@@ -42,7 +42,7 @@ const initialState = {
   marketPrice_is_loaded: false,
   toDo_is_loaded: false,
   news_is_loaded: false,
-  analysis_is_loaded: true,
+  analysis_is_loaded: false,
   // 시세페이지 로딩
   searchMarketPrice_is_loaded: false,
 
@@ -82,8 +82,7 @@ export const getTodayMarketPriceDB = (data) => {
         console.log(error);
       });
   };
-};
-// 선택 작물 시세 조회
+}; // 선택 작물 시세 조회
 export const getMarketPriceDB = (data) => {
   return async function (dispatch) {
     apis

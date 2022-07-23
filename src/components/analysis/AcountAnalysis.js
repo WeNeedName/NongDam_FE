@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-//컴포넌트
-import Expense from "./Expense";
-import Income from "./Income";
+import { useDispatch, useSelector } from "react-redux";
 
-const AccountAnalysis = () => {
+//컴포넌트
+import Income from "./Income";
+import Expense from "./Expense";
+
+const AccountAnalysis = ({ incomeData, expenseData }) => {
   return (
-    <IncomeWrap>
+    <Wrap>
       <TitleWrap>
         <SmileIcon>😀</SmileIcon>
         <Title>
@@ -16,22 +18,21 @@ const AccountAnalysis = () => {
         <div></div>
       </TitleWrap>
       <BodyWrap>
-        <Expense />
-        <Income />
+        <Income incomeData={incomeData} />
+        <Expense expenseData={expenseData} />
       </BodyWrap>
-    </IncomeWrap>
+    </Wrap>
   );
 };
 
-const IncomeWrap = styled.div`
+const Wrap = styled.div`
   grid-column: 2 / 7;
   grid-row: 2 / 3;
 
   background: #ffffff;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  padding: 20px;
-
+  padding: 20px 20px 30px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

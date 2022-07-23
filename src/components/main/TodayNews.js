@@ -15,8 +15,6 @@ const TodayNews = () => {
     dispatch(loadTodayNewsDB());
   }, []);
 
-  console.log(TodayNewsData);
-
   return (
     <Wrap>
       {is_loaded ? (
@@ -43,7 +41,7 @@ const TodayNews = () => {
                       <TextWrap>
                         <ContentsT imageURL={list.imageUrl}>
                           {list.title
-                            .replaceAll("&quot;", "''")
+                            .replace("&quot;", "''")
                             .replace(/(<br>|<br\/>|<br \/>)/g, " ")
                             .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")
                             .replace(`&lt;`, " ")

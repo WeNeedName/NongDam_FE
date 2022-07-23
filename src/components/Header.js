@@ -40,7 +40,6 @@ const Haeder = ({ currentPage }) => {
           </Logo>
           {isLogin ? (
             <>
-              {" "}
               <CategoryWrap>
                 <FormCheckText
                   id="main"
@@ -174,12 +173,12 @@ const NavLeft = styled.div`
 `;
 
 const Logo = styled.span`
-  font-family: "SF Pro Rounded";
+  font-family: "SF Pro Rounded" !important;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400 !important;
   font-size: 34px;
   line-height: 100%;
-  color: #318f27;
+  color: #55a349;
   margin-right: 30px;
   cursor: pointer;
   @media only screen and (max-width: 760px) {

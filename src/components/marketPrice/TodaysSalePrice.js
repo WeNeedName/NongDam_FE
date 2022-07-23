@@ -31,12 +31,13 @@ const TodaysSalePrice = ({ salePrice }) => {
       {userInfo?.address === "" ? (
         <NoticeWrap>
           <NoticeT>
-            마이페이지에서 지역과 작물을 등록하시면
-            <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
+            지금 지역을 등록하고
+            <br />
+            예상판매 금액을 확인해보세요!
           </NoticeT>
           <NoticeBtn
             onClick={() => {
-              navigate("/mypage");
+              navigate("/mypage/editmemberinfo");
             }}
           >
             등록하러 가기
@@ -45,12 +46,13 @@ const TodaysSalePrice = ({ salePrice }) => {
       ) : userInfo?.crops.length === 0 ? (
         <NoticeWrap>
           <NoticeT>
-            마이페이지에서 지역과 작물을 등록하시면
-            <br />내 작물의 예상판매 금액을 확인하실 수 있습니다
+            지금 작물을 등록하고
+            <br />
+            예상판매 금액을 확인해보세요!
           </NoticeT>
           <NoticeBtn
             onClick={() => {
-              navigate("/mypage");
+              navigate("/mypage/editmemberinfo");
             }}
           >
             등록하러 가기
@@ -203,7 +205,7 @@ const NotFoundNotice = styled.span`
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 83%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -211,12 +213,12 @@ const NoticeWrap = styled.div`
   z-index: 100;
   background: linear-gradient(
     to top,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.9) 100%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 100%,
     transparent 100%
   );
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   border-radius: 10px;
 `;
@@ -228,21 +230,20 @@ const NoticeT = styled.span`
   font-weight: 600;
   font-size: 14px;
   line-height: 24px;
-  color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 20px;
-  background-color: #318f27;
+  margin-top: 4px;
+  background-color: transparent;
   border: none;
   border-radius: 4px;
-  color: white;
+  color: #1aacff;
   font-size: 12px;
   cursor: pointer;
   &:hover {
-    background-color: #22631c;
+    font-weight: 600;
   }
 `;
 

@@ -7,10 +7,18 @@ import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerText } from "react-shimmer-effects";
 // 컴포넌트
 import AnalysisSalesChart from "./AnalysisSalesChart";
+import AnalysisTotalHarvestChart from "./AnalysisTotalHarvestChart";
+import Income from "./Income";
+import Expense from "./Expense";
 
-const AnalysisCard = () => {
+const AnalysisCard = ({
+  salesData,
+  totalHarvestData,
+  expenseData,
+  incomeData,
+}) => {
   const navigate = useNavigate();
-  const is_loaded = useSelector((state) => state.main.analysis_is_loaded);
+  const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
   const userInfo = useSelector((state) => state.users.user);
 
   const [checkedInputs, setCheckedInputs] = useState("sales");
@@ -22,8 +30,6 @@ const AnalysisCard = () => {
     }
   };
 
-  console.log(userInfo);
-
   return (
     <Wrap>
       {is_loaded ? (
@@ -31,16 +37,15 @@ const AnalysisCard = () => {
           {userInfo?.address === "" ? (
             <NoticeWrap>
               <NoticeT>
-                마이페이지에서 지역과 작물 등록 후 서비스를 이용하시면
-                <br />
-                다양한 통계 정보를 확인하실 수 있습니다
+                지금 장부를 작성하고
+                <br />내 매출 현황을 확인해보세요!
               </NoticeT>
               <NoticeBtn
                 onClick={() => {
-                  navigate("/mypage");
+                  navigate("/accountbook");
                 }}
               >
-                등록하러 가기
+                작성하러 가기
               </NoticeBtn>
             </NoticeWrap>
           ) : userInfo?.crops.length === 0 ? (
@@ -114,7 +119,18 @@ const AnalysisCard = () => {
             </Label>
           </CategoryWrap>
           <ChartWrap>
-            {checkedInputs === "sales" && <AnalysisSalesChart />}
+            {checkedInputs === "sales" && (
+              <AnalysisSalesChart salesData={salesData} />
+            )}
+            {checkedInputs === "totalHarvest" && (
+              <AnalysisTotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+            {checkedInputs === "account" && (
+              <BodyWrap>
+                <Income incomeData={incomeData} />
+                <Expense expenseData={expenseData} />
+              </BodyWrap>
+            )}
           </ChartWrap>
         </>
       ) : (
@@ -129,11 +145,26 @@ const AnalysisCard = () => {
             <ShimmerText className="thumNail-data-label" line={1} gap={10} />
             <ThumNailChartWrap>
               <ShimmerThumbnail
-                className="thumNail-analysis"
-                height={50}
+                className="thumNail-button"
+                height={20}
+                rounded
+              />
+              <ShimmerThumbnail
+                className="thumNail-button"
+                height={20}
+                rounded
+              />
+              <ShimmerThumbnail
+                className="thumNail-button"
+                height={20}
                 rounded
               />
             </ThumNailChartWrap>
+            <ShimmerThumbnail
+              className="thumNail-analysis"
+              height={200}
+              rounded
+            />
           </ThumNailWrap>
         </>
       )}
@@ -148,9 +179,7 @@ const ThumNailWrap = styled.div`
 
 const ThumNailChartWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-top: 10px;
+  flex-direction: row;
 `;
 
 const Wrap = styled.div`
@@ -229,11 +258,14 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-const ChartWrap = styled.div``;
+const ChartWrap = styled.div`
+  width: 100%;
+  height: 70%;
+`;
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 73%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -241,12 +273,12 @@ const NoticeWrap = styled.div`
   z-index: 100;
   background: linear-gradient(
     to top,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.9) 100%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 100%,
     transparent 100%
   );
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   border-radius: 10px;
 `;
@@ -258,21 +290,34 @@ const NoticeT = styled.span`
   font-weight: 600;
   font-size: 14px;
   line-height: 24px;
-  color: #318f27;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 20px;
-  background-color: #318f27;
+  margin-top: 4px;
+  background-color: transparent;
   border: none;
   border-radius: 4px;
-  color: white;
+  color: #1aacff;
   font-size: 12px;
   cursor: pointer;
   &:hover {
-    background-color: #22631c;
+    font-weight: 600;
+  }
+`;
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-right: 20px;
+  @media only screen and (max-width: 760px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 `;
 
