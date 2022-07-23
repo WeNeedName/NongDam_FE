@@ -7,10 +7,18 @@ import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerText } from "react-shimmer-effects";
 // 컴포넌트
 import AnalysisSalesChart from "./AnalysisSalesChart";
+import AnalysisTotalHarvestChart from "./AnalysisTotalHarvestChart";
+import Income from "./Income";
+import Expense from "./Expense";
 
-const AnalysisCard = () => {
+const AnalysisCard = ({
+  salesData,
+  totalHarvestData,
+  expenseData,
+  incomeData,
+}) => {
   const navigate = useNavigate();
-  const is_loaded = useSelector((state) => state.main.analysis_is_loaded);
+  const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
   const userInfo = useSelector((state) => state.users.user);
 
   const [checkedInputs, setCheckedInputs] = useState("sales");
@@ -21,8 +29,6 @@ const AnalysisCard = () => {
       setCheckedInputs(e.target.id);
     }
   };
-
-  console.log(userInfo);
 
   return (
     <Wrap>
@@ -113,7 +119,18 @@ const AnalysisCard = () => {
             </Label>
           </CategoryWrap>
           <ChartWrap>
-            {checkedInputs === "sales" && <AnalysisSalesChart />}
+            {checkedInputs === "sales" && (
+              <AnalysisSalesChart salesData={salesData} />
+            )}
+            {checkedInputs === "totalHarvest" && (
+              <AnalysisTotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+            {checkedInputs === "account" && (
+              <BodyWrap>
+                <Income incomeData={incomeData} />
+                <Expense expenseData={expenseData} />
+              </BodyWrap>
+            )}
           </ChartWrap>
         </>
       ) : (
@@ -128,11 +145,26 @@ const AnalysisCard = () => {
             <ShimmerText className="thumNail-data-label" line={1} gap={10} />
             <ThumNailChartWrap>
               <ShimmerThumbnail
-                className="thumNail-analysis"
-                height={50}
+                className="thumNail-button"
+                height={20}
+                rounded
+              />
+              <ShimmerThumbnail
+                className="thumNail-button"
+                height={20}
+                rounded
+              />
+              <ShimmerThumbnail
+                className="thumNail-button"
+                height={20}
                 rounded
               />
             </ThumNailChartWrap>
+            <ShimmerThumbnail
+              className="thumNail-analysis"
+              height={200}
+              rounded
+            />
           </ThumNailWrap>
         </>
       )}
@@ -147,9 +179,7 @@ const ThumNailWrap = styled.div`
 
 const ThumNailChartWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-top: 10px;
+  flex-direction: row;
 `;
 
 const Wrap = styled.div`
@@ -228,7 +258,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-const ChartWrap = styled.div``;
+const ChartWrap = styled.div`
+  width: 100%;
+  height: 70%;
+`;
 
 const NoticeWrap = styled.div`
   width: 100%;
@@ -273,4 +306,19 @@ const NoticeBtn = styled.button`
     font-weight: 600;
   }
 `;
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-right: 20px;
+  @media only screen and (max-width: 760px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+`;
+
 export default AnalysisCard;

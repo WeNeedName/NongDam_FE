@@ -43,9 +43,6 @@ const Income = ({ incomeData }) => {
           breakpoint: 480,
         },
       ],
-      fill: {
-        colors: ["#44D600", "#33C2FF", "#2B9CEF"],
-      },
       dataLabels: {
         enabled: true,
         textAnchor: "right",
@@ -130,6 +127,7 @@ const Income = ({ incomeData }) => {
           },
         },
       },
+
       labels:
         labelList !== undefined
           ? labelList
@@ -164,6 +162,9 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const TopWrap = styled.div`

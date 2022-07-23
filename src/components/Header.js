@@ -26,6 +26,8 @@ const Haeder = ({ currentPage }) => {
     dispatch(getInfoDB());
   }, []);
 
+  console.log(userInfo);
+
   return (
     <Wrap>
       <Nav>
@@ -40,7 +42,6 @@ const Haeder = ({ currentPage }) => {
           </Logo>
           {isLogin ? (
             <>
-              {" "}
               <CategoryWrap>
                 <FormCheckText
                   id="main"
@@ -174,9 +175,9 @@ const NavLeft = styled.div`
 `;
 
 const Logo = styled.span`
-  font-family: "SF Pro Rounded";
+  font-family: "SF Pro Rounded" !important;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400 !important;
   font-size: 34px;
   line-height: 100%;
   color: #318f27;

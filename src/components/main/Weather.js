@@ -154,6 +154,9 @@ const ThumNailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  @media only screen and (max-width: 760px) {
+    margin-top: 30px;
+  }
 `;
 
 const ThumNail = styled.div`
@@ -269,6 +272,9 @@ const InfoNum = styled.span`
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 760px) {
+    height: 290px;
+  }
 `;
 
 const CategoryWrap = styled.div`

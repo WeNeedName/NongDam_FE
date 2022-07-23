@@ -422,7 +422,7 @@ const AccountBoxWrap = styled.div`
   width: 100%;
   padding-right: 70px;
   padding-left: 2px;
-  height: 460px;
+  height: 454px;
   padding-bottom: 10px;
   overflow: auto;
   ::-webkit-scrollbar {

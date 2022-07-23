@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import EditWorkLog from "../components/workLog/EditWorkLog";
 
+
 import { loadWorkLogDB, deleteWorkLogDB } from "../redux/modules/workLog";
 import moment from "moment";
 import "moment/locale/ko";
@@ -15,13 +16,16 @@ const DetailWorkLog = ({}) => {
   const params = useParams();
   const [isEdit, setIsEdit] = useState(false);
 
+
   useEffect(() => {
-    dispatch(loadWorkLogDB(params.id));
+    // dispatch(loadWorkLogDB(params.id));
   }, []);
+
 
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
   console.log(workLogOne?.images);
+
   return (
     <Container>
       <Header />

@@ -1,68 +1,63 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 // 차트 라이브러리
 import ApexCharts from "react-apexcharts";
-// 날짜 포맷 라이브러리
+
 import moment from "moment";
 import "moment/locale/ko";
 
-const AnalysisSalesChart = ({ salesData }) => {
-  // 1. y축 [0 - 사잇값 - 최댓값] 배열 만들기
+const TotalHarvestYearChart = ({ totalHarvestData }) => {
+  // y축 [0 - 사잇값 - 최댓값] 배열 만들기
   const allDataList = [];
-  salesData.datas !== undefined &&
-    salesData.datas.map((list, idx) => {
+  totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((list, idx) => {
       return allDataList.push(...list.data);
     });
   const allDataListSort = allDataList.sort((a, b) => b - a);
   const largestNumber = Number(allDataListSort[0]);
-  const smallestNumber = Number(allDataListSort[allDataListSort.length - 1]);
-  // 1-1. 만원 단위로 절사
-  const largestNumberWon = Math.floor(largestNumber / 10000);
-  const smallestNumberWon = Math.floor(smallestNumber / 10000);
-
   const mathPow =
     allDataListSort[0]?.length >= 2
       ? Math.pow(10, String(largestNumberWon).length - 1)
       : 1;
-  const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
+  const mathRound = Math.ceil(largestNumber / mathPow) * mathPow;
 
   const range = (start, stop, step) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (_, i) => start + i * step
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
+      Math.round(start + i * step)
     );
-  const yaxis = range(smallestNumberWon, mathRound, mathRound / 4).reverse();
 
-  // 2. 수확량 차트 state.series 값 배열
+  const yaxis = range(0, mathRound, mathRound / 4).reverse();
+
+  // 수확량 차트 state.series 값 배열
   const seriesList =
-    salesData.datas !== undefined &&
-    salesData.datas.map((data) => {
+    totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((data) => {
       return data;
     });
 
-  // 3. 데이터 label 리스트
-  const dataLabelList =
-    salesData.datas !== undefined &&
-    salesData.datas.map((data) => {
+  // 내 작물 name 리스트
+  const cropNameList =
+    totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((data) => {
       return data.name;
     });
 
   const lineWidthArr = Array.from({ length: 7 }, (v, i) => (v = 2));
 
-  // 4. 내 작물 월별 수확량 차트 state
+  // 내 작물 월별 수확량 차트 state
   const state = {
     series:
-      salesData.datas !== undefined
+      totalHarvestData.datas !== undefined
         ? seriesList
         : [{ name: "", data: ["0", "0", "0", "0", "0", "0"] }],
     options: {
       markers: {
         size: lineWidthArr,
         colors: [
-          "#3152bf",
-          "#7EB3E3",
           "#7EE3AB",
+          "#7EB3E3",
+          "#3152bf",
           "#9FDE3A",
           "#FDD551",
           "#FDAE51",
@@ -93,9 +88,9 @@ const AnalysisSalesChart = ({ salesData }) => {
         curve: "straight",
         width: lineWidthArr,
         colors: [
-          "#3152bf",
-          "#7EB3E3",
           "#7EE3AB",
+          "#7EB3E3",
+          "#3152bf",
           "#9FDE3A",
           "#FDD551",
           "#FDAE51",
@@ -138,19 +133,18 @@ const AnalysisSalesChart = ({ salesData }) => {
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          const price = Math.floor(series[seriesIndex][dataPointIndex] / 10000);
           return (
             '<div class="tooltip-box">' +
             '<div class="line">' +
             '<span class="crop-label">' +
-            dataLabelList[seriesIndex] +
+            cropNameList[seriesIndex] +
             "</span>" +
             "</div>" +
             '<div class="line-bottom">' +
             '<span class="kg-label-data">' +
-            price +
+            series[seriesIndex][dataPointIndex] +
             '<span class="kg-label">' +
-            "만원" +
+            "kg" +
             "</span>" +
             "</span>" +
             "</div>" +
@@ -159,7 +153,8 @@ const AnalysisSalesChart = ({ salesData }) => {
         },
       },
       xaxis: {
-        categories: salesData?.xlabel !== undefined && salesData?.xlabel,
+        categories:
+          totalHarvestData?.xlabel !== undefined && totalHarvestData?.xlabel,
         labels: {
           formatter: function (value) {
             return value;
@@ -216,11 +211,11 @@ const AnalysisSalesChart = ({ salesData }) => {
             options={state.options}
             series={state.series}
             type="line"
-            height={100 + "%"}
+            height={94 + "%"}
           />
           <YasisLabelBox>
-            {dataLabelList &&
-              dataLabelList.map((list, idx) => {
+            {cropNameList &&
+              cropNameList.map((list, idx) => {
                 return (
                   <YasisLabelWrap key={idx}>
                     <YasisColorTip index={idx} />
@@ -231,8 +226,8 @@ const AnalysisSalesChart = ({ salesData }) => {
           </YasisLabelBox>
         </ChartBox>
         <XasisWrap>
-          {salesData?.xlabel !== undefined &&
-            salesData?.xlabel.map((data, id) => {
+          {totalHarvestData?.xlabel !== undefined &&
+            totalHarvestData?.xlabel.map((data, id) => {
               return <Xasis key={id}>{data}</Xasis>;
             })}
         </XasisWrap>
@@ -243,14 +238,14 @@ const AnalysisSalesChart = ({ salesData }) => {
 
 const ChartWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
   row-gap: 4px;
   column-gap: 8px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 12px;
 `;
 
 const YasisWrap = styled.div`
@@ -293,9 +288,8 @@ const YasisLabelBox = styled.div`
   align-items: center;
   justify-content: space-around;
   @media only screen and (max-width: 760px) {
-    width: auto;
+    width: 100px;
     margin: 6px 10px;
-    top: -40px;
   }
 `;
 
@@ -310,11 +304,11 @@ const YasisColorTip = styled.div`
   height: 3px;
   background: ${({ index }) =>
     index === 0
-      ? "#3152bf"
+      ? "#7EE3AB"
       : index === 1
       ? "#7EB3E3"
       : index === 2
-      ? "#7EE3AB"
+      ? "#3152bf"
       : index === 3
       ? "#9FDE3A"
       : index === 4
@@ -324,7 +318,6 @@ const YasisColorTip = styled.div`
       : index === 6
       ? "#FD7951"
       : "#AE51FD"};
-
   margin-left: 4px;
   margin-right: 4px;
   @media only screen and (max-width: 760px) {
@@ -355,4 +348,4 @@ const Xasis = styled.span`
   color: #666666;
 `;
 
-export default AnalysisSalesChart;
+export default TotalHarvestYearChart;

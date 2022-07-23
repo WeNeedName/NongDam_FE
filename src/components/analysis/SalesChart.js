@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 // 차트 라이브러리
 import ApexCharts from "react-apexcharts";
-// 날짜 포맷 라이브러리
+
 import moment from "moment";
 import "moment/locale/ko";
 
-const AnalysisSalesChart = ({ salesData }) => {
+const TotalHarvestChart = ({ salesData }) => {
   // 1. y축 [0 - 사잇값 - 최댓값] 배열 만들기
   const allDataList = [];
   salesData.datas !== undefined &&
@@ -28,9 +28,8 @@ const AnalysisSalesChart = ({ salesData }) => {
   const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
 
   const range = (start, stop, step) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (_, i) => start + i * step
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
+      Math.round(start + i * step)
     );
   const yaxis = range(smallestNumberWon, mathRound, mathRound / 4).reverse();
 
@@ -216,7 +215,7 @@ const AnalysisSalesChart = ({ salesData }) => {
             options={state.options}
             series={state.series}
             type="line"
-            height={100 + "%"}
+            height={94 + "%"}
           />
           <YasisLabelBox>
             {dataLabelList &&
@@ -243,14 +242,14 @@ const AnalysisSalesChart = ({ salesData }) => {
 
 const ChartWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 70%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
   row-gap: 4px;
   column-gap: 8px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 12px;
 `;
 
 const YasisWrap = styled.div`
@@ -293,9 +292,8 @@ const YasisLabelBox = styled.div`
   align-items: center;
   justify-content: space-around;
   @media only screen and (max-width: 760px) {
-    width: auto;
+    width: 100px;
     margin: 6px 10px;
-    top: -40px;
   }
 `;
 
@@ -355,4 +353,4 @@ const Xasis = styled.span`
   color: #666666;
 `;
 
-export default AnalysisSalesChart;
+export default TotalHarvestChart;

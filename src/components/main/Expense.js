@@ -7,16 +7,16 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const Income = ({ incomeData }) => {
-  const incomeNumList =
-    incomeData.data &&
-    incomeData.data.map((data) => {
+const Expense = ({ expenseData }) => {
+  const expenseNumList =
+    expenseData.data &&
+    expenseData.data.map((data) => {
       return Number(data);
     });
 
   const labelList =
-    incomeData.labels &&
-    incomeData.labels.map((data) => {
+    expenseData.labels &&
+    expenseData.labels.map((data) => {
       return data.replaceAll("_", " ");
     });
 
@@ -27,7 +27,7 @@ const Income = ({ incomeData }) => {
   }
 
   const donutData = {
-    series: incomeNumList !== undefined ? incomeNumList : [1, 1, 1],
+    series: expenseNumList !== undefined ? expenseNumList : [1, 1, 1],
     options: {
       chart: {
         type: "donut",
@@ -43,9 +43,6 @@ const Income = ({ incomeData }) => {
           breakpoint: 480,
         },
       ],
-      fill: {
-        colors: ["#44D600", "#33C2FF", "#2B9CEF"],
-      },
       dataLabels: {
         enabled: true,
         textAnchor: "right",
@@ -111,7 +108,7 @@ const Income = ({ incomeData }) => {
               total: {
                 showAlways: false,
                 show: true,
-                label: "수입",
+                label: "지출",
                 fontSize: "18px",
                 fontWeight: "700",
                 color: "black",
@@ -130,6 +127,7 @@ const Income = ({ incomeData }) => {
           },
         },
       },
+
       labels:
         labelList !== undefined
           ? labelList
@@ -139,11 +137,6 @@ const Income = ({ incomeData }) => {
 
   return (
     <Wrap>
-      {/* <TopWrap> */}
-      {/* <h3>지출</h3> */}
-      {/* <span>기간선택</span> */}
-      {/* </TopWrap> */}
-
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
@@ -166,13 +159,6 @@ const Wrap = styled.div`
   cursor: pointer;
 `;
 
-const TopWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 const Legend = styled.div`
   display: flex;
   flex-direction: column;
@@ -182,4 +168,4 @@ const Legend = styled.div`
   }
 `;
 
-export default Income;
+export default Expense;

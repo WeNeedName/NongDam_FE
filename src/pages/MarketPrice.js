@@ -5,6 +5,7 @@ import { getCropsListDB } from "../redux/modules/users";
 import Select from "react-select";
 import { getInfoDB } from "../redux/modules/users";
 import { useNavigate } from "react-router-dom";
+import { getMyCropsMarketPriceDB } from "../redux/modules/main";
 
 // 컴포넌트 파일
 import Header from "../components/Header";
@@ -12,7 +13,6 @@ import MarketPriceCard from "../components/marketPrice/MarketPriceCard";
 import MyCropsMarketPriceCard from "../components/marketPrice/MyCropsMarketPriceCard";
 import TodaysMarketPrice from "../components/marketPrice/TodaysMarketPrice";
 import TodaysSalePrice from "../components/marketPrice/TodaysSalePrice";
-import { getMyCropsMarketPriceDB } from "../redux/modules/main";
 
 const MarketPrice = () => {
   const dispatch = useDispatch();
@@ -149,12 +149,13 @@ const MarketPrice = () => {
               onMouseLeave={onDragEnd}
               ref={scrollRef}
             >
-              {userInfo !== undefined && userInfo?.crops.length > 3 ? (
+              {/* {scrollWidth !== null &&
+              scrollWidth > clientWidth + scrollLeft ? (
                 <>
                   <GradationBox />
                   <GradationBox />
                 </>
-              ) : null}
+              ) : null} */}
               <MyCropsMarketPriceCard checkedInputs={checkedInputs} />
             </MyCropsChartWrap>
           </>
@@ -262,6 +263,9 @@ const GradationBox = styled.div`
   @media only screen and (max-width: 760px) {
     width: 0px;
   }
+  @media only screen and (scroll-right: 0px) {
+    display: none;
+  }
 `;
 
 const MyCropsChartWrap = styled.div`
@@ -276,6 +280,7 @@ const MyCropsChartWrap = styled.div`
   flex-wrap: nowrap;
   overflow-x: scroll;
   padding-left: 11.5%;
+  /* padding-right: 11.5%; */
   @media only screen and (max-width: 1220px) {
     padding-left: 11.5%;
   }
@@ -288,7 +293,7 @@ const MyCropsChartWrap = styled.div`
 `;
 
 const Div = styled.div`
-  width: 400px;
+  width: 11.5%;
   height: 100%;
 `;
 
