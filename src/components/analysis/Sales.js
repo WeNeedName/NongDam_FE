@@ -18,8 +18,6 @@ const Sales = ({ salesData, setSalesCategory, salesCategory }) => {
     }
   };
 
-  console.log(salesData);
-
   return (
     <>
       <Wrap>

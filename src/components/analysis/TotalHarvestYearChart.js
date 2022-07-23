@@ -16,13 +16,15 @@ const TotalHarvestYearChart = ({ totalHarvestData }) => {
     });
   const allDataListSort = allDataList.sort((a, b) => b - a);
   const largestNumber = Number(allDataListSort[0]);
-  const mathPow = Math.pow(10, allDataListSort[0]?.length - 1);
+  const mathPow =
+    allDataListSort[0]?.length >= 2
+      ? Math.pow(10, String(largestNumberWon).length - 1)
+      : 1;
   const mathRound = Math.ceil(largestNumber / mathPow) * mathPow;
 
   const range = (start, stop, step) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (_, i) => start + i * step
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
+      Math.round(start + i * step)
     );
 
   const yaxis = range(0, mathRound, mathRound / 4).reverse();
@@ -53,9 +55,9 @@ const TotalHarvestYearChart = ({ totalHarvestData }) => {
       markers: {
         size: lineWidthArr,
         colors: [
-          "#3152bf",
-          "#7EB3E3",
           "#7EE3AB",
+          "#7EB3E3",
+          "#3152bf",
           "#9FDE3A",
           "#FDD551",
           "#FDAE51",
@@ -86,9 +88,9 @@ const TotalHarvestYearChart = ({ totalHarvestData }) => {
         curve: "straight",
         width: lineWidthArr,
         colors: [
-          "#3152bf",
-          "#7EB3E3",
           "#7EE3AB",
+          "#7EB3E3",
+          "#3152bf",
           "#9FDE3A",
           "#FDD551",
           "#FDAE51",
@@ -302,11 +304,11 @@ const YasisColorTip = styled.div`
   height: 3px;
   background: ${({ index }) =>
     index === 0
-      ? "#3152bf"
+      ? "#7EE3AB"
       : index === 1
       ? "#7EB3E3"
       : index === 2
-      ? "#7EE3AB"
+      ? "#3152bf"
       : index === 3
       ? "#9FDE3A"
       : index === 4
@@ -316,7 +318,6 @@ const YasisColorTip = styled.div`
       : index === 6
       ? "#FD7951"
       : "#AE51FD"};
-
   margin-left: 4px;
   margin-right: 4px;
   @media only screen and (max-width: 760px) {

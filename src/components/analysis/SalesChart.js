@@ -28,9 +28,8 @@ const TotalHarvestChart = ({ salesData }) => {
   const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
 
   const range = (start, stop, step) =>
-    Array.from(
-      { length: (stop - start) / step + 1 },
-      (_, i) => start + i * step
+    Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
+      Math.round(start + i * step)
     );
   const yaxis = range(smallestNumberWon, mathRound, mathRound / 4).reverse();
 
