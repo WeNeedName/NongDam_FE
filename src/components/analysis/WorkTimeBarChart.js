@@ -128,6 +128,10 @@ const WorkTimeBarChart = ({ workTimeData }) => {
       },
       plotOptions: {
         bar: {
+          dataLabels: {
+            position: "top",
+          },
+
           horizontal: true,
           columnWidth: "40%",
           barHeight: "40%",
@@ -143,6 +147,13 @@ const WorkTimeBarChart = ({ workTimeData }) => {
             backgroundBarOpacity: 1,
             backgroundBarRadius: 0,
           },
+        },
+        dataLabels: {
+          enabled: true,
+          style: {
+            colors: ["#333"],
+          },
+          offsetX: 30,
         },
       },
       stroke: {

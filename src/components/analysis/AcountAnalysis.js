@@ -19,7 +19,10 @@ const AccountAnalysis = ({ incomeData, expenseData }) => {
         </Title>
         <div></div>
       </TitleWrap>
-      {incomeData?.data.length !== 0 && expenseData?.data.length !== 0 ? (
+      {incomeData?.data !== undefined &&
+      expenseData?.data !== undefined &&
+      incomeData?.data.length !== 0 &&
+      expenseData?.data.length !== 0 ? (
         <>
           <BodyWrap>
             <Income incomeData={incomeData} />
