@@ -139,7 +139,6 @@ const WorkTimeBarChart = ({ workTimeData }) => {
                 color: "#44D600",
               },
             ],
-            // backgroundBarColors: ["#44D600", "#44D600", "#44D600", "#44D600"],
             backgroundBarOpacity: 1,
             backgroundBarRadius: 0,
           },
@@ -263,13 +262,13 @@ const WorkTimeBarChart = ({ workTimeData }) => {
               options={state.options}
               series={state.series}
               type="bar"
-              height={156}
+              height={184}
             />
           </ChartBox>
           <XasisWrap>
             {yaxis !== undefined &&
               yaxis.map((list, id) => {
-                return <Yasis key={id}>{list}</Yasis>;
+                return <Xasis key={id}>{list}</Xasis>;
               })}
           </XasisWrap>
         </>
@@ -295,7 +294,7 @@ const WorkTimeBarChart = ({ workTimeData }) => {
 
 const ChartWrap = styled.div`
   width: 100%;
-  height: 60%;
+  height: 96%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr auto;
@@ -303,6 +302,7 @@ const ChartWrap = styled.div`
   column-gap: 8px;
   cursor: pointer;
   position: relative;
+  margin-top: 4%;
 `;
 
 const ChartBox = styled.div`
@@ -364,7 +364,7 @@ const NoticeWrap = styled.div`
   bottom: 0;
   left: 0;
   border-radius: 10px;
-  margin-bottom: 8%;
+  margin-bottom: 4px;
 `;
 
 const NoticeT = styled.span`

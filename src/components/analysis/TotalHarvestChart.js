@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
 // 차트 라이브러리
 import ApexCharts from "react-apexcharts";
 
@@ -8,6 +9,8 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const TotalHarvestChart = ({ totalHarvestData }) => {
+  const navigate = useNavigate();
+
   // y축 [0 - 사잇값 - 최댓값] 배열 만들기
   const allDataList = [];
   totalHarvestData.datas !== undefined &&
@@ -25,7 +28,7 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
       (_, i) => start + i * step
     );
   const yaxis =
-    allDataListSort[0] !== 0
+    allDataListSort[0] !== "0"
       ? range(0, mathRound, mathRound / 4).reverse()
       : ["0", "0", "0", "0", "0"];
 
@@ -199,38 +202,57 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
   return (
     <>
       <ChartWrap>
-        <YasisWrap>
-          {yaxis !== undefined &&
-            yaxis.map((list, id) => {
-              return <Yasis key={id}>{list}</Yasis>;
-            })}
-        </YasisWrap>
+        {allDataListSort[0] !== "0" ? (
+          <>
+            <YasisWrap>
+              {yaxis !== undefined &&
+                yaxis.map((list, id) => {
+                  return <Yasis key={id}>{list}</Yasis>;
+                })}
+            </YasisWrap>
 
-        <ChartBox>
-          <ApexCharts
-            options={state.options}
-            series={state.series}
-            type="line"
-            height={94 + "%"}
-          />
-          <YasisLabelBox>
-            {cropNameList &&
-              cropNameList.map((list, idx) => {
-                return (
-                  <YasisLabelWrap key={idx}>
-                    <YasisColorTip index={idx} />
-                    <YasisLabel>{list}</YasisLabel>
-                  </YasisLabelWrap>
-                );
-              })}
-          </YasisLabelBox>
-        </ChartBox>
-        <XasisWrap>
-          {totalHarvestData?.xlabel !== undefined &&
-            totalHarvestData?.xlabel.map((data, id) => {
-              return <Xasis key={id}>{data}</Xasis>;
-            })}
-        </XasisWrap>
+            <ChartBox>
+              <ApexCharts
+                options={state.options}
+                series={state.series}
+                type="line"
+                height={94 + "%"}
+              />
+              <YasisLabelBox>
+                {cropNameList &&
+                  cropNameList.map((list, idx) => {
+                    return (
+                      <YasisLabelWrap key={idx}>
+                        <YasisColorTip index={idx} />
+                        <YasisLabel>{list}</YasisLabel>
+                      </YasisLabelWrap>
+                    );
+                  })}
+              </YasisLabelBox>
+            </ChartBox>
+            <XasisWrap>
+              {totalHarvestData?.xlabel !== undefined &&
+                totalHarvestData?.xlabel.map((data, id) => {
+                  return <Xasis key={id}>{data}</Xasis>;
+                })}
+            </XasisWrap>
+          </>
+        ) : (
+          <NoticeWrap>
+            <NoticeT>
+              지금 작업일지를 기록하고
+              <br />
+              수확량을 알아보세요!
+            </NoticeT>
+            <NoticeBtn
+              onClick={() => {
+                navigate("/worklog");
+              }}
+            >
+              기록하러 가기
+            </NoticeBtn>
+          </NoticeWrap>
+        )}
       </ChartWrap>
     </>
   );
@@ -246,6 +268,7 @@ const ChartWrap = styled.div`
   column-gap: 8px;
   cursor: pointer;
   margin-top: 12px;
+  position: relative;
 `;
 
 const YasisWrap = styled.div`
@@ -347,6 +370,51 @@ const XasisWrap = styled.div`
 const Xasis = styled.span`
   font-size: 11px;
   color: #666666;
+`;
+
+const NoticeWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 100%,
+    transparent 100%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 10px;
+  padding-top: 10%;
+`;
+
+const NoticeT = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+`;
+
+const NoticeBtn = styled.button`
+  padding: 8px 18px;
+  margin-top: 4px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #1aacff;
+  font-size: 12px;
+  cursor: pointer;
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 export default TotalHarvestChart;

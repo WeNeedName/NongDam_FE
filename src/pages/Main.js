@@ -27,18 +27,19 @@ const Main = () => {
   const isLogin = sessionStorage.getItem("jwtToken");
   const incomeData = useSelector((state) => state.analysis.income);
   const expenseData = useSelector((state) => state.analysis.expense);
+  const workTimeData = useSelector((state) => state.analysis.worktime);
   const salesData = useSelector((state) => state.analysis.sales);
   const totalHarvestData = useSelector((state) => state.analysis.totalharvest);
+
+  useEffect(() => {
+    if (!isLogin) navigate("/login");
+  }, []);
 
   useEffect(() => {
     dispatch(getIncomeDB());
     dispatch(getExpenseDB());
     dispatch(getWorktimeDB());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (!isLogin) navigate("/login");
-  }, []);
 
   useEffect(() => {
     dispatch(getSalesDB(salesCategory));
@@ -60,6 +61,7 @@ const Main = () => {
           totalHarvestData={totalHarvestData}
           incomeData={incomeData}
           expenseData={expenseData}
+          workTimeData={workTimeData}
         />
         <TodayNews />
       </Wrap>
