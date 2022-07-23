@@ -11,7 +11,7 @@ import WorkTimeBarChart from "./WorkTimeBarChart";
 
 const WorkTime = ({ workTimeData }) => {
   const rateData = useSelector((state) => state.analysis.rate);
-
+  console.log(rateData);
   return (
     <>
       <Wrap>
