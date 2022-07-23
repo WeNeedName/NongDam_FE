@@ -35,7 +35,7 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     height: "20px",
     border: "0px",
     display: "block",
-    marginTop: "1px",
+    marginTop: "0.3px",
     textAlign: "center",
     alignItems: "center",
     justifyContent: "center",

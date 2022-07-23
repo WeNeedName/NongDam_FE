@@ -203,9 +203,7 @@ const Signup = () => {
             signUp(email, pw, userName, userNickname);
           }}
           disabled={
-            !email || !pw || !pwCheck || !userIdErr || !pwCheckErr
-              ? true
-              : false
+            !email || !pw || !pwCheck || userIdErr || pwCheckErr ? true : false
           }
         >
           회원가입
