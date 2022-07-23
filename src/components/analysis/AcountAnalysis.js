@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router";
 
 //컴포넌트
@@ -63,9 +63,26 @@ const Wrap = styled.div`
   position: relative;
 `;
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+ 
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateY(6%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
+  animation: ${boxFade} 1s;
 `;
 
 const SmileIcon = styled.span`
