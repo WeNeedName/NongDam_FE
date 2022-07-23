@@ -8,6 +8,7 @@ const GET_EXPENSE = "GET_EXPENSE";
 const GET_WORKTIME = "GET_WORKTIME";
 const GET_SALES = "GET_SALES";
 const GET_TOTAL_HARVEST = "GET_TOTAL_HARVEST";
+const GET_RATE = "GET_RATE";
 
 // Action Creator
 const getIncome = createAction(GET_INCOME, (data) => ({ data }));
@@ -15,6 +16,7 @@ const getExpense = createAction(GET_EXPENSE, (data) => ({ data }));
 const getWorktime = createAction(GET_WORKTIME, (data) => ({ data }));
 const getSales = createAction(GET_SALES, (data) => ({ data }));
 const getTortalHarvest = createAction(GET_TOTAL_HARVEST, (data) => ({ data }));
+const getRate = createAction(GET_RATE, (data) => ({ data }));
 
 // InitialState
 const initialState = {
@@ -30,6 +32,7 @@ const initialState = {
   worktime: [],
   sales: [],
   totalharvest: [],
+  rate: [],
 };
 
 // Middleware
@@ -99,6 +102,14 @@ export const getTotalHarvestDB = (data) => {
   };
 };
 
+// 증가율
+export const getRateDB = (data) => {
+  // console.log(date);
+  return async function (dispatch) {
+    dispatch(getRate(data));
+  };
+};
+
 // Reducer
 export default handleActions(
   {
@@ -136,6 +147,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.totalharvest_is_loaded = true;
         draft.totalharvest = payload.data;
+      }),
+    // 증가율 조회
+    [GET_RATE]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.rate = payload.data;
       }),
   },
   initialState
