@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Signup from "./Signup";
 import { logInDB } from "../redux/modules/users";
-import KakaoLogin from "../images/kakao_login_medium_narrow.png";
+import KakaoLogin from "../images/kakao_login_large_wide.png";
 import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
 import { useNavigate } from "react-router";
 import Header from "../components/Header";
 import PersonIcon from "@mui/icons-material/Person";
+import LockIcon from "@mui/icons-material/Lock";
 import { Translate } from "@mui/icons-material";
 
 const Login = () => {
@@ -23,10 +24,6 @@ const Login = () => {
   const userSignIn = useSelector((state) => state.users.users);
 
   const logIn = () => {
-    if (email === "" || pw === "") {
-      window.alert("빈칸 다 채워줘요");
-      return;
-    }
     const userInfo = {
       email: email,
       password: pw,
@@ -52,7 +49,9 @@ const Login = () => {
         </TopWrap>
 
         <InputBoxes>
-          <div className="icon">{/* <PersonIcon /> */}</div>
+          <div className="icon">
+            <PersonIcon fontSize="small" />
+          </div>
           <IdInput
             ref={idRef}
             autoComplete="off"
@@ -61,6 +60,9 @@ const Login = () => {
             placeholder="이메일"
             autocapitalize="off"
           />
+          <div className="pwIcon">
+            <LockIcon fontSize="small" />
+          </div>
           <PwInput
             type="password"
             onChange={(e) => setPw(e.target.value)}
@@ -68,6 +70,7 @@ const Login = () => {
             required
             placeholder="비밀번호"
             autocapitalize="off"
+            autoComplete="off"
           />
         </InputBoxes>
         <SubmitBtns>
@@ -79,7 +82,7 @@ const Login = () => {
           >
             로그인
           </LoginBtn>
-
+          <span>or</span>
           <SocialBtn
             onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
@@ -89,15 +92,13 @@ const Login = () => {
         </SubmitBtns>
         <ToSignUp>
           회원이 아니시라면?
-          <span
+          <ToSignUpBtn
             onClick={() => {
               navigate("/signup");
             }}
-            style={{ marginLeft: "10px", fontWeight: "500", cursor: "pointer" }}
           >
             회원가입
-          </span>
-          {/* <a href="/signup"> 회원가입</a> */}
+          </ToSignUpBtn>
         </ToSignUp>
       </Container>
     </>
@@ -118,7 +119,7 @@ const TopWrap = styled.div`
   .title {
     font-weight: 700;
     font-size: 30px;
-    color: #318f27;
+    color: #55a349;
     margin-bottom: 40px;
   }
   .slogan {
@@ -133,7 +134,7 @@ const TopWrap = styled.div`
   }
 `;
 
-const InputBoxes = styled.div`
+const InputBoxes = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -141,34 +142,55 @@ const InputBoxes = styled.div`
 
   .icon {
     position: absolute;
-
+    transform: translate(-100px, -15px);
     z-index: 1;
+    color: #8b95a1;
+  }
+  .pwIcon {
+    position: absolute;
+    transform: translate(-100px, 20px);
+    z-index: 1;
+    color: #8b95a1;
+    size: 5px;
   }
 `;
 
 const IdInput = styled.input`
-  width: 180px;
+  width: 200px;
   height: 30px;
   border: 1px solid #999999;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom: none;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 35px;
+
+  :focus {
+    outline: none;
+  }
 
   ::placeholder {
     font-size: 10px;
-    padding-left: 20px;
   }
 `;
 const PwInput = styled.input`
-  width: 180px;
+  width: 200px;
   height: 30px;
   border: 1px solid #999999;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 35px;
 
+  :focus {
+    outline: none;
+  }
   ::placeholder {
     font-size: 10px;
-    padding-left: 20px;
   }
 `;
 
@@ -180,31 +202,43 @@ const SubmitBtns = styled.div`
 `;
 
 const LoginBtn = styled.button`
-  width: 185px;
-  height: 35px;
+  width: 240px;
+  height: 36px;
   justify-content: center;
   text-align: center;
   padding: 4px 13px;
-  background-color: #22631c;
+  background-color: #55a349;
   color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   border: none;
   size: 11px;
-  margin: 10px;
+  margin-top: 13px;
+  margin-bottom: 5px;
+
   cursor: pointer;
   &:hover {
     opacity: 0.7;
   }
 `;
-const ToSignUp = styled.div`
-  margin-top: 10px;
-`;
 const SocialBtn = styled.img`
-  width: 185px;
-  height: auto;
+  width: 240px;
+  height: 36px;
+  margin: 5px;
   cursor: pointer;
   :hover {
-    box-shadow: 0 0 3px #142785;
+    opacity: 0.7;
+  }
+`;
+const ToSignUp = styled.div`
+  margin-top: 30px;
+`;
+
+const ToSignUpBtn = styled.span`
+  margin-left: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    font-weight: 700;
   }
 `;
 
