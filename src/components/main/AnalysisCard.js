@@ -32,6 +32,8 @@ const AnalysisCard = ({
     }
   };
 
+  console.log(incomeData);
+
   return (
     <Wrap>
       {is_loaded ? (

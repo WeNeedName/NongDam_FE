@@ -8,7 +8,6 @@ import { ShimmerTitle } from "react-shimmer-effects";
 import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerCircularImage } from "react-shimmer-effects";
 import { ShimmerText } from "react-shimmer-effects";
-import "../../App.css";
 
 const Weather = () => {
   const dispatch = useDispatch();
@@ -177,7 +176,6 @@ const ThumNail = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: center; */
 `;
 
 const Title = styled.span`

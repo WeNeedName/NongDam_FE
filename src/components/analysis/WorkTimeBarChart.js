@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getRateDB } from "../../redux/modules/analysis";
@@ -254,12 +254,14 @@ const WorkTimeBarChart = ({ workTimeData }) => {
               })}
           </YasisWrap>
           <ChartBox>
-            <ReactApexChart
-              options={state.options}
-              series={state.series}
-              type="bar"
-              height={156}
-            />
+            <Chart>
+              <ReactApexChart
+                options={state.options}
+                series={state.series}
+                type="bar"
+                height={156}
+              />
+            </Chart>
           </ChartBox>
           <XasisWrap>
             {yaxis !== undefined &&
@@ -298,6 +300,21 @@ const ChartWrap = styled.div`
   column-gap: 8px;
   cursor: pointer;
   position: relative;
+`;
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(3%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const Chart = styled.div`
+  animation: ${boxFade} 1s;
 `;
 
 const ChartBox = styled.div`

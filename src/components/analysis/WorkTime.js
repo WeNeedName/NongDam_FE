@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getRateDB } from "../../redux/modules/analysis";
-// 차트 라이브러리
-import ApexCharts from "react-apexcharts";
-// date 가공 라이브러리
-import moment from "moment";
-import "moment/locale/ko";
+// 로딩 효과
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerCircularImage } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 // 컴포넌트
 import WorkTimeBarChart from "./WorkTimeBarChart";
 
@@ -14,6 +14,7 @@ const WorkTime = ({ workTimeData }) => {
   const dispatch = useDispatch();
   const rateData = useSelector((state) => state.analysis.rate);
   const [count, setCount] = useState(0);
+  const is_loaded = useSelector((state) => state.analysis.worktime_is_loaded);
 
   const end = rateData.rate && rateData.rate;
   const start = 0;
@@ -29,7 +30,7 @@ const WorkTime = ({ workTimeData }) => {
   useEffect(() => {
     dispatch(getRateDB());
   }, []);
-
+  // 숫자 카운팅 애니메이션
   useEffect(() => {
     let currentNumber = start;
     const counter = setInterval(() => {
@@ -56,7 +57,11 @@ const WorkTime = ({ workTimeData }) => {
             했어요
           </Title>
         </TitleWrap>
-        <WorkTimeBarChart workTimeData={workTimeData} />
+        {is_loaded ? (
+          <WorkTimeBarChart workTimeData={workTimeData} />
+        ) : (
+          <ShimmerThumbnail className="thumNail-weather" height={160} rounded />
+        )}
       </Wrap>
     </>
   );

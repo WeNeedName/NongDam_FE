@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-// 차트 라이브러리
-import ApexCharts from "react-apexcharts";
-
-import moment from "moment";
-import "moment/locale/ko";
+import { useSelector } from "react-redux";
+// 로딩 효과
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
 //컴포넌트
 import SalesChart from "./SalesChart";
 
 const Sales = ({ salesData, setSalesCategory, salesCategory }) => {
+  const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -22,31 +20,43 @@ const Sales = ({ salesData, setSalesCategory, salesCategory }) => {
     <>
       <Wrap>
         <Title>매출 현황</Title>
-        <CategoryWrap>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="month"
-              name="SalesCategory"
-              onChange={changeRadio}
-              value={salesCategory}
-              defaultChecked
+        {is_loaded ? (
+          <>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="month"
+                  name="SalesCategory"
+                  onChange={changeRadio}
+                  value={salesCategory}
+                  defaultChecked
+                />
+                <FormCheckText>월별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="year"
+                  name="SalesCategory"
+                  onChange={changeRadio}
+                  value={salesCategory}
+                />
+                <FormCheckText>연도별</FormCheckText>
+              </Label>
+            </CategoryWrap>
+            {salesCategory === "month" && <SalesChart salesData={salesData} />}
+            {salesCategory === "year" && <SalesChart salesData={salesData} />}
+          </>
+        ) : (
+          <ShimmerWrap>
+            <ShimmerThumbnail
+              className="thumNail-weather"
+              height={200}
+              rounded
             />
-            <FormCheckText>월별</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="year"
-              name="SalesCategory"
-              onChange={changeRadio}
-              value={salesCategory}
-            />
-            <FormCheckText>연도별</FormCheckText>
-          </Label>
-        </CategoryWrap>
-        {salesCategory === "month" && <SalesChart salesData={salesData} />}
-        {salesCategory === "year" && <SalesChart salesData={salesData} />}
+          </ShimmerWrap>
+        )}
       </Wrap>
     </>
   );
@@ -107,5 +117,12 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label``;
+
+const ShimmerWrap = styled.div`
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
 
 export default Sales;
