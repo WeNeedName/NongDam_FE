@@ -3,19 +3,17 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInfoDB } from "../redux/modules/users";
-
-// 이미지
-import Profile from "../images/Profile.png";
-
-// js파일
-import Header from "../components/Header";
-import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
-import ScheduleWeek from "../components/schedule/ScheduleWeek";
-import AddSchedule from "../components/schedule/AddSchedule";
 import {
   getCurrentScheduleListDB,
   getScheduleListDB,
 } from "../redux/modules/schedule";
+
+// 컴포넌트
+import Header from "../components/Header";
+import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
+import ScheduleWeek from "../components/schedule/ScheduleWeek";
+import AddSchedule from "../components/schedule/AddSchedule";
+import FooterNav from "../components/FooterNav";
 
 const Schedule = () => {
   const navigate = useNavigate();
@@ -66,6 +64,7 @@ const Schedule = () => {
         </CurrentListWrap>
 
         {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
+        <FooterNav currentPage="schedule" />
       </>
     </Wrap>
   );

@@ -13,6 +13,7 @@ import MarketPriceCard from "../components/marketPrice/MarketPriceCard";
 import MyCropsMarketPriceCard from "../components/marketPrice/MyCropsMarketPriceCard";
 import TodaysMarketPrice from "../components/marketPrice/TodaysMarketPrice";
 import TodaysSalePrice from "../components/marketPrice/TodaysSalePrice";
+import FooterNav from "../components/FooterNav";
 
 const MarketPrice = () => {
   const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const MarketPrice = () => {
     <div>
       <Header currentPage="marketPrice" />
       <Wrap>
-        <BodyWrap>
+        <BodyWrap userInfo={userInfo}>
           <MarketPriceCard
             cropsData={cropsData}
             setSelectedCrops={setSelectedCrops}
@@ -115,8 +116,8 @@ const MarketPrice = () => {
             salePrice={salePrice}
           />
         </BodyWrap>
-        {userInfo !== undefined && userInfo?.crops.length !== 0 ? (
-          <>
+        {userInfo !== null && userInfo?.crops.length !== 0 ? (
+          <Div>
             <Title>👀 내 작물 시세를 한 눈에</Title>
             <CategoryWrap>
               <Label>
@@ -157,8 +158,9 @@ const MarketPrice = () => {
               ) : null} */}
               <MyCropsMarketPriceCard checkedInputs={checkedInputs} />
             </MyCropsChartWrap>
-          </>
+          </Div>
         ) : null}
+        <FooterNav currentPage="marketPrice" />
       </Wrap>
     </div>
   );
@@ -191,6 +193,7 @@ const BodyWrap = styled.div`
   grid-auto-rows: auto;
   row-gap: 16px;
   column-gap: 20px;
+  margin-bottom: ${({ userInfo }) => (userInfo === null ? "100px" : "0px")};
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, minmax(26%, 27%)) 1fr;
   }
@@ -301,8 +304,7 @@ const MyCropsChartWrap = styled.div`
 `;
 
 const Div = styled.div`
-  width: 11.5%;
-  height: 100%;
+  margin-bottom: 80px;
 `;
 
 export default MarketPrice;

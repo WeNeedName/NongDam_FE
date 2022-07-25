@@ -7,8 +7,7 @@ import styled from "styled-components";
 import { loadWorkLogListDB, loadWorkLogDB } from "../redux/modules/workLog";
 
 import { useSelector, useDispatch } from "react-redux";
-
-//import {logOutDB} from '../redux/modules/users'
+import FooterNav from "../components/FooterNav";
 
 const WorkLog = () => {
   const navigate = useNavigate();
@@ -30,6 +29,7 @@ const WorkLog = () => {
     <Container>
       <Header currentPage="workLog" />
       <LoadWorkLog workLogList={workLogList} />
+      <FooterNav currentPage="workLog" />
     </Container>
   );
 };
