@@ -28,7 +28,9 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
       (_, i) => start + i * step
     );
   const yaxis =
-    allDataListSort[0] !== "0"
+    allDataListSort[0] !== "0" && mathRound <= 1
+      ? ["0", "1"]
+      : allDataListSort[0] !== "0"
       ? range(0, mathRound, mathRound / 4).reverse()
       : ["0", "0", "0", "0", "0"];
 
