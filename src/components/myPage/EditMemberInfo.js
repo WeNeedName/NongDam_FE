@@ -47,18 +47,18 @@ const EditMemberInfo = () => {
   const token = sessionStorage.getItem("jwtToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
 
-  console.log(
-    previousNickname,
-    nickname,
-    previousAddress,
-    address,
-    previousCountryCode,
-    countryCode,
-    array,
-    crops,
-    profileImg
-  );
-
+  // console.log(
+  //   previousNickname,
+  //   nickname,
+  //   previousAddress,
+  //   address,
+  //   previousCountryCode,
+  //   countryCode,
+  //   array,
+  //   crops,
+  //   profileImg
+  // );
+  console.log(previousCountryCode, countryCode);
   // 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
@@ -86,12 +86,13 @@ const EditMemberInfo = () => {
       setProfileImg(e.target.files[0]);
     }
   };
-
+  const previousCountryCodeNumber = Number(previousCountryCode);
   const editInfo = async (event) => {
     const data = {
       nickname: nickname === "" ? previousNickname : nickname,
       address: address === "" ? previousAddress : address,
-      countryCode: countryCode === 0 ? previousCountryCode : countryCode,
+      countryCode:
+        countryCode === undefined ? previousCountryCodeNumber : countryCode,
       crops: crops.length === 0 ? array : crops,
     };
     let frm = new FormData();
@@ -111,7 +112,11 @@ const EditMemberInfo = () => {
         RefreshToken: `Bearer ${refreshToken}`,
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => navigate("/mypage"));
+    })
+      .then((res) => console.log(res), navigate("/mypage"))
+      .catch((err) => {
+        window.alert(err.response.data.msg);
+      });
   };
 
   return (
