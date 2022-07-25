@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWeatherDB } from "../../redux/modules/main";
 import { useNavigate } from "react-router";
 import WeatherChart from "./WeatherChart";
+// 로딩 효과
 import { ShimmerTitle } from "react-shimmer-effects";
 import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerCircularImage } from "react-shimmer-effects";
