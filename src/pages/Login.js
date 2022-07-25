@@ -59,6 +59,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="이메일"
+            autocapitalize="off"
           />
           <PwInput
             type="password"
@@ -66,6 +67,7 @@ const Login = () => {
             value={pw}
             required
             placeholder="비밀번호"
+            autocapitalize="off"
           />
         </InputBoxes>
         <SubmitBtns>
