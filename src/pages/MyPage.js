@@ -66,8 +66,9 @@ const Wrap = styled.div`
     grid-template-columns: 1fr repeat(3, 27%) 1fr;
   }
   @media only screen and (max-width: 760px) {
-    grid-column: 1 / 4;
-    grid-row: 1 / 2;
+    margin-top: 90px;
+    grid-template-columns: 1fr 95% 1fr;
+    grid-template-rows: 0px repeat(2, auto) 0px;
   }
 `;
 

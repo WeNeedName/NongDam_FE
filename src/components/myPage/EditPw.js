@@ -131,12 +131,16 @@ const EditPw = () => {
 const Wrap = styled.div`
   border: none;
   width: 100%;
-  height: 100%;
+  height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
   padding: 40px 40px 40px 40px;
   grid-column: 3 / 5;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+  }
 `;
 const Title = styled.div`
   font-size: 18px;
