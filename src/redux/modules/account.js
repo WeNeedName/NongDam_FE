@@ -104,15 +104,25 @@ export const addAccountDB = (account) => async (dispatch) => {
 };
 
 // 장부 수정하기
-export const ModifiAccountDB = (id, account) => async (dispatch) => {
+export const ModifiAccountDB = (id, account, yearMonth) => async (dispatch) => {
   try {
-    console.log("장부 수정 준비", account);
     await apis.editAccount(id, account);
+    apis.loadAccountBook(yearMonth).then((response) => {
+      dispatch(getAccount(response.data));
+      MySwal.fire({
+        title: <h5>수정이 완료되었습니다.</h5>,
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        color: "#black",
+        padding: "10px",
+        width: "400px",
+        height: "200px",
+      });
+    });
 
     apis.loadCurrentAccount().then((response) => {
-      console.log(response.data);
       dispatch(getAccount(response.data));
-
       MySwal.fire({
         title: <h5>수정이 완료되었습니다.</h5>,
         icon: "success",
@@ -170,7 +180,6 @@ export default handleActions(
         console.log(state, payload);
         draft.currentAccount.unshift(payload.account);
         draft.currentAccount = draft.currentAccount.map((account) => {
-          console.log(account);
           if (Number(account.id) === Number(payload.account.id)) {
             return {
               ...account,
@@ -186,7 +195,6 @@ export default handleActions(
         });
         draft.accountList.unshift(payload.account);
         draft.accountList = draft.accountList.map((account) => {
-          console.log(account);
           if (Number(account.id) === Number(payload.account.id)) {
             return {
               ...account,
@@ -201,11 +209,12 @@ export default handleActions(
           }
         });
       }),
-
     [DELETE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(payload);
         draft.currentAccount = draft.currentAccount.filter(
+          (account) => Number(account.id) !== Number(payload.id)
+        );
+        draft.accountList = draft.accountList.filter(
           (account) => Number(account.id) !== Number(payload.id)
         );
       }),

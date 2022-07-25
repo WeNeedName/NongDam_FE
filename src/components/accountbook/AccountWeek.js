@@ -279,7 +279,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
             isOpen={isOpen}
             toggleModal={toggleModal}
             accountId={accountId}
-            currentAccount_list={currentAccount_list}
+            accountList={currentAccount_list}
           />
         )}
 
