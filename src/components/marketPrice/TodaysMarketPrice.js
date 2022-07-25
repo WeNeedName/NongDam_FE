@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Select from "react-select";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -158,8 +158,8 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
           >
             조회하기
           </SearchBtn>
+          <Hr />
           <BottomWrap>
-            <Hr />
             <CategoryTWrap>
               <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
               <DateT>
@@ -207,6 +207,18 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
     </Wrap>
   );
 };
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const Wrap = styled.div`
   width: 90%;
@@ -270,7 +282,7 @@ const SearchBtn = styled.button`
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  animation: ${boxFade} 1s;
 `;
 
 const Hr = styled.div`
@@ -279,6 +291,7 @@ const Hr = styled.div`
   margin-left: -20px;
   padding-right: 44px;
   border-bottom: 0.5px solid #dddddd;
+  margin-top: 20px;
 `;
 
 const PriceWrap = styled.div`

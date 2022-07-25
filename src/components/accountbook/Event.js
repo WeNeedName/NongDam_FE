@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const eventStyleGetter = (event, start, end, isSelected) => {
   //   console.log(event);
@@ -14,6 +14,7 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     marginTop: "4px",
     textAlign: "right",
     fontSize: "13px",
+    animationName: "boxFade",
   };
 
   return {

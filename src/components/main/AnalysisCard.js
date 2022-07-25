@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ShimmerTitle } from "react-shimmer-effects";
@@ -10,12 +10,14 @@ import AnalysisSalesChart from "./AnalysisSalesChart";
 import AnalysisTotalHarvestChart from "./AnalysisTotalHarvestChart";
 import Income from "./Income";
 import Expense from "./Expense";
+import WorkTimeBarChart from "./WorkTimeBarChart";
 
 const AnalysisCard = ({
   salesData,
   totalHarvestData,
   expenseData,
   incomeData,
+  workTimeData,
 }) => {
   const navigate = useNavigate();
   const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
@@ -29,6 +31,8 @@ const AnalysisCard = ({
       setCheckedInputs(e.target.id);
     }
   };
+
+  console.log(incomeData);
 
   return (
     <Wrap>
@@ -126,10 +130,35 @@ const AnalysisCard = ({
               <AnalysisTotalHarvestChart totalHarvestData={totalHarvestData} />
             )}
             {checkedInputs === "account" && (
-              <BodyWrap>
-                <Income incomeData={incomeData} />
-                <Expense expenseData={expenseData} />
-              </BodyWrap>
+              <>
+                {incomeData?.data !== undefined &&
+                expenseData?.data !== undefined &&
+                incomeData?.data.length !== 0 &&
+                expenseData?.data.length !== 0 ? (
+                  <BodyWrap>
+                    <Income incomeData={incomeData} />
+                    <Expense expenseData={expenseData} />
+                  </BodyWrap>
+                ) : (
+                  <NoticeWrap>
+                    <NoticeT>
+                      지금 농장장부를 기록하고
+                      <br />
+                      수입 및 지출을 알아보세요!
+                    </NoticeT>
+                    <NoticeBtn
+                      onClick={() => {
+                        navigate("/accountbook");
+                      }}
+                    >
+                      기록하러 가기
+                    </NoticeBtn>
+                  </NoticeWrap>
+                )}
+              </>
+            )}
+            {checkedInputs === "workTime" && (
+              <WorkTimeBarChart workTimeData={workTimeData} />
             )}
           </ChartWrap>
         </>
@@ -180,6 +209,18 @@ const ThumNailWrap = styled.div`
 const ThumNailChartWrap = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(1%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const Wrap = styled.div`
@@ -281,6 +322,7 @@ const NoticeWrap = styled.div`
   bottom: 0;
   left: 0;
   border-radius: 10px;
+  margin-bottom: 13px;
 `;
 
 const NoticeT = styled.span`
