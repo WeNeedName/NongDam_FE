@@ -20,14 +20,12 @@ const WriteWorkLog = () => {
   const dispatch = useDispatch();
   const token = sessionStorage.getItem("jwtToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
-  const myCropsList = useSelector((state) => state.users.user?.crops);
 
   const [title, setTitle] = useState("");
   const [crop, setCrop] = useState("");
   const [date, setDate] = useState(new Date());
   const [workTime, setWorkTime] = useState("");
   const [memo, setMemo] = useState("");
-  //const [subMaterial, setSubMaterial] = useState([])
 
   const [type0, setType0] = useState(0);
   const [product0, setProduct0] = useState("");
@@ -62,12 +60,6 @@ const WriteWorkLog = () => {
   const numberCrop = Number(crop);
   const numberHarvest = Number(harvest);
   const [message, setMessage] = useState(false);
-
-  // useEffect(() => {
-  //   if (title || crop || date || workTime || memo === null) {
-  //     window.alert("빈 칸을 채워주세요");
-  //   }
-  // }, [message]);
 
   const addWorkLog = async (event) => {
     if (!title || !crop || !date || !workTime || !memo) {
@@ -128,9 +120,9 @@ const WriteWorkLog = () => {
   //console.log(workTime)
 
   return (
-    <Container>
+    <>
       <Header />
-      <TotalWrap>
+      <Container>
         <TotalTitle>영농일지 작성</TotalTitle>
         <Wrap>
           <ContentWrap>
@@ -141,6 +133,7 @@ const WriteWorkLog = () => {
               setMemo={setMemo}
               setWorkTime={setWorkTime}
             />
+
             <SubMaterial
               setType0={setType0}
               setProduct0={setProduct0}
@@ -158,9 +151,17 @@ const WriteWorkLog = () => {
               unit1={unit1}
             />
             <Harvest setHarvest={setHarvest} />
+            <CategoryBigWrap>
+              <SmallTitle className="todo">작업내용</SmallTitle>
+              <TodoInput
+                type="text"
+                onChange={(e) => {
+                  setMemo(e.target.value);
+                }}
+              />
+            </CategoryBigWrap>
             <WorkPhoto setImages={setImages} />
           </ContentWrap>
-
           <BtnWrap>
             <DoneBtn
               onClick={() => {
@@ -180,53 +181,58 @@ const WriteWorkLog = () => {
             </CancelBtn>
           </BtnWrap>
         </Wrap>
-      </TotalWrap>
-    </Container>
+      </Container>
+    </>
   );
 };
 
 const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr minmax(400px, 700px) 1fr;
   background-color: #f5f5f5;
-`;
-
-const TotalWrap = styled.div`
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-  justify-content: center;
+  margin-top: 100px;
 `;
 const TotalTitle = styled.div`
-  margin-top: 100px;
-  margin-right: 600px;
+  grid-column: 2 / 3;
   font-size: 24px;
   font-weight: 700;
+  align-self: flex-start;
 `;
 const Wrap = styled.div`
-  width: 700px;
-
-  height: 1008px;
-  justify-content: center;
-  align-items: center;
+  grid-column: 2 / 3;
+  max-width: 700px;
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background-color: white;
   border-radius: 20px;
   position: relative;
   padding: 30px;
   margin-top: 20px;
+  margin-bottom: 60px;
 `;
 
 const ContentWrap = styled.div`
-  padding: 10px;
-  width: 80%;
-  height: 80vh;
+  /* padding: 10px; */
+  width: 100%;
+  height: auto;
+`;
+
+const CategoryBigWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+`;
+
+const SmallTitle = styled.label`
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 const BtnWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-top: 300px;
+  align-self: flex-end;
 `;
 
 const DoneBtn = styled.button`
@@ -251,6 +257,27 @@ const CancelBtn = styled.button`
   border-radius: 8px;
   &:hover {
     opacity: 0.7;
+  }
+`;
+
+const TodoInput = styled.textarea`
+  font-family: "Noto Sans KR", sans-serif;
+  width: 95%;
+  height: 200px;
+  resize: none;
+  font-size: 14px;
+  border: 1px solid #bfbfbf;
+  margin-top: 5px;
+  border-radius: 10px;
+  padding: 8px;
+  margin-top: 12px;
+  &::placeholder {
+    color: #ddd;
+    font-size: 14px;
+  }
+  &:focus {
+    outline: none;
+    border: 1px solid black;
   }
 `;
 

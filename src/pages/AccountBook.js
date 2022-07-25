@@ -25,7 +25,7 @@ const AccountBook = () => {
 
   useEffect(() => {
     dispatch(getAccountListDB(yearMonth));
-  }, [yearMonth]);
+  }, [yearMonth, currentAccount_list]);
 
   const isLogin = sessionStorage.getItem("jwtToken");
 

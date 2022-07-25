@@ -6,28 +6,38 @@ import { useNavigate } from "react-router-dom";
 const Record = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [hRecord, setHRecord] = useState();
-  // const hRecordNumber = Number(hRecord);
+
+  // 숫자만 입력
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
+
+  function inputNumberFormat(e) {
+    e.target.value = uncomma(e.target.value);
+    props.setWorkTime(e.target.value);
+  }
 
   const handleAction = (e) => {
     props.setHarvest(e.target.value);
   };
 
-  // useEffect(() => {
-  //   props.setHarvest(hRecordNumber);
-  // }, [handleAction]);
-
   //console.log(hRecord)
   return (
     <RecordContentWrap>
-      <SmallTitle>수확량 기록하기</SmallTitle>
+      <SmallTitle>수확량</SmallTitle>
       <CategoryBigWrap>
         <InnerSet>
           <InputBox
             className="quantity"
             type="text"
+            maxLength="8"
+            onChange={(e) => {
+              inputNumberFormat(e);
+              handleAction();
+            }}
             name="quantity"
-            onChange={handleAction}
+            placeholder="수확량"
           />
           <p className="kg">kg</p>
         </InnerSet>
@@ -38,7 +48,6 @@ const Record = (props) => {
 
 const RecordContentWrap = styled.div`
   width: 93%;
-  height: 50px;
   background-color: #fff;
   margin-top: 20px;
 `;
@@ -49,18 +58,23 @@ const SmallTitle = styled.label`
 `;
 
 const CategoryBigWrap = styled.div`
-  width: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 4px 0px;
 `;
 
 const InputBox = styled.input`
-  width: 40px;
+  width: 100px;
+  height: 20px;
+  padding: 4px 10px;
   font-size: 14px;
-  border-top: none;
-  border-right: none;
-  border-left: none;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
+  margin-right: 6px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const InnerSet = styled.div`
@@ -68,6 +82,7 @@ const InnerSet = styled.div`
   align-items: center;
   .kg {
     font-size: 14px;
+    color: #616161;
   }
 `;
 
