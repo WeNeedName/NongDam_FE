@@ -9,7 +9,7 @@ import { addWorkLogDB } from "../../redux/modules/workLog";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 
-import WorkPhoto from "../workLog/WorkPhoto";
+import WorkPhoto from "../workLog/write/WorkPhoto";
 import { getInfoDB } from "../../redux/modules/users";
 
 // alert 라이브러리

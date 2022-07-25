@@ -61,8 +61,6 @@ const ScheduleModal = ({
       setToDo("");
     }
   };
-  console.log(toDo);
-  // date 형식 변경
 
   const editSchedule = () => {
     const id = schedule.id;
@@ -72,12 +70,12 @@ const ScheduleModal = ({
       endTime: endTimeFormat,
       toDo: toDo,
     };
-    console.log(id, data);
+
     dispatch(editScheduleDB(id, data)).then(() => {
       toggleModal();
     });
   };
-  console.log(startTime);
+
   const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm");
   const endTimeFormat = moment(endTime).format("YYYY-MM-DD HH:mm");
   const startTimeLoadFormat = moment(startTime).format(
@@ -85,10 +83,6 @@ const ScheduleModal = ({
   );
   const endTimeLoadFormat = moment(endTime).format("yyyy년 MM월 DD일 HH:mm");
 
-  console.log(checkedCrops, startTimeFormat, endTimeFormat, toDo);
-  console.log(schedule?.crop.id);
-  console.log(schedule.toDo);
-  console.log(memoRef);
   return (
     <StyledModal
       isOpen={isOpen}
@@ -110,8 +104,6 @@ const ScheduleModal = ({
                   <CropEditWrap>
                     {myCropsList !== undefined
                       ? myCropsList.map((list, idx) => {
-                          //setCheckedCrops(.id)
-                          console.log(list);
                           return (
                             <Label key={idx}>
                               <FormCheckLeft

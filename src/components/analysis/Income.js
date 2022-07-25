@@ -146,7 +146,6 @@ const Income = ({ incomeData }) => {
 
   return (
     <Wrap>
-
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
@@ -172,6 +171,9 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const LabelWrap = styled.div`

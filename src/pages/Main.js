@@ -17,6 +17,7 @@ import MarketPriceCard from "../components/main/TodayMarketPriceCard";
 import TodayTodo from "../components/main/TodayTodo";
 import AnalysisCard from "../components/main/AnalysisCard";
 import TodayNews from "../components/main/TodayNews";
+import FooterNav from "../components/FooterNav";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ const Main = () => {
           workTimeData={workTimeData}
         />
         <TodayNews />
+        <FooterNav currentPage="main" />
       </Wrap>
     </>
   );
@@ -86,7 +88,7 @@ const Wrap = styled.div`
   }
   @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 90% 1fr;
-    grid-template-rows: 80px repeat(12, auto) 0px;
+    grid-template-rows: 80px repeat(12, auto) 50px;
   }
 `;
 

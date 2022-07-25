@@ -7,10 +7,11 @@ import moment from "moment";
 import axios from "axios";
 import { addWorkLogDB } from "../redux/modules/workLog";
 
-import Work from "../components/workLog/Work";
-import WorkPhoto from "../components/workLog/WorkPhoto";
-import SubMaterial from "../components/workLog/SubMaterial";
-import Harvest from "../components/workLog/Harvest";
+import Work from "../components/workLog/write/Work";
+import WorkPhoto from "../components/workLog/write/WorkPhoto";
+import SubMaterial from "../components/workLog/write/SubMaterial";
+import Harvest from "../components/workLog/write/Harvest";
+import FooterNav from "../components/FooterNav";
 
 // alert 라이브러리
 import Swal from "sweetalert2";
@@ -121,7 +122,7 @@ const WriteWorkLog = () => {
 
   return (
     <>
-      <Header />
+      <Header currentPage="workLog" />
       <Container>
         <TotalTitle>영농일지 작성</TotalTitle>
         <Wrap>
@@ -181,6 +182,7 @@ const WriteWorkLog = () => {
             </CancelBtn>
           </BtnWrap>
         </Wrap>
+        <FooterNav currentPage="workLog" />
       </Container>
     </>
   );

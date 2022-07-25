@@ -98,6 +98,10 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
 `;
 
 const boxFade = keyframes`
@@ -138,6 +142,11 @@ const BodyWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  @media only screen and (max-width: 760px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
 `;
 
 const NoticeWrap = styled.div`
@@ -187,6 +196,9 @@ const NoticeBtn = styled.button`
 const CircleWrap = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 760px) {
+    margin-top: 20px;
+  }
 `;
 
 const Circle = styled.div`
