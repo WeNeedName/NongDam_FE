@@ -88,7 +88,6 @@ export const kakaoLogInDB = (data) => {
     apis
       .kakaoLogIn(data)
       .then((res) => {
-        console.log(res);
         const token = res.headers.authorization;
         const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
@@ -111,7 +110,6 @@ export const getInfoDB = () => {
     await apis
       .userInfo()
       .then((res) => {
-        console.log(res.data);
         dispatch(getInfo(res.data));
       })
       .catch((err) => {

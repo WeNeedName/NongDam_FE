@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-
 // 로딩 효과
-import { ShimmerTitle } from "react-shimmer-effects";
 import { ShimmerThumbnail } from "react-shimmer-effects";
-import { ShimmerCircularImage } from "react-shimmer-effects";
-import { ShimmerText } from "react-shimmer-effects";
 
 // 컴포넌트
 import TotalHarvestChart from "./TotalHarvestChart";

@@ -106,5 +106,4 @@ export const apis = {
   loadSales: (data) => api.get(`/sales/${data}`),
   loadTotalHarvest: (data) => api.get(`/totalharvest/${data}`),
   loadWorkTimeRate: () => api.get("/worktime/rate"),
-
 };

@@ -44,7 +44,6 @@ const initialState = {
 
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
-  // console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
@@ -83,9 +82,7 @@ export const getCurrentAccountListDB = () => {
 // 장부 추가하기
 export const addAccountDB = (account) => async (dispatch) => {
   try {
-    console.log("장부 만들 준비", account);
     const { data } = await apis.addAccount(account);
-    console.log(data);
     dispatch(createAccount(data));
     Swal.fire({
       title: "작성이 완료되었습니다.",
@@ -142,10 +139,8 @@ export const ModifiAccountDB = (id, account, yearMonth) => async (dispatch) => {
 
 // 장부 삭제하기
 export const deleteAccountDB = (id) => {
-  console.log(id);
   return async function (dispatch) {
     try {
-      console.log("장부를 삭제할거야!");
       await apis.deleteAccount(id);
       dispatch(deleteAccount(id));
     } catch (error) {
@@ -177,7 +172,6 @@ export default handleActions(
     // 최근내역, 월별 내역에 내역 추가
     [CREATE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.currentAccount.unshift(payload.account);
         draft.currentAccount = draft.currentAccount.map((account) => {
           if (Number(account.id) === Number(payload.account.id)) {

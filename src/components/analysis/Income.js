@@ -132,11 +132,6 @@ const Income = ({ incomeData }) => {
                 fontSize: "12px",
                 show: false,
                 color: "black",
-                // formatter: function (w) {
-                //   return w.globals.seriesTotals.reduce((a, b) => {
-                //     return a + b;
-                //   }, 0);
-                // },
               },
             },
           },
@@ -151,10 +146,6 @@ const Income = ({ incomeData }) => {
 
   return (
     <Wrap>
-      {/* <TopWrap> */}
-      {/* <h3>지출</h3> */}
-      {/* <span>기간선택</span> */}
-      {/* </TopWrap> */}
 
       <ReactApexChart
         options={donutData.options}
@@ -181,13 +172,6 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
-`;
-
-const TopWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 const LabelWrap = styled.div`
