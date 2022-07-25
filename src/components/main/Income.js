@@ -8,16 +8,18 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const Income = ({ incomeData }) => {
-  const incomeNumList =
+  incomeNumList = [];
+  const incomeNumListMap =
     incomeData.data &&
-    incomeData.data.map((data) => {
-      return Number(data);
+    incomeData.data.map((data, idx) => {
+      return incomeNumList.push(Number(data));
     });
 
-  const labelList =
+  const labelList = [];
+  const labelListMap =
     incomeData.labels &&
     incomeData.labels.map((data) => {
-      return data.replaceAll("_", " ");
+      return labelList.push(data.replaceAll("_", " "));
     });
 
   // 숫자에 콤마넣기
@@ -171,7 +173,7 @@ const Income = ({ incomeData }) => {
         {labelList !== undefined &&
           labelList.map((data, idx) => {
             return (
-              <LabelWrap>
+              <LabelWrap key={idx}>
                 <LabelTip index={idx} colorList={colorList} />
                 <Label key={idx}>{data}</Label>
               </LabelWrap>
