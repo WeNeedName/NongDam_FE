@@ -10,10 +10,6 @@ import ToolBarSchedule from "./ToolBarSchedule";
 import Day from "./DaySchedule";
 import EventSchedule from "./EventSchedule";
 import EventScheduleModal from "./EventScheduleModal";
-import {
-  getCurrentScheduleListDB,
-  getScheduleListDB,
-} from "../../redux/modules/schedule";
 
 const ScheduleCalendar = () => {
   const dispatch = useDispatch();
