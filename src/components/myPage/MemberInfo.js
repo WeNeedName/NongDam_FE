@@ -72,13 +72,21 @@ const EditMemberInfo = () => {
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
             <CropsContent>
               <PreviousMyCrops>
-                {userInfo?.crops.map((list) => {
-                  return (
-                    <PreviousCropsList>
-                      {"[" + list.type + "]" + " " + list.name}
-                    </PreviousCropsList>
-                  );
-                })}
+                {userInfo?.crops.length !== 0 ? (
+                  <>
+                    {userInfo?.crops.map((list) => {
+                      return (
+                        <PreviousCropsList>
+                          {"[" + list.type + "]" + " " + list.name}
+                        </PreviousCropsList>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <span className="noCropTitle">
+                    내 작물이 아직 선택되지 않았네요
+                  </span>
+                )}
               </PreviousMyCrops>
             </CropsContent>
           </TitleAndCrops>
@@ -300,8 +308,11 @@ const SmallTitleCrops = styled.span`
 const PreviousMyCrops = styled.div`
   text-align: start;
   margin-left: 88px;
-
   width: auto;
+
+  .noCropTitle {
+    font-size: 14px;
+  }
 `;
 
 const PreviousCropsList = styled.div`
