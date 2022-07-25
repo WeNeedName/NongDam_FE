@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import Modal from "styled-react-modal";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteAccountDB, ModifiAccountDB } from "../../redux/modules/account";
 // 날짜 선택 라이브러리
 import DatePicker from "react-datepicker";
@@ -16,21 +16,18 @@ import "moment/locale/ko";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-const AccountModal = ({
-  isOpen,
-  toggleModal,
-  accountId,
-  currentAccount_list,
-}) => {
+const AccountModal = ({ isOpen, toggleModal, accountId, accountList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const account = currentAccount_list.find((list) => list.id === accountId);
+  const account = accountList.find((list) => list.id === accountId);
   const [openEdit, setOpenEdit] = useState(false);
   const [date, setDate] = useState(new Date(account.date));
   const [checkedInputs, setCheckedInputs] = useState(account.category);
   const [category, setCategory] = useState(String(account.type));
   const [price, setPrice] = useState(account.price);
   const [memo, setMemo] = useState(account.memo);
+
+  const yearMonth = useSelector((state) => state.account.yearMonth);
 
   function toggleEditModal() {
     setOpenEdit(!openEdit);
@@ -73,7 +70,7 @@ const AccountModal = ({
       memo: memo,
       date: selecDate,
     };
-    dispatch(ModifiAccountDB(id, data)).then(() => {
+    dispatch(ModifiAccountDB(id, data, yearMonth)).then(() => {
       toggleModal();
     });
   };
@@ -451,7 +448,9 @@ const Price = styled.span`
 `;
 
 const Memo = styled.span`
+  width: 100%;
   font-size: 16px;
+  margin-left: 6px;
 `;
 
 const MemoInput = styled.textarea`
@@ -471,7 +470,8 @@ const MemoBox = styled.div`
   width: 100%;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
-  height: 60px;
+  min-height: 60px;
+  height: auto;
   padding: 6px 0px 6px 0px;
 `;
 

@@ -96,7 +96,7 @@ const WorkPhoto = ({
       ) : (
         <>
           <ImageContentWrap>
-            <SmallTitle>사진(선택사항)</SmallTitle>
+            <SmallTitle>사진</SmallTitle>
             <CategoryBigWrap>
               <label htmlFor="imageUpload">
                 <InputImageBox>
@@ -118,7 +118,7 @@ const WorkPhoto = ({
                 }}
               />
               <div className="preview">
-                {imageSrc && <ImagePreview src={imageSrc} alt="preview-img" />}
+                {imageSrc && <ImagePreview profileImage={imageSrc} />}
               </div>
             </CategoryBigWrap>
           </ImageContentWrap>
@@ -129,17 +129,15 @@ const WorkPhoto = ({
 };
 const ImageContentWrap = styled.div`
   width: 200px;
-  height: 80px;
+  height: auto;
   background-color: #fff;
-
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
 const EditImageContentWrap = styled.div`
   width: 200px;
-  height: 80px;
+  height: auto;
   background-color: #fff;
-
   margin-top: 30px;
 `;
 
@@ -151,7 +149,6 @@ const SmallTitle = styled.label`
 const CategoryBigWrap = styled.div`
   width: 60%;
   display: flex;
-
   margin-top: 10px;
 `;
 
@@ -183,6 +180,10 @@ const InputImageBox = styled.div`
   .icon {
     color: #aaa;
   }
+  cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const InputBox = styled.input`
@@ -195,9 +196,13 @@ const NewImagesPreview = styled.img`
   background-size: cover;
 `;
 
-const ImagePreview = styled.img`
+const ImagePreview = styled.div`
   width: 150px;
   height: 150px;
+  background-size: cover;
+  border-radius: 8px;
+  background-image: url(${(props) => props.profileImage});
+  background-position: center 30%;
   background-size: cover;
 `;
 

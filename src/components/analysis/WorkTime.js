@@ -3,10 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getRateDB } from "../../redux/modules/analysis";
 // 로딩 효과
-import { ShimmerTitle } from "react-shimmer-effects";
 import { ShimmerThumbnail } from "react-shimmer-effects";
-import { ShimmerCircularImage } from "react-shimmer-effects";
-import { ShimmerText } from "react-shimmer-effects";
+
 // 컴포넌트
 import WorkTimeBarChart from "./WorkTimeBarChart";
 
@@ -42,8 +40,6 @@ const WorkTime = ({ workTimeData }) => {
       }
     }, frameRate);
   }, [end, frameRate, start, totalFrame]);
-
-  console.log(rateData);
 
   return (
     <>

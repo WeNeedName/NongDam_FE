@@ -31,8 +31,6 @@ const AccountListModal = ({
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
 
-  console.log(accountList);
-
   const reverseList = accountList !== undefined && [...accountList].reverse();
   // 같은 날짜끼리 묶어주기
   let mappedData = new Map();
@@ -52,7 +50,6 @@ const AccountListModal = ({
       mappedData.set(list.date, original);
     });
 
-  console.log([...mappedData]);
   return (
     <StyledModal
       isOpen={isOpenList}
