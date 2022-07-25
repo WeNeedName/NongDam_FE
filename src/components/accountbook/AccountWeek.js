@@ -300,6 +300,9 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
 
 const Wrap = styled.div`
   padding: 30px;
+  @media only screen and (max-width: 760px) {
+    padding: 30px 0px;
+  }
 `;
 
 const MonthAccountBox = styled.div`
@@ -316,10 +319,10 @@ const MonthAccountBox = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   position: relative;
-  /* cursor: pointer;
-  &:hover {
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-  } */
+  @media only screen and (max-width: 760px) {
+    max-width: 760px;
+    width: 95%;
+  }
 `;
 
 const TopWrap = styled.div`
@@ -335,6 +338,9 @@ const BodyWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 4px 0px;
+  @media only screen and (max-width: 760px) {
+    margin: 8px 0px;
+  }
 `;
 
 const Title = styled.div`
@@ -348,6 +354,9 @@ const ShowMoreBtn = styled.div`
   color: #8e8f93;
   cursor: pointer;
   margin: 4px 8px;
+  @media only screen and (max-width: 760px) {
+    font-size: 13px;
+  }
 `;
 
 const CategoryA = styled.div`
@@ -360,6 +369,9 @@ const CategoryA = styled.div`
   border-radius: 100px;
   font-size: 8px;
   color: #39a4e0;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const CategoryB = styled.div`
@@ -372,6 +384,9 @@ const CategoryB = styled.div`
   border-radius: 100px;
   font-size: 8px;
   color: #ec4646;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const CategoryWrap = styled.div`

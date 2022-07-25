@@ -18,6 +18,7 @@ import AccountAnalysis from "../components/analysis/AcountAnalysis";
 import Income from "../components/analysis/Expense";
 import Expense from "../components/analysis/Income";
 import WorkTime from "../components/analysis/WorkTime";
+import FooterNav from "../components/FooterNav";
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -66,6 +67,7 @@ const Analysis = () => {
           setSalesCategory={setSalesCategory}
           salesCategory={salesCategory}
         />
+        <FooterNav currentPage="analysis" />
       </Wrap>
     </>
   );
@@ -85,9 +87,9 @@ const Wrap = styled.div`
   column-gap: 16px;
   background: #f5f5f5;
   margin-bottom: 20px;
-  @media only screen and (max-width: 1220px) {
-    grid-template-columns: 1fr repeat(8, 7.8%) 1fr;
-    grid-template-rows: 90px 320px 320px 0;
+  @media only screen and (max-width: 760px) {
+    grid-template-columns: 1fr 90% 1fr;
+    grid-template-rows: 80px repeat(6, auto) 0px;
   }
 `;
 

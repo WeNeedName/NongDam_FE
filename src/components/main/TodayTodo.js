@@ -101,8 +101,8 @@ const Margin = styled.div`
   height: 10px;
   width: 100%;
   border-bottom: 0.5px solid #dddddd;
-  margin-left: -20px;
-  padding-right: 40px;
+  margin-left: -18px;
+  padding-right: 36px;
 `;
 
 const Wrap = styled.div`

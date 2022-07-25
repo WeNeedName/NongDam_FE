@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { logOutDB } from "../redux/modules/users";
 import { getInfoDB } from "../redux/modules/users";
 
-// 이미지
-import Profile from "../images/Profile.png";
-
 const Haeder = ({ currentPage }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,12 +12,6 @@ const Haeder = ({ currentPage }) => {
 
   const isLogin = sessionStorage.getItem("jwtToken");
   const [headerNav, setHeaderNav] = useState(currentPage);
-
-  const changeHeaderRadio = (e) => {
-    if (e.target.checked) {
-      setHeaderNav(e.target.id);
-    }
-  };
 
   useEffect(() => {
     dispatch(getInfoDB());
@@ -49,17 +40,6 @@ const Haeder = ({ currentPage }) => {
                   currentPage={headerNav}
                 >
                   홈
-                </FormCheckText>
-
-                <FormCheckText
-                  id="analysis"
-                  onClick={() => {
-                    navigate("/analysis");
-                    setHeaderNav(headerNav);
-                  }}
-                  currentPage={headerNav}
-                >
-                  농장 관리 현황
                 </FormCheckText>
 
                 <FormCheckText
@@ -103,6 +83,16 @@ const Haeder = ({ currentPage }) => {
                   currentPage={headerNav}
                 >
                   영농일지
+                </FormCheckText>
+                <FormCheckText
+                  id="analysis"
+                  onClick={() => {
+                    navigate("/analysis");
+                    setHeaderNav(headerNav);
+                  }}
+                  currentPage={headerNav}
+                >
+                  농장 관리 현황
                 </FormCheckText>
               </CategoryWrap>
             </>

@@ -25,12 +25,6 @@ const initialState = {
 export const addWorkLogDB = (data) => {
   return async function (dispatch) {
     dispatch(createWorkLog(data));
-    // addWorkLog(data) //컴포넌트에서 직접 서버 연결 했으니까 이부분 삭제 가능한가?
-
-    // .catch((err) => {
-    //   window.alert("영농일지 등록 중에 오류가 발생했습니다.");
-    //   console.log(err)
-    // });
   };
 };
 
@@ -58,14 +52,12 @@ export const loadWorkLogDB = (id) => {
         dispatch(getWorkLog(res.data));
       })
       .catch((err) => {
-        //window.alert("영농일지를 불러오는 중에 오류가 발생했습니다.");
         console.log(err);
       });
   };
 };
 
 export const deleteWorkLogDB = (id) => {
-  // console.log("스케줄 삭제 준비!", id);
   return async function (dispatch) {
     await apis
       .deleteWorkLog(id)

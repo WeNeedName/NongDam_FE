@@ -13,6 +13,9 @@ import "moment/locale/ko";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+// 컴포넌트
+import FooterNav from "../components/FooterNav";
+
 const DetailWorkLog = ({}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,7 +58,7 @@ const DetailWorkLog = ({}) => {
 
   return (
     <Container>
-      <Header />
+      <Header currentPage="workLog" />
       {!isEdit ? (
         <TotalWrap>
           <ContentWrap>
@@ -189,6 +192,7 @@ const DetailWorkLog = ({}) => {
       ) : (
         <EditWorkLog workLogOne={workLogOne} isEdit={isEdit} />
       )}
+      <FooterNav currentPage="workLog" />
     </Container>
   );
 };
