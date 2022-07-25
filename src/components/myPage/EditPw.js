@@ -16,6 +16,8 @@ const EditPw = () => {
   const [newPwErr2, setNewPwErr2] = useState(false);
   const [newPwCheckErr, setNewPwCheckErr] = useState(false);
 
+  const userInfo = useSelector((state) => state.users.user);
+  console.log(userInfo);
   //비밀번호 검사
   const onChangePw = (e) => {
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -53,7 +55,7 @@ const EditPw = () => {
               setOldPw(e.target.value);
             }}
             //placeholder="기존 비밀번호"
-            type="text"
+            type="password"
           />
         </EachBoxWrap>
         <EachBoxWrap>
@@ -64,7 +66,7 @@ const EditPw = () => {
               onChangePw(e);
             }}
             //placeholder="비밀번호(영문, 숫자 포함 8자 이상)"
-            type="text"
+            type="password"
           />
           {newPwErr && (
             <NewPwErr>
@@ -81,7 +83,7 @@ const EditPw = () => {
               onChangePwCheck(e);
             }}
             //placeholder="비밀번호 확인"
-            type="text"
+            type="password"
           />
 
           {!newPwErr && newPwCheckErr && (
@@ -134,11 +136,12 @@ const SmallTitle = styled.div`
 
 const NewPwErr = styled.div`
   margin-top: 6px;
-  font-color: #666666;
+  color: #666666;
 `;
 
 const EachBoxWrap = styled.div`
   margin-bottom: 20px;
 `;
+
 const Submit = styled.button``;
 export default EditPw;

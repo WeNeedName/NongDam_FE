@@ -2,6 +2,7 @@ import { apis } from "../../shared/api";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import jwt_decode from "jwt-decode";
+import { Navigate } from "react-router";
 
 //actions
 const LOGIN_USER = "LOGIN_USER";
@@ -26,7 +27,7 @@ const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 const getInfo = createAction(GET_INFO, (user) => ({ user }));
 const editInfo = createAction(EDIT_INFO, (user) => ({ user }));
-const changePw = createAction(EDIT_PW, (user) => ({ user }));
+// const changePw = createAction(EDIT_PW, (pw) => ({ pw }));
 const getCropsList = createAction(GET_CROPS, (data) => ({ data }));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
 
@@ -110,7 +111,7 @@ export const getInfoDB = () => {
     await apis
       .userInfo()
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         dispatch(getInfo(res.data));
       })
       .catch((err) => {
@@ -120,30 +121,31 @@ export const getInfoDB = () => {
 };
 
 //회원정보수정
-export const editInfoDB = (user) => {
+// export const editInfoDB = (user) => {
+//   return async function (dispatch) {
+//     console.log(user);
+//     await apis
+//       .editUserInfo(user)
+//       .then((res) => {
+//         console.log(res);
+//         dispatch(editInfo(user));
+//         Navigate("/mypage");
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
+
+//비밀번호변경
+export const editPwDB = (pw) => {
   return async function (dispatch) {
-    console.log(user);
     await apis
-      .editUserInfo(user)
-      .then((res) => {
-        console.log(res);
-        dispatch(editInfo(user));
-      })
+      .editPw(pw)
+      .then((res) => console.log(res))
       .catch((err) => {
         console.log(err);
       });
-  };
-};
-
-//비밀번호변경
-export const editPwDB = (user) => {
-  return async function (dispatch) {
-    await apis.editPw(user).then((res) => {
-      console.log(res);
-      dispatch(changePw(res.data)).catch((err) => {
-        console.log(err);
-      });
-    });
   };
 };
 //로그아웃

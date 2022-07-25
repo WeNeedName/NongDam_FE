@@ -22,6 +22,8 @@ const MyPage = () => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
+
+  const userInfo = useSelector((state) => state.users.user);
   //console.log(isLogin)
   // function logOut()
   // {
@@ -35,7 +37,7 @@ const MyPage = () => {
       <Routes>
         <Route path="/" element={<MemberInfo />} />
         <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-        <Route path="/editpw" element={<EditPw />} />
+        <Route path="/editpw" element={<EditPw userInfo={userInfo} />} />
       </Routes>
     </Wrap>
   );
