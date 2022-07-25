@@ -13,6 +13,10 @@ export const SubmitBtn = styled.button`
   &:hover {
     opacity: 0.8;
   }
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
 `;
 
 export const CancelBtn = styled.button`

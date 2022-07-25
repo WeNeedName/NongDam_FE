@@ -5,10 +5,13 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import EditWorkLog from "../components/workLog/EditWorkLog";
 
-
 import { loadWorkLogDB, deleteWorkLogDB } from "../redux/modules/workLog";
 import moment from "moment";
 import "moment/locale/ko";
+
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const DetailWorkLog = ({}) => {
   const navigate = useNavigate();
@@ -16,15 +19,39 @@ const DetailWorkLog = ({}) => {
   const params = useParams();
   const [isEdit, setIsEdit] = useState(false);
 
-
   useEffect(() => {
-    // dispatch(loadWorkLogDB(params.id));
+    dispatch(loadWorkLogDB(params.id));
   }, []);
-
 
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
-  console.log(workLogOne?.images);
+  console.log(workLogOne);
+  const deleteWorkLogModal = () => {
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#318F27",
+      cancelButtonColor: "#ddd",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteWorkLogDB(params.id));
+        navigate("/worklog");
+        Swal.fire({
+          title: "삭제가 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+      }
+    });
+  };
 
   return (
     <Container>
@@ -44,12 +71,7 @@ const DetailWorkLog = ({}) => {
                 </GreyBtn>
                 <GreyBtn
                   onClick={() => {
-                    const result = window.confirm(
-                      "삭제하시겠습니까? 삭제한 내역은 되돌릴 수 없습니다."
-                    );
-                    if (result) {
-                      dispatch(deleteWorkLogDB(params.id));
-                    }
+                    deleteWorkLogModal();
                   }}
                 >
                   삭제
@@ -77,50 +99,6 @@ const DetailWorkLog = ({}) => {
               </CropContent>
             </CropWrap>
             <QuantityWrap>
-              <SmallWrap>
-                {workLogOne?.subMaterial !== undefined &&
-                  workLogOne?.subMaterial[0] !== undefined &&
-                  workLogOne?.subMaterial[0]?.product && (
-                    <Fertilizer>
-                      <SmallTitle> 비료</SmallTitle>
-                      <Quantity>
-                        {workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial[0]?.product}
-                      </Quantity>
-                      <Quantity>
-                        {workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial[0]?.use}
-                      </Quantity>
-                    </Fertilizer>
-                  )}
-                {workLogOne?.subMaterial !== undefined &&
-                  workLogOne?.subMaterial[1] !== undefined &&
-                  workLogOne?.subMaterial[1]?.product && (
-                    <Chemical>
-                      <SmallTitle> 농약</SmallTitle>
-                      <Quantity>
-                        {workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial[1]?.product}
-                      </Quantity>
-                      <Quantity>
-                        {workLogOne.subMaterial !== undefined &&
-                          workLogOne?.subMaterial !== undefined &&
-                          workLogOne?.subMaterial[1]?.use}
-                      </Quantity>
-                    </Chemical>
-                  )}
-              </SmallWrap>
-              <Harvest>
-                <SmallTitle>수확량</SmallTitle>
-                <Quantity>
-                  {workLogOne !== undefined &&
-                    workLogOne?.harvest !== undefined &&
-                    workLogOne?.harvest + "kg"}
-                </Quantity>
-              </Harvest>
               <WorkingHour>
                 <SmallTitle>작업시간</SmallTitle>
                 <Quantity>
@@ -129,16 +107,75 @@ const DetailWorkLog = ({}) => {
                     workLogOne?.workTime + "시간"}
                 </Quantity>
               </WorkingHour>
+              <SmallWrap>
+                {workLogOne.subMaterial !== undefined &&
+                workLogOne?.subMaterial[0]?.product !== undefined &&
+                workLogOne?.subMaterial[0]?.product !== "0" &&
+                workLogOne?.subMaterial[0]?.product !== "" &&
+                workLogOne?.subMaterial[0]?.use !== "" &&
+                workLogOne?.subMaterial[0]?.use !== "0" &&
+                workLogOne?.subMaterial[0]?.use !== undefined ? (
+                  <Fertilizer>
+                    <SmallTitle> 비료</SmallTitle>
+                    <Quantity>
+                      {workLogOne?.subMaterial[0]?.product !== ""
+                        ? workLogOne?.subMaterial[0]?.product
+                        : null}
+                    </Quantity>
+                    <Quantity>
+                      {workLogOne?.subMaterial[0]?.use !== "0"
+                        ? workLogOne?.subMaterial[0]?.use
+                        : null}
+                    </Quantity>
+                  </Fertilizer>
+                ) : null}
+
+                {workLogOne.subMaterial !== undefined &&
+                workLogOne?.subMaterial[1]?.product !== undefined &&
+                workLogOne?.subMaterial[1]?.product !== "0" &&
+                workLogOne?.subMaterial[1]?.product !== "" &&
+                workLogOne?.subMaterial[1]?.use !== "0" &&
+                workLogOne?.subMaterial[1]?.use !== undefined &&
+                workLogOne?.subMaterial[1]?.use !== "" ? (
+                  <Chemical>
+                    <SmallTitle> 농약</SmallTitle>
+                    <Quantity>
+                      {workLogOne?.subMaterial !== undefined &&
+                        workLogOne?.subMaterial[1] !== undefined &&
+                        workLogOne?.subMaterial[1]?.product !== undefined &&
+                        workLogOne?.subMaterial[1]?.product}
+                    </Quantity>
+                    <Quantity>
+                      {workLogOne.subMaterial !== undefined &&
+                      workLogOne?.subMaterial !== undefined &&
+                      workLogOne?.subMaterial[1]?.use !== undefined &&
+                      workLogOne?.subMaterial[1]?.use !== "0"
+                        ? workLogOne?.subMaterial[1]?.use
+                        : null}
+                    </Quantity>
+                  </Chemical>
+                ) : null}
+              </SmallWrap>
+              <Harvest>
+                {workLogOne !== undefined &&
+                workLogOne?.harvest !== undefined &&
+                workLogOne?.harvest !== "0" ? (
+                  <>
+                    <SmallTitle>수확량</SmallTitle>
+                    <Quantity>{workLogOne?.harvest + "kg"}</Quantity>
+                  </>
+                ) : null}
+              </Harvest>
             </QuantityWrap>
-            {workLogOne !== undefined && workLogOne?.images !== undefined ? (
+            {(workLogOne !== undefined &&
+              workLogOne.images !== undefined &&
+              workLogOne?.images.length) > 0 ? (
               <Images
                 style={{
                   backgroundImage: `url(${workLogOne?.images})`,
                 }}
               />
-            ) : (
-              <div></div>
-            )}
+            ) : null}
             <WorkWrap>
               <SmallTitle> 작업내용</SmallTitle>
               <WorkContent>
@@ -251,7 +288,6 @@ const WorkWrap = styled.div`
 const WorkContent = styled.div`
   width: 400px;
   height: 100px;
-  padding: 5px;
   border-radius: 5px;
   display: inline-block;
   text-align: left;

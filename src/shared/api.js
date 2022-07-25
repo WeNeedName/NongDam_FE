@@ -79,7 +79,7 @@ export const apis = {
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
   //editUserInfo: (id, data) => formApi.put(`/member/${memberid}`, id, data),
-  editPw: (data) => api.put(`/member/{memberid}/password`, data),
+  editPw: (data) => api.put(`/member/password`, data),
 
   loadCropsList: () => api.get("/crops"),
 
@@ -106,4 +106,5 @@ export const apis = {
   loadSales: (data) => api.get(`/sales/${data}`),
   loadTotalHarvest: (data) => api.get(`/totalharvest/${data}`),
   loadWorkTimeRate: () => api.get("/worktime/rate"),
+
 };

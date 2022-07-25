@@ -300,8 +300,8 @@ const SmallTitleCrops = styled.span`
 const PreviousMyCrops = styled.div`
   text-align: start;
   margin-left: 88px;
-  margin-top: 10px;
-  width: 300px;
+
+  width: auto;
 `;
 
 const PreviousCropsList = styled.div`
@@ -357,7 +357,6 @@ const SmallTitleArea = styled.div`
 const Area = styled.div`
   font-size: 14px;
   margin-left: 78px;
-  margin-top: 12px;
 `;
 
 const BtnWrap = styled.div``;
