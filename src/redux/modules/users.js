@@ -62,6 +62,7 @@ export const logInDB = (user) => {
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");
+
         // dispatch(
         //   logIn(
         //     {
@@ -75,8 +76,9 @@ export const logInDB = (user) => {
       })
       .catch((err) => {
         let code = err.response.status;
-        if (code == 403) window.alert("이메일 인증완료가 필요합니다.");
-        else window.alert("잘못된 로그인 정보 입니다.");
+
+        if (code == 403) window.alert(err.response.data.msg);
+        else window.alert(err.response.data.msg);
         console.log(err);
       });
   };
@@ -100,6 +102,7 @@ export const kakaoLogInDB = (data) => {
       })
       .catch((err) => {
         console.log(err);
+        window.alert(err.response.data.msg);
       });
   };
 };
@@ -143,6 +146,7 @@ export const editPwDB = (pw) => {
       .then((res) => console.log(res))
       .catch((err) => {
         console.log(err);
+        window.alert(err.response.data.msg);
       });
   };
 };
