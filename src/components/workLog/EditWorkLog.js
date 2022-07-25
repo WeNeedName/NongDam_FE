@@ -12,6 +12,10 @@ import { ko } from "date-fns/esm/locale";
 import WorkPhoto from "../workLog/WorkPhoto";
 import { getInfoDB } from "../../redux/modules/users";
 
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 const EditWorkLog = ({ workLogOne, isEdit }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,121 +27,164 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   }, []);
 
   const myCropsList = useSelector((state) => state.users.user?.crops);
-  console.log(workLogOne);
 
   const previousTitle = workLogOne.title;
   const previousCrop = workLogOne.crop.id;
   const previousDate = workLogOne.date;
   const previousWorkTime = workLogOne.workTime;
-  const previousWork = workLogOne.memo;
+  const previousMemo = workLogOne.memo;
   const previousHarvest = workLogOne.harvest;
 
-  //기존 부자재 데이터 배열
-  const previousSubMaterialFertilizer = {
-    type: workLogOne?.subMaterial[0]?.type,
-    product: workLogOne?.subMaterial[0]?.product,
-    use: workLogOne?.subMaterial[0]?.use,
-  };
+  //기존 부자재(비료, 농약) 사용량
+  const prevFertilizerUse = workLogOne?.subMaterial[0]?.use;
+  const prevChemicalUse = workLogOne?.subMaterial[1]?.use;
+  //기존 부자재(비료, 농약) 사용량 숫자 추출
+  const numberFertilizerUse = prevFertilizerUse?.replace(/[^0-9]/g, "");
+  const numberChemicalUse = prevChemicalUse?.replace(/[^0-9]/g, "");
+  //기존 부자재(비료, 농약) 사용량 단위 추출
+  const stringFertilizerUnit = prevFertilizerUse?.replace(/[1-9]/g, "");
+  const stringChemicalUnit = prevChemicalUse?.replace(/[1-9]/g, "");
 
-  const previousSubMaterialChemical = {
-    type: workLogOne?.subMaterial[1]?.type,
-    product: workLogOne?.subMaterial[1]?.product,
-    use: workLogOne?.subMaterial[1]?.use,
-  };
-  const previousSubMaterial = [
-    previousSubMaterialFertilizer,
-    previousSubMaterialChemical,
-  ];
+  //기존 부자재 데이터 배열(서버 발송용)
+  // const previousSubMaterialFertilizer = {
+  //   type: workLogOne?.subMaterial[0]?.type,
+  //   product: workLogOne?.subMaterial[0]?.product,
+  //   use: workLogOne?.subMaterial[0]?.use,
+  // };
 
-  const [newTitle, setNewTitle] = useState("");
-  const [newCrop, setNewCrop] = useState("");
-  const [newCheckedCrop, setNewCheckedCrop] = useState("");
-  const [myNewDate, setMyNewDate] = useState("");
-  const [newWorkTime, setNewWorkTime] = useState("");
-  const [newMemo, setNewMemo] = useState("");
+  // const previousSubMaterialChemical = {
+  //   type: workLogOne?.subMaterial[1]?.type,
+  //   product: workLogOne?.subMaterial[1]?.product,
+  //   use: workLogOne?.subMaterial[1]?.use,
+  // };
+  // const previousSubMaterial = [
+  //   previousSubMaterialFertilizer,
+  //   previousSubMaterialChemical,
+  // ];
+
+  //수정된 부자재 데이터 관리
+  const [newTitle, setNewTitle] = useState(previousTitle);
+  const [newCrop, setNewCrop] = useState(previousCrop);
+  const [newCheckedCrop, setNewCheckedCrop] = useState(previousDate);
+  const [myNewDate, setMyNewDate] = useState(previousDate);
+  const [newWorkTime, setNewWorkTime] = useState(previousWorkTime);
+  const [newMemo, setNewMemo] = useState(previousMemo);
+  const [newHarvest, setNewHarvest] = useState();
+  const [newImages, setNewImages] = useState("");
 
   const [newType0, setNewType0] = useState(0);
   const [newProduct0, setNewProduct0] = useState("");
   const [newUse0, setNewUse0] = useState("");
-  const [newUnit0, setNewUnit0] = useState("");
+  const [newUnit0, setNewUnit0] = useState(stringFertilizerUnit);
+
   const newUsage0 = newUse0 + newUnit0;
 
   const [newType1, setNewType1] = useState(1);
   const [newProduct1, setNewProduct1] = useState("");
   const [newUse1, setNewUse1] = useState("");
-  const [newUnit1, setNewUnit1] = useState("");
-  const newUsage1 = newUse1 + newUnit1;
+  const [newUnit1, setNewUnit1] = useState(stringChemicalUnit);
 
-  const newSubMaterial0 = {
-    type: newType0,
-    product: newProduct0,
-    use: newUsage0,
+  const newUsage1 = newUse1 + newUnit1;
+  console.log(newProduct0, newProduct1);
+  console.log(newUsage0, newUsage1);
+  const product0Change = (e) => {
+    setNewProduct0(e.target.value);
   };
 
+  const product1Change = (e) => {
+    setNewProduct1(e.target.value);
+  };
+
+  const newSubMaterial0 = {
+    type: 0,
+    product:
+      newProduct0 !== "" ? newProduct0 : workLogOne?.subMaterial[0]?.product,
+    use:
+      newUnit0 === "" && newUse0 === ""
+        ? workLogOne?.subMaterial[0]?.use
+        : newUse0 === "" && newUnit0 !== ""
+        ? numberFertilizerUse + newUnit0
+        : newUse0 + newUnit0,
+  };
+
+  console.log(newUse0, newUse1);
+
   const newSubMaterial1 = {
-    type: newType1,
-    product: newProduct1,
-    use: newUsage1,
+    type: 1,
+    product:
+      newProduct1 !== "" ? newProduct1 : workLogOne?.subMaterial[1]?.product,
+    use:
+      newUnit1 === "" && newUse1 === ""
+        ? workLogOne?.subMaterial[1]?.use
+        : newUse1 === "" && newUnit1 !== ""
+        ? numberChemicalUse + newUnit1
+        : newUse1 + newUnit1,
   };
 
   const newSubMaterial = [newSubMaterial0, newSubMaterial1];
 
-  const [newHarvest, setNewHarvest] = useState("");
-  const [newImages, setNewImages] = useState("");
   const dateFormat = moment(myNewDate).format("YYYY-MM-DD");
   const numberTime = Number(newWorkTime);
   const numberCrop = Number(newCrop);
   const numberHarvest = Number(newHarvest);
 
-  const prevFertilizerUse = workLogOne?.subMaterial[0]?.use;
-  const prevChemicalUse = workLogOne?.subMaterial[1]?.use;
-  const numberFertilizerUse = prevFertilizerUse?.replace(/[^0-9]/g, "");
-  const numberChemicalUse = prevChemicalUse?.replace(/[^0-9]/g, "");
-
-  const stringFertilizerUnit = prevFertilizerUse?.replace(/[1-9]/g, "");
-  const stringChemicalUnit = prevChemicalUse?.replace(/[1-9]/g, "");
-
-  console.log(newSubMaterial, previousSubMaterial);
   const editWorkLogDB = async (event) => {
-    const data = {
-      title: newTitle === "" ? previousTitle : newTitle,
-      crop: numberCrop === 0 ? previousCrop : numberCrop,
-      date: myNewDate === "" ? previousDate : dateFormat,
-      memo: newMemo === "" ? previousWork : newMemo,
-      workTime: newWorkTime === "" ? previousWorkTime : newWorkTime,
-      subMaterial:
-        newSubMaterial[0].product || newSubMaterial[1].product
-          ? newSubMaterial
-          : previousSubMaterial,
-      harvest: newHarvest === "" ? previousHarvest : numberHarvest,
-    };
-    let frm = new FormData();
-    frm.append("data", JSON.stringify(data));
-    if (newImages === "") {
-      frm.append("images", null);
+    if (!newTitle || !newCrop || !myNewDate || !newWorkTime || !newMemo) {
+      window.alert("빈 칸을 채워주세요");
     } else {
-      frm.append("images", newImages);
+      const data = {
+        title: newTitle.length < 1 ? previousTitle : newTitle,
+        crop: numberCrop === 0 ? previousCrop : numberCrop,
+        date: myNewDate.length < 1 ? previousDate : dateFormat,
+        memo: newMemo.length < 1 ? previousMemo : newMemo,
+        workTime: newWorkTime.length < 1 ? previousWorkTime : newWorkTime,
+        subMaterial: newSubMaterial,
+        harvest: newHarvest === undefined ? previousHarvest : newHarvest,
+      };
+      let frm = new FormData();
+      frm.append("data", JSON.stringify(data));
+      if (newImages === "") {
+        frm.append("images", null);
+      } else {
+        frm.append("images", newImages);
+      }
+      await axios({
+        method: "put",
+        url: `https://idontcare.shop/worklog/${workLogOne.id}/update`,
+        data: frm,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          RefreshToken: `Bearer ${refreshToken}`,
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "수정이 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+        navigate("/workLog");
+      });
     }
-    await axios({
-      method: "put",
-      url: `https://idontcare.shop/worklog/${workLogOne.id}/update`,
-      data: frm,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        RefreshToken: `Bearer ${refreshToken}`,
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(navigate("/workLog"));
   };
 
   console.log(
     newTitle,
-    numberCrop,
-    dateFormat,
+    previousTitle,
+    newCrop,
+    previousCrop,
+    myNewDate,
+    previousDate,
+    newWorkTime,
+    previousWorkTime,
     newMemo,
-    newSubMaterial,
-    newHarvest,
-    newWorkTime
+    previousMemo
   );
 
   const changeNewRadioCrops = (e) => {
@@ -201,6 +248,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
                     name="radioButton"
                     onChange={changeNewRadioCrops}
                     value={newCheckedCrop}
+                    defaultChecked={list.id === previousCrop ? true : false}
                   />
                   <FormCheckText>
                     {"[" + list.type + "]" + list.name}{" "}
@@ -211,6 +259,19 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
         </CropWrap>
 
         <QuantityWrap>
+          <WorkingHour>
+            <SmallTitle>작업시간</SmallTitle>
+            <div>
+              <HourQuantity
+                defaultValue={workLogOne.workTime}
+                onChange={(e) => {
+                  setNewWorkTime(e.target.value);
+                }}
+              />
+              <Measure>시간</Measure>
+            </div>
+          </WorkingHour>
+
           <SubMaterialWrap>
             <Fertilizer>
               <SmallTitle> 비료</SmallTitle>
@@ -218,9 +279,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
                 <TypeTitle>제품명 : </TypeTitle>
                 <ProductQuantity
                   defaultValue={workLogOne.subMaterial[0].product}
-                  onChange={(e) => {
-                    setNewProduct0(e.target.value);
-                  }}
+                  onChange={product0Change}
                 />
               </div>
               <div>
@@ -228,12 +287,14 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
                 <UseQuantity
                   defaultValue={numberFertilizerUse}
                   onChange={(e) => {
-                    setNewUse0(e.target.value);
+                    e.target.value === ""
+                      ? (setNewUse0(0), setNewUnit0(""))
+                      : setNewUse0(e.target.value);
                   }}
                 />
                 <UnitSelect
-                  onChange={(e) => setNewUnit0(e.target.value)}
                   defaultValue={stringFertilizerUnit}
+                  onChange={(e) => setNewUnit0(e.target.value)}
                 >
                   <option value="l">l</option>
                   <option value="ml">ml</option>
@@ -247,9 +308,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
                 <TypeTitle>제품명 : </TypeTitle>
                 <ProductQuantity
                   defaultValue={workLogOne?.subMaterial[1]?.product}
-                  onChange={(e) => {
-                    setNewProduct1(e.target.value);
-                  }}
+                  onChange={product1Change}
                 />
               </div>
               <div>
@@ -257,7 +316,11 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
                 <UseQuantity
                   defaultValue={numberChemicalUse}
                   onChange={(e) => {
-                    setNewUse1(e.target.value);
+                    {
+                      e.target.value === ""
+                        ? (setNewUse1(0), setNewUnit1(0))
+                        : setNewUse1(e.target.value);
+                    }
                   }}
                 />
                 <UnitCSelect
@@ -283,18 +346,6 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
               <Measure>kg</Measure>
             </div>
           </HarvestWrap>
-          <WorkingHour>
-            <SmallTitle>작업시간</SmallTitle>
-            <div>
-              <HourQuantity
-                defaultValue={workLogOne.workTime}
-                onChange={(e) => {
-                  setNewWorkTime(e.target.value);
-                }}
-              />
-              <Measure>시간</Measure>
-            </div>
-          </WorkingHour>
         </QuantityWrap>
 
         <WorkPhoto
@@ -432,9 +483,10 @@ const FormCheckText = styled.span`
   align-items: center;
   margin-right: 10px;
   cursor: pointer;
-  color: #616161;
+  color: black;
   &:hover {
-    opacity: 0.7;
+    font-weight: 700;
+    border: 1px solid #02113b;
   }
 `;
 
@@ -446,7 +498,8 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckText} {
-    opacity: 0.7;
+    font-weight: 700;
+    border: 1px solid #02113b;
   }
   display: none;
 `;

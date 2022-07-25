@@ -114,6 +114,7 @@ const Signup = () => {
             // placeholder="이메일을 입력해주세요"
             onChange={(e) => {
               onChangeUserId(e);
+              autocapitalize = "off";
             }}
           />
           {/* @
@@ -366,7 +367,6 @@ const SignUpBtn = styled.button`
   width: 253px;
   height: 40px;
   flex-direction: center;
-
   justify-content: center;
   text-align: center;
   padding: 4px 13px;
@@ -379,6 +379,10 @@ const SignUpBtn = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 0.7;
+  }
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
   }
 `;
 

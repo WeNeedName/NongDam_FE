@@ -43,7 +43,6 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     fontSize: "11px",
     color: "#ffffff",
     border: "0.5px solid #ffffff",
-    borderRadius: "4px",
   };
 
   return {

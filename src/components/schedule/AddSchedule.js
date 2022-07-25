@@ -351,7 +351,7 @@ const DateWrap = styled.div`
 
 const FormCheckText = styled.span`
   width: auto;
-  height: 25px;
+  height: auto;
   padding-left: 7px;
   padding-right: 7px;
   margin-right: 4px;
@@ -389,7 +389,7 @@ const FormCheckLeft = styled.input`
 const Label = styled.label``;
 
 const FormCheckTextWork = styled.span`
-  width: 50px;
+  width: auto;
   height: 25px;
   padding-left: 10px;
   padding-right: 10px;

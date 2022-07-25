@@ -12,6 +12,9 @@ import WorkPhoto from "../components/workLog/WorkPhoto";
 import SubMaterial from "../components/workLog/SubMaterial";
 import Harvest from "../components/workLog/Harvest";
 
+// alert 라이브러리
+import Swal from "sweetalert2";
+
 const WriteWorkLog = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -95,8 +98,21 @@ const WriteWorkLog = () => {
           RefreshToken: `Bearer ${refreshToken}`,
           Authorization: `Bearer ${token}`,
         },
+      }).then((res) => {
+        console.log(res);
+        dispatch(addWorkLogDB(data, images));
+        Swal.fire({
+          title: "작성이 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+        window.location.assign("/workLog");
       });
-      dispatch(addWorkLogDB(data, images)).then(navigate("/worklog"));
     }
   };
   console.log(
