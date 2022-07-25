@@ -31,7 +31,7 @@ const AnalysisTotalHarvestChart = ({ totalHarvestData }) => {
     allDataListSort[0] !== "0" && mathRound <= 1
       ? ["0", "1"]
       : allDataListSort[0] !== "0"
-      ? range(smallestNumberWon, mathRound, mathRound / 4).reverse()
+      ? range(0, mathRound, mathRound / 4).reverse()
       : ["0", "0", "0", "0", "0"];
 
   // 수확량 차트 state.series 값 배열
@@ -271,6 +271,9 @@ const ChartWrap = styled.div`
   cursor: pointer;
   margin-top: 20px;
   position: relative;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const YasisWrap = styled.div`
@@ -316,6 +319,7 @@ const YasisLabelBox = styled.div`
     width: auto;
     margin: 6px 10px;
     top: -40px;
+    right: -20px;
   }
 `;
 

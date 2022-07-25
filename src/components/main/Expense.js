@@ -190,6 +190,12 @@ const Legend = styled.div`
     font-size: 10.5px;
     margin: 2px;
   }
+  @media only screen and (max-width: 760px) {
+    span {
+      font-size: 12px;
+      margin: 2px;
+    }
+  }
 `;
 
 const LabelWrap = styled.div`

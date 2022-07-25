@@ -84,7 +84,7 @@ const EditMemberInfo = () => {
                   </>
                 ) : (
                   <span className="noCropTitle">
-                    내 작물이 아직 선택되지 않았네요
+                    내 작물을 아직 선택하지 않았어요
                   </span>
                 )}
               </PreviousMyCrops>
@@ -118,23 +118,11 @@ const EditMemberInfo = () => {
                   {userInfo?.countryCode === 3145 && "용인(소매)"}
                 </>
               ) : (
-                <option value="">희망 지역이 아직 선택되지 않았네요</option>
+                <option value="">지역을 아직 선택하지 않았어요</option>
               )}
             </Area>
           </TitleAndArea>
         </AreaWrap>
-
-        {/* <BtnWrap>
-          <SubmitBtn
-            type="submit"
-            onClick={() => {
-              editInfo();
-            }}
-          >
-            수정완료
-          </SubmitBtn>
-          <CancelBtn> 취소 </CancelBtn>
-        </BtnWrap> */}
       </ContentWrap>
     </Wrap>
   );
@@ -143,27 +131,36 @@ const EditMemberInfo = () => {
 const Wrap = styled.div`
   border: none;
   width: 100%;
-  height: 100%;
+  height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
   padding: 40px 40px 40px 40px;
   grid-column: 3 / 5;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    margin-bottom: 30px;
+  }
 `;
+
 const Title = styled.span`
   font-size: 18px;
   font-weight: 700;
 `;
+
 const ContentWrap = styled.div``;
+
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
 `;
+
 const ProfileImg = styled.img`
-  width: 111px;
-  height: 111px;
+  width: 110px;
+  height: 110px;
   display: flex;
   flex-direction: column;
   background-size: cover;
@@ -173,6 +170,7 @@ const ProfileImg = styled.img`
   border-radius: 70%;
   margin-left: 20px;
 `;
+
 const ImgAndNames = styled.div`
   display: flex;
   flex-direction: row;
@@ -195,6 +193,7 @@ const Names = styled.div`
     font-size: 11px;
   }
 `;
+
 const EditNicknameWrap = styled.span`
   width: 70px;
   margin-left: 17px;
@@ -247,11 +246,13 @@ const Line = styled.hr`
   width: 95%;
   border: solid 0.5px #d8d8d8;
 `;
+
 const SmallTitle = styled.span`
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
 `;
+
 const BottomWrap = styled.div``;
 
 const AddressWrap = styled.div`
@@ -267,6 +268,7 @@ const TitleAndAddress = styled.div`
   text-align: center;
   align-items: center;
 `;
+
 const PrevAddress = styled.button`
   margin-left: 100px;
   font-size: 14px;
@@ -274,6 +276,7 @@ const PrevAddress = styled.button`
   background-color: transparent;
   color: #02113b;
 `;
+
 const EditAddressBtn = styled.button`
   font-size: 11px;
   padding: 4px 10px;
@@ -286,6 +289,7 @@ const EditAddressBtn = styled.button`
     opacity: 0.7;
   }
 `;
+
 const CropsWrap = styled.div`
   margin-top: 30px;
   margin-left: 20px;
@@ -295,16 +299,19 @@ const CropsWrap = styled.div`
   align-items: center;
   text-align: center;
 `;
+
 const TitleAndCrops = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const SmallTitleCrops = styled.span`
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
 `;
+
 const PreviousMyCrops = styled.div`
   text-align: start;
   margin-left: 88px;
@@ -365,6 +372,7 @@ const SmallTitleArea = styled.div`
   font-weight: 700;
   line-height: 40px;
 `;
+
 const Area = styled.div`
   font-size: 14px;
   margin-left: 78px;

@@ -277,6 +277,9 @@ const ChartWrap = styled.div`
   cursor: pointer;
   margin-top: 20px;
   position: relative;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const YasisWrap = styled.div`
@@ -322,6 +325,7 @@ const YasisLabelBox = styled.div`
     width: auto;
     margin: 6px 10px;
     top: -40px;
+    right: -20px;
   }
 `;
 
