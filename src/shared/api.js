@@ -1,9 +1,7 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL = "https://idontcare.shop";
 
 const api = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -12,7 +10,7 @@ const api = axios.create({
 
 // form data용
 const formApi = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "multipart/form-data",
   },
@@ -33,6 +31,7 @@ formApi.interceptors.request.use(function (config) {
   config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`;
   return config;
 });
+
 api.interceptors.response.use((response) => {
   if (response.headers.authorization !== undefined) {
     console.log("set New Token");
