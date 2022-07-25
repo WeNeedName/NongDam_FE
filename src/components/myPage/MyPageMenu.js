@@ -41,8 +41,6 @@ const MyPageMenu = () => {
           >
             비밀번호 변경
           </span>
-
-          {/* <span className="myContent">내 게시물</span> */}
           <span
             className="logOut"
             onClick={() => {
@@ -59,22 +57,29 @@ const MyPageMenu = () => {
 const Wrap = styled.div`
   border: none;
   width: 100%;
-  height: 100vh;
+  height: auto;
   background-color: #fff;
-  box-shadow: 0px 2px 3px rbga(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   padding: 20px 20px 16px 20px;
   grid-column: 2 /3;
-  // position : relative;
   display: flex;
   justify-content: center;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
 `;
+
 const ContentWrap = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
-  //justify-content : center;
   align-content: center;
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+    margin-top: 20px;
+  }
 `;
 
 const ProfileImg = styled.img`
@@ -88,6 +93,10 @@ const ProfileImg = styled.img`
   text-align: center;
   border-radius: 70%;
   align-self: center;
+  @media only screen and (max-width: 760px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const SmallInfo = styled.div`
@@ -131,14 +140,19 @@ const BottomWrap = styled.div`
     cursor: pointer;
   }
   .ChangePw {
+    margin-top: 6px;
     cursor: pointer;
   }
   .myContent {
     cursor: pointer;
   }
   .logOut {
-    margin-top: 50px;
+    margin-top: 6px;
     cursor: pointer;
+    margin-bottom: 20px;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 30px;
   }
 `;
 

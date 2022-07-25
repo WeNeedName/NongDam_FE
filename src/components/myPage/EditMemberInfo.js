@@ -244,8 +244,7 @@ const EditMemberInfo = () => {
               navigate("/mypage");
             }}
           >
-            {" "}
-            취소{" "}
+            취소
           </CancelBtn>
         </BtnWrap>
       </ContentWrap>
@@ -256,24 +255,33 @@ const EditMemberInfo = () => {
 const Wrap = styled.div`
   border: none;
   width: 100%;
-  height: 100%;
+  height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
   padding: 40px 40px 40px 40px;
   grid-column: 3 / 5;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    margin-bottom: 30px;
+  }
 `;
+
 const Title = styled.span`
   font-size: 18px;
   font-weight: 700;
 `;
+
 const ContentWrap = styled.div``;
+
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
 `;
+
 const ProfileImg = styled.img`
   width: 111px;
   height: 111px;
@@ -286,6 +294,7 @@ const ProfileImg = styled.img`
   border-radius: 70%;
   margin-left: 20px;
 `;
+
 const ImgAndNames = styled.div`
   display: flex;
   flex-direction: row;

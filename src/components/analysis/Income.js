@@ -172,7 +172,7 @@ const Wrap = styled.div`
   flex-direction: row;
   cursor: pointer;
   @media only screen and (max-width: 760px) {
-    margin-bottom: 20px;
+    margin: 20px 30px 20px 0px;
   }
 `;
 
@@ -199,6 +199,12 @@ const Legend = styled.div`
   span {
     font-size: 10.5px;
     margin: 2px;
+  }
+  @media only screen and (max-width: 760px) {
+    span {
+      font-size: 12px;
+      margin: 2px;
+    }
   }
 `;
 

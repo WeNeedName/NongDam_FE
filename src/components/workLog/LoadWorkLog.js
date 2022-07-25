@@ -92,6 +92,9 @@ const Wrap = styled.div`
   justify-content: center;
   background-color: transparent;
   border-radius: 10px;
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+  }
 `;
 
 const TopWrap = styled.div`
@@ -131,6 +134,9 @@ const WriteBtn = styled.button`
 
 const BoxWrap = styled.div`
   flex-wrap: wrap;
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+  }
 `;
 
 const WorkLogBox = styled.div`
@@ -149,10 +155,9 @@ const WorkLogBox = styled.div`
   justify-content: center;
   position: relative;
   margin-bottom: 30px;
-  //cursor : pointer;
-  // &:hover {
-  //   box-shadow : 0px 6px 10px rgba(0, 0, 0, 0.15);
-  // }
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+  }
 `;
 
 const LeftContent = styled.div`

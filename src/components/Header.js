@@ -160,6 +160,10 @@ const Logo = styled.img`
   width: 180px;
   margin-right: 40px;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    width: 140px;
+    height: auto;
+  }
 `;
 
 const Menu = styled.span`
@@ -176,6 +180,10 @@ const UserProfile = styled.div`
   /* background-image: url(https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164422528068537909.jpeg?gif=1&w=1080); */
   background-position: center 30%;
   background-size: cover;
+  @media only screen and (max-width: 760px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 const ProfileWrap = styled.div`
@@ -201,6 +209,7 @@ const FormCheckText = styled.span`
   }
   @media only screen and (max-width: 760px) {
     display: none;
+    /* font-size: 12px; */
   }
 `;
 
