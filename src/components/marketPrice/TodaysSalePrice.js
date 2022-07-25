@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -73,11 +73,7 @@ const TodaysSalePrice = ({ salePrice }) => {
       </SumWrap>
       <BottomWrap>
         <Hr />
-        {salePrice === 0 ? (
-          <NotFoundNoticeWrap>
-            <NotFoundNotice>판매 금액을 예상할 수 없습니다.</NotFoundNotice>
-          </NotFoundNoticeWrap>
-        ) : (
+        {salePrice !== 0 ? (
           <SellingPrice>
             {sellingPrice < 1000
               ? kg * salePrice + "원"
@@ -102,11 +98,27 @@ const TodaysSalePrice = ({ salePrice }) => {
                 "천원"
               : comma(String(sellingPrice).slice(0, -4)) + "만원"}
           </SellingPrice>
+        ) : (
+          <NotFoundNoticeWrap>
+            <NotFoundNotice>판매 금액을 예상할 수 없습니다.</NotFoundNotice>
+          </NotFoundNoticeWrap>
         )}
       </BottomWrap>
     </Wrap>
   );
 };
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const Wrap = styled.div`
   width: 90%;
@@ -159,6 +171,7 @@ const SellingPrice = styled.span`
   font-size: 24px;
   margin-left: 4px;
   margin-top: 30px;
+  animation: ${boxFade} 1s;
 `;
 
 const KgInput = styled.input`

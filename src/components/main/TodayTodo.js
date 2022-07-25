@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { loadTodayScheduleDB } from "../../redux/modules/main";
@@ -40,18 +40,20 @@ const TodayTodo = () => {
           {scheduleData.length >= 1 ? (
             scheduleData.slice(0, 2).map((schedule, id) => {
               return (
-                <ScheduleBox key={id}>
+                <>
                   <Hr />
-                  <ScheduleContent>{schedule?.toDo}</ScheduleContent>
-                  <ScheduleTime>
-                    {moment(schedule?.startTime).format("HH:mm")} -{" "}
-                    {moment(schedule?.endTime).format("HH:mm")}
-                  </ScheduleTime>
-                </ScheduleBox>
+                  <ScheduleBox key={id}>
+                    <ScheduleContent>{schedule?.toDo}</ScheduleContent>
+                    <ScheduleTime>
+                      {moment(schedule?.startTime).format("HH:mm")} -{" "}
+                      {moment(schedule?.endTime).format("HH:mm")}
+                    </ScheduleTime>
+                  </ScheduleBox>
+                </>
               );
             })
           ) : (
-            <Guide> 오늘 일정을 등록해주세요.</Guide>
+            <Guide> 오늘 일정을 등록해주세요</Guide>
           )}
         </>
       ) : (
@@ -76,6 +78,18 @@ const TodayTodo = () => {
     </Wrap>
   );
 };
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const LoadWrap = styled.div`
   display: flex;
@@ -131,20 +145,19 @@ const ShowMoreBtn = styled.span`
 const Guide = styled.div`
   height: 90%;
   font-size: 14px;
-  color: #02113b;
+  color: #bbb;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  animation: ${boxFade} 1s;
 `;
 
 const ScheduleBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  margin-top: 14px;
+  animation: ${boxFade} 1s;
 `;
 
 const Hr = styled.div`
@@ -153,6 +166,7 @@ const Hr = styled.div`
   margin-left: -16px;
   padding-right: 32px;
   border-bottom: 0.5px solid #dddddd;
+  margin-top: 14px;
 `;
 
 const ScheduleContent = styled.span`

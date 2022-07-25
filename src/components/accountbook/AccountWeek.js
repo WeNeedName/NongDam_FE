@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccountDB, getAccountListDB } from "../../redux/modules/account";
 import { ShimmerThumbnail } from "react-shimmer-effects";
@@ -418,6 +418,18 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const AccountBoxWrap = styled.div`
   width: 100%;
   padding-right: 70px;
@@ -425,6 +437,7 @@ const AccountBoxWrap = styled.div`
   height: 454px;
   padding-bottom: 10px;
   overflow: auto;
+  animation: ${boxFade} 1s;
   ::-webkit-scrollbar {
     display: none;
   }

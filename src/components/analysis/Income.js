@@ -26,6 +26,18 @@ const Income = ({ incomeData }) => {
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
 
+  const colorList = [
+    "#44D600",
+    "#33C2FF",
+    "#2B9CEF",
+    "#3362FF",
+    "#4B3FDB",
+    "#481CAA",
+    "#2C1186",
+    "#180B41",
+    "#04010F",
+  ];
+
   const donutData = {
     series: incomeNumList !== undefined ? incomeNumList : [1, 1, 1],
     options: {
@@ -153,7 +165,12 @@ const Income = ({ incomeData }) => {
       <Legend>
         {labelList !== undefined &&
           labelList.map((data, idx) => {
-            return <span key={idx}>{data}</span>;
+            return (
+              <LabelWrap>
+                <LabelTip index={idx} colorList={colorList} />
+                <Label key={idx}>{data}</Label>
+              </LabelWrap>
+            );
           })}
       </Legend>
     </Wrap>
@@ -171,6 +188,23 @@ const TopWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+const LabelWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const LabelTip = styled.div`
+  width: 6px;
+  height: 6px;
+  background-color: ${({ index, colorList }) => colorList[index]};
+  margin-right: 4px;
+`;
+
+const Label = styled.span`
+  font-size: 12px;
 `;
 
 const Legend = styled.div`

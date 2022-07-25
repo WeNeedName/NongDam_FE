@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getWeatherDB } from "../../redux/modules/main";
 import { useNavigate } from "react-router";
@@ -8,7 +8,6 @@ import { ShimmerTitle } from "react-shimmer-effects";
 import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerCircularImage } from "react-shimmer-effects";
 import { ShimmerText } from "react-shimmer-effects";
-import "../../App.css";
 
 const Weather = () => {
   const dispatch = useDispatch();
@@ -134,6 +133,18 @@ const Weather = () => {
   );
 };
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const Wrap = styled.div`
   border: none;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
@@ -143,6 +154,7 @@ const Wrap = styled.div`
   grid-row: 2 / 6;
   background-color: #fff;
   position: relative;
+
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 2 / 5;
@@ -164,7 +176,6 @@ const ThumNail = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: center; */
 `;
 
 const Title = styled.span`
@@ -180,6 +191,7 @@ const MiddleWrap = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 20px 0px 4px 0px;
+  animation: ${boxFade} 1s;
 `;
 
 const MiddleLeftWrap = styled.div`

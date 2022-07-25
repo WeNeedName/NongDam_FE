@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+<h3>농장을 한 눈에 담다,</h3>
+<h1>농담 🧑‍🌾</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2>서비스 소개</h2>
 
-## Available Scripts
+<span>농담은 <strong>귀농한 청년</strong> 혹은 <strong>농장 관리자</strong>에게
+농장 운영에 필요한 데이터를 모아 제공하고 <br/>
+누적된 <strong>농장데이터 통계 분석</strong>으로 생산성을 높여주는 서비스입니다.</span>
 
-In the project directory, you can run:
+<br/><br/>
 
-### `yarn start`
+<h2>서비스 핵심기능</h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+01 ⛅️ 실시간 <strong> 날씨정보</strong> 제공 [open api](https://openweathermap.org/api/one-call-api)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+02 📈 지역/작물별 <strong>도/소매 시세정보</strong> 제공 [open api](https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2)
 
-### `yarn test`
+03 📆 <strong>일정관리</strong> (Todo List)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+04 💵 <strong>농장장부</strong> (수입, 지출 기록)
 
-### `yarn build`
+05 ✍️ <strong>농장일지</strong>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+06 📊 <strong>농장 관리 현황</strong> (연도별 매출현황, 수확량, 수입&지출 통계, 작업시간 통계)
+<br/><br/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<h2>팀 소개</h2>
+<br/>
+<strong>프로젝트 기간</strong> <br/> 22.06.24 - 22.08.05 (6주)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h3>Member 🧑‍💻 </h3>
+	
+<strong>FE</strong> 	손윤주, 김수진	<br/>
+<strong>BE</strong> 	백규현, 이병관, 이경동<br/>
+<strong>Designer</strong>	정기혁	
+<br/><br/>
 
-### `yarn eject`
+<h2>🩻 Service Architecture</h2>
+<br/><br/><br/><br/>
+<a href='https://ifh.cc/v-8HHVWl' target='_blank'><img src='https://ifh.cc/g/8HHVWl.png' border='0'></a>
+<br/><br/><br/><br/>
+<a href='https://ifh.cc/v-fcFoq6' target='_blank'><img src='https://ifh.cc/g/fcFoq6.jpg' border='0'></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br/><br/><br/><br/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h2>🛠 Tech & Platfrom</h2>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<h3>Front-End </h3>
+<div>
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+<img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"> 
+<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> 
+</div>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<div>
+<img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> 
+<img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html&logoColor=white"> 
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css&logoColor=white"> 
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> 	
+</div>
+<h3>Back-End </h3>
+<h3>Design </h3>
+<h3>Tools</h3>
 
-## Learn More
+<br/><br/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h2>📚 주요 라이브러리</h2>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br/><br/>
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h2>🔥 이슈 및 트러블슈팅</h2>
+<h4>FE</h4>
+ <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 페이지네이션</a><br/>
+ <a href="https://www.notion.so/throttle-f4adb557f7c34fb1b2b650ef33389073" > 👉 스와이프 throttle로 렌더링 제어하기</a><br/>
+ <h4>BE</h4>
+<a href="https://elegant-burglar-a24.notion.site/BackEnd-TroubleShooting-56f5d95764af4b80a9818352013cc307"> 👨‍🔧 Redis, 모니터링 툴 사용하기</a>
+<br/><br/>
+<h2>⛳️ 추후 계획</h2>
+<h4>FE - Github Actions CI/CD 구축</h4>
+<h4>FE - 디자인 적용, keyframes 애니메이션으로 UX 강화</h4>
+<h4>BE - 서버 안정화 (CPU점유율, DB응답속도 최적화)</h4>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../redux/modules/users";
 import Select from "react-select";
@@ -164,6 +164,17 @@ const MarketPrice = () => {
   );
 };
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 const Wrap = styled.div`
   margin-top: 100px;
   display: flex;
@@ -270,8 +281,6 @@ const GradationBox = styled.div`
 const MyCropsChartWrap = styled.div`
   width: 100%;
   height: 100%;
-  /* margin-left: 11.5%; */
-
   padding-bottom: 10px;
   margin-bottom: 30px;
   display: flex;
@@ -279,7 +288,7 @@ const MyCropsChartWrap = styled.div`
   flex-wrap: nowrap;
   overflow-x: scroll;
   padding-left: 11.5%;
-  /* padding-right: 11.5%; */
+  animation: ${boxFade} 1s;
   @media only screen and (max-width: 1220px) {
     padding-left: 11.5%;
   }

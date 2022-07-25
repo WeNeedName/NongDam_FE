@@ -118,7 +118,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
               onChange={changeRadio}
               value={checkedInputs}
             />
-            <FormCheckText>수입</FormCheckText>
+            <FormCheckText category="수입">수입</FormCheckText>
           </Label>
           <Label>
             <FormCheckLeft
@@ -128,7 +128,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
               onChange={changeRadio}
               value={checkedInputs}
             />
-            <FormCheckText>지출</FormCheckText>
+            <FormCheckText category="지출">지출</FormCheckText>
           </Label>
         </CategoryWrap>
       </ContentWrap>
@@ -237,6 +237,9 @@ const PriceInput = styled.input`
   box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   border: none;
+  &:focus {
+    outline: 0.5px solid #bfbfbf;
+  }
 `;
 
 const WonT = styled.span`
@@ -253,6 +256,9 @@ const SDatePicker = styled(DatePicker)`
   padding: 0px 6px;
   color: #02113b;
   border-radius: 6px;
+  &:focus {
+    outline: 0.5px solid #bfbfbf;
+  }
 `;
 
 const CategoryWrap = styled.div`
@@ -267,30 +273,35 @@ const FormCheckText = styled.span`
   padding-bottom: 4px;
   border-radius: 100px;
   background: transparent;
-  border: 1px solid #616161;
+  border: 1px solid #cccccc;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 8px;
-  color: #616161;
+  color: #cccccc;
   cursor: pointer;
   &:hover {
-    color: black;
+    color: ${({ category }) => (category === "수입" ? "#39A4E0" : "#EC4646")};
+    background-color: ${({ category }) =>
+      category === "수입" ? "#D7EDF9" : "#FACCCC"};
     font-weight: 700;
-    border: 1px solid black;
+    border: 1px solid
+      ${({ category }) => (category === "수입" ? "#D7EDF9" : "#FACCCC")};
   }
 `;
 
 const FormCheckLeft = styled.input.attrs({ type: "radio" })`
   &:checked {
-    color: black;
+    color: ${({ id }) => (id === "수입" ? "#39A4E0" : "#EC4646")};
+    background-color: ${({ id }) => (id === "수입" ? "#D7EDF9" : "#FACCCC")};
     font-weight: 700;
-    border: 1px solid black;
+    border: 1px solid ${({ id }) => (id === "수입" ? "#D7EDF9" : "#FACCCC")};
   }
   &:checked + ${FormCheckText} {
-    color: black;
+    color: ${({ id }) => (id === "수입" ? "#39A4E0" : "#EC4646")};
+    background-color: ${({ id }) => (id === "수입" ? "#D7EDF9" : "#FACCCC")};
     font-weight: 700;
-    border: 1px solid black;
+    border: 1px solid ${({ id }) => (id === "수입" ? "#D7EDF9" : "#FACCCC")};
   }
   display: none;
 `;
@@ -307,13 +318,19 @@ const Selec = styled.select`
   color: #616161;
   border-radius: 6px;
   cursor: pointer;
+  &:focus {
+    outline: 0.5px solid #bfbfbf;
+  }
 `;
 
 const MemoInput = styled.textarea`
-  border: 1px solid #616161;
+  border: 1px solid #bfbfbf;
   border-radius: 6px;
   height: 60px;
   padding: 6px;
+  &:focus {
+    outline: 0.5px solid #bfbfbf;
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -326,25 +343,25 @@ const BtnWrap = styled.div`
 const DoneBtn = styled.button`
   padding: 6px 16px;
   height: 26px;
-  background: #22631c;
+  background: #55a349;
   border-radius: 6px;
   color: white;
   border: none;
   font-size: 11px;
   cursor: pointer;
   &:hover {
-    opacity: 0.7;
+    background: #22631c;
   }
 `;
 
 const CancelBtn = styled.button`
-  padding: 6px 16px;
+  padding: 6px 10px;
   height: 26px;
   background-color: transparent;
   border-radius: 6px;
   color: #616161;
-  border: 1px solid #616161;
-  margin-left: 6px;
+  border: 1px solid #bfbfbf;
+  margin-left: 8px;
   font-size: 11px;
   cursor: pointer;
   &:hover {

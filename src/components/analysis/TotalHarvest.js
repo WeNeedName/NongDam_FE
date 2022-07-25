@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-// 차트 라이브러리
-import ApexCharts from "react-apexcharts";
+import { useSelector } from "react-redux";
 
-import moment from "moment";
-import "moment/locale/ko";
+// 로딩 효과
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerCircularImage } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 
 // 컴포넌트
 import TotalHarvestChart from "./TotalHarvestChart";
@@ -15,6 +16,10 @@ const TotalHarvest = ({
   setHarvestCaterory,
   harvestCaterory,
 }) => {
+  const is_loaded = useSelector(
+    (state) => state.analysis.totalharvest_is_loaded
+  );
+
   // 항목 선택
   const changeRadio = (e) => {
     if (e.target.checked) {
@@ -26,34 +31,46 @@ const TotalHarvest = ({
     <>
       <Wrap>
         <Title>수확량</Title>
-        <CategoryWrap>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="month"
-              name="totalHarvestCategory"
-              onChange={changeRadio}
-              value={harvestCaterory}
-              defaultChecked
+        {is_loaded ? (
+          <>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="month"
+                  name="totalHarvestCategory"
+                  onChange={changeRadio}
+                  value={harvestCaterory}
+                  defaultChecked
+                />
+                <FormCheckText>월별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="year"
+                  name="totalHarvestCategory"
+                  onChange={changeRadio}
+                  value={harvestCaterory}
+                />
+                <FormCheckText>연도별</FormCheckText>
+              </Label>
+            </CategoryWrap>
+            {harvestCaterory === "month" && (
+              <TotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+            {harvestCaterory === "year" && (
+              <TotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+          </>
+        ) : (
+          <ShimmerWrap>
+            <ShimmerThumbnail
+              className="thumNail-weather"
+              height={200}
+              rounded
             />
-            <FormCheckText>월별</FormCheckText>
-          </Label>
-          <Label>
-            <FormCheckLeft
-              type="radio"
-              id="year"
-              name="totalHarvestCategory"
-              onChange={changeRadio}
-              value={harvestCaterory}
-            />
-            <FormCheckText>연도별</FormCheckText>
-          </Label>
-        </CategoryWrap>
-        {harvestCaterory === "month" && (
-          <TotalHarvestChart totalHarvestData={totalHarvestData} />
-        )}
-        {harvestCaterory === "year" && (
-          <TotalHarvestChart totalHarvestData={totalHarvestData} />
+          </ShimmerWrap>
         )}
       </Wrap>
     </>
@@ -116,123 +133,11 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-const ChartWrap = styled.div`
-  width: 100%;
-  height: 70%;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
-  row-gap: 4px;
-  column-gap: 8px;
-  cursor: pointer;
-  margin-top: 12px;
-`;
-
-const YasisWrap = styled.div`
+const ShimmerWrap = styled.div`
+  height: 90%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-around;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-`;
-
-const Yasis = styled.span`
-  font-size: 8px;
-  color: #666666;
-`;
-
-const ChartBox = styled.div`
-  width: 100%;
-  margin-top: 6px;
-  background: #fafafa;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
-  border-radius: 4px;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  position: relative;
-`;
-
-const YasisLabelBox = styled.div`
-  max-width: 150px;
-  width: 28%;
-  height: auto;
-  background: #ffffff;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
-  padding: 4px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin: 10px 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  @media only screen and (max-width: 760px) {
-    width: 100px;
-    margin: 6px 10px;
-  }
-`;
-
-const YasisLabelWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const YasisColorTipA = styled.div`
-  width: 7px;
-  height: 3px;
-  background: #3152bf;
-  margin-right: 4px;
-  @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
-  }
-`;
-
-const YasisColorTipB = styled.div`
-  width: 7px;
-  height: 3px;
-  background: #7eb3e3;
-  margin-right: 4px;
-  @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
-  }
-`;
-
-const YasisColorTipC = styled.div`
-  width: 7px;
-  height: 3px;
-  background: #7ee3ab;
-  margin-right: 4px;
-  @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
-  }
-`;
-
-const YasisLabel = styled.span`
-  font-size: 11px;
-  color: #666666;
-`;
-
-const XasisWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: 0px 10px;
-  /* margin-top: 4px; */
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-`;
-
-const Xasis = styled.span`
-  font-size: 8px;
-  color: #666666;
+  justify-content: flex-end;
 `;
 
 export default TotalHarvest;

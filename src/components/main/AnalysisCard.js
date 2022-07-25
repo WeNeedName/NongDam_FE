@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ShimmerTitle } from "react-shimmer-effects";
@@ -31,6 +31,8 @@ const AnalysisCard = ({
       setCheckedInputs(e.target.id);
     }
   };
+
+  console.log(incomeData);
 
   return (
     <Wrap>
@@ -207,6 +209,18 @@ const ThumNailWrap = styled.div`
 const ThumNailChartWrap = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(1%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const Wrap = styled.div`

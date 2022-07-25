@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getRateDB } from "../../redux/modules/analysis";
@@ -12,9 +12,6 @@ import dayjs from "dayjs";
 
 const WorkTimeBarChart = ({ workTimeData }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const [rateData, setRateData] = useState([]);
 
   // state.series 값 배열
   const seriesList =
@@ -42,6 +39,7 @@ const WorkTimeBarChart = ({ workTimeData }) => {
     workTimeData.datas.map((list, idx) => {
       return thisYearDataList.push(Number(list.data[1]));
     });
+
   // 연도별 작업시간 총합 배열 만들기
   let sumList = [];
   const lastYearDataSum = lastYearDataList.reduce((acc, cur) => {
@@ -88,22 +86,6 @@ const WorkTimeBarChart = ({ workTimeData }) => {
       ? range(0, mathRound, mathRound / 4)
       : ["0", "0", "0", "0", "0"];
 
-  // 증가율 구하기
-  const rate = (sumListCopy[1] / sumListCopy[0]) * 100;
-  const rateOfIncrease = 100 - Math.round(rate);
-
-  const thisYearRate = sumList[0] < sumList[1] ? "증가" : "감소";
-
-  useEffect(() => {
-    setRateData(rateOfThisYear);
-    dispatch(getRateDB(rateData));
-  }, [workTimeData]);
-
-  const rateOfThisYear = {
-    rate: rateOfIncrease,
-    rateText: thisYearRate,
-  };
-
   const state = {
     series:
       workTimeData.datas !== undefined
@@ -123,8 +105,18 @@ const WorkTimeBarChart = ({ workTimeData }) => {
         },
         stacked: true,
       },
+
       dataLabels: {
         enabled: false,
+        enabledOnSeries: [3, 3],
+        style: {
+          colors: ["#ccc"],
+          fontWeight: "400",
+        },
+        offsetX: 22,
+        formatter: function (val, opt) {
+          return sumList[opt.dataPointIndex];
+        },
       },
       plotOptions: {
         bar: {
@@ -143,17 +135,9 @@ const WorkTimeBarChart = ({ workTimeData }) => {
                 color: "#44D600",
               },
             ],
-            // backgroundBarColors: ["#44D600", "#44D600", "#44D600", "#44D600"],
             backgroundBarOpacity: 1,
             backgroundBarRadius: 0,
           },
-        },
-        dataLabels: {
-          enabled: true,
-          style: {
-            colors: ["#333"],
-          },
-          offsetX: 30,
         },
       },
       stroke: {
@@ -270,12 +254,14 @@ const WorkTimeBarChart = ({ workTimeData }) => {
               })}
           </YasisWrap>
           <ChartBox>
-            <ReactApexChart
-              options={state.options}
-              series={state.series}
-              type="bar"
-              height={156}
-            />
+            <Chart>
+              <ReactApexChart
+                options={state.options}
+                series={state.series}
+                type="bar"
+                height={156}
+              />
+            </Chart>
           </ChartBox>
           <XasisWrap>
             {yaxis !== undefined &&
@@ -314,6 +300,21 @@ const ChartWrap = styled.div`
   column-gap: 8px;
   cursor: pointer;
   position: relative;
+`;
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(3%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const Chart = styled.div`
+  animation: ${boxFade} 1s;
 `;
 
 const ChartBox = styled.div`

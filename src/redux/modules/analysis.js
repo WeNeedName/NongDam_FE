@@ -103,10 +103,17 @@ export const getTotalHarvestDB = (data) => {
 };
 
 // 증가율
-export const getRateDB = (data) => {
+export const getRateDB = () => {
   // console.log(date);
   return async function (dispatch) {
-    dispatch(getRate(data));
+    apis
+      .loadWorkTimeRate()
+      .then((response) => {
+        dispatch(getRate(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
 

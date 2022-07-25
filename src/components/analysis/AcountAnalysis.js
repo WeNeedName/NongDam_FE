@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+
+// 로딩 효과
+import { ShimmerCircularImage } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 
 //컴포넌트
 import Income from "./Income";
@@ -8,6 +13,12 @@ import Expense from "./Expense";
 
 const AccountAnalysis = ({ incomeData, expenseData }) => {
   const navigate = useNavigate();
+  const income_is_loaded = useSelector(
+    (state) => state.analysis.income_is_loaded
+  );
+  const expense_is_loaded = useSelector(
+    (state) => state.analysis.expense_is_loaded
+  );
 
   return (
     <Wrap>
@@ -17,33 +28,59 @@ const AccountAnalysis = ({ incomeData, expenseData }) => {
           올 한해는 <br />
           이렇게 관리했어요
         </Title>
-        <div></div>
       </TitleWrap>
-      {incomeData?.data !== undefined &&
-      expenseData?.data !== undefined &&
-      incomeData?.data.length !== 0 &&
-      expenseData?.data.length !== 0 ? (
-        <>
-          <BodyWrap>
-            <Income incomeData={incomeData} />
-            <Expense expenseData={expenseData} />
-          </BodyWrap>
-        </>
+      {income_is_loaded && expense_is_loaded ? (
+        incomeData?.data !== undefined &&
+        expenseData?.data !== undefined &&
+        incomeData?.data.length !== 0 &&
+        expenseData?.data.length !== 0 ? (
+          <>
+            <BodyWrap>
+              <Income incomeData={incomeData} />
+              <Expense expenseData={expenseData} />
+            </BodyWrap>
+          </>
+        ) : (
+          <NoticeWrap>
+            <NoticeT>
+              지금 농장장부를 기록하고
+              <br />
+              수입 및 지출을 알아보세요!
+            </NoticeT>
+            <NoticeBtn
+              onClick={() => {
+                navigate("/accountbook");
+              }}
+            >
+              기록하러 가기
+            </NoticeBtn>
+          </NoticeWrap>
+        )
       ) : (
-        <NoticeWrap>
-          <NoticeT>
-            지금 농장장부를 기록하고
-            <br />
-            수입 및 지출을 알아보세요!
-          </NoticeT>
-          <NoticeBtn
-            onClick={() => {
-              navigate("/accountbook");
-            }}
-          >
-            기록하러 가기
-          </NoticeBtn>
-        </NoticeWrap>
+        <BodyWrap>
+          <CircleWrap>
+            <Circle>
+              <ShimmerCircularImage size={170} /> <InlineCircle />
+            </Circle>
+            <ShimmerText
+              className="thumNail-text"
+              line={3}
+              gap={10}
+              variant="secondary"
+            />
+          </CircleWrap>
+          <CircleWrap>
+            <Circle>
+              <ShimmerCircularImage size={170} /> <InlineCircle />
+            </Circle>
+            <ShimmerText
+              className="thumNail-text"
+              line={3}
+              gap={10}
+              variant="secondary"
+            />
+          </CircleWrap>
+        </BodyWrap>
       )}
     </Wrap>
   );
@@ -63,9 +100,26 @@ const Wrap = styled.div`
   position: relative;
 `;
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+ 
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateY(6%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
+  animation: ${boxFade} 1s;
 `;
 
 const SmileIcon = styled.span`
@@ -128,6 +182,25 @@ const NoticeBtn = styled.button`
   &:hover {
     font-weight: 600;
   }
+`;
+
+const CircleWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Circle = styled.div`
+  position: relative;
+`;
+
+const InlineCircle = styled.div`
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 100%;
+  top: 35px;
+  left: 35px;
 `;
 
 export default AccountAnalysis;
