@@ -126,7 +126,7 @@ const ScheduleCalendar = () => {
 const Wrap = styled.div``;
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 83%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -135,8 +135,8 @@ const NoticeWrap = styled.div`
 
   background: linear-gradient(
     to top,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 100%,
+    rgba(255, 255, 255, 0.8) 80%,
+    rgba(255, 255, 255, 0.3) 30%,
     transparent 100%
   );
   position: absolute;
