@@ -260,21 +260,23 @@ const AccountModal = ({ isOpen, toggleModal, accountId, accountList }) => {
         ) : (
           <ContentWrap>
             <ContentLabel>품목</ContentLabel>
-            <WhereToUseType>
-              {account.type === 0 && "농산물 판매"}
-              {account.type === 1 && "정부보조금"}
-              {account.type === 2 && "기타수입"}
-              {account.type === 3 && "비료"}
-              {account.type === 4 && "종자/종묘"}
-              {account.type === 5 && "농약"}
-              {account.type === 6 && "농기계"}
-              {account.type === 7 && "기타 농자재"}
-              {account.type === 8 && "유통비 및 판매 경비"}
-              {account.type === 9 && "고용노동비"}
-              {account.type === 10 && "임차료"}
-              {account.type === 11 && "수도광열비"}
-              {account.type === 12 && "기타 지출"}{" "}
-            </WhereToUseType>
+            <BottomWrap>
+              <WhereToUseType>
+                {account.type === 0 && "농산물 판매"}
+                {account.type === 1 && "정부보조금"}
+                {account.type === 2 && "기타수입"}
+                {account.type === 3 && "비료"}
+                {account.type === 4 && "종자/종묘"}
+                {account.type === 5 && "농약"}
+                {account.type === 6 && "농기계"}
+                {account.type === 7 && "기타 농자재"}
+                {account.type === 8 && "유통비 및 판매 경비"}
+                {account.type === 9 && "고용노동비"}
+                {account.type === 10 && "임차료"}
+                {account.type === 11 && "수도광열비"}
+                {account.type === 12 && "기타 지출"}{" "}
+              </WhereToUseType>
+            </BottomWrap>
           </ContentWrap>
         )}
 
@@ -475,9 +477,13 @@ const MemoBox = styled.div`
   padding: 6px 0px 6px 0px;
 `;
 
+const BottomWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-right: 6px;
+`;
+
 const WhereToUseType = styled.div`
-  max-width: 100px;
-  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -485,7 +491,7 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #bfbfbf;
   border-radius: 100px;
-  font-size: 11px;
+  font-size: 12px;
   margin-bottom: 4px;
   color: #616161;
 `;

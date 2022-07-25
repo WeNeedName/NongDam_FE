@@ -8,18 +8,16 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const Income = ({ incomeData }) => {
-  incomeNumList = [];
-  const incomeNumListMap =
+  const incomeNumList =
     incomeData.data &&
-    incomeData.data.map((data, idx) => {
-      return incomeNumList.push(Number(data));
+    incomeData.data.map((data) => {
+      return Number(data);
     });
 
-  const labelList = [];
-  const labelListMap =
+  const labelList =
     incomeData.labels &&
     incomeData.labels.map((data) => {
-      return labelList.push(data.replaceAll("_", " "));
+      return data.replaceAll("_", " ");
     });
 
   // 숫자에 콤마넣기
@@ -216,6 +214,12 @@ const Legend = styled.div`
   span {
     font-size: 10.5px;
     margin: 2px;
+  }
+  @media only screen and (max-width: 760px) {
+    span {
+      font-size: 12px;
+      margin: 2px;
+    }
   }
 `;
 

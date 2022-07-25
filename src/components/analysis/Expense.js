@@ -181,6 +181,8 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+  }
 `;
 
 const LabelWrap = styled.div`
@@ -206,6 +208,12 @@ const Legend = styled.div`
   span {
     font-size: 10.5px;
     margin: 2px;
+  }
+  @media only screen and (max-width: 760px) {
+    span {
+      font-size: 12px;
+      margin: 2px;
+    }
   }
 `;
 

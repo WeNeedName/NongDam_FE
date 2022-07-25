@@ -233,6 +233,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 10 / 12;
+    padding: 20px 20px 20px 20px;
   }
 `;
 
@@ -262,6 +263,9 @@ const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
   margin: 10px 0px 16px 0px;
+  @media only screen and (max-width: 760px) {
+    padding-bottom: 10px;
+  }
 `;
 
 const FormCheckText = styled.span`
@@ -300,6 +304,9 @@ const Label = styled.label``;
 const ChartWrap = styled.div`
   width: 100%;
   height: 70%;
+  @media only screen and (max-width: 760px) {
+    margin-top: 20px;
+  }
 `;
 
 const NoticeWrap = styled.div`

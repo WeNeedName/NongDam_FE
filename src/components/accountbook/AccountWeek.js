@@ -456,6 +456,9 @@ const AccountBoxWrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 60px;
+  }
 `;
 
 const AccountBox = styled.div`
@@ -471,10 +474,10 @@ const AccountBox = styled.div`
   border-radius: 6px;
   margin: 0px 0px 10px 0px;
   position: relative;
-  /* cursor: pointer;
-  &:hover {
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-  } */
+  @media only screen and (max-width: 760px) {
+    max-width: 760px;
+    width: 95%;
+  }
 `;
 
 const Day = styled.span`
@@ -523,7 +526,7 @@ const WhereToUseType = styled.div`
   align-items: center;
   padding: 2px 10px 4px 10px;
   background: transparent;
-  border: 1px solid #616161;
+  border: 1px solid #bfbfbf;
   border-radius: 100px;
   font-size: 12px;
   margin-bottom: 4px;
