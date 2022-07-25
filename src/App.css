@@ -1,7 +1,6 @@
-.App {
-  text-align: center;
-}
-
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url(//db.onlinewebfonts.com/c/bde89ab00cb34cc906059b3cbdd513dc?family=SF+Pro+Rounded);
+@font-face {font-family: "SF Pro Rounded"; src: url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.eot"); src: url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.woff") format("woff"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.svg#SF Pro Rounded") format("svg"); }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -84,9 +83,14 @@ margin-top: 30px;
   margin-top: 10px;
 }
 
+.thumNail-button {
+  width: 30px;
+  margin-right: 14px;
+}
+
 .thumNail-analysis {
   width: 100%;
-  height: 140px;
+  height: 200px;
 }
 
 .thumNail-data-label {
@@ -112,3 +116,65 @@ margin-top: 30px;
   width: 100%;
   margin-top: 20px;
 }
+
+.tabPanel {
+  /* border: 1px solid black; */
+}
+
+/* .react-tabs {
+
+
+}
+
+.react-tabs__tab-list {
+}
+
+.react-tabs__tab {
+  border: 1px solid #ececec;
+
+}
+
+.react-tabs__tab--selected {
+  border: 1px solid black;
+  background-color: red;
+
+}
+
+.react-tabs__tab-panel {
+  display: none;
+
+}
+
+.react-tabs__tab-panel--selected {
+  display: block;
+  border: 1px solid black;
+  padding: 20px 14px;
+  border: 1px solid #BFBFBF;
+  border-radius: 0px 8px 8px 8px;
+margin-top: -10px;
+background-color: red;
+
+}
+
+.react-tabs__tab {
+width: 60px;
+font-size: 12px;
+text-align: center;
+color: #B6B6B6;
+font-weight: 600;
+background-color: #ececec;
+border: 1px solid #ececec;
+border-radius: 8px 8px 0px 0px;
+
+}
+
+.react-tabs__tab--selected {
+  font-weight: 600;
+font-size: 12px;
+background-color: red;
+
+  border: 1px solid #BFBFBF;
+  border-radius: 0px 8px 8px 8px;
+  
+} */
+

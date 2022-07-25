@@ -44,7 +44,6 @@ const initialState = {
 
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
-  // console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
@@ -83,9 +82,7 @@ export const getCurrentAccountListDB = () => {
 // 장부 추가하기
 export const addAccountDB = (account) => async (dispatch) => {
   try {
-    console.log("장부 만들 준비", account);
     const { data } = await apis.addAccount(account);
-    console.log(data);
     dispatch(createAccount(data));
     Swal.fire({
       title: "작성이 완료되었습니다.",
@@ -104,15 +101,25 @@ export const addAccountDB = (account) => async (dispatch) => {
 };
 
 // 장부 수정하기
-export const ModifiAccountDB = (id, account) => async (dispatch) => {
+export const ModifiAccountDB = (id, account, yearMonth) => async (dispatch) => {
   try {
-    console.log("장부 수정 준비", account);
     await apis.editAccount(id, account);
+    apis.loadAccountBook(yearMonth).then((response) => {
+      dispatch(getAccount(response.data));
+      MySwal.fire({
+        title: <h5>수정이 완료되었습니다.</h5>,
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        color: "#black",
+        padding: "10px",
+        width: "400px",
+        height: "200px",
+      });
+    });
 
     apis.loadCurrentAccount().then((response) => {
-      console.log(response.data);
       dispatch(getAccount(response.data));
-
       MySwal.fire({
         title: <h5>수정이 완료되었습니다.</h5>,
         icon: "success",
@@ -132,10 +139,8 @@ export const ModifiAccountDB = (id, account) => async (dispatch) => {
 
 // 장부 삭제하기
 export const deleteAccountDB = (id) => {
-  console.log(id);
   return async function (dispatch) {
     try {
-      console.log("장부를 삭제할거야!");
       await apis.deleteAccount(id);
       dispatch(deleteAccount(id));
     } catch (error) {
@@ -167,10 +172,8 @@ export default handleActions(
     // 최근내역, 월별 내역에 내역 추가
     [CREATE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.currentAccount.unshift(payload.account);
         draft.currentAccount = draft.currentAccount.map((account) => {
-          console.log(account);
           if (Number(account.id) === Number(payload.account.id)) {
             return {
               ...account,
@@ -186,7 +189,6 @@ export default handleActions(
         });
         draft.accountList.unshift(payload.account);
         draft.accountList = draft.accountList.map((account) => {
-          console.log(account);
           if (Number(account.id) === Number(payload.account.id)) {
             return {
               ...account,
@@ -201,48 +203,12 @@ export default handleActions(
           }
         });
       }),
-
-    // 최근내역, 월별 내역에 내역 수정
-    // [MODIFI_ACCOUNT]: (state, { payload }) =>
-    //   produce(state, (draft) => {
-    //     console.log(state, payload);
-    //     draft.currentAccount.unshift(payload.account);
-    //     console.log(state.currentAccount);
-
-    //   const new_account_list = draft.currentAccount.map((l, idx) => {
-    //     console.log(...l);
-    //     console.log(payload.account.id, l.id);
-    //     if (payload.account.id === l.id) {
-    //       return { ...l };
-    //     } else {
-    //       return l;
-    //     }
-    //   });
-    //   return { ...draft, currentAccount: new_account_list };
-    // }),
-
-    //   draft.accountList.unshift(payload.account);
-    //   draft.accountList = draft.accountList.map((account) => {
-    //     console.log(account);
-    //     if (Number(account.id) === Number(payload.account.id)) {
-    //       return {
-    //         ...account,
-    //         date: payload.account.date,
-    //         id: payload.account.id,
-    //         memo: payload.account.memo,
-    //         price: payload.account.price,
-    //         type: payload.account.type,
-    //       };
-    //     } else {
-    //       return account;
-    //     }
-    //   });
-    // }),
-
     [DELETE_ACCOUNT]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(payload);
         draft.currentAccount = draft.currentAccount.filter(
+          (account) => Number(account.id) !== Number(payload.id)
+        );
+        draft.accountList = draft.accountList.filter(
           (account) => Number(account.id) !== Number(payload.id)
         );
       }),

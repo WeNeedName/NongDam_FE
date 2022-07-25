@@ -2,6 +2,7 @@ import { apis } from "../../shared/api";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import jwt_decode from "jwt-decode";
+import { Navigate } from "react-router";
 
 //actions
 const LOGIN_USER = "LOGIN_USER";
@@ -26,7 +27,7 @@ const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({ user }));
 const logOut = createAction(LOGOUT, (user) => ({ user }));
 const getInfo = createAction(GET_INFO, (user) => ({ user }));
 const editInfo = createAction(EDIT_INFO, (user) => ({ user }));
-const changePw = createAction(EDIT_PW, (user) => ({ user }));
+// const changePw = createAction(EDIT_PW, (pw) => ({ pw }));
 const getCropsList = createAction(GET_CROPS, (data) => ({ data }));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
 
@@ -61,6 +62,7 @@ export const logInDB = (user) => {
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");
+
         // dispatch(
         //   logIn(
         //     {
@@ -74,8 +76,9 @@ export const logInDB = (user) => {
       })
       .catch((err) => {
         let code = err.response.status;
-        if (code == 403) window.alert("이메일 인증완료가 필요합니다.");
-        else window.alert("잘못된 로그인 정보 입니다.");
+
+        if (code == 403) window.alert(err.response.data.msg);
+        else window.alert(err.response.data.msg);
         console.log(err);
       });
   };
@@ -87,7 +90,6 @@ export const kakaoLogInDB = (data) => {
     apis
       .kakaoLogIn(data)
       .then((res) => {
-        console.log(res);
         const token = res.headers.authorization;
         const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
@@ -100,6 +102,7 @@ export const kakaoLogInDB = (data) => {
       })
       .catch((err) => {
         console.log(err);
+        window.alert(err.response.data.msg);
       });
   };
 };
@@ -110,7 +113,6 @@ export const getInfoDB = () => {
     await apis
       .userInfo()
       .then((res) => {
-        //console.log(res.data);
         dispatch(getInfo(res.data));
       })
       .catch((err) => {
@@ -120,30 +122,32 @@ export const getInfoDB = () => {
 };
 
 //회원정보수정
-export const editInfoDB = (user) => {
-  return async function (dispatch) {
-    console.log(user);
-    await apis
-      .editUserInfo(user)
-      .then((res) => {
-        console.log(res);
-        dispatch(editInfo(user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+// export const editInfoDB = (user) => {
+//   return async function (dispatch) {
+//     console.log(user);
+//     await apis
+//       .editUserInfo(user)
+//       .then((res) => {
+//         console.log(res);
+//         dispatch(editInfo(user));
+//         Navigate("/mypage");
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+// };
 
 //비밀번호변경
-export const editPwDB = (user) => {
+export const editPwDB = (pw) => {
   return async function (dispatch) {
-    await apis.editPw(user).then((res) => {
-      console.log(res);
-      dispatch(changePw(res.data)).catch((err) => {
+    await apis
+      .editPw(pw)
+      .then((res) => console.log(res))
+      .catch((err) => {
         console.log(err);
+        window.alert(err.response.data.msg);
       });
-    });
   };
 };
 //로그아웃

@@ -3,6 +3,7 @@
 
 <h2>서비스 소개</h2>
 
+
 <span>농담은 <strong>귀농한 청년</strong> 혹은 <strong>농장 관리자</strong>에게 
 농장 운영에 필요한 데이터를 모아 제공하고 <br/>
 누적된 <strong>농장데이터 통계 분석</strong>으로 생산성을 높여주는 서비스입니다.</span>
@@ -10,6 +11,7 @@
 <br/><br/>
 
 <h2>서비스 핵심기능</h2>
+
 
 01  ⛅️ 실시간 <strong> 날씨정보</strong> 제공 [open api](https://openweathermap.org/api/one-call-api)
 
@@ -23,6 +25,7 @@
 
 06 📊 <strong>농장 관리 현황</strong> (연도별 매출현황, 수확량, 수입&지출 통계, 작업시간 통계)
 <br/><br/>
+
 <h2>팀 소개</h2>
 <br/>
 <strong>프로젝트 기간</strong> <br/> 22.06.24 - 22.08.05 (6주)
@@ -42,6 +45,7 @@
 <a href='https://ifh.cc/v-fcFoq6' target='_blank'><img src='https://ifh.cc/g/fcFoq6.jpg' border='0'></a>
 
 <br/><br/><br/><br/>
+
 <h2>🛠 Tech & Platfrom</h2>
 
 <h3>Front-End </h3>
@@ -63,6 +67,7 @@
 <h3>Tools</h3>
 
 <br/><br/>
+
 <h2>📚 주요 라이브러리</h2>
 
 <br/><br/>
@@ -70,6 +75,7 @@
 <h4>FE</h4>
  <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 페이지네이션</a><br/>
   <a href="https://www.notion.so/throttle-f4adb557f7c34fb1b2b650ef33389073" > 👉 스와이프 throttle로 렌더링 제어하기</a><br/>
+
  <h4>BE</h4>
 <a href="https://elegant-burglar-a24.notion.site/BackEnd-TroubleShooting-56f5d95764af4b80a9818352013cc307"> 👨‍🔧 Redis, 모니터링 툴 사용하기</a>
 <br/><br/>

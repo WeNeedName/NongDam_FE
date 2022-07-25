@@ -2,35 +2,44 @@ import { React, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { handleActions } from "redux-actions";
 
 const Record = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [hRecord, setHRecord] = useState();
-  const hRecordNumber = Number(hRecord);
+
+  // 숫자만 입력
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
+
+  function inputNumberFormat(e) {
+    e.target.value = uncomma(e.target.value);
+    props.setWorkTime(e.target.value);
+  }
 
   const handleAction = (e) => {
-    setHRecord(e.target.value);
+    props.setHarvest(e.target.value);
   };
-
-  useEffect(() => {
-    props.setHarvest(hRecordNumber);
-  }, [handleAction]);
 
   //console.log(hRecord)
   return (
     <RecordContentWrap>
-      <SmallTitle>수확량 기록하기</SmallTitle>
+      <SmallTitle>수확량</SmallTitle>
       <CategoryBigWrap>
         <InnerSet>
           <InputBox
             className="quantity"
             type="text"
+            maxLength="8"
+            onChange={(e) => {
+              inputNumberFormat(e);
+              handleAction();
+            }}
             name="quantity"
-            placeholder="kg단위로 입력해주세요"
-            onChange={handleAction}
+            placeholder="수확량"
           />
+          <p className="kg">kg</p>
         </InnerSet>
       </CategoryBigWrap>
     </RecordContentWrap>
@@ -39,10 +48,8 @@ const Record = (props) => {
 
 const RecordContentWrap = styled.div`
   width: 93%;
-  height: 50px;
   background-color: #fff;
-  padding-left: 30px;
-  padding-top: 20px;
+  margin-top: 20px;
 `;
 
 const SmallTitle = styled.label`
@@ -51,28 +58,32 @@ const SmallTitle = styled.label`
 `;
 
 const CategoryBigWrap = styled.div`
-  width: 60%
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 10px;
+  margin: 4px 0px;
 `;
 
-const InputBox = styled.input``;
+const InputBox = styled.input`
+  width: 100px;
+  height: 20px;
+  padding: 4px 10px;
+  font-size: 14px;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
+  margin-right: 6px;
+  &:focus {
+    outline: none;
+  }
+`;
 
 const InnerSet = styled.div`
   display: flex;
-`;
-
-const Select = styled.select`
-  margin-left: 20px;
-  width: 170px;
-  background-color: white;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid black;
-  padding-left: 10px;
-  text-align: left;
+  align-items: center;
+  .kg {
+    font-size: 14px;
+    color: #616161;
+  }
 `;
 
 export default Record;

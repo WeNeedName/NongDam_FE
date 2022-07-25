@@ -3,19 +3,17 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInfoDB } from "../redux/modules/users";
-
-// 이미지
-import Profile from "../images/Profile.png";
-
-// js파일
-import Header from "../components/Header";
-import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
-import ScheduleWeek from "../components/schedule/ScheduleWeek";
-import AddSchedule from "../components/schedule/AddSchedule";
 import {
   getCurrentScheduleListDB,
   getScheduleListDB,
 } from "../redux/modules/schedule";
+
+// 컴포넌트
+import Header from "../components/Header";
+import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
+import ScheduleWeek from "../components/schedule/ScheduleWeek";
+import AddSchedule from "../components/schedule/AddSchedule";
+import FooterNav from "../components/FooterNav";
 
 const Schedule = () => {
   const navigate = useNavigate();
@@ -52,7 +50,7 @@ const Schedule = () => {
       <Header currentPage="schedule" />
       <>
         <CalendarWrap>
-          <ScheduleCalendar />
+          <ScheduleCalendar userInfo={userInfo} />
           <AddScheduleBtn
             onClick={() => {
               toggleModal();
@@ -66,6 +64,7 @@ const Schedule = () => {
         </CurrentListWrap>
 
         {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
+        <FooterNav currentPage="schedule" />
       </>
     </Wrap>
   );
@@ -84,6 +83,9 @@ const Wrap = styled.div`
   row-gap: 16px;
   column-gap: 26px;
   @media only screen and (max-width: 1220px) {
+    grid-template-columns: 1fr minmax(600px, 720px) 24% 1fr;
+  }
+  @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 95% 1fr;
     grid-template-rows: 70px minmax(320px, 400px) 1fr;
   }
@@ -136,5 +138,4 @@ const CurrentListWrap = styled.div`
     grid-row: 3 / 4;
   }
 `;
-
 export default Schedule;

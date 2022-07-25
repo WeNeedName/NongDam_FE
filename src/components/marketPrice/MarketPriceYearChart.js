@@ -246,7 +246,7 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
-  font-size: 8px;
+  font-size: 11px;
   color: #666666;
 `;
 
@@ -305,7 +305,7 @@ const YasisLabel = styled.span`
 `;
 
 const NotFoundNoticeWrap = styled.div`
-  height: 165px;
+  height: 167px;
   display: flex;
   flex-direction: column;
   justify-content: center;

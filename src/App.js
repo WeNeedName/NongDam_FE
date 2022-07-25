@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "./App.css";
 
 //컴포넌트
 import Main from "./pages/Main";
@@ -17,6 +18,7 @@ import Schedule from "./pages/Schedule";
 // import AddSchedule from "./components/schedule/AddSchedule";
 import WorkLog from "./pages/WorkLog";
 import WirteWorkLog from "./pages/WriteWorkLog";
+import DetailWorkLog from "./pages/DetailWorkLog";
 
 function App() {
   const navigate = useNavigate();
@@ -39,7 +41,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mypage/*" element={<MyPage />} />
-        <Route path="/worklog" element={<WorkLog />} />
+        <Route path="/worklog/" element={<WorkLog />} />
+        <Route path="/worklog/detail/:id" element={<DetailWorkLog />} />
         <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />
         {/* <Route path="/addSchedule" element={<AddSchedule />} /> */}
@@ -51,7 +54,7 @@ function App() {
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    font-family: "Noto Sans KR";
+    font-family: "Noto Sans KR", sans-serif;
     color:  #02113B;
     margin: 0;
     padding: 0;

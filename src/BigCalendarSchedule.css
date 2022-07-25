@@ -631,6 +631,7 @@ button.rbc-input::-moz-focus-inner {
           align-items: flex-start;
   overflow: hidden;
   position: absolute;
+  
 }
 .rbc-day-slot .rbc-background-event {
   opacity: 0.75;
@@ -774,9 +775,15 @@ button.rbc-input::-moz-focus-inner {
       -ms-flex-direction: row;
           flex-direction: row;
 }
+
+/* 일일 데이터 중, allday 데이터 표시 */
 .rbc-time-header.rbc-overflowing {
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #ddd; 
+  
 }
+
+
+
 .rbc-rtl .rbc-time-header.rbc-overflowing {
   border-right-width: 0;
   border-left: 1px solid #ddd;
@@ -816,6 +823,7 @@ button.rbc-input::-moz-focus-inner {
       flex-shrink: 0;
 }
 
+/* 일별데이터 스크롤 관련 */
 .rbc-time-content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -828,9 +836,18 @@ button.rbc-input::-moz-focus-inner {
           align-items: flex-start;
   width: 100%;
   border-top: 2px solid #ddd;
-  overflow-y: auto;
+  overflow: auto;
   position: relative;
+
+  -ms-overflow-style: none;
+ }
+ 
+::-webkit-scrollbar {
+  display: none;
 }
+
+  
+
 .rbc-time-content > .rbc-time-gutter {
   -webkit-box-flex: 0;
       -ms-flex: none;

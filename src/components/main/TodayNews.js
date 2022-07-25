@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { loadTodayNewsDB } from "../../redux/modules/main";
 import { ShimmerTitle } from "react-shimmer-effects";
@@ -14,8 +14,6 @@ const TodayNews = () => {
   useEffect(() => {
     dispatch(loadTodayNewsDB());
   }, []);
-
-  console.log(TodayNewsData);
 
   return (
     <Wrap>
@@ -43,7 +41,7 @@ const TodayNews = () => {
                       <TextWrap>
                         <ContentsT imageURL={list.imageUrl}>
                           {list.title
-                            .replaceAll("&quot;", "''")
+                            .replace("&quot;", "''")
                             .replace(/(<br>|<br\/>|<br \/>)/g, " ")
                             .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")
                             .replace(`&lt;`, " ")
@@ -104,6 +102,18 @@ const TodayNews = () => {
   );
 };
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const LoadWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -157,6 +167,7 @@ const ContentsBoxWrap = styled.div`
   flex-direction: column;
   position: relative;
   cursor: pointer;
+  animation: ${boxFade} 1s;
 `;
 
 const ShowMoreBtn = styled.div`

@@ -1,9 +1,7 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL = "https://idontcare.shop";
 
 const api = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -12,7 +10,7 @@ const api = axios.create({
 
 // form data용
 const formApi = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "multipart/form-data",
   },
@@ -33,6 +31,7 @@ formApi.interceptors.request.use(function (config) {
   config.headers.common["RefreshToken"] = `Bearer ${refreshToken}`;
   return config;
 });
+
 api.interceptors.response.use((response) => {
   if (response.headers.authorization !== undefined) {
     console.log("set New Token");
@@ -42,7 +41,7 @@ api.interceptors.response.use((response) => {
 });
 
 export const apis = {
-  //메인페이지
+  // 메인페이지
   // 날씨
   loadWeather: () => api.get("/weather"),
   // 시세
@@ -63,7 +62,7 @@ export const apis = {
   // loadMyCropsMarketPrice: (data) =>
   //   api.get(`/marketprice/${data.cropId}/${data.data}`),
 
-  //장부
+  // 장부
   loadAccountBook: (date) => api.get(`accountbook/${date.year}-${date.month}`),
   loadCurrentAccount: () => api.get("/accountbook"),
   addAccount: (account) => api.post("/accountbook", account),
@@ -79,12 +78,12 @@ export const apis = {
   logout: () => api.post("/"),
   loadnickname: () => api.get("/user/nickname"),
   userInfo: () => api.get("/member"),
-  editUserInfo: (id, data) => formApi.put(`/member/{memberid}`, id, data),
-  editPw: (data) => api.put(`/member/{memberid}/password`, data),
+  //editUserInfo: (id, data) => formApi.put(`/member/${memberid}`, id, data),
+  editPw: (data) => api.put(`/member/password`, data),
 
   loadCropsList: () => api.get("/crops"),
 
-  //일정(schedule)
+  // 일정(schedule)
   loadSchedule: () => api.get("/schedule"),
   loadCurrentSchedule: () => api.get("/schedule"),
   loadMonthlySchedule: (date) =>
@@ -93,10 +92,18 @@ export const apis = {
   editSchedule: (id, schedule) => api.put(`/schedule/${id}`, schedule),
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),
 
-  //일지(worklog)
+  // 일지(worklog)
   addWorkLog: (data) => formApi.post("/worklog", data),
   loadWorkLogList: () => api.get("/worklog"),
-  loadWorkLog: (worklogid) => api.get(`/worklog/${worklogid}`),
-  deleteWorkLog: (worklogid) => api.delete(`/worklog/${worklogid}`),
-  editWorkLog: (worklogid, data) => api.patch(`/worklog/${worklogid}/update`),
+  loadWorkLog: (id) => api.get(`/worklog/${id}`),
+  deleteWorkLog: (id) => api.delete(`/worklog/${id}`),
+  // editWorkLog: (id, data) => api.patch(`/worklog/${worklogid}/update`, id, data),
+
+  // 농장 관리 현황
+  loadIncome: () => api.get("/income"),
+  loadExpense: () => api.get("/expense"),
+  loadWorkTime: () => api.get("/worktime"),
+  loadSales: (data) => api.get(`/sales/${data}`),
+  loadTotalHarvest: (data) => api.get(`/totalharvest/${data}`),
+  loadWorkTimeRate: () => api.get("/worktime/rate"),
 };

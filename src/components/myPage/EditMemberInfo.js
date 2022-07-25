@@ -11,9 +11,11 @@ import { editInfoDB } from "../../redux/modules/users";
 import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import MyCrops from "./MyCrops";
+import MyCountryCode from "./MyCountryCode";
 import axios from "axios";
 import { SubmitBtn, CancelBtn } from "../../elements/Buttons";
 import Select from "react-select";
+import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 
 const EditMemberInfo = () => {
   const navigate = useNavigate();
@@ -21,18 +23,18 @@ const EditMemberInfo = () => {
   const { id } = useParams();
   const fileInput = useRef();
   const userInfo = useSelector((state) => state.users.user);
-  console.log(userInfo);
+  const myCropsList = useSelector((state) => state.users.user?.crops);
 
   const previousNickname = userInfo?.nickname;
   const previousAddress = userInfo?.address;
   const previousCountryCode = userInfo?.countryCode;
   const array = [];
-  const previousCrops = userInfo?.crops.map((list) => {
+  const previousCrops = userInfo?.crops.map((list, idx) => {
+    <div key={idx} />;
     return array.push(list.id);
   });
 
   const previousProfileImg = userInfo?.profileImage;
-  console.log(previousProfileImg);
   const [nickname, setNickname] = useState("");
   const [crops, setCrops] = useState();
   const [countryCode, setCountryCode] = useState(0);
@@ -42,12 +44,21 @@ const EditMemberInfo = () => {
   const [ImgSrc, setImgSrc] = useState("");
 
   const modalCloseRef = useRef();
-
   const token = sessionStorage.getItem("jwtToken");
   const refreshToken = sessionStorage.getItem("refreshToken");
 
-  // console.log(nickname, crops, countryCode, profileImg, address);
-
+  // console.log(
+  //   previousNickname,
+  //   nickname,
+  //   previousAddress,
+  //   address,
+  //   previousCountryCode,
+  //   countryCode,
+  //   array,
+  //   crops,
+  //   profileImg
+  // );
+  console.log(previousCountryCode, countryCode);
   // 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const openPostCode = () => {
@@ -57,8 +68,6 @@ const EditMemberInfo = () => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-
-  console.log(address);
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -72,18 +81,18 @@ const EditMemberInfo = () => {
   };
 
   const onChangeFile = (e) => {
-    //console.log(e.target.files[0])
     if (e.target && e.target.files[0]) {
       setImgSrc(e.target.id[0]);
       setProfileImg(e.target.files[0]);
     }
   };
-
+  const previousCountryCodeNumber = Number(previousCountryCode);
   const editInfo = async (event) => {
     const data = {
       nickname: nickname === "" ? previousNickname : nickname,
       address: address === "" ? previousAddress : address,
-      countryCode: countryCode === 0 ? previousCountryCode : countryCode,
+      countryCode:
+        countryCode === undefined ? previousCountryCodeNumber : countryCode,
       crops: crops.length === 0 ? array : crops,
     };
     let frm = new FormData();
@@ -96,14 +105,18 @@ const EditMemberInfo = () => {
     console.log(data);
     await axios({
       method: "put",
-      url: "https://idontcare.shop/member",
+      url: `https://idontcare.shop/member`,
       data: frm,
       headers: {
         "Content-Type": "multipart/form-data",
         RefreshToken: `Bearer ${refreshToken}`,
         Authorization: `Bearer ${token}`,
       },
-    }).then(navigate("/mypage"));
+    })
+      .then((res) => console.log(res), navigate("/mypage"))
+      .catch((err) => {
+        window.alert(err.response.data.msg);
+      });
   };
 
   return (
@@ -124,7 +137,7 @@ const EditMemberInfo = () => {
                   />
                 )}
               </div>
-              <Label htmlFor="inputImage">이미지 업로드</Label>
+              <Label htmlFor="inputImage">프로필 변경</Label>
               <ImageBtn
                 type="file"
                 id="inputImage"
@@ -193,12 +206,14 @@ const EditMemberInfo = () => {
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
             <CropsContent>
               <PreviousMyCrops>
-                {userInfo?.crops.map((list) => {
-                  return (
+                {myCropsList?.map((list, idx) => {
+                  <div key={idx}>
+                    return (
                     <PreviousCropsList>
                       {"[" + list.type + "]" + " " + list.name}
                     </PreviousCropsList>
-                  );
+                    );
+                  </div>;
                 })}
               </PreviousMyCrops>
               <MyCrops setCrops={setCrops} previousCrops={previousCrops} />
@@ -208,52 +223,10 @@ const EditMemberInfo = () => {
         <AreaWrap>
           <TitleAndArea>
             <SmallTitleArea>시세지역</SmallTitleArea>
-
-            <Selec onChange={(e) => setCountryCode(e.target.value)}>
-              {userInfo?.countryCode ? (
-                <option value="">
-                  {userInfo?.countryCode === 1101 && "서울(도매)"}
-                  {userInfo?.countryCode === 2101 && "부산(도매)"}
-                  {userInfo?.countryCode === 2201 && "대구(도매)"}
-                  {userInfo?.countryCode === 2300 && "인천(소매)"}
-                  {userInfo?.countryCode === 2401 && "광주(도매)"}
-                  {userInfo?.countryCode === 2501 && "대전(도매)"}
-                  {userInfo?.countryCode === 2601 && "울산(소매)"}
-                  {userInfo?.countryCode === 3111 && "수원(소매)"}
-                  {userInfo?.countryCode === 3211 && "춘천(소매)"}
-                  {userInfo?.countryCode === 3311 && "청주(소매)"}
-                  {userInfo?.countryCode === 3511 && "전주(소매)"}
-                  {userInfo?.countryCode === 3711 && "포항(소매)"}
-                  {userInfo?.countryCode === 3911 && "제주(소매)"}
-                  {userInfo?.countryCode === 3113 && "의정부(소매)"}
-                  {userInfo?.countryCode === 3613 && "순천(소매)"}
-                  {userInfo?.countryCode === 3714 && "안동(소매)"}
-                  {userInfo?.countryCode === 3814 && "창원(소매)"}
-                  {userInfo?.countryCode === 3145 && "용인(소매)"}
-                </option>
-              ) : (
-                <option value="">"선택해주세요"</option>
-              )}
-
-              <option value="1101">서울(도매)</option>
-              <option value="2101">부산(도매)</option>
-              <option value="2201">대구(도매)</option>
-              <option value="2300">인천(소매)</option>
-              <option value="2401">광주(도매)</option>
-              <option value="2501">대전(도매)</option>
-              <option value="2601">울산(소매)</option>
-              <option value="3111">수원(소매)</option>
-              <option value="3211">춘천(소매)</option>
-              <option value="3311">청주(소매)</option>
-              <option value="3511">전주(소매)</option>
-              <option value="3711">포항(소매)</option>
-              <option value="3911">제주(소매)</option>
-              <option value="3113">의정부(소매)</option>
-              <option value="3613">순천(소매)</option>
-              <option value="3714">안동(소매)</option>
-              <option value="3814">창원(소매)</option>
-              <option value="3145">용인(소매)</option>
-            </Selec>
+            <MyCountryCode
+              setCountryCode={setCountryCode}
+              previousCountryCode={previousCountryCode}
+            />
           </TitleAndArea>
         </AreaWrap>
 
@@ -266,7 +239,14 @@ const EditMemberInfo = () => {
           >
             수정완료
           </SubmitBtn>
-          <CancelBtn> 취소 </CancelBtn>
+          <CancelBtn
+            onClick={() => {
+              navigate("/mypage");
+            }}
+          >
+            {" "}
+            취소{" "}
+          </CancelBtn>
         </BtnWrap>
       </ContentWrap>
     </Wrap>
@@ -529,7 +509,9 @@ const AreaBtn = styled.button`
   }
 `;
 
-const BtnWrap = styled.div``;
+const BtnWrap = styled.div`
+  margin-top: 20px;
+`;
 
 // const SubmitBtn = styled.button`
 //   margin-top: 20px;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../redux/modules/users";
 import Select from "react-select";
 import { getInfoDB } from "../redux/modules/users";
 import { useNavigate } from "react-router-dom";
+import { getMyCropsMarketPriceDB } from "../redux/modules/main";
 
 // 컴포넌트 파일
 import Header from "../components/Header";
@@ -12,7 +13,7 @@ import MarketPriceCard from "../components/marketPrice/MarketPriceCard";
 import MyCropsMarketPriceCard from "../components/marketPrice/MyCropsMarketPriceCard";
 import TodaysMarketPrice from "../components/marketPrice/TodaysMarketPrice";
 import TodaysSalePrice from "../components/marketPrice/TodaysSalePrice";
-import { getMyCropsMarketPriceDB } from "../redux/modules/main";
+import FooterNav from "../components/FooterNav";
 
 const MarketPrice = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ const MarketPrice = () => {
   const [checkedInputs, setCheckedInputs] = useState("month");
 
   const userInfo = useSelector((state) => state.users.user);
-  console.log(userInfo);
 
   useEffect(() => {
     dispatch(getInfoDB());
@@ -99,7 +99,7 @@ const MarketPrice = () => {
     <div>
       <Header currentPage="marketPrice" />
       <Wrap>
-        <BodyWrap>
+        <BodyWrap userInfo={userInfo}>
           <MarketPriceCard
             cropsData={cropsData}
             setSelectedCrops={setSelectedCrops}
@@ -116,8 +116,8 @@ const MarketPrice = () => {
             salePrice={salePrice}
           />
         </BodyWrap>
-        {userInfo !== undefined && userInfo?.crops.length !== 0 ? (
-          <>
+        {userInfo !== null && userInfo?.crops.length !== 0 ? (
+          <Div>
             <Title>👀 내 작물 시세를 한 눈에</Title>
             <CategoryWrap>
               <Label>
@@ -149,20 +149,33 @@ const MarketPrice = () => {
               onMouseLeave={onDragEnd}
               ref={scrollRef}
             >
-              {userInfo !== undefined && userInfo?.crops.length > 3 ? (
+              {/* {scrollWidth !== null &&
+              scrollWidth > clientWidth + scrollLeft ? (
                 <>
                   <GradationBox />
                   <GradationBox />
                 </>
-              ) : null}
+              ) : null} */}
               <MyCropsMarketPriceCard checkedInputs={checkedInputs} />
             </MyCropsChartWrap>
-          </>
+          </Div>
         ) : null}
+        <FooterNav currentPage="marketPrice" />
       </Wrap>
     </div>
   );
 };
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 const Wrap = styled.div`
   margin-top: 100px;
@@ -180,6 +193,7 @@ const BodyWrap = styled.div`
   grid-auto-rows: auto;
   row-gap: 16px;
   column-gap: 20px;
+  margin-bottom: ${({ userInfo }) => (userInfo === null ? "100px" : "0px")};
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, minmax(26%, 27%)) 1fr;
   }
@@ -262,13 +276,14 @@ const GradationBox = styled.div`
   @media only screen and (max-width: 760px) {
     width: 0px;
   }
+  @media only screen and (scroll-right: 0px) {
+    display: none;
+  }
 `;
 
 const MyCropsChartWrap = styled.div`
   width: 100%;
   height: 100%;
-  /* margin-left: 11.5%; */
-
   padding-bottom: 10px;
   margin-bottom: 30px;
   display: flex;
@@ -276,6 +291,7 @@ const MyCropsChartWrap = styled.div`
   flex-wrap: nowrap;
   overflow-x: scroll;
   padding-left: 11.5%;
+  animation: ${boxFade} 1s;
   @media only screen and (max-width: 1220px) {
     padding-left: 11.5%;
   }
@@ -288,8 +304,7 @@ const MyCropsChartWrap = styled.div`
 `;
 
 const Div = styled.div`
-  width: 400px;
-  height: 100%;
+  margin-bottom: 80px;
 `;
 
 export default MarketPrice;

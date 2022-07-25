@@ -7,14 +7,39 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const Expense = () => {
-  const [data, setData] = useState(null);
+const Expense = ({ expenseData }) => {
+  const expenseNumList =
+    expenseData.data &&
+    expenseData.data.map((data) => {
+      return Number(data);
+    });
 
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
+  const labelList =
+    expenseData.labels &&
+    expenseData.labels.map((data) => {
+      return data.replaceAll("_", " ");
+    });
+
+  // 숫자에 콤마넣기
+  function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  }
+
+  const colorList = [
+    "#44D600",
+    "#33C2FF",
+    "#2B9CEF",
+    "#3362FF",
+    "#4B3FDB",
+    "#481CAA",
+    "#2C1186",
+    "#180B41",
+    "#04010F",
+  ];
 
   const donutData = {
-    series: [100, 40, 60, 30, 20, 20, 50, 0, 0, 20],
+    series: expenseNumList !== undefined ? expenseNumList : [1, 1, 1],
     options: {
       chart: {
         type: "donut",
@@ -24,7 +49,19 @@ const Expense = () => {
         position: "right",
         // fontSize: "8px",
       },
-
+      fill: {
+        colors: [
+          "#44D600",
+          "#33C2FF",
+          "#2B9CEF",
+          "#3362FF",
+          "#4B3FDB",
+          "#481CAA",
+          "#2C1186",
+          "#180B41",
+          "#04010F",
+        ],
+      },
       responsive: [
         {
           breakpoint: 480,
@@ -37,9 +74,9 @@ const Expense = () => {
         offsetX: 0,
         offsetY: 0,
         style: {
-          fontSize: "12px",
+          fontSize: "16px",
           fontFamily: "Noto Sans KR",
-          fontWeight: "700",
+          fontWeight: "500",
           colors: [
             "white",
             "white",
@@ -53,12 +90,32 @@ const Expense = () => {
         },
         dropShadow: {
           enabled: true,
-          color: "#aaa",
+          color: "#5D5D5D",
+        },
+      },
+      tooltip: {
+        style: {
+          fontSize: "14px",
+          fontFamily: "Noto Sans KR",
+        },
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="donut-tooltip-box">' +
+            '<span class="donut-label-data">' +
+            labelList[seriesIndex] +
+            "</span>" +
+            '<span class="donut-price-data">' +
+            comma(series[seriesIndex]) +
+            "원" +
+            "</span>" +
+            "</div>"
+          );
         },
       },
 
       plotOptions: {
         pie: {
+          expandOnClick: false,
           donut: {
             labels: {
               show: true,
@@ -68,52 +125,37 @@ const Expense = () => {
                 fontSize: "22px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 700,
-                color: undefined,
+                color: "black",
                 offsetY: 6,
-                formatter: function (val) {
-                  return val;
-                },
               },
 
               total: {
                 showAlways: false,
                 show: true,
-                label: "수입",
+                label: "지출",
                 fontSize: "18px",
                 fontWeight: "700",
                 color: "black",
               },
               value: {
-                fontSize: "22px",
+                fontSize: "12px",
                 show: false,
-                color: "blue",
+                color: "black",
               },
             },
           },
         },
       },
-      labels: [
-        "비료",
-        "종자/종묘",
-        "농약",
-        "농기계",
-        "기타 농자재",
-        "유통비 및 판매 경비",
-        "고용노동비",
-        "임차료",
-        "수도광열비",
-        "기타 지출",
-      ],
+
+      labels:
+        labelList !== undefined
+          ? labelList
+          : ["농산물 판매", "정부 보조금", "기타 수입"],
     },
   };
 
   return (
     <Wrap>
-      {/* <TopWrap> */}
-      {/* <h3>지출</h3> */}
-      {/* <span>기간선택</span> */}
-      {/* </TopWrap> */}
-
       <ReactApexChart
         options={donutData.options}
         series={donutData.series}
@@ -121,16 +163,15 @@ const Expense = () => {
         width="260"
       />
       <Legend>
-        <span>비료</span>
-        <span>종자/종묘</span>
-        <span>농약</span>
-        <span>농기계</span>
-        <span>기타 농자재</span>
-        {/* <span>유통비 및 판매 경비</span>
-        <span>고용노동비</span>
-        <span>임차료</span>
-        <span>수도광열비</span>
-        <span>기타 지출</span> */}
+        {labelList !== undefined &&
+          labelList.map((data, idx) => {
+            return (
+              <LabelWrap>
+                <LabelTip index={idx} colorList={colorList} />
+                <Label key={idx}>{data}</Label>
+              </LabelWrap>
+            );
+          })}
       </Legend>
     </Wrap>
   );
@@ -142,18 +183,28 @@ const Wrap = styled.div`
   cursor: pointer;
 `;
 
-const TopWrap = styled.div`
+const LabelWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+`;
+
+const LabelTip = styled.div`
+  width: 6px;
+  height: 6px;
+  background-color: ${({ index, colorList }) => colorList[index]};
+  margin-right: 4px;
+`;
+
+const Label = styled.span`
+  font-size: 12px;
 `;
 
 const Legend = styled.div`
   display: flex;
   flex-direction: column;
   span {
-    font-size: 8px;
+    font-size: 10.5px;
     margin: 2px;
   }
 `;

@@ -7,20 +7,56 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const Income = () => {
-  const [data, setData] = useState(null);
+const Income = ({ incomeData }) => {
+  const incomeNumList =
+    incomeData.data &&
+    incomeData.data.map((data) => {
+      return Number(data);
+    });
 
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
+  const labelList =
+    incomeData.labels &&
+    incomeData.labels.map((data) => {
+      return data.replaceAll("_", " ");
+    });
+
+  // 숫자에 콤마넣기
+  function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  }
+
+  const colorList = [
+    "#44D600",
+    "#33C2FF",
+    "#2B9CEF",
+    "#3362FF",
+    "#4B3FDB",
+    "#481CAA",
+    "#2C1186",
+    "#180B41",
+    "#04010F",
+  ];
 
   const donutData = {
-    series: [80, 40, 20],
+    series: incomeNumList !== undefined ? incomeNumList : [1, 1, 1],
     options: {
       chart: {
         type: "donut",
       },
       legend: {
         show: false,
+        position: "right",
+        // fontSize: "8px",
+      },
+
+      responsive: [
+        {
+          breakpoint: 480,
+        },
+      ],
+      fill: {
+        colors: ["#44D600", "#33C2FF", "#2B9CEF"],
       },
       dataLabels: {
         enabled: true,
@@ -29,9 +65,9 @@ const Income = () => {
         offsetX: 0,
         offsetY: 0,
         style: {
-          fontSize: "12px",
+          fontSize: "16px",
           fontFamily: "Noto Sans KR",
-          fontWeight: "700",
+          fontWeight: "500",
           colors: [
             "white",
             "white",
@@ -45,25 +81,33 @@ const Income = () => {
         },
         dropShadow: {
           enabled: true,
-          color: "#aaa",
+          color: "#5D5D5D",
         },
       },
-      responsive: [
-        {
-          breakpoint: 480,
+      tooltip: {
+        style: {
+          fontSize: "14px",
+          fontFamily: "Noto Sans KR",
         },
-      ],
+        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+          return (
+            '<div class="donut-tooltip-box">' +
+            '<span class="donut-label-data">' +
+            labelList[seriesIndex] +
+            "</span>" +
+            '<span class="donut-price-data">' +
+            comma(series[seriesIndex]) +
+            "원" +
+            "</span>" +
+            "</div>"
+          );
+        },
+      },
+
       plotOptions: {
         pie: {
+          expandOnClick: false,
           donut: {
-            // hollow: {
-            //   margin: 15,
-            //   size: '70%',
-            //   image: '../../css/images/a-icon.jpg',
-            //   imageWidth: 64,
-            //   imageHeight: 64,
-            //   imageClipped: false
-            // },
             labels: {
               show: true,
               name: {
@@ -72,31 +116,31 @@ const Income = () => {
                 fontSize: "22px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 700,
-                color: undefined,
+                color: "black",
                 offsetY: 6,
-                formatter: function (val) {
-                  return val;
-                },
               },
 
               total: {
                 showAlways: false,
                 show: true,
-                label: "지출",
+                label: "수입",
                 fontSize: "18px",
                 fontWeight: "700",
                 color: "black",
               },
               value: {
-                fontSize: "22px",
+                fontSize: "12px",
                 show: false,
-                color: "blue",
+                color: "black",
               },
             },
           },
         },
       },
-      labels: ["농산물 판매", "정부보조금", "기타수입"],
+      labels:
+        labelList !== undefined
+          ? labelList
+          : ["농산물 판매", "정부 보조금", "기타 수입"],
     },
   };
 
@@ -109,9 +153,15 @@ const Income = () => {
         width="260"
       />
       <Legend>
-        <span>농산물 판매</span>
-        <span>정부보조금</span>
-        <span>기타수입</span>
+        {labelList !== undefined &&
+          labelList.map((data, idx) => {
+            return (
+              <LabelWrap>
+                <LabelTip index={idx} colorList={colorList} />
+                <Label key={idx}>{data}</Label>
+              </LabelWrap>
+            );
+          })}
       </Legend>
     </Wrap>
   );
@@ -121,13 +171,33 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 20px;
+  }
+`;
+
+const LabelWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const LabelTip = styled.div`
+  width: 6px;
+  height: 6px;
+  background-color: ${({ index, colorList }) => colorList[index]};
+  margin-right: 4px;
+`;
+
+const Label = styled.span`
+  font-size: 12px;
 `;
 
 const Legend = styled.div`
   display: flex;
   flex-direction: column;
   span {
-    font-size: 8px;
+    font-size: 10.5px;
     margin: 2px;
   }
 `;

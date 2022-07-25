@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const LoadWorkLog = ({ workLogList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
+
+  //const goToDetail = navigate(`/detail/${workLogList.id}`);
   const [workLogId, setWorkLogId] = useState();
-  //모달 열기
-  const [isOpen, setOpen] = useState(false);
-  function toggleModal(id) {
-    setOpen(!isOpen);
-    setWorkLogId(id);
-  }
 
   return (
     <Container>
@@ -34,43 +30,50 @@ const LoadWorkLog = ({ workLogList }) => {
           </BtnWrap>
         </TopWrap>
 
-        <BoxWrap className="boxWrap">
-          {/* {workLogList !== undefined
-            ? workLogList.map((list, v) => {
-                return (
-                  <div key={v}>
-                    <WorkLogBox
-                      className="workLogBox"
-                    >
+        {workLogList !== undefined
+          ? workLogList.map((list, i) => {
+              return (
+                <BoxWrap
+                  className="boxWrap"
+                  onClick={() => {
+                    navigate(`/worklog/detail/${list.id}`);
+                  }}
+                  key={i}
+                >
+                  <div>
+                    <WorkLogBox className="workLogBox">
                       <LeftContent>
                         <TitleContent>{list?.title}</TitleContent>
                         <TimeContentWrap>
                           <DateContent>{list?.date}</DateContent>
-                          
                         </TimeContentWrap>
                         <WorkContent className="workMemoWrap">
                           {list?.memo}
                         </WorkContent>
-                        <CropContent>{list?.crop}</CropContent>
+                        <CropContent>{list?.crop?.type}</CropContent>
                       </LeftContent>
-
                       <RightContent>
                         <MoreVertIcon
-                          style={{ marginLeft: "140px", marginBottom: "10px" }}
-                        />
-                        <ImgContent
                           style={{
-                            backgroundImage: `url(${list?.images})`,
-                            backgroundSize: "cover",
+                            marginLeft: "140px",
+                            marginBottom: "10px",
                           }}
-                        ></ImgContent>
+                        />
+                        {list.images[0] !== undefined ? (
+                          <ImgContent
+                            style={{
+                              backgroundImage: `url(${list?.images})`,
+                              backgroundSize: "cover",
+                            }}
+                          />
+                        ) : null}
                       </RightContent>
                     </WorkLogBox>
                   </div>
-                );
-              })
-            : null} */}
-        </BoxWrap>
+                </BoxWrap>
+              );
+            })
+          : null}
       </Wrap>
     </Container>
   );
@@ -81,13 +84,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const Wrap = styled.div`
   width: 630px;
   padding: 30px;
-
   flex-direction: column;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: transparent;
   border-radius: 10px;
 `;
 
@@ -98,7 +101,7 @@ const TopWrap = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
 `;
 const BtnWrap = styled.div``;
@@ -111,7 +114,7 @@ const SearchByDateBtn = styled.button`
   border-radius: 10px;
   color: #616161;
   border: 1px solid #bfbfbf;
-  background-color: transparent;
+  background-color: #fff;
 `;
 const WriteBtn = styled.button`
   margin-left: 10px;

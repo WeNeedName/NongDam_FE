@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ShimmerTitle } from "react-shimmer-effects";
@@ -7,10 +7,20 @@ import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerText } from "react-shimmer-effects";
 // 컴포넌트
 import AnalysisSalesChart from "./AnalysisSalesChart";
+import AnalysisTotalHarvestChart from "./AnalysisTotalHarvestChart";
+import Income from "./Income";
+import Expense from "./Expense";
+import WorkTimeBarChart from "./WorkTimeBarChart";
 
-const AnalysisCard = () => {
+const AnalysisCard = ({
+  salesData,
+  totalHarvestData,
+  expenseData,
+  incomeData,
+  workTimeData,
+}) => {
   const navigate = useNavigate();
-  const is_loaded = useSelector((state) => state.main.analysis_is_loaded);
+  const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
   const userInfo = useSelector((state) => state.users.user);
 
   const [checkedInputs, setCheckedInputs] = useState("sales");
@@ -21,8 +31,6 @@ const AnalysisCard = () => {
       setCheckedInputs(e.target.id);
     }
   };
-
-  console.log(userInfo);
 
   return (
     <Wrap>
@@ -113,7 +121,43 @@ const AnalysisCard = () => {
             </Label>
           </CategoryWrap>
           <ChartWrap>
-            {checkedInputs === "sales" && <AnalysisSalesChart />}
+            {checkedInputs === "sales" && (
+              <AnalysisSalesChart salesData={salesData} />
+            )}
+            {checkedInputs === "totalHarvest" && (
+              <AnalysisTotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+            {checkedInputs === "account" && (
+              <>
+                {incomeData?.data !== undefined &&
+                expenseData?.data !== undefined &&
+                incomeData?.data.length !== 0 &&
+                expenseData?.data.length !== 0 ? (
+                  <BodyWrap>
+                    <Income incomeData={incomeData} />
+                    <Expense expenseData={expenseData} />
+                  </BodyWrap>
+                ) : (
+                  <NoticeWrap>
+                    <NoticeT>
+                      지금 농장장부를 기록하고
+                      <br />
+                      수입 및 지출을 알아보세요!
+                    </NoticeT>
+                    <NoticeBtn
+                      onClick={() => {
+                        navigate("/accountbook");
+                      }}
+                    >
+                      기록하러 가기
+                    </NoticeBtn>
+                  </NoticeWrap>
+                )}
+              </>
+            )}
+            {checkedInputs === "workTime" && (
+              <WorkTimeBarChart workTimeData={workTimeData} />
+            )}
           </ChartWrap>
         </>
       ) : (
@@ -128,11 +172,26 @@ const AnalysisCard = () => {
             <ShimmerText className="thumNail-data-label" line={1} gap={10} />
             <ThumNailChartWrap>
               <ShimmerThumbnail
-                className="thumNail-analysis"
-                height={50}
+                className="thumNail-button"
+                height={20}
+                rounded
+              />
+              <ShimmerThumbnail
+                className="thumNail-button"
+                height={20}
+                rounded
+              />
+              <ShimmerThumbnail
+                className="thumNail-button"
+                height={20}
                 rounded
               />
             </ThumNailChartWrap>
+            <ShimmerThumbnail
+              className="thumNail-analysis"
+              height={200}
+              rounded
+            />
           </ThumNailWrap>
         </>
       )}
@@ -147,9 +206,19 @@ const ThumNailWrap = styled.div`
 
 const ThumNailChartWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-top: 10px;
+  flex-direction: row;
+`;
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(1%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const Wrap = styled.div`
@@ -228,7 +297,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label``;
 
-const ChartWrap = styled.div``;
+const ChartWrap = styled.div`
+  width: 100%;
+  height: 70%;
+`;
 
 const NoticeWrap = styled.div`
   width: 100%;
@@ -248,6 +320,7 @@ const NoticeWrap = styled.div`
   bottom: 0;
   left: 0;
   border-radius: 10px;
+  margin-bottom: 13px;
 `;
 
 const NoticeT = styled.span`
@@ -273,4 +346,19 @@ const NoticeBtn = styled.button`
     font-weight: 600;
   }
 `;
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-right: 20px;
+  @media only screen and (max-width: 760px) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+`;
+
 export default AnalysisCard;

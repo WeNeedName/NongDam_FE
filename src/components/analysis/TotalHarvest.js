@@ -1,184 +1,73 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-// 차트 라이브러리
-import ApexCharts from "react-apexcharts";
+import { useSelector } from "react-redux";
+// 로딩 효과
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
-import moment from "moment";
-import "moment/locale/ko";
+// 컴포넌트
+import TotalHarvestChart from "./TotalHarvestChart";
 
-const TotalHarvest = () => {
-  const day = ["2016", "2017", "2018", "2019", "2020", "2021"];
+const TotalHarvest = ({
+  totalHarvestData,
+  setHarvestCaterory,
+  harvestCaterory,
+}) => {
+  const is_loaded = useSelector(
+    (state) => state.analysis.totalharvest_is_loaded
+  );
 
-  const slaes = ["600", "400", "200", "0"];
-
-  // 시간별 날씨 그래프 데이터
-  const state = {
-    series: [
-      {
-        name: "비용",
-        data: [100, 200, 200, 300, 100, 200],
-      },
-      {
-        name: "매출",
-        data: [0, 100, 300, 600, 400, 300],
-      },
-      {
-        name: "순이익",
-        data: [-100, 100, 100, 300, 300, 100],
-      },
-    ],
-    options: {
-      markers: {
-        size: [2, 2, 2],
-        colors: ["#3152bf", "#7EB3E3", "#7EE3AB"],
-        hover: {
-          size: undefined,
-          sizeOffset: 2,
-        },
-      },
-      legend: {
-        show: false,
-      },
-      chart: {
-        type: "line",
-        zoom: {
-          enabled: false,
-        },
-        toolbar: {
-          show: false,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "straight",
-        width: [2, 2, 2],
-        colors: ["#3152bf", "#7EB3E3", "#7EE3AB"], // 그래프 선 여기에 추가
-      },
-      grid: {
-        borderColor: "#ddd",
-        strokeDashArray: 1.6, // 가로축 점선
-        row: {
-          colors: ["transparent", "transparent", "transparent"], // 배경색
-        },
-        column: {
-          colors: ["transparent", "transparent", "transparent"],
-        },
-        xaxis: {
-          lines: {
-            show: false,
-          },
-        },
-        yaxis: {
-          lines: {
-            show: true, // 그리드선
-          },
-        },
-        padding: {
-          top: -2,
-          right: 20,
-          bottom: -10,
-          left: 20,
-        },
-      },
-      tooltip: {
-        x: {
-          show: false,
-        },
-        style: {
-          fontSize: "12px",
-          fontFamily: undefined,
-        },
-        custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          return (
-            '<div class="tooltip-box">' +
-            '<div class="line">' +
-            '<span class="price-label">' +
-            "2021년 9월" +
-            "</span>" +
-            "</div>" +
-            '<div class="line-bottom">' +
-            '<span class="label-data">' +
-            series[seriesIndex][dataPointIndex] +
-            '<span class="price-label">' +
-            "kg" +
-            "</span>" +
-            "</span>" +
-            "</div>" +
-            "</div>"
-          );
-        },
-      },
-      xaxis: {
-        categories: day,
-        labels: {
-          formatter: function (value) {
-            return value;
-          },
-          style: {
-            fontSize: "0px",
-          },
-        },
-        position: "top", // x축 라벨
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        tooltip: {
-          enabled: false,
-        },
-      },
-      yaxis: {
-        show: false,
-        min: undefined,
-        max: undefined,
-      },
-    },
+  // 항목 선택
+  const changeRadio = (e) => {
+    if (e.target.checked) {
+      setHarvestCaterory(e.target.id);
+    }
   };
 
   return (
     <>
       <Wrap>
         <Title>수확량</Title>
-        <ChartWrap>
-          <YasisWrap>
-            {slaes.map((data, id) => {
-              return <Yasis key={id}>{data}</Yasis>;
-            })}
-          </YasisWrap>
-
-          <ChartBox>
-            <ApexCharts
-              options={state.options}
-              series={state.series}
-              type="line"
-              height={94 + "%"}
+        {is_loaded ? (
+          <>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="month"
+                  name="totalHarvestCategory"
+                  onChange={changeRadio}
+                  value={harvestCaterory}
+                  defaultChecked
+                />
+                <FormCheckText>월별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="year"
+                  name="totalHarvestCategory"
+                  onChange={changeRadio}
+                  value={harvestCaterory}
+                />
+                <FormCheckText>연도별</FormCheckText>
+              </Label>
+            </CategoryWrap>
+            {harvestCaterory === "month" && (
+              <TotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+            {harvestCaterory === "year" && (
+              <TotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+          </>
+        ) : (
+          <ShimmerWrap>
+            <ShimmerThumbnail
+              className="thumNail-weather"
+              height={200}
+              rounded
             />
-            <YasisLabelBox>
-              <YasisLabelWrap>
-                <YasisColorTipA />
-                <YasisLabel>복숭아</YasisLabel>
-              </YasisLabelWrap>
-              <YasisLabelWrap>
-                <YasisColorTipB />
-                <YasisLabel>감자</YasisLabel>
-              </YasisLabelWrap>
-              <YasisLabelWrap>
-                <YasisColorTipC />
-                <YasisLabel>고추</YasisLabel>
-              </YasisLabelWrap>
-            </YasisLabelBox>
-          </ChartBox>
-          <XasisWrap>
-            {day.map((data, id) => {
-              return <Xasis key={id}>{data}</Xasis>;
-            })}
-          </XasisWrap>
-        </ChartWrap>
+          </ShimmerWrap>
+        )}
       </Wrap>
     </>
   );
@@ -192,6 +81,10 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 20px;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+  }
 `;
 
 const Title = styled.span`
@@ -199,123 +92,52 @@ const Title = styled.span`
   font-weight: 700;
 `;
 
-const ChartWrap = styled.div`
-  width: 100%;
-  height: 70%;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
-  row-gap: 4px;
-  column-gap: 8px;
-  cursor: pointer;
-  margin-top: 12px;
+const CategoryWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 14px;
+  /* margin: 8px 0px; */
 `;
 
-const YasisWrap = styled.div`
+const FormCheckText = styled.span`
+  width: auto;
+  height: 26px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  margin-right: 4px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  cursor: pointer;
+  color: black;
+  &:hover {
+  }
+`;
+
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    display: inline-block;
+    background: none;
+    text-align: center;
+    display: none;
+  }
+  &:checked + ${FormCheckText} {
+    font-weight: 700;
+    border-bottom: 2px solid #000000;
+  }
+  display: none;
+`;
+
+const Label = styled.label``;
+
+const ShimmerWrap = styled.div`
+  height: 90%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-around;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-`;
-
-const Yasis = styled.span`
-  font-size: 8px;
-  color: #666666;
-`;
-
-const ChartBox = styled.div`
-  width: 100%;
-  margin-top: 6px;
-  background: #fafafa;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.17);
-  border-radius: 4px;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  position: relative;
-`;
-
-const YasisLabelBox = styled.div`
-  max-width: 150px;
-  width: 24%;
-  height: auto;
-  background: #ffffff;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
-  padding: 4px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin: 6px 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  @media only screen and (max-width: 760px) {
-    width: 100px;
-    margin: 6px 10px;
-  }
-`;
-
-const YasisLabelWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const YasisColorTipA = styled.div`
-  width: 7px;
-  height: 3px;
-  background: #3152bf;
-  margin-right: 4px;
-  @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
-  }
-`;
-
-const YasisColorTipB = styled.div`
-  width: 7px;
-  height: 3px;
-  background: #7eb3e3;
-  margin-right: 4px;
-  @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
-  }
-`;
-
-const YasisColorTipC = styled.div`
-  width: 7px;
-  height: 3px;
-  background: #7ee3ab;
-  margin-right: 4px;
-  @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
-  }
-`;
-
-const YasisLabel = styled.span`
-  font-size: 8px;
-  color: #666666;
-`;
-
-const XasisWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: 0px 10px;
-  /* margin-top: 4px; */
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-`;
-
-const Xasis = styled.span`
-  font-size: 8px;
-  color: #666666;
+  justify-content: flex-end;
 `;
 
 export default TotalHarvest;

@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import AccountWeek from "../components/accountbook/AccountWeek";
 import AccountCalendar from "../components/accountbook/AccountCalendar";
 import AccountWrite from "../components/accountbook/AccountWrite";
+import FooterNav from "../components/FooterNav";
 
 const AccountBook = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const AccountBook = () => {
 
   useEffect(() => {
     dispatch(getAccountListDB(yearMonth));
-  }, [yearMonth]);
+  }, [yearMonth, currentAccount_list]);
 
   const isLogin = sessionStorage.getItem("jwtToken");
 
@@ -62,6 +63,7 @@ const AccountBook = () => {
       </CuurentListWrap>
 
       {isOpen && <AccountWrite isOpen={isOpen} toggleModal={toggleModal} />}
+      <FooterNav currentPage="accountbook" />
     </Wrap>
   );
 };
@@ -83,7 +85,7 @@ const Wrap = styled.div`
   }
   @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 95% 1fr;
-    grid-template-rows: 70px minmax(320px, 400px) 1fr;
+    grid-template-rows: 70px minmax(520px, 700px) auto 1fr;
   }
 `;
 
@@ -97,10 +99,13 @@ const CalendarWrap = styled.div`
   grid-row: 2 / 3;
   position: relative;
   @media only screen and (max-width: 760px) {
-    padding: 20px 10px 16px 10px;
-
+    padding: 20px 10px 20px 10px;
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    margin-top: 10px;
+    border-radius: 0px;
+    width: 100%;
+    margin-left: -10px;
   }
 `;
 
@@ -111,15 +116,8 @@ const CuurentListWrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
+    border-left: none;
   }
-`;
-
-const BodyWrap = styled.div`
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 70px; */
 `;
 
 const AddAccountBtn = styled.button`
