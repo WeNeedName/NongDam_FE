@@ -38,16 +38,16 @@ const ScheduleWeek = () => {
         {currentScheduleList !== undefined
           ? currentScheduleList.map((sList, scheduleId) => {
               return (
-                <ScheduleBox
-                  key={sList.id}
-                  onClick={() => {
-                    toggleModal(sList.id);
-                  }}
-                >
+                <ScheduleBox key={sList.id}>
                   <div>
                     <TopWrap>
                       <Todo>{sList.toDo}</Todo>
-                      <MoreVertIcon />
+                      <MoreVertIcon
+                        className="moreVertIcon"
+                        onClick={() => {
+                          toggleModal(sList.id);
+                        }}
+                      />
                     </TopWrap>
                     <TimeWrap>
                       <Date>{moment(sList.startTime).format("M월 D일")}</Date>
@@ -109,7 +109,7 @@ const ScheduleBox = styled.div`
   background-color: white;
   border-radius: 10px;
   margin: 10px 0px;
-  cursor: pointer;
+
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   &:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
@@ -119,12 +119,18 @@ const ScheduleBox = styled.div`
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  .moreVertIcon {
+    cursor: pointer;
+  }
 `;
 const Todo = styled.div`
   font-size: 18px;
   font-weight: 700;
   color: #02113b;
   margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const TimeWrap = styled.div`
@@ -153,7 +159,8 @@ const Crop = styled.div`
   align-items: center;
   padding: 2px 10px 4px 10px;
   background: transparent;
-  border: 1px solid #616161;
+  border: 1px solid #bfbfbf;
+  color: #616161;
   border-radius: 100px;
 
   font-size: 8px;
