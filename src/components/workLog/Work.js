@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getInfoDB } from "../../redux/modules/users";
-//import {logOutDB} from '../redux/modules/users'
 
 //달력
 import DatePicker from "react-datepicker";
@@ -28,7 +27,6 @@ const Work = (props) => {
     dispatch(getInfoDB());
   }, []);
   const myCropsList = useSelector((state) => state.users.user?.crops);
-  // console.log(myCropsList)
 
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
@@ -36,23 +34,26 @@ const Work = (props) => {
     }
   };
 
-  const changeRadioWork = (e) => {
-    if (e.target.checked) {
-      setMemo(e.target.id);
-      inputRef.current.value = e.target.id;
-      props.setMemo(inputRef.current.value);
-    }
-  };
+  // 숫자만 입력
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
+
+  function inputNumberFormat(e) {
+    e.target.value = uncomma(e.target.value);
+    props.setWorkTime(e.target.value);
+  }
+
   return (
     <TodoContentWrap>
-      <CategoryBigWrap>
-        <TitleInput
-          placeholder="제목을 작성해주세요"
-          onChange={(e) => {
-            props.setTitle(e.target.value);
-          }}
-        />
-      </CategoryBigWrap>
+      <TitleInput
+        placeholder="제목을 작성해주세요"
+        onChange={(e) => {
+          props.setTitle(e.target.value);
+        }}
+      />
+
       <CategoryBigWrap>
         <SmallTitle>작물</SmallTitle>
         <CategoryWrap>
@@ -83,39 +84,25 @@ const Work = (props) => {
               setWorkDate(date);
               props.setDate(date);
             }}
-            dateFormat="yyyy-MM-dd" // 시간 포맷 변경
+            dateFormat="yyyy.MM.dd" // 시간 포맷 변경
             locale={ko} // 한글로 변경
             //inline//달력 보이게
           />
         </DatePickers>
       </CategoryBigWrap>
       <CategoryBigWrap>
-        {props.isEdit ? null : (
-          <>
-            <SmallTitle className="calender">작업시간</SmallTitle>
-            <TimeContent>
-              <TimeInput
-                onChange={(e) => {
-                  props.setWorkTime(e.target.value);
-                }}
-              />
-              <p className="inputTitle">시간</p>
-            </TimeContent>
-          </>
-        )}
-      </CategoryBigWrap>
-      {props.isEdit ? null : (
-        <CategoryBigWrap>
-          <SmallTitle className="todo">작업내용</SmallTitle>
-          <TodoInput
+        <SmallTitle className="calender">작업시간</SmallTitle>
+        <TimeContent>
+          <TimeInput
             type="text"
-            //defaultValue={memo}
+            maxLength="4"
             onChange={(e) => {
-              props.setMemo(e.target.value);
+              inputNumberFormat(e);
             }}
           />
-        </CategoryBigWrap>
-      )}
+          <p className="inputTitle">시간</p>
+        </TimeContent>
+      </CategoryBigWrap>
     </TodoContentWrap>
   );
 };
@@ -126,12 +113,13 @@ const TodoContentWrap = styled.div`
   height: auto;
   background-color: #fff;
 `;
+
 const CategoryBigWrap = styled.div`
   display: flex;
   flex-direction: column;
-
-  margin-top: 25px;
+  margin-top: 30px;
 `;
+
 const TitleInput = styled.input`
   height: 30px;
   width: 500px;
@@ -142,10 +130,15 @@ const TitleInput = styled.input`
   font-size: 30px;
   padding: 10px;
   margin-bottom: 10px;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+  }
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
+  margin-top: 10px;
 `;
 
 const SmallTitle = styled.label`
@@ -161,15 +154,16 @@ const FormCheckText = styled.span`
   margin-top: 5px;
   border-radius: 15px;
   background: transparent;
-  border: 1px solid #bfbfbf;
+  border: 1px solid #ccc;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   margin-right: 10px;
   cursor: pointer;
-  color: #616161;
+  color: #ccc;
   &:hover {
-    opacity: 0.7;
+    color: black;
+    border: 1px solid black;
   }
 `;
 
@@ -181,7 +175,8 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckText} {
-    opacity: 0.7;
+    color: black;
+    border: 1px solid black;
   }
   display: none;
 `;
@@ -189,12 +184,19 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const DatePickers = styled.div`
-  margin-top: 3px;
+  margin-top: 10px;
   .startDatePicker {
     font-size: 24px;
+    width: 120px;
+    border: none;
     background-color: transparent;
     color: black;
-    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
   }
 `;
 const TimeContent = styled.div`
@@ -205,40 +207,31 @@ const TimeContent = styled.div`
   }
 `;
 const TimeInput = styled.input`
-  width: 25px;
-  padding: 3px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  width: 40px;
+  padding: 4px 10px;
   font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #bfbfbf;
+  margin-right: 6px;
+  text-align: center;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+  }
 `;
 
 const TodoInput = styled.textarea`
-  width: 80%;
+  width: 400px;
   height: 10em;
   resize: none;
   font-size: 14px;
   border: 1px solid #bfbfbf;
   margin-top: 5px;
-  margin-bottom: 20px;
   border-radius: 10px;
   padding: 8px;
   &::placeholder {
     color: #ddd;
     font-size: 14px;
-  }
-`;
-
-const DoneBtn = styled.button`
-  margin-top: 30px;
-  width: 300px;
-  height: 40px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  &:hover {
-    opacity: 0.7;
   }
 `;
 
