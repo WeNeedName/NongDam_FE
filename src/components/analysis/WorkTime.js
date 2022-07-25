@@ -14,17 +14,13 @@ const WorkTime = ({ workTimeData }) => {
   const dispatch = useDispatch();
   const rateData = useSelector((state) => state.analysis.rate);
   const [count, setCount] = useState(0);
-  // const [rate, setRate] = useState(0);
-  // rate = rateData.rate;
-  // const end = rateData.rate !== NaN ? rateData.rate : 0;
-  const end = rateData.rate;
+
+  const end = rateData.rate && rateData.rate;
   const start = 0;
   const duration = 1000;
 
   const frameRate = 1000 / 60;
   const totalFrame = Math.round(duration / frameRate);
-
-  const stepTime = Math.abs(Math.floor(duration / (end - start)));
 
   const easeOutExpo = (number) => {
     return number === 1 ? 1 : 1 - Math.pow(2, -10 * number);
@@ -38,13 +34,15 @@ const WorkTime = ({ workTimeData }) => {
     let currentNumber = start;
     const counter = setInterval(() => {
       const progress = easeOutExpo(++currentNumber / totalFrame);
-      setCount(Math.round(end * progress));
+      if (rateData.rate) setCount(Math.round(end * progress));
 
       if (progress === 1) {
         clearInterval(counter);
       }
     }, frameRate);
   }, [end, frameRate, start, totalFrame]);
+
+  console.log(rateData);
 
   return (
     <>
@@ -53,7 +51,8 @@ const WorkTime = ({ workTimeData }) => {
           <SmileIcon>💪</SmileIcon>
           <Title>
             작년에 비해 올해 작업 시간이 <br />
-            {count + "%"} {rateData.rateText ? rateData.rateText : "감소"}
+            {rateData.rate ? count + "%" : "00%"}{" "}
+            {rateData.rateText ? rateData.rateText : "감소"}
             했어요
           </Title>
         </TitleWrap>
