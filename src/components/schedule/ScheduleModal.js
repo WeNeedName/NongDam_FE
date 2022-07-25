@@ -63,9 +63,6 @@ const ScheduleModal = ({
   };
   console.log(toDo);
   // date 형식 변경
-  const selecStartTime = moment(startTime).format("YYYY-MM-DD");
-  const selecEndTime = moment(endTime).format("YYYY-MM-DD");
-  console.log(checkedCrops);
 
   const editSchedule = () => {
     const id = schedule.id;
@@ -80,8 +77,14 @@ const ScheduleModal = ({
       toggleModal();
     });
   };
+  console.log(startTime);
   const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm");
   const endTimeFormat = moment(endTime).format("YYYY-MM-DD HH:mm");
+  const startTimeLoadFormat = moment(startTime).format(
+    "yyyy년 MM월 DD일 HH:mm"
+  );
+  const endTimeLoadFormat = moment(endTime).format("yyyy년 MM월 DD일 HH:mm");
+
   console.log(checkedCrops, startTimeFormat, endTimeFormat, toDo);
 
   return (
@@ -116,10 +119,14 @@ const ScheduleModal = ({
                                 name="cropName"
                                 onChange={changeRadioCrops}
                                 value={checkedCrops}
+                                defaultChecked={
+                                  list.id === schedule?.crop.id ? true : false
+                                }
                               />
                               <FormCheckText>
-                                {list !== undefined &&
-                                  "[" + list?.type + "]" + " " + list?.name}
+                                {/* {list !== undefined && "[" + list?.type + "]"}
+                                <br /> */}
+                                {list !== undefined && list?.name}
                               </FormCheckText>
                             </Label>
                           );
@@ -130,32 +137,36 @@ const ScheduleModal = ({
               ) : (
                 <CropLoadWrap>
                   <CropName>
-                    {"[" + schedule.crop.type + "]" + " " + schedule.crop.name}
+                    {/* {list !== undefined && "[" + list?.type + "]"} <br /> */}
+                    {schedule !== undefined && schedule?.crop.name}
                   </CropName>
                 </CropLoadWrap>
               )}
             </CropWrap>
             <TimeWrap>
-              <SmallTitle>시작</SmallTitle>
-              {openEdit ? (
-                <DatePicker
-                  className="startDatePicker"
-                  selected={startTime}
-                  onChange={(date) => {
-                    setStartTime(date);
-                    inputRef.current.focus({
-                      cursor: "end",
-                    });
-                  }}
-                  showTimeSelect
-                  minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
-                  dateFormat="yyyy-MM-dd HH:mm" // 시간 포맷 변경
-                  locale={ko} // 한글로 변경
-                  //inline//달력 보이게
-                />
-              ) : (
-                <StartTime>{schedule.startTime}</StartTime>
-              )}
+              <Start>
+                <SmallTitle>시작</SmallTitle>
+                {openEdit ? (
+                  <DatePicker
+                    className="startDatePicker"
+                    selected={startTime}
+                    onChange={(date) => {
+                      setStartTime(date);
+                      inputRef.current.focus({
+                        cursor: "end",
+                      });
+                    }}
+                    showTimeSelect
+                    minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
+                    dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
+                    locale={ko} // 한글로 변경
+                    autoFocus={true}
+                    //inline//달력 보이게
+                  />
+                ) : (
+                  <StartTime>{startTimeLoadFormat}</StartTime>
+                )}
+              </Start>
               <SmallTitle>종료</SmallTitle>
               {openEdit ? (
                 <DatePicker
@@ -164,12 +175,12 @@ const ScheduleModal = ({
                   onChange={(date) => setEndTime(date)}
                   showTimeSelect
                   minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
-                  dateFormat="yyyy-MM-dd HH:mm"
+                  dateFormat="yyyy년 MM월 dd일 HH:mm"
                   locale={ko} // 한글로 변경
                   //inline//달력 보이게
                 />
               ) : (
-                <EndTime>{schedule.endTime}</EndTime>
+                <EndTime>{endTimeLoadFormat}</EndTime>
               )}
             </TimeWrap>
           </LeftWrap>
@@ -210,22 +221,22 @@ const ScheduleModal = ({
                       <FormCheckTextWork>수확</FormCheckTextWork>
                     </LabelWork>
                   </WorkSelectBoxWrap>
-                  <SmallTitle>작업 내용</SmallTitle>
-                  <InputMemo
-                    ref={memoRef}
-                    defaultValue={schedule.toDo}
-                    onChange={(e) => setToDo(e.target.value)}
-                    placeholder="메모를 입력해주세요"
-                  />
+                  <MemoWrap>
+                    <SmallTitle>작업 내용</SmallTitle>
+                    <InputMemo
+                      ref={memoRef}
+                      defaultValue={schedule.toDo}
+                      onChange={(e) => setToDo(e.target.value)}
+                      placeholder="메모를 입력해주세요"
+                    />
+                  </MemoWrap>
                 </>
               ) : (
                 <>
                   <SmallTitle>작업 내용</SmallTitle>
                   {schedule.toDo !== "" ? (
                     <WorkContent>{schedule.toDo}</WorkContent>
-                  ) : (
-                    <WorkContent></WorkContent>
-                  )}
+                  ) : null}
                 </>
               )}
             </WorkWrap>
@@ -277,10 +288,15 @@ const ScheduleModal = ({
 };
 
 const StyledModal = Modal.styled`
-  width: 700px;
+  min-width: 650px;
+  min-height : 300px;
   background-color: white;
   border-radius: 10px;
-  padding: 30px;
+  padding-top : 30px;
+  padding-left : 30px;
+  padding-bottom: 30px;
+  padding-right : 30px;
+  
 `;
 const WrapWrap = styled.div``;
 const TotalTitle = styled.label`
@@ -289,6 +305,7 @@ const TotalTitle = styled.label`
   display: flex;
   text-align: left;
   align-items: start;
+  margin-bottom: 10px;
 `;
 const Wrap = styled.div`
   display: grid;
@@ -297,12 +314,16 @@ const Wrap = styled.div`
   grid-auto-rows: auto;
   grid-template-columns: 1fr 1fr;
 `;
-const LeftWrap = styled.div``;
+const LeftWrap = styled.div`
+  width: auto;
+`;
 
-const CropWrap = styled.div``;
+const CropWrap = styled.div`
+  margin-bottom: 10px;
+`;
 
-const SmallTitle = styled.p`
-  font-size: 18px;
+const SmallTitle = styled.span`
+  font-size: 16px;
   font-weight: 700;
 `;
 const Label = styled.label`
@@ -310,26 +331,26 @@ const Label = styled.label`
 `;
 const CropEditWrap = styled.div`
   display: flex;
+  margin-top: 5px;
+  margin-bottom: 25px;
 `;
 const FormCheckText = styled.span`
   width: auto;
-  height: 25px;
+  height: auto;
   font-size: 12px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
   border: 1px solid #bfbfbf;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   margin-right: 10px;
   cursor: pointer;
   color: #616161;
   &:hover {
-    background-color: #22631c;
-    color: white;
-    border: none;
+    opacity: 0.7;
   }
 `;
 
@@ -342,42 +363,44 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
     color: #616161;
   }
   &:checked + ${FormCheckText} {
-    background: #22631c;
-    color: white;
-    border: none;
+    opacity: 0.7;
+    border: 1px solid #bfbfbf;
   }
   display: none;
 `;
 
-const CropLoadWrap = styled.div``;
+const CropLoadWrap = styled.div`
+  display: flex;
+`;
 
 const CropName = styled.p`
-  width: 50px;
-  height: 15px;
+  width: auto;
+  height: auto;
   text-align: center;
-  padding: 4px 4px;
-  font-size: 11px;
+  padding: 4px 13px;
+  font-size: 12px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;
+  margin-top: 5px;
 `;
 const Content = styled.p``;
 
 const TimeWrap = styled.div`
   flex-direction: column;
+  margin-bottom: 15px;
   .startDatePicker {
     width: 55%;
-    height: 2rem;
-    font-size: 14px;
-
+    font-size: 16px;
     background-color: transparent;
     color: #02113b;
     border: none;
+    margin-top: 5px;
+    margin-bottom: 30px;
   }
   .endDatePicker {
     width: 55%;
-    height: 2rem;
-    font-size: 14px;
-
+    font-size: 16px;
+    margin-top: 5px;
     background-color: transparent;
     color: #02113b;
     border: none;
@@ -388,6 +411,7 @@ const StartTime = styled.div`
   background-color: transparent;
   color: #02113b;
   border: none;
+  margin-bottom: 15px;
 `;
 const EndTime = styled.div`
   font-size: 16px;
@@ -396,19 +420,22 @@ const EndTime = styled.div`
   border: none;
 `;
 
-const RightWrap = styled.div`
-  padding-right: 10px;
+const Start = styled.div`
+  margin-bottom: 10px;
 `;
+
+const RightWrap = styled.div``;
 const WorkWrap = styled.div``;
 const WorkSelectBoxWrap = styled.div`
+  margin-top: 5px;
+  margin-bottom: 13px;
   display: flex;
 `;
 const LabelWork = styled.label``;
 const FormCheckTextWork = styled.span`
-  width: 50px;
-  height: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: auto;
+  height: auto;
+  padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
   border: 1px solid #bfbfbf;
@@ -419,9 +446,8 @@ const FormCheckTextWork = styled.span`
   cursor: pointer;
   color: #616161;
   &:hover {
-    background-color: #22631c;
-    color: white;
-    border: none;
+    opacity: 0.7;
+    border: 1px solid #bfbfbf;
   }
 `;
 
@@ -433,11 +459,14 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckTextWork} {
-    background: #22631c;
-    color: white;
-    border: none;
+    opacity: 0.7;
+    border: 1px solid #bfbfbf;
   }
   display: none;
+`;
+const MemoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const InputMemo = styled.textarea`
@@ -450,15 +479,15 @@ const InputMemo = styled.textarea`
   padding-bottom: 120px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;
+  margin-top: 5px;
 `;
 
 const WorkContent = styled.div`
-  font-size: 18px;
+  font-size: 14px;
   color: #616161;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-bottom: 120px;
+  max-width: 300px;
+  min-height: 150px;
+  padding: 10px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;
 `;
@@ -466,7 +495,8 @@ const WorkContent = styled.div`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px;
+  margin-top: 15px;
+  margin-right: 1px;
 `;
 const EditBtn = styled.button`
   background-color: #22631c;
@@ -479,11 +509,7 @@ const EditBtn = styled.button`
   border: 1px solid #22631c;
 
   &:hover {
-    border: 1px solid #318f27;
-    background: #22631c;
-    opacity: 0.8;
-    color: #ffffff;
-    font-weight: 400;
+    opacity: 0.7;
   }
 `;
 
@@ -496,11 +522,7 @@ const Btn = styled.button`
   padding: 4px 10px;
   cursor: pointer;
   &:hover {
-    background-color: #22631c;
-    border: 1px solid #22631c;
-    color: white;
-    padding: 4px 10px;
-    margin-left: 10px;
+    opacity: 0.7;
   }
 `;
 

@@ -51,14 +51,20 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   };
 
   const addSchedule = () => {
-    dispatch(
-      addScheduleDB({
-        cropId: checkedCrops,
-        startTime: startDateFormat,
-        endTime: endDateFormat,
-        toDo: memo,
-      })
-    ).then(toggleModal());
+    if (!checkedCrops || !startDate || !endDate || !memo) {
+      window.alert("빈칸을 채워주세요");
+    } else {
+      dispatch(
+        addScheduleDB({
+          cropId: checkedCrops,
+          startTime: startDateFormat,
+          endTime: endDateFormat,
+          toDo: memo,
+        })
+      ).then((res) => {
+        toggleModal();
+      });
+    }
   };
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm");
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
@@ -110,16 +116,14 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                                 onChange={changeRadioCrops}
                                 value={checkedCrops}
                               />
-                              <FormCheckText>
-                                {"[" + list.type + "]" + " " + list.name}
-                              </FormCheckText>
+                              <FormCheckText>{list.type}</FormCheckText>
                             </Label>
                           );
                         })
                       : null}
                   </CropSelectBoxWrap>
                 </CropWrap>
-                <DateWrap>
+                <StartDate>
                   <SmallTitle className="startDate">시작</SmallTitle>
                   <DatePicker
                     className="startDatePicker"
@@ -127,11 +131,20 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     onChange={(date) => setStartDate(date)}
                     showTimeSelect
                     dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
+                    locale={ko}
+                    autoFocus={true}
+                  />
+                  {/* <DatePicker
+                    className="startTimePicker"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    showTimeSelect
+                    dateFormat="HH:mm" // 시간 포맷 변경
                     locale={ko} // 한글로 변경
                     //inline//달력 보이게
-                  />
-                </DateWrap>
-                <DateWrap>
+                  /> */}
+                </StartDate>
+                <EndDate>
                   <SmallTitle className="endDate">종료</SmallTitle>
                   <DatePicker
                     className="endDatePicker"
@@ -143,7 +156,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     locale={ko} // 한글로 변경
                     //inline//달력 보이게
                   />
-                </DateWrap>
+                </EndDate>
               </ContentWrapL>
               <ContentWrapR className="right">
                 <WorkWrap>
@@ -201,7 +214,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     onChange={(e) => {
                       setMemo(e.target.value);
                     }}
-                    placeholder="일정을 기록해주세요"
                   />
                 </CategoryBigWrap>
               </ContentWrapR>
@@ -319,7 +331,7 @@ const CropWrap = styled.div`
 `;
 
 const SmallTitle = styled.label`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
@@ -328,21 +340,28 @@ const CropSelectBoxWrap = styled.div`
   flex-direction: row;
 `;
 
-const DateWrap = styled.div`
+const StartDate = styled.div`
+  margin-bottom: 10px;
   .startDatePicker {
     width: 55%;
     height: 2rem;
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 20px;
+    margin-top: 5px;
     background-color: transparent;
     color: black;
     border: none;
   }
+`;
+
+const InputDate = styled.span`
+  color: pink;
+`;
+const EndDate = styled.div`
   .endDatePicker {
     width: 55%;
     height: 2rem;
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 20px;
+    margin-top: 5px;
     background-color: transparent;
     color: black;
     border: none;
@@ -352,8 +371,7 @@ const DateWrap = styled.div`
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
-  padding-left: 7px;
-  padding-right: 7px;
+  padding: 4px 13px;
   margin-right: 4px;
   border-radius: 13px;
   background: transparent;
@@ -377,12 +395,7 @@ const FormCheckLeft = styled.input`
     display: none;
   }
   &:checked + ${FormCheckText} {
-    background: #22631c;
-    color: white;
-    border: 1px solid #22631c;
-    padding-left: 7px;
-    padding-right: 7px;
-    margin-right: 4px;
+    opacity: 0.7;
   }
   display: none;
 `;
@@ -390,9 +403,8 @@ const Label = styled.label``;
 
 const FormCheckTextWork = styled.span`
   width: auto;
-  height: 25px;
-  padding-left: 10px;
-  padding-right: 10px;
+  height: auto;
+  padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
   border: 1px solid #bfbfbf;
@@ -421,12 +433,7 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckTextWork} {
-    background: #22631c;
-    color: white;
-    border: 1px solid #22631c;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-right: 10px;
+    opacity: 0.7;
   }
   display: none;
 `;
@@ -453,7 +460,7 @@ const WorkSelectBoxWrap = styled.div`
 const TodoInput = styled.textarea`
   width: 250px;
   height: 80px;
-  font-size: 10px;
+  font-size: 12px;
   border: 1px solid #bfbfbf;
   padding: 10px;
   border-radius: 10px;

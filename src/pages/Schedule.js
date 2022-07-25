@@ -52,7 +52,7 @@ const Schedule = () => {
       <Header currentPage="schedule" />
       <>
         <CalendarWrap>
-          <ScheduleCalendar />
+          <ScheduleCalendar userInfo={userInfo} />
           <AddScheduleBtn
             onClick={() => {
               toggleModal();
@@ -139,5 +139,4 @@ const CurrentListWrap = styled.div`
     grid-row: 3 / 4;
   }
 `;
-
 export default Schedule;
