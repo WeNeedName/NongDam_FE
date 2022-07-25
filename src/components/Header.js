@@ -112,13 +112,6 @@ const Haeder = ({ currentPage }) => {
         <ProfileWrap>
           {isLogin ? (
             <>
-              <Menu
-                onClick={() => {
-                  dispatch(logOutDB());
-                }}
-              >
-                로그아웃
-              </Menu>
               <UserProfile
                 profileImage={userInfo?.profileImage}
                 onClick={() => {
