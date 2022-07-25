@@ -166,7 +166,7 @@ const Expense = ({ expenseData }) => {
         {labelList !== undefined &&
           labelList.map((data, idx) => {
             return (
-              <LabelWrap>
+              <LabelWrap key={idx}>
                 <LabelTip index={idx} colorList={colorList} />
                 <Label key={idx}>{data}</Label>
               </LabelWrap>
