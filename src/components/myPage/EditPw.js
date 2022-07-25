@@ -64,7 +64,7 @@ const EditPw = () => {
           </form>
         </EachBoxWrap>
         <EachBoxWrap>
-          <SmallTitle>비번변경</SmallTitle>
+          <SmallTitle>새로운 비밀번호</SmallTitle>
           <form>
             <PwInputBox
               //newPwErr={newPwErr}
@@ -85,7 +85,7 @@ const EditPw = () => {
           {newPwErr2 && <NewPwErr>기존 비밀번호와 같습니다.</NewPwErr>}
         </EachBoxWrap>
         <EachBoxWrap>
-          <SmallTitle>비번변경확인</SmallTitle>
+          <SmallTitle>새로운 비밀번호 확인</SmallTitle>
           <form>
             <PwInputBox
               //newPwCheckErr={newPwCheckErr}
@@ -152,6 +152,10 @@ const PwInputBox = styled.input`
   padding: 4px;
   width: 300px;
   height: 28px;
+  margin-top: 5px;
+  :focus {
+    outline: none;
+  }
 `;
 const SmallTitle = styled.div`
   font-size: 13px;
