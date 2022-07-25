@@ -29,7 +29,7 @@ const ScheduleModal = ({
   const myCropsList = useSelector((state) => state.users.user?.crops);
 
   // console.log(myCropsList)
-  // console.log(schedule.cropId)
+  console.log(schedule);
 
   const [openEdit, setOpenEdit] = useState(false);
   const [startTime, setStartTime] = useState(new Date(schedule.startTime));
@@ -105,7 +105,7 @@ const ScheduleModal = ({
                     {myCropsList !== undefined
                       ? myCropsList.map((list, idx) => {
                           return (
-                            <Label key={list.id}>
+                            <Label key={idx}>
                               <FormCheckLeft
                                 type="radio"
                                 ref={ref}
@@ -191,6 +191,9 @@ const ScheduleModal = ({
                         name="radioButtonWork"
                         onChange={changeRadioWork}
                         value={checkedWork}
+                        defaultChecked={
+                          schedule.toDo === "비료뿌리기" ? true : false
+                        }
                       />
                       <FormCheckTextWork>비료뿌리기 </FormCheckTextWork>
                     </LabelWork>
@@ -201,6 +204,9 @@ const ScheduleModal = ({
                         name="radioButtonWork"
                         onChange={changeRadioWork}
                         value={checkedWork}
+                        defaultChecked={
+                          schedule.toDo === "농약치기" ? true : false
+                        }
                       />
                       <FormCheckTextWork>농약치기</FormCheckTextWork>
                     </LabelWork>
@@ -211,6 +217,7 @@ const ScheduleModal = ({
                         name="radioButtonWork"
                         onChange={changeRadioWork}
                         value={checkedWork}
+                        defaultChecked={schedule.toDo === "수확" ? true : false}
                       />
                       <FormCheckTextWork>수확</FormCheckTextWork>
                     </LabelWork>
@@ -342,9 +349,10 @@ const FormCheckText = styled.span`
   text-align: center;
   margin-right: 10px;
   cursor: pointer;
-  color: #616161;
+  color: #ccc;
   &:hover {
-    opacity: 0.7;
+    color: black;
+    border: 1px solid black;
   }
 `;
 
@@ -354,11 +362,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
     background: none;
     text-align: center;
     display: none;
-    color: #616161;
   }
   &:checked + ${FormCheckText} {
-    opacity: 0.7;
-    border: 1px solid #bfbfbf;
+    color: black;
+    border: 1px solid black;
   }
   display: none;
 `;
@@ -406,12 +413,18 @@ const StartTime = styled.div`
   color: #02113b;
   border: none;
   margin-bottom: 15px;
+  :focus {
+    outline: none;
+  }
 `;
 const EndTime = styled.div`
   font-size: 16px;
   background-color: transparent;
   color: #02113b;
   border: none;
+  :focus {
+    outline: none;
+  }
 `;
 
 const Start = styled.div`
@@ -438,10 +451,10 @@ const FormCheckTextWork = styled.span`
   align-items: center;
   margin-right: 10px;
   cursor: pointer;
-  color: #616161;
+  color: #ccc;
   &:hover {
-    opacity: 0.7;
-    border: 1px solid #bfbfbf;
+    color: black;
+    border: 1px solid black;
   }
 `;
 
@@ -453,8 +466,8 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckTextWork} {
-    opacity: 0.7;
-    border: 1px solid #bfbfbf;
+    color: black;
+    border: 1px solid black;
   }
   display: none;
 `;
@@ -474,6 +487,9 @@ const InputMemo = styled.textarea`
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
+  :focus {
+    outline: none;
+  }
 `;
 
 const WorkContent = styled.div`

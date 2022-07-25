@@ -398,6 +398,10 @@ const FormCheckLeft = styled.input`
     opacity: 0.7;
   }
   display: none;
+
+  :focus {
+    outline: none;
+  }
 `;
 const Label = styled.label``;
 
@@ -436,6 +440,9 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
     opacity: 0.7;
   }
   display: none;
+  :focus {
+    outline: none;
+  }
 `;
 
 const LabelWork = styled.label``;
@@ -467,6 +474,9 @@ const TodoInput = styled.textarea`
   &::placeholder {
     color: #ddd;
     padding: 1px;
+  }
+  :focus {
+    outline: none;
   }
 `;
 

@@ -111,9 +111,6 @@ const ScheduleBox = styled.div`
   margin: 10px 0px;
 
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
-  &:hover {
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-  }
 `;
 
 const TopWrap = styled.div`
