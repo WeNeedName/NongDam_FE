@@ -11,6 +11,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import { Translate } from "@mui/icons-material";
 
+import nongdamLogo from "../images/nongdam_logo.png";
+
 const Login = () => {
   const idRef = useRef();
   const errRef = useRef();
@@ -40,7 +42,14 @@ const Login = () => {
       <Header />
       <Container>
         <TopWrap>
-          <p className="title">Nongdam</p>
+          <Logo
+            onClick={() => {
+              navigate("/");
+              setHeaderNav(headerNav);
+            }}
+            src={nongdamLogo}
+            alt="농담 로고"
+          />
           <p className="slogan"> 농장을 한 눈에 담다, 농담!</p>
           <p className="desc">
             행복한 농사 생활을 위한 농담 <br />내 농장에 필요한 모든 걸 한 눈에
@@ -106,7 +115,8 @@ const Login = () => {
 };
 
 const Container = styled.div`
-  margin-top: 150px;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,6 +142,12 @@ const TopWrap = styled.div`
     margin-bottom: 20px;
     color: #666666;
   }
+`;
+
+const Logo = styled.img`
+  width: 180px;
+  margin-right: 10px;
+  cursor: pointer;
 `;
 
 const InputBoxes = styled.form`

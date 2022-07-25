@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOutDB } from "../redux/modules/users";
 import { getInfoDB } from "../redux/modules/users";
+import nongdamLogo from "../images/nongdam_logo.png";
 
 const Haeder = ({ currentPage }) => {
   const navigate = useNavigate();
@@ -26,9 +27,9 @@ const Haeder = ({ currentPage }) => {
               navigate("/");
               setHeaderNav(headerNav);
             }}
-          >
-            Nongdam
-          </Logo>
+            src={nongdamLogo}
+            alt="농담 로고"
+          />
           {isLogin ? (
             <>
               <CategoryWrap>
@@ -155,18 +156,10 @@ const NavLeft = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.span`
-  font-family: "SF Pro Rounded" !important;
-  font-style: normal;
-  font-weight: 400 !important;
-  font-size: 34px;
-  line-height: 100%;
-  color: #55a349;
-  margin-right: 30px;
+const Logo = styled.img`
+  width: 180px;
+  margin-right: 40px;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
-    font-size: 26px;
-  }
 `;
 
 const Menu = styled.span`

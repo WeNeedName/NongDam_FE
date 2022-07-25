@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUpDB } from "../redux/modules/users";
 import { useNavigate } from "react-router-dom";
 
+import nongdamLogo from "../images/nongdam_logo.png";
+
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -96,7 +98,14 @@ const Signup = () => {
     <ContainerWrap>
       <Container>
         <TopWrap>
-          <p className="title">Nongdam</p>
+          <Logo
+            onClick={() => {
+              navigate("/");
+              setHeaderNav(headerNav);
+            }}
+            src={nongdamLogo}
+            alt="농담 로고"
+          />
           <p className="slogan"> 농장을 한 눈에 담다, 농담!</p>
           <p className="desc">
             행복한 농사 생활을 위한 농담 <br />내 농장에 필요한 모든 걸 한 눈에
@@ -206,13 +215,17 @@ const Signup = () => {
 };
 
 const ContainerWrap = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
 `;
+
 const Container = styled.div`
-  margin-top: 30px;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
@@ -237,6 +250,12 @@ const TopWrap = styled.div`
     margin-bottom: 20px;
     color: #666666;
   }
+`;
+
+const Logo = styled.img`
+  width: 180px;
+  margin-right: 10px;
+  cursor: pointer;
 `;
 
 const InputBoxesWrap = styled.div`
