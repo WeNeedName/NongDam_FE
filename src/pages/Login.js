@@ -88,6 +88,7 @@ const Login = () => {
             onClick={() => {
               logIn();
             }}
+            disabled={!email || !pw ? true : false}
           >
             로그인
           </LoginBtn>
@@ -234,6 +235,10 @@ const LoginBtn = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 0.7;
+  }
+  &:disabled {
+    opacity: 1;
+    cursor: default;
   }
 `;
 const SocialBtn = styled.img`
