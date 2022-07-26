@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+// 이미지 압축 라이브러리
+import imageCompression from "browser-image-compression";
 
 const WorkPhoto = ({
   setImages,
@@ -15,6 +17,19 @@ const WorkPhoto = ({
   const dispatch = useDispatch();
   const [imageSrc, setImageSrc] = useState("");
 
+  // 이미지 압축
+  const compressImage = async (image) => {
+    try {
+      const options = {
+        maxSizeMb: 1,
+        maxWidthOrHeight: 1000,
+      };
+      return await imageCompression(image, options);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
@@ -26,9 +41,15 @@ const WorkPhoto = ({
     });
   };
 
-  const onChangeFile = (e) => {
-    //console.log(e.target.files[0])
-    setImages(e.target.files[0]);
+  const onChangeFile = async (e) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+      const originalImage = files[0];
+      console.log(originalImage);
+      const compressedImageFile = await compressImage(originalImage);
+      console.log(compressedImageFile);
+      setImages(compressedImageFile);
+    }
   };
 
   const newEncodeFileToBase64 = (fileBlob) => {
@@ -43,11 +64,9 @@ const WorkPhoto = ({
   };
 
   const newOnChangeFile = (e) => {
-    //console.log(e.target.files[0])
     setNewImages(e.target.files[0]);
   };
 
-  // console.log(workLogOne);
   console.log(newImages);
   return (
     <>
@@ -84,11 +103,6 @@ const WorkPhoto = ({
                     style={{ backgroundImage: `url(${workLogOne.images})` }}
                   />
                 )}
-
-                {/* 
-                {imageSrc && (
-                  <NewImagePreview src={imageSrc} alt="preview-img" />
-                )} */}
               </div>
             </CategoryBigWrap>
           </EditImageContentWrap>
