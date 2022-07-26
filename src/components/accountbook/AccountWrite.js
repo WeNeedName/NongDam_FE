@@ -98,7 +98,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
         <div>
           <PriceInput
             type="text"
-            maxLength="12"
+            maxLength="10"
             onChange={(e) => {
               inputNumberFormat(e);
             }}

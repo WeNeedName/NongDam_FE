@@ -134,6 +134,9 @@ const TitleInput = styled.input`
     outline: none;
     border-bottom: 1px solid black;
   }
+  &::placeholder {
+    color: #ccc;
+  }
 `;
 
 const CategoryWrap = styled.div`

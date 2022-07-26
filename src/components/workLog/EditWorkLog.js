@@ -45,23 +45,6 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   const stringFertilizerUnit = prevFertilizerUse?.replace(/[1-9]/g, "");
   const stringChemicalUnit = prevChemicalUse?.replace(/[1-9]/g, "");
 
-  //기존 부자재 데이터 배열(서버 발송용)
-  // const previousSubMaterialFertilizer = {
-  //   type: workLogOne?.subMaterial[0]?.type,
-  //   product: workLogOne?.subMaterial[0]?.product,
-  //   use: workLogOne?.subMaterial[0]?.use,
-  // };
-
-  // const previousSubMaterialChemical = {
-  //   type: workLogOne?.subMaterial[1]?.type,
-  //   product: workLogOne?.subMaterial[1]?.product,
-  //   use: workLogOne?.subMaterial[1]?.use,
-  // };
-  // const previousSubMaterial = [
-  //   previousSubMaterialFertilizer,
-  //   previousSubMaterialChemical,
-  // ];
-
   //수정된 부자재 데이터 관리
   const [newTitle, setNewTitle] = useState(previousTitle);
   const [newCrop, setNewCrop] = useState(previousCrop);
@@ -129,8 +112,16 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   const numberHarvest = Number(newHarvest);
 
   const editWorkLogDB = async (event) => {
-    if (!newTitle || !newCrop || !myNewDate || !newWorkTime || !newMemo) {
-      window.alert("빈 칸을 채워주세요");
+    if (!newTitle) {
+      window.alert("제목을 입력해주세요.");
+    } else if (!newCrop) {
+      window.alert("작물을 선택해주세요.");
+    } else if (!myNewDate) {
+      window.alert("날짜를 선택해주세요.");
+    } else if (!newWorkTime) {
+      window.alert("작업시간을 입력해주세요.");
+    } else if (!newMemo) {
+      window.alert("작업 내용을 입력해주세요.");
     } else {
       const data = {
         title: newTitle.length < 1 ? previousTitle : newTitle,
@@ -157,8 +148,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
           RefreshToken: `Bearer ${refreshToken}`,
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => {
-        console.log(res);
+      }).then(() => {
         Swal.fire({
           title: "수정이 완료되었습니다.",
           icon: "success",
@@ -250,9 +240,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
                     value={newCheckedCrop}
                     defaultChecked={list.id === previousCrop ? true : false}
                   />
-                  <FormCheckText>
-                    {"[" + list.type + "]" + list.name}{" "}
-                  </FormCheckText>
+                  <FormCheckText>{list.name}</FormCheckText>
                 </Label>
               );
             })}

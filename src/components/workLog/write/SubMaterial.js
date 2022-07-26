@@ -24,11 +24,15 @@ const SubMaterial = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [toggleState, setToggleState] = useState(1);
+  // 숫자만 입력
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
 
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
+  function inputNumberFormat(e) {
+    e.target.value = uncomma(e.target.value);
+  }
 
   return (
     <>
@@ -72,8 +76,10 @@ const SubMaterial = ({
                     type="text"
                     name="use"
                     placeholder="사용량"
+                    maxLength="8"
                     defaultValue={use0}
                     onChange={(e) => {
+                      inputNumberFormat(e);
                       setUse0(e.target.value);
                     }}
                   />
@@ -98,7 +104,7 @@ const SubMaterial = ({
                 <Product
                   type="text"
                   name="product"
-                  placeholder="농약 제품명"
+                  placeholder="농약 제품명을 입력해주세요"
                   defaultValue={product1}
                   onChange={(e) => {
                     setProduct1(e.target.value);
@@ -107,10 +113,12 @@ const SubMaterial = ({
                 <QuantityMeasure>
                   <Quantity
                     type="text"
+                    maxLength="8"
                     name="use"
                     placeholder="사용량"
                     defaultValue={use1}
                     onChange={(e) => {
+                      inputNumberFormat(e);
                       setUse1(e.target.value);
                     }}
                   />
@@ -123,8 +131,8 @@ const SubMaterial = ({
                     }}
                   >
                     <option value="">단위</option>
-                    <option value="ml">ml</option>
-                    <option value="l">l</option>
+                    <option value="mL">mL</option>
+                    <option value="L">L</option>
                     <option value="kg">kg</option>
                   </Measure>
                 </QuantityMeasure>
@@ -190,6 +198,7 @@ const Measure = styled.select`
   border: 1px solid #bfbfbf;
   padding-left: 10px;
   text-align: left;
+  cursor: pointer;
   &:focus {
     outline: none;
     border: 1px solid #02113b;
