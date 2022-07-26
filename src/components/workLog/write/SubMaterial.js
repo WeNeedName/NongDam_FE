@@ -76,7 +76,7 @@ const SubMaterial = ({
                     type="text"
                     name="use"
                     placeholder="사용량"
-                    maxLength="8"
+                    maxLength="6"
                     defaultValue={use0}
                     onChange={(e) => {
                       inputNumberFormat(e);
@@ -113,7 +113,7 @@ const SubMaterial = ({
                 <QuantityMeasure>
                   <Quantity
                     type="text"
-                    maxLength="8"
+                    maxLength="6"
                     name="use"
                     placeholder="사용량"
                     defaultValue={use1}
@@ -163,6 +163,7 @@ const TabsWrap = styled.div`
 `;
 
 const InputBoxes = styled.div``;
+
 const Product = styled.input`
   font-size: 14px;
   width: 380px;
@@ -177,6 +178,7 @@ const Product = styled.input`
 `;
 
 const QuantityMeasure = styled.div``;
+
 const Quantity = styled.input`
   font-size: 14px;
   width: 140px;

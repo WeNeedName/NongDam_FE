@@ -11,6 +11,9 @@ import { ShimmerTitle } from "react-shimmer-effects";
 import { ShimmerThumbnail } from "react-shimmer-effects";
 import { ShimmerText } from "react-shimmer-effects";
 
+// 이미지
+import Banner from "../../images/nongdam_kakao_thumbnail.png";
+
 const LoadWorkLog = ({ workLogList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch;
@@ -37,77 +40,86 @@ const LoadWorkLog = ({ workLogList }) => {
             </WriteBtn>
           </BtnWrap>
         </TopWrap>
-        {is_loaded ? (
-          workLogList !== undefined ? (
-            workLogList.map((list, i) => {
-              return (
-                <BoxWrap
-                  className="boxWrap"
-                  onClick={() => {
-                    navigate(`/worklog/detail/${list.id}`);
-                  }}
-                  key={i}
-                >
-                  <div>
-                    <WorkLogBox className="workLogBox">
-                      <LeftContent>
-                        <TitleContent>{list?.title}</TitleContent>
-                        <TimeContentWrap>
-                          <DateContent>
-                            {list?.date &&
-                              moment(list?.date).format("YYYY.MM.DD")}
-                          </DateContent>
-                        </TimeContentWrap>
-                        <WorkContent className="workMemoWrap">
-                          {list?.memo}
-                        </WorkContent>
-                        <CropContent>{list?.crop?.type}</CropContent>
-                      </LeftContent>
-                      <RightContent>
-                        {list.images[0] !== undefined ? (
-                          <ImgContent
-                            style={{
-                              backgroundImage: `url(${list?.images})`,
-                              backgroundSize: "cover",
-                            }}
-                          />
-                        ) : null}
-                      </RightContent>
-                    </WorkLogBox>
-                  </div>
-                </BoxWrap>
-              );
-            })
-          ) : null
+        {workLogList !== undefined && workLogList.length !== 0 ? (
+          <>
+            {is_loaded ? (
+              workLogList !== undefined ? (
+                workLogList.map((list, i) => {
+                  return (
+                    <BoxWrap
+                      className="boxWrap"
+                      onClick={() => {
+                        navigate(`/worklog/detail/${list.id}`);
+                      }}
+                      key={i}
+                    >
+                      <div>
+                        <WorkLogBox className="workLogBox">
+                          <LeftContent>
+                            <TitleContent>{list?.title}</TitleContent>
+                            <TimeContentWrap>
+                              <DateContent>
+                                {list?.date &&
+                                  moment(list?.date).format("YYYY.MM.DD")}
+                              </DateContent>
+                            </TimeContentWrap>
+                            <WorkContent className="workMemoWrap">
+                              {list?.memo}
+                            </WorkContent>
+                            <CropContent>{list?.crop?.type}</CropContent>
+                          </LeftContent>
+                          <RightContent>
+                            {list.images[0] !== undefined ? (
+                              <ImgContent
+                                style={{
+                                  backgroundImage: `url(${list?.images})`,
+                                  backgroundSize: "cover",
+                                }}
+                              />
+                            ) : null}
+                          </RightContent>
+                        </WorkLogBox>
+                      </div>
+                    </BoxWrap>
+                  );
+                })
+              ) : null
+            ) : (
+              <>
+                {Array.from({ length: 5 }, (v, i) => i).map((list, index) => {
+                  return (
+                    <ShimmerWrap key={index}>
+                      <ShimmerTextWrap>
+                        <ShimmerTitle
+                          className="thumNail-news-title"
+                          line={1}
+                          gap={10}
+                          variant="secondary"
+                        />
+
+                        <ShimmerText
+                          className="thumNail-workLog-text"
+                          line={4}
+                          gap={10}
+                        />
+                      </ShimmerTextWrap>
+
+                      <ShimmerThumbnail
+                        className="thumNail-workLog"
+                        height={150}
+                        width={150}
+                        rounded
+                      />
+                    </ShimmerWrap>
+                  );
+                })}
+              </>
+            )}
+          </>
         ) : (
           <>
-            {Array.from({ length: 5 }, (v, i) => i).map((list, index) => {
-              return (
-                <ShimmerWrap key={index}>
-                  <ShimmerTextWrap>
-                    <ShimmerTitle
-                      className="thumNail-news-title"
-                      line={1}
-                      gap={10}
-                      variant="secondary"
-                    />
-
-                    <ShimmerText
-                      className="thumNail-workLog-text"
-                      line={4}
-                      gap={10}
-                    />
-                  </ShimmerTextWrap>
-
-                  <ShimmerThumbnail
-                    className="thumNail-workLog"
-                    height={150}
-                    width={150}
-                    rounded
-                  />
-                </ShimmerWrap>
-              );
-            })}
+            <BannerImage Image={Banner} />
+            <span>배너이미지</span>
           </>
         )}
       </Wrap>
@@ -314,6 +326,16 @@ const ShimmerTextWrap = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 40px;
+`;
+
+const BannerImage = styled.div`
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  border-radius: 8px;
+  background-image: url(${(props) => props.Image});
+  background-position: center 30%;
+  background-size: cover;
 `;
 
 export default LoadWorkLog;

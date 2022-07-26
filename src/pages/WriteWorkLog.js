@@ -302,6 +302,7 @@ const TodoInput = styled.textarea`
   padding: 8px;
   margin-top: 12px;
   white-space: pre-wrap;
+  resize: none;
   &::placeholder {
     color: #ddd;
     font-size: 14px;

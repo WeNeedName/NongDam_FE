@@ -97,11 +97,9 @@ const WorkPhoto = ({
               />
               <div className="preview">
                 {newImages ? (
-                  <NewImagesPreview src={imageSrc} alt="preview" />
+                  <NewImagesPreview profileImage={imageSrc} />
                 ) : (
-                  <NewImagesPreview
-                    style={{ backgroundImage: `url(${workLogOne.images})` }}
-                  />
+                  <NewImagesPreview profileImage={workLogOne.images} />
                 )}
               </div>
             </CategoryBigWrap>
@@ -179,6 +177,10 @@ const InputImageBoxEdit = styled.div`
   .icon {
     color: #aaa;
   }
+  cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const InputImageBox = styled.div`
@@ -204,9 +206,13 @@ const InputBox = styled.input`
   display: none;
 `;
 
-const NewImagesPreview = styled.img`
+const NewImagesPreview = styled.div`
   width: 200px;
   height: 200px;
+  background-size: cover;
+  border-radius: 8px;
+  background-image: url(${(props) => props.profileImage});
+  background-position: center 30%;
   background-size: cover;
 `;
 

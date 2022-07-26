@@ -201,6 +201,8 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
     },
   };
 
+  console.log(allDataListSort);
+
   return (
     <>
       <ChartWrap>
@@ -379,12 +381,13 @@ const Xasis = styled.span`
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 94%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 100;
+  margin-bottom: 10px;
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 1) 0%,

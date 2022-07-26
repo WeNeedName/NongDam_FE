@@ -328,6 +328,7 @@ const MemoInput = styled.textarea`
   border-radius: 6px;
   height: 60px;
   padding: 6px;
+  resize: none;
   &:focus {
     outline: 0.5px solid #616161;
   }

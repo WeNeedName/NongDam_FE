@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
-import EditWorkLog from "../components/workLog/EditWorkLog";
+import EditWorkLog from "./EditWorkLog";
 
 import { loadWorkLogDB, deleteWorkLogDB } from "../redux/modules/workLog";
 import moment from "moment";
@@ -124,7 +124,7 @@ const DetailWorkLog = ({}) => {
                     <Quantity>
                       {workLogOne?.subMaterial[0]?.product !== ""
                         ? workLogOne?.subMaterial[0]?.product
-                        : null}{" "}
+                        : null}
                       {workLogOne?.subMaterial[0]?.use !== "0"
                         ? workLogOne?.subMaterial[0]?.use
                         : null}
@@ -210,6 +210,7 @@ const TotalWrap = styled.div`
   display: flex;
   justify-content: center;
   background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const TopWrap = styled.div`
