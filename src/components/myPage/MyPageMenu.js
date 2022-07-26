@@ -11,18 +11,20 @@ const MyPageMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.users.user);
-  console.log(userInfo);
+  const goToMemberInfo = () => {
+    navigate("/mypage");
+  };
   return (
     <Wrap>
       <ContentWrap>
         <ProfileImg
+          onClick={goToMemberInfo}
           style={{ backgroundImage: `url(${userInfo?.profileImage})` }}
         />
         <SmallInfo>
           <UserNickname>{userInfo?.nickname}</UserNickname>
           <UserEmail>{userInfo?.email}</UserEmail>
         </SmallInfo>
-
         <BottomWrap>
           <span
             className="EditInfo"
@@ -96,6 +98,10 @@ const ProfileImg = styled.img`
   @media only screen and (max-width: 760px) {
     width: 100px;
     height: 100px;
+  }
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
   }
 `;
 

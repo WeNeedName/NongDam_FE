@@ -15,7 +15,8 @@ import MyCountryCode from "./MyCountryCode";
 import axios from "axios";
 import { SubmitBtn, CancelBtn } from "../../elements/Buttons";
 import Select from "react-select";
-import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
+import { LineStyle, LocalConvenienceStoreOutlined } from "@mui/icons-material";
+import { type } from "@testing-library/user-event/dist/type";
 
 const EditMemberInfo = () => {
   const navigate = useNavigate();
@@ -23,20 +24,43 @@ const EditMemberInfo = () => {
   const { id } = useParams();
   const fileInput = useRef();
   const userInfo = useSelector((state) => state.users.user);
-  const myCropsList = useSelector((state) => state.users.user?.crops);
 
   const previousNickname = userInfo?.nickname;
   const previousAddress = userInfo?.address;
   const previousCountryCode = userInfo?.countryCode;
   const array = [];
+  //작물 선택 없을 시, 기존 작물 데이터 전송
   const previousCrops = userInfo?.crops.map((list, idx) => {
     <div key={idx} />;
     return array.push(list.id);
   });
 
+  //작물 버튼 생성중
+  const myCropsList = useSelector((state) => state.users.user?.crops); //[{id, name, category, type}]
+  const [crops, setCrops] = useState(); //새로 선택한 작물 id값(서버 통신용) [1]
+  const [cropsObj, setCropsObj] = useState(); //새로 선택한 작물 value, label값(작물 버튼 용)[{label: [type]name, value: id }]
+  const [prevCropsObj, setPrevCropsObj] = useState();
+
+  // {myCropsList?.map((list, idx) => {
+  //   console.log(list);
+  //   <div key={idx} />;
+  //   return (
+  //     <PreviousCropsList>
+  //       {"[" + list.type + "]" + " " + list.name}
+  //     </PreviousCropsList>
+  //   );
+  // })}
+
+  console.log(prevCropsObj);
+  const [sendCrops, setSendCrops] = useState();
+
+  //console.log(crops);
+  console.log(cropsObj);
+  console.log(myCropsList);
+  // console.log(cropsBtnObj);
+
   const previousProfileImg = userInfo?.profileImage;
   const [nickname, setNickname] = useState("");
-  const [crops, setCrops] = useState();
   const [countryCode, setCountryCode] = useState(0);
   const [profileImg, setProfileImg] = useState("");
   const [address, setAddress] = useState("");
@@ -58,6 +82,7 @@ const EditMemberInfo = () => {
   //   crops,
   //   profileImg
   // );
+
   console.log(previousCountryCode, countryCode);
   // 팝업창 상태 관리
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -87,6 +112,8 @@ const EditMemberInfo = () => {
     }
   };
   const previousCountryCodeNumber = Number(previousCountryCode);
+
+  //서버 통신 부분
   const editInfo = async (event) => {
     const data = {
       nickname: nickname === "" ? previousNickname : nickname,
@@ -113,7 +140,9 @@ const EditMemberInfo = () => {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => console.log(res), navigate("/mypage"))
+      .then((res) => {
+        console.log(res), dispatch(getInfoDB(res)), navigate("/mypage");
+      })
       .catch((err) => {
         window.alert(err.response.data.msg);
       });
@@ -207,26 +236,83 @@ const EditMemberInfo = () => {
             <CropsContent>
               <PreviousMyCrops>
                 {myCropsList?.map((list, idx) => {
-                  <div key={idx}>
-                    return (
+                  console.log(list);
+                  <div key={idx} />;
+                  return (
                     <PreviousCropsList>
                       {"[" + list.type + "]" + " " + list.name}
                     </PreviousCropsList>
-                    );
-                  </div>;
+                  );
                 })}
               </PreviousMyCrops>
-              <MyCrops setCrops={setCrops} previousCrops={previousCrops} />
+              <PreviousMyCrops>
+                {cropsObj?.map((list) => {
+                  return <PreviousCropsList>{list.label}</PreviousCropsList>;
+                })}
+              </PreviousMyCrops>
+
+              <MyCrops
+                setCrops={setCrops}
+                previousCrops={previousCrops}
+                setCropsObj={setCropsObj}
+              />
             </CropsContent>
           </TitleAndCrops>
         </CropsWrap>
         <AreaWrap>
           <TitleAndArea>
             <SmallTitleArea>시세지역</SmallTitleArea>
-            <MyCountryCode
-              setCountryCode={setCountryCode}
-              previousCountryCode={previousCountryCode}
-            />
+            <div>
+              {countryCode ? (
+                <>
+                  <CountryCodeContent>
+                    {countryCode === 1101 && "서울(도매)"}
+                    {countryCode === 2101 && "부산(도매)"}
+                    {countryCode === 2201 && "대구(도매)"}
+                    {countryCode === 2300 && "인천(소매)"}
+                    {countryCode === 2401 && "광주(도매)"}
+                    {countryCode === 2501 && "대전(도매)"}
+                    {countryCode === 2601 && "울산(소매)"}
+                    {countryCode === 3111 && "수원(소매)"}
+                    {countryCode === 3211 && "춘천(소매)"}
+                    {countryCode === 3311 && "청주(소매)"}
+                    {countryCode === 3511 && "전주(소매)"}
+                    {countryCode === 3711 && "포항(소매)"}
+                    {countryCode === 3911 && "제주(소매)"}
+                    {countryCode === 3113 && "의정부(소매)"}
+                    {countryCode === 3613 && "순천(소매)"}
+                    {countryCode === 3714 && "안동(소매)"}
+                    {countryCode === 3814 && "창원(소매)"}
+                    {countryCode === 3145 && "용인(소매)"}
+                  </CountryCodeContent>
+                </>
+              ) : (
+                <CountryCodeContent>
+                  {userInfo?.countryCode === 1101 && "서울(도매)"}
+                  {userInfo?.countryCode === 2101 && "부산(도매)"}
+                  {userInfo?.countryCode === 2201 && "대구(도매)"}
+                  {userInfo?.countryCode === 2300 && "인천(소매)"}
+                  {userInfo?.countryCode === 2401 && "광주(도매)"}
+                  {userInfo?.countryCode === 2501 && "대전(도매)"}
+                  {userInfo?.countryCode === 2601 && "울산(소매)"}
+                  {userInfo?.countryCode === 3111 && "수원(소매)"}
+                  {userInfo?.countryCode === 3211 && "춘천(소매)"}
+                  {userInfo?.countryCode === 3311 && "청주(소매)"}
+                  {userInfo?.countryCode === 3511 && "전주(소매)"}
+                  {userInfo?.countryCode === 3711 && "포항(소매)"}
+                  {userInfo?.countryCode === 3911 && "제주(소매)"}
+                  {userInfo?.countryCode === 3113 && "의정부(소매)"}
+                  {userInfo?.countryCode === 3613 && "순천(소매)"}
+                  {userInfo?.countryCode === 3714 && "안동(소매)"}
+                  {userInfo?.countryCode === 3814 && "창원(소매)"}
+                  {userInfo?.countryCode === 3145 && "용인(소매)"}
+                </CountryCodeContent>
+              )}
+              <MyCountryCode
+                setCountryCode={setCountryCode}
+                previousCountryCode={previousCountryCode}
+              />
+            </div>
           </TitleAndArea>
         </AreaWrap>
 
@@ -392,7 +478,7 @@ const TitleAndAddress = styled.div`
 `;
 const AddressContent = styled.button`
   max-width: 420px;
-  margin-left: 80px;
+  margin-left: 85px;
   font-size: 14px;
   border: none;
   background-color: transparent;
@@ -487,9 +573,22 @@ const AreaWrap = styled.div`
   margin-left: 20px;
   margin-right: 27px;
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 `;
+
+const CountryCodeContent = styled.div`
+  max-width: 420px;
+  margin-left: 70px;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
+  color: #02113b;
+  overflow-wrap: break-word;
+  text-align: left;
+`;
+
 const TitleAndArea = styled.div`
   display: flex;
   align-items: center;
