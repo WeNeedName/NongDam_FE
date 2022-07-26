@@ -115,7 +115,7 @@ const AddScheduleBtn = styled.button`
   padding: 4px 15px;
   width: auto;
   height: 26px;
-  background: #318f27;
+  background: #318f21;
   border: none;
   border-radius: 50px;
   color: white;
@@ -125,7 +125,8 @@ const AddScheduleBtn = styled.button`
   right: 30px;
   cursor: pointer;
   &:hover {
-    background-color: #22631c;
+    opacity: 0.7;
+    /* background-color: #22631c; */
   }
 `;
 

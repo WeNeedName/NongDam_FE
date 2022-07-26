@@ -31,13 +31,14 @@ const eventStyleGetter = (event, start, end, isSelected) => {
 
   const style = {
     borderRadius: "0px",
+
     opacity: 1.0,
-    height: "20px",
+    height: "19px",
     border: "0px",
     display: "block",
-    marginTop: "0.3px",
+    marginTop: "0px",
     textAlign: "center",
-    alignItems: "center",
+    alignItems: "start",
     justifyContent: "center",
     backgroundColor: pickedGreen,
     fontSize: "11px",
