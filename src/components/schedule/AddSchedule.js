@@ -132,7 +132,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     showTimeSelect
                     dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                     locale={ko}
-                    autoFocus={true}
                   />
                   {/* <DatePicker
                     className="startTimePicker"
@@ -344,12 +343,17 @@ const StartDate = styled.div`
   margin-bottom: 10px;
   .startDatePicker {
     width: 55%;
-    height: 2rem;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
     color: black;
     border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
   }
 `;
 
@@ -359,12 +363,17 @@ const InputDate = styled.span`
 const EndDate = styled.div`
   .endDatePicker {
     width: 55%;
-    height: 2rem;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
     color: black;
     border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
   }
 `;
 
@@ -375,16 +384,16 @@ const FormCheckText = styled.span`
   margin-right: 4px;
   border-radius: 13px;
   background: transparent;
-  border: 1px solid #bfbfbf;
-  display: flex;
+  border: 1px solid #ccc;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: #616161;
-  // &:hover {
-  //   background-color: #BFBFBF;
-  //   color: white;
-  // }
+  color: #ccc;
+  &:hover {
+    color: black;
+    border: 1px solid black;
+  }
 `;
 
 const FormCheckLeft = styled.input`
@@ -395,7 +404,8 @@ const FormCheckLeft = styled.input`
     display: none;
   }
   &:checked + ${FormCheckText} {
-    opacity: 0.7;
+    color: black;
+    border: 1px solid black;
   }
   display: none;
 
@@ -411,22 +421,17 @@ const FormCheckTextWork = styled.span`
   padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
-  border: 1px solid #bfbfbf;
-  display: flex;
+  border: 1px solid #ccc;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   margin-right: 10px;
   cursor: pointer;
-  color: #616161;
-  // &:hover {
-  //   // background-color: #BFBFBF;
-  //   // color: white;
-  //   border: 1px solid #22631C;
-
-  //   padding-left : 10px;
-  //   padding-right : 10px;
-  //   margin-right: 10px;
-  // }
+  color: #ccc;
+  &:hover {
+    color: black;
+    border: 1px solid black;
+  }
 `;
 
 const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
@@ -437,7 +442,8 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckTextWork} {
-    opacity: 0.7;
+    color: black;
+    border: 1px solid black;
   }
   display: none;
   :focus {
