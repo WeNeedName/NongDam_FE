@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
-import Header from "../Header";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import { addWorkLogDB } from "../../redux/modules/workLog";
+import { addWorkLogDB } from "../redux/modules/workLog";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 
-import WorkPhoto from "../workLog/write/WorkPhoto";
-import { getInfoDB } from "../../redux/modules/users";
+import WorkPhoto from "../components/workLog/write/WorkPhoto";
+import { getInfoDB } from "../redux/modules/users";
+// 컴포넌트
+import Header from "../components/Header";
 
 // alert 라이브러리
 import Swal from "sweetalert2";
@@ -44,23 +45,6 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   //기존 부자재(비료, 농약) 사용량 단위 추출
   const stringFertilizerUnit = prevFertilizerUse?.replace(/[1-9]/g, "");
   const stringChemicalUnit = prevChemicalUse?.replace(/[1-9]/g, "");
-
-  //기존 부자재 데이터 배열(서버 발송용)
-  // const previousSubMaterialFertilizer = {
-  //   type: workLogOne?.subMaterial[0]?.type,
-  //   product: workLogOne?.subMaterial[0]?.product,
-  //   use: workLogOne?.subMaterial[0]?.use,
-  // };
-
-  // const previousSubMaterialChemical = {
-  //   type: workLogOne?.subMaterial[1]?.type,
-  //   product: workLogOne?.subMaterial[1]?.product,
-  //   use: workLogOne?.subMaterial[1]?.use,
-  // };
-  // const previousSubMaterial = [
-  //   previousSubMaterialFertilizer,
-  //   previousSubMaterialChemical,
-  // ];
 
   //수정된 부자재 데이터 관리
   const [newTitle, setNewTitle] = useState(previousTitle);
@@ -107,8 +91,6 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
         : newUse0 + newUnit0,
   };
 
-  console.log(newUse0, newUse1);
-
   const newSubMaterial1 = {
     type: 1,
     product:
@@ -129,8 +111,16 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   const numberHarvest = Number(newHarvest);
 
   const editWorkLogDB = async (event) => {
-    if (!newTitle || !newCrop || !myNewDate || !newWorkTime || !newMemo) {
-      window.alert("빈 칸을 채워주세요");
+    if (!newTitle) {
+      window.alert("제목을 입력해주세요.");
+    } else if (!newCrop) {
+      window.alert("작물을 선택해주세요.");
+    } else if (!myNewDate) {
+      window.alert("날짜를 선택해주세요.");
+    } else if (!newWorkTime) {
+      window.alert("작업시간을 입력해주세요.");
+    } else if (!newMemo) {
+      window.alert("작업 내용을 입력해주세요.");
     } else {
       const data = {
         title: newTitle.length < 1 ? previousTitle : newTitle,
@@ -157,8 +147,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
           RefreshToken: `Bearer ${refreshToken}`,
           Authorization: `Bearer ${token}`,
         },
-      }).then((res) => {
-        console.log(res);
+      }).then(() => {
         Swal.fire({
           title: "수정이 완료되었습니다.",
           icon: "success",
@@ -193,6 +182,16 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
     }
   };
 
+  // 숫자만 입력
+  function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, "");
+  }
+
+  function inputNumberFormat(e) {
+    e.target.value = uncomma(e.target.value);
+  }
+
   return (
     <Container>
       <Header />
@@ -222,7 +221,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
           </BtnWrap>
         </TopWrap>
 
-        <DateWrap>
+        <DatePickers>
           <DatePicker
             className="startDatePicker"
             selected={new Date(workLogOne.date)}
@@ -234,117 +233,136 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
             locale={ko} // 한글로 변경
             //inline//달력 보이게
           />
-        </DateWrap>
+        </DatePickers>
 
         <CropWrap>
           <SmallTitle>작물</SmallTitle>
-          {myCropsList !== undefined &&
-            myCropsList.map((list) => {
-              return (
-                <Label key={list.id}>
-                  <FormCheckLeft
-                    type="radio"
-                    id={list.id}
-                    name="radioButton"
-                    onChange={changeNewRadioCrops}
-                    value={newCheckedCrop}
-                    defaultChecked={list.id === previousCrop ? true : false}
-                  />
-                  <FormCheckText>
-                    {"[" + list.type + "]" + list.name}{" "}
-                  </FormCheckText>
-                </Label>
-              );
-            })}
+          <CategoryWrap>
+            {myCropsList !== undefined &&
+              myCropsList.map((list) => {
+                return (
+                  <Label key={list.id}>
+                    <FormCheckLeft
+                      type="radio"
+                      id={list.id}
+                      name="radioButton"
+                      onChange={changeNewRadioCrops}
+                      value={newCheckedCrop}
+                      defaultChecked={list.id === previousCrop ? true : false}
+                    />
+                    <FormCheckText>{list.name}</FormCheckText>
+                  </Label>
+                );
+              })}
+          </CategoryWrap>
         </CropWrap>
 
         <QuantityWrap>
           <WorkingHour>
             <SmallTitle>작업시간</SmallTitle>
-            <div>
+            <ContentWrap>
               <HourQuantity
+                type="text"
+                maxLength="4"
                 defaultValue={workLogOne.workTime}
                 onChange={(e) => {
+                  inputNumberFormat(e);
                   setNewWorkTime(e.target.value);
                 }}
               />
-              <Measure>시간</Measure>
-            </div>
+              <Kg>시간</Kg>
+            </ContentWrap>
           </WorkingHour>
 
           <SubMaterialWrap>
             <Fertilizer>
               <SmallTitle> 비료</SmallTitle>
-              <div>
-                <TypeTitle>제품명 : </TypeTitle>
-                <ProductQuantity
+              <ContentWrap>
+                <Product
+                  type="text"
+                  name="product"
+                  placeholder="비료명을 입력해주세요"
                   defaultValue={workLogOne.subMaterial[0].product}
                   onChange={product0Change}
                 />
-              </div>
+              </ContentWrap>
               <div>
-                <TypeTitle> 사용량 : </TypeTitle>
-                <UseQuantity
+                <Quantity
+                  type="text"
+                  maxLength="6"
+                  placeholder="사용량"
                   defaultValue={numberFertilizerUse}
                   onChange={(e) => {
+                    inputNumberFormat(e);
                     e.target.value === ""
                       ? (setNewUse0(0), setNewUnit0(""))
                       : setNewUse0(e.target.value);
                   }}
                 />
-                <UnitSelect
+                <Measure
                   defaultValue={stringFertilizerUnit}
                   onChange={(e) => setNewUnit0(e.target.value)}
                 >
-                  <option value="l">l</option>
-                  <option value="ml">ml</option>
+                  <option value="">단위</option>
+
+                  <option value="L">L</option>
+                  <option value="mL">mL</option>
                   <option value="kg">kg</option>
-                </UnitSelect>
+                </Measure>
               </div>
             </Fertilizer>
             <Chemical>
               <SmallTitle> 농약</SmallTitle>
-              <div>
-                <TypeTitle>제품명 : </TypeTitle>
-                <ProductQuantity
+              <ContentWrap>
+                <Product
+                  name="product"
+                  placeholder="농약명을 입력해주세요"
                   defaultValue={workLogOne?.subMaterial[1]?.product}
                   onChange={product1Change}
                 />
-              </div>
+              </ContentWrap>
               <div>
-                <TypeTitle> 사용량 : </TypeTitle>
-                <UseQuantity
+                <Quantity
+                  maxLength="6"
+                  placeholder="사용량"
                   defaultValue={numberChemicalUse}
                   onChange={(e) => {
                     {
+                      inputNumberFormat(e);
                       e.target.value === ""
                         ? (setNewUse1(0), setNewUnit1(0))
                         : setNewUse1(e.target.value);
                     }
                   }}
                 />
-                <UnitCSelect
+                <Measure
                   onChange={(e) => setNewUnit1(e.target.value)}
                   defaultValue={stringChemicalUnit}
                 >
-                  <option value="l">l</option>
-                  <option value="ml">ml</option>
+                  <option value="">단위</option>
+
+                  <option value="L">L</option>
+                  <option value="mL">mL</option>
                   <option value="kg">kg</option>
-                </UnitCSelect>
+                </Measure>
               </div>
             </Chemical>
           </SubMaterialWrap>
           <HarvestWrap>
             <SmallTitle>수확량</SmallTitle>
-            <div>
+            <ContentWrap>
               <HarvestQuantity
+                type="text"
+                maxLength="8"
+                placeholder="수확량"
                 defaultValue={workLogOne.harvest}
                 onChange={(e) => {
+                  inputNumberFormat(e);
                   setNewHarvest(e.target.value);
                 }}
               />
-              <Measure>kg</Measure>
-            </div>
+              <Kg>kg</Kg>
+            </ContentWrap>
           </HarvestWrap>
         </QuantityWrap>
 
@@ -374,17 +392,17 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const TotalWrap = styled.div`
-  min-width: 70px;
-  width: auto;
+  width: 700px;
   height: auto;
   min-height: 850px;
   border-radius: 20px;
-  margin-top: 100px;
+  margin-top: 120px;
   position: relative;
   display: flex;
-  padding: 0px 0px 20px 40px;
-
+  padding: 30px;
+  margin-bottom: 30px;
   flex-direction: column;
   justify-content: center;
   background-color: white;
@@ -395,6 +413,7 @@ const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const TitleInput = styled.input`
   height: 30px;
   width: 400px;
@@ -402,12 +421,19 @@ const TitleInput = styled.input`
   border-right: none;
   border-top: none;
   border-bottom: 1px solid #bfbfbf;
-  font-size: 36px;
+  font-size: 30px;
   padding: 10px;
+  margin-bottom: 10px;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+  }
+  &::placeholder {
+    color: #ccc;
+  }
 `;
 
 const BtnWrap = styled.div`
-  margin-right: 30px;
   display: flex;
 `;
 
@@ -418,14 +444,16 @@ const EditBtn = styled.button`
   height: 30px;
   padding: 4px 10px;
 
-  background-color: transparent;
-  color: #616161;
-  border: 1px solid #bfbfbf;
+  background-color: #55a349;
+  color: white;
+  border: 1px solid #55a349;
   border-radius: 8px;
   &:hover {
-    opacity: 0.7;
+    background: #22631c;
+    border: 1px solid #22631c;
   }
 `;
+
 const CancelBtn = styled.button`
   display: inline-flex;
   align-items: center;
@@ -443,22 +471,10 @@ const CancelBtn = styled.button`
   }
 `;
 
-const DateWrap = styled.div`
-  margin-top: 20px;
-  margin-bottom: 10px;
-  .startDatePicker {
-    font-size: 24px;
-    background-color: transparent;
-    color: black;
-    border: none;
-  }
-`;
-
 const CropWrap = styled.div`
   display: inline-flex;
   flex-flow: column;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 30px;
 `;
 
 const SmallTitle = styled.label`
@@ -472,22 +488,28 @@ const Label = styled.label``;
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
+  font-size: 14px;
   padding: 5px 11px;
-  margin-top: 10px;
+  margin-top: 5px;
   border-radius: 15px;
   background: transparent;
-  border: 1px solid #bfbfbf;
+  border: 1px solid #ccc;
   display: inline-flex;
-
   justify-content: center;
   align-items: center;
   margin-right: 10px;
   cursor: pointer;
-  color: black;
+  color: #ccc;
   &:hover {
-    font-weight: 700;
-    border: 1px solid #02113b;
+    color: black;
+    border: 1px solid black;
   }
+`;
+
+const CategoryWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
 `;
 
 const FormCheckLeft = styled.input.attrs({ type: "radio" })`
@@ -498,16 +520,32 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
     display: none;
   }
   &:checked + ${FormCheckText} {
-    font-weight: 700;
-    border: 1px solid #02113b;
+    color: black;
+    border: 1px solid black;
   }
   display: none;
 `;
 
 const QuantityWrap = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-top: 30px;
+`;
+
+const Product = styled.input`
+  font-size: 14px;
+  width: 130px;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
   margin-bottom: 10px;
+  padding: 6px 10px;
+  &:focus {
+    outline: none;
+    border: 1px solid #02113b;
+  }
+`;
+
+const ContentWrap = styled.div`
+  margin-top: 10px;
 `;
 
 const SubMaterialWrap = styled.div`
@@ -549,8 +587,32 @@ const UseQuantity = styled.input`
   border-bottom: 1px solid black;
 `;
 
-const UnitSelect = styled.select`
-  font-size: 15px;
+const Quantity = styled.input`
+  font-size: 14px;
+  width: 60px;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
+  padding: 6px 10px;
+  &:focus {
+    outline: none;
+    border: 1px solid #02113b;
+  }
+`;
+
+const Measure = styled.select`
+  margin-left: 10px;
+  width: 60px;
+  color: #616161;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid #bfbfbf;
+  padding-left: 6px;
+  text-align: left;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+    border: 1px solid #02113b;
+  }
 `;
 
 const UnitCSelect = styled.select`
@@ -564,31 +626,64 @@ const HarvestWrap = styled.div`
 `;
 
 const HarvestQuantity = styled.input`
-  font-size: 15px;
-  width: 35px;
-  margin-top: 5px;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 1px solid black;
+  width: 60px;
+  height: 20px;
+  padding: 4px 10px;
+  font-size: 14px;
+  border: 1px solid #bfbfbf;
+  border-radius: 6px;
+  margin-right: 6px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const WorkWrap = styled.div`
   display: inline-flex;
   flex-flow: column;
   margin-bottom: 10px;
-  margin-top: 200px;
+  margin-top: 30px;
 `;
 
 const WorkInput = styled.textarea`
-  height: 100px;
-  width: 500px;
-  border: 1px solid #bfbfbf;
-  color: #616161;
+  font-family: "Noto Sans KR", sans-serif;
+  width: 95%;
+  height: 200px;
+  resize: none;
   font-size: 14px;
-  padding: 10px;
+  border: 1px solid #bfbfbf;
   margin-top: 5px;
   border-radius: 10px;
+  padding: 8px;
+  margin-top: 12px;
+  white-space: pre-wrap;
+  resize: none;
+  &::placeholder {
+    color: #ddd;
+    font-size: 14px;
+  }
+  &:focus {
+    outline: none;
+    border: 1px solid black;
+  }
+`;
+
+const DatePickers = styled.div`
+  margin-top: 6px;
+  .startDatePicker {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 24px;
+    width: 120px;
+    border: none;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
+  }
 `;
 
 const WorkContent = styled.div`
@@ -607,19 +702,24 @@ const WorkContent = styled.div`
 const WorkingHour = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 30px;
 `;
 
 const HourQuantity = styled.input`
+  width: 40px;
+  padding: 4px 10px;
   font-size: 14px;
-  width: 30px;
+  border: none;
+  border-bottom: 1px solid #bfbfbf;
+  margin-right: 6px;
   text-align: center;
-  margin-top: 5px;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 1px solid black;
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+  }
 `;
-const Measure = styled.span`
+
+const Kg = styled.span`
   color: #616161;
   font-size: 15px;
 `;

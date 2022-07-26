@@ -134,6 +134,9 @@ const TitleInput = styled.input`
     outline: none;
     border-bottom: 1px solid black;
   }
+  &::placeholder {
+    color: #ccc;
+  }
 `;
 
 const CategoryWrap = styled.div`
@@ -184,8 +187,9 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const DatePickers = styled.div`
-  margin-top: 10px;
+  margin-top: 6px;
   .startDatePicker {
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 24px;
     width: 120px;
     border: none;
@@ -199,6 +203,7 @@ const DatePickers = styled.div`
     }
   }
 `;
+
 const TimeContent = styled.div`
   display: flex;
   align-items: center;

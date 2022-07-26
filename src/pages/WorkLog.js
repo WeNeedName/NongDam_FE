@@ -25,6 +25,8 @@ const WorkLog = () => {
 
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
 
+  console.log(workLogList);
+
   return (
     <Container>
       <Header currentPage="workLog" />
@@ -36,6 +38,16 @@ const WorkLog = () => {
 const Container = styled.div`
   margin-top: 100px;
   background-color: #f5f5f5;
+`;
+
+const BannerImage = styled.div`
+  width: 0px;
+  height: 150px;
+  background-size: cover;
+  border-radius: 8px;
+  background-image: url(${(props) => props.profileImage});
+  background-position: center 30%;
+  background-size: cover;
 `;
 
 export default WorkLog;

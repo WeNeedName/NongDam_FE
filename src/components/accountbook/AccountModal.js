@@ -101,7 +101,7 @@ const AccountModal = ({ isOpen, toggleModal, accountId, accountList }) => {
       }
     });
   };
-  console.log(account);
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -531,6 +531,7 @@ const DoneBtn = styled.button`
   cursor: pointer;
   &:hover {
     background: #22631c;
+    border: 1px solid #22631c;
   }
 `;
 

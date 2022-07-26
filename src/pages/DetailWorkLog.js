@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
-import EditWorkLog from "../components/workLog/EditWorkLog";
+import EditWorkLog from "./EditWorkLog";
 
 import { loadWorkLogDB, deleteWorkLogDB } from "../redux/modules/workLog";
 import moment from "moment";
@@ -28,7 +28,7 @@ const DetailWorkLog = ({}) => {
 
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
-  console.log(workLogOne);
+
   const deleteWorkLogModal = () => {
     Swal.fire({
       title: "정말 삭제하시겠습니까?",
@@ -40,17 +40,18 @@ const DetailWorkLog = ({}) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteWorkLogDB(params.id));
-        navigate("/worklog");
-        Swal.fire({
-          title: "삭제가 완료되었습니다.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1300,
-          color: "#black",
-          padding: "20px",
-          width: "400px",
-          height: "200px",
+        dispatch(deleteWorkLogDB(params.id)).then(() => {
+          Swal.fire({
+            title: "삭제가 완료되었습니다.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1300,
+            color: "#black",
+            padding: "20px",
+            width: "400px",
+            height: "200px",
+          });
+          navigate("/worklog");
         });
       }
     });
@@ -92,7 +93,7 @@ const DetailWorkLog = ({}) => {
               {workLogOne !== undefined &&
                 workLogOne.date !== undefined &&
                 dateFormat}
-            </DateWrap>{" "}
+            </DateWrap>
             <CropWrap>
               <SmallTitle>작물</SmallTitle>
               <CropContent>
@@ -124,8 +125,6 @@ const DetailWorkLog = ({}) => {
                       {workLogOne?.subMaterial[0]?.product !== ""
                         ? workLogOne?.subMaterial[0]?.product
                         : null}
-                    </Quantity>
-                    <Quantity>
                       {workLogOne?.subMaterial[0]?.use !== "0"
                         ? workLogOne?.subMaterial[0]?.use
                         : null}
@@ -146,9 +145,7 @@ const DetailWorkLog = ({}) => {
                       {workLogOne?.subMaterial !== undefined &&
                         workLogOne?.subMaterial[1] !== undefined &&
                         workLogOne?.subMaterial[1]?.product !== undefined &&
-                        workLogOne?.subMaterial[1]?.product}
-                    </Quantity>
-                    <Quantity>
+                        workLogOne?.subMaterial[1]?.product}{" "}
                       {workLogOne.subMaterial !== undefined &&
                       workLogOne?.subMaterial !== undefined &&
                       workLogOne?.subMaterial[1]?.use !== undefined &&
@@ -180,7 +177,8 @@ const DetailWorkLog = ({}) => {
               />
             ) : null}
             <WorkWrap>
-              <SmallTitle> 작업내용</SmallTitle>
+              {/* <SmallTitle> 작업내용</SmallTitle> */}
+
               <WorkContent>
                 {workLogOne !== undefined &&
                   workLogOne.memo !== undefined &&
@@ -201,6 +199,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const TotalWrap = styled.div`
   width: 700px;
   height: auto;
@@ -211,11 +210,14 @@ const TotalWrap = styled.div`
   display: flex;
   justify-content: center;
   background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
+
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const BtnWrap = styled.div``;
 const GreyBtn = styled.button`
   width: 50px;
@@ -257,6 +259,7 @@ const SmallWrap = styled.div`
   display: flex;
   /* margin-right: 10px; */
   margin-bottom: 10px;
+  margin-right: 20px;
 `;
 
 const SmallBoxWrap = styled.div`
@@ -275,11 +278,11 @@ const CropContent = styled.div`
   width: max-content;
   height: auto;
   padding: 4px 12px;
-  border-radius: 10px;
+  border-radius: 100px;
   border: 1px solid #bfbfbf;
   color: #616161;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 10px;
 `;
 
 const WorkWrap = styled.div`
@@ -290,15 +293,17 @@ const WorkWrap = styled.div`
 `;
 
 const WorkContent = styled.div`
-  width: 400px;
-  height: 100px;
+  max-width: 680px;
+  width: 90%;
+  height: auto;
   border-radius: 5px;
   display: inline-block;
   text-align: left;
   border: none;
   color: #616161;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 10px;
+  white-space: pre-wrap;
 `;
 
 const QuantityWrap = styled.div`
@@ -306,17 +311,22 @@ const QuantityWrap = styled.div`
 
   margin-bottom: 10px;
 `;
+
 const Chemical = styled.div`
   margin-right: 10px;
 `;
+
 const Fertilizer = styled.div`
-  margin-right: 10px;
+  margin-right: 30px;
 `;
+
 const Harvest = styled.div`
   margin-right: 10px;
 `;
 
-const WorkingHour = styled.div``;
+const WorkingHour = styled.div`
+  margin-right: 20px;
+`;
 
 const Quantity = styled.div`
   font-size: 14px;
