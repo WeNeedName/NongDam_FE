@@ -93,7 +93,6 @@ export const kakaoLogInDB = (data) => {
         const token = res.headers.authorization;
         const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
-        console.log(DecodedToken);
         sessionStorage.setItem("refreshToken", refreshToken);
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
@@ -120,23 +119,6 @@ export const getInfoDB = () => {
       });
   };
 };
-
-//회원정보수정
-// export const editInfoDB = (user) => {
-//   return async function (dispatch) {
-//     console.log(user);
-//     await apis
-//       .editUserInfo(user)
-//       .then((res) => {
-//         console.log(res);
-//         dispatch(editInfo(user));
-//         Navigate("/mypage");
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
 
 //비밀번호변경
 export const editPwDB = (pw) => {
@@ -179,14 +161,9 @@ export default handleActions(
     [LOGIN_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
-        //   draft.is_login = true;
-        //   console.log(draft.user.username);
-        //   draft.uploading = false;
-        console.log("리듀서로 적용 완료", state, action.payload);
       }),
     [SIGNUP_USER]: (state, action) =>
       produce(state, (draft) => {
-        //console.log(state);
         draft.user = action.payload.user;
       }),
 
@@ -202,7 +179,6 @@ export default handleActions(
 
     [EDIT_INFO]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state, action);
         //draft.user = action.payload.user
       }),
 

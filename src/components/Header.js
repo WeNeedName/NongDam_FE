@@ -209,7 +209,6 @@ const FormCheckText = styled.span`
   }
   @media only screen and (max-width: 760px) {
     display: none;
-    /* font-size: 12px; */
   }
 `;
 
