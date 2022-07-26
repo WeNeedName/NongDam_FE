@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Modal from "styled-react-modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ScheduleModal from "./ScheduleModal";
+
+import { deleteScheduleDB, editScheduleDB } from "../../redux/modules/schedule";
 // 날짜 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
@@ -11,6 +12,8 @@ import "moment/locale/ko";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
+// alert 라이브러리
+import Swal from "sweetalert2";
 
 const EventScheduleModal = ({
   isOpen,
@@ -52,10 +55,20 @@ const EventScheduleModal = ({
   const [checkedInputs, setCheckedInputs] = useState("");
   const [checkedWork, setCheckedWork] = useState("");
   const [checkedCrops, setCheckedCrops] = useState(schedule?.cropId);
-
+  const [dateErr, setDateErr] = useState(false);
   function toggleEditModal() {
     setOpenEdit(!openEdit);
   }
+
+  const onChangeEndDate = (date) => {
+    console.log(date);
+    if (startTime > date) {
+      setDateErr(true);
+    } else {
+      setDateErr(false);
+      setEndTime(date);
+    }
+  };
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
       setCheckedCrops(e.target.id);
@@ -73,6 +86,34 @@ const EventScheduleModal = ({
     }
   };
 
+  const deleteSchedule = () => {
+    Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#318F27",
+      cancelButtonColor: "#ddd",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteScheduleDB(schedule.id));
+        toggleModal();
+
+        Swal.fire({
+          title: "삭제가 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+      }
+    });
+  };
+
   const editSchedule = () => {
     const id = schedule.id;
     const data = {
@@ -87,8 +128,8 @@ const EventScheduleModal = ({
     });
   };
 
-  // const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm");
-  // const endTimeFormat = moment(endTime).format("YYYY-MM-DD HH:mm");
+  const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm");
+  const endTimeFormat = moment(endTime).format("YYYY-MM-DD HH:mm");
   const startTimeLoadFormat = moment(startTime).format(
     "yyyy년 MM월 DD일 HH:mm"
   );
@@ -184,16 +225,23 @@ const EventScheduleModal = ({
                 </Start>
                 <SmallTitle>종료</SmallTitle>
                 {openEdit ? (
-                  <DatePicker
-                    className="endDatePicker"
-                    selected={endTime}
-                    onChange={(date) => setEndTime(date)}
-                    showTimeSelect
-                    minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
-                    dateFormat="yyyy년 MM월 dd일 HH:mm"
-                    locale={ko} // 한글로 변경
-                    //inline//달력 보이게
-                  />
+                  <>
+                    <DatePicker
+                      className="endDatePicker"
+                      selected={endTime}
+                      onChange={(date) => onChangeEndDate(date)}
+                      showTimeSelect
+                      minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
+                      dateFormat="yyyy년 MM월 dd일 HH:mm"
+                      locale={ko} // 한글로 변경
+                      //inline//달력 보이게
+                    />
+                    {dateErr === true && (
+                      <ErrorMsg>
+                        종료시간을 시작시간보다 늦게 지정해주세요
+                      </ErrorMsg>
+                    )}
+                  </>
                 ) : (
                   <EndTime>{endTimeLoadFormat}</EndTime>
                 )}
@@ -287,19 +335,7 @@ const EventScheduleModal = ({
                 ) : (
                   <div>
                     <Btn onClick={toggleEditModal}>수정하기</Btn>
-                    <Btn
-                      onClick={() => {
-                        const result = window.confirm(
-                          "삭제하시겠습니까? 삭제한 내역은 되돌릴 수 없습니다."
-                        );
-                        if (result) {
-                          dispatch(deleteScheduleDB(schedule.id));
-                          toggleModal();
-                        }
-                      }}
-                    >
-                      삭제하기
-                    </Btn>
+                    <Btn onClick={deleteSchedule}>삭제하기</Btn>
                     <Btn onClick={toggleModal}>닫기</Btn>
                   </div>
                 )}
@@ -468,7 +504,12 @@ const EndTime = styled.div`
     outline: none;
   }
 `;
-
+const ErrorMsg = styled.span`
+  text-align: left;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #ec0000;
+`;
 const Start = styled.div`
   margin-bottom: 10px;
 `;

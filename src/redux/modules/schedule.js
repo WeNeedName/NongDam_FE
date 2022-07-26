@@ -3,8 +3,10 @@ import { produce } from "immer";
 import { apis } from "../../shared/api";
 import moment from "moment";
 import "moment/locale/ko";
-import { isLabelWithInternallyDisabledControl } from "@testing-library/user-event/dist/utils";
-import { localeData } from "moment";
+
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 // Action
 const GET_SCHEDULE_LIST = "GET_SCHEDULE_LIST";
@@ -46,9 +48,20 @@ export const addScheduleDB = (data) => {
       .then((res) => {
         console.log(res.data);
         dispatch(createSchedule(res.data));
+        Swal.fire({
+          title: "작성이 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
       })
       .catch((err) => {
         console.log(err);
+        window.alert(err.response.data.msg);
       });
   };
 };
@@ -91,10 +104,20 @@ export const editScheduleDB = (id, data) => async (dispatch) => {
   try {
     console.log("스케줄 수정 준비", id, data);
     await apis.editSchedule(id, data);
-
     apis.loadCurrentSchedule().then((response) => {
       console.log(response.data);
       dispatch(getSchedule(response.data));
+      dispatch(getScheduleList(response.data));
+      Swal.fire({
+        title: "수정이 완료되었습니다.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1300,
+        color: "#black",
+        padding: "20px",
+        width: "400px",
+        height: "200px",
+      });
     });
   } catch (error) {
     //window.alert("일정 수정 중에 오류가 발생했습니다");
@@ -136,12 +159,53 @@ export default handleActions(
       }),
     [DELETE_SCHEDULE]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(payload);
+        // console.log(action);
         draft.currentSchedule = draft.currentSchedule.filter(
+          (schedule) => Number(schedule.id) !== Number(payload.id)
+        );
+        draft.scheduleList = draft.scheduleList.filter(
           (schedule) => Number(schedule.id) !== Number(payload.id)
         );
       }),
 
+    // [EDIT_SCHEDULE]: (state, { payload }) => {
+    //   produce(state, (draft) => {
+    //     console.log(state, payload);
+    //     draft.currentSchedule.unshift(payload.data);
+    //     draft.currentSchedule = draft.currentSchedule.map((schedule) => {
+    //       console.log(schedule);
+    //       if (Number(schedule.id) === Number(payload.data.id)) {
+    //         return {
+    //           ...schedule,
+    //           id: payload.data.id,
+    //           crop: payload.data.crop,
+    //           startTime: payload.data.startTime,
+    //           endTime: payload.data.endTime,
+    //           toDo: payload.data.toDo,
+    //         };
+    //       } else {
+    //         return schedule;
+    //       }
+    //     });
+    //     //월별 스케줄 생성
+    //     draft.scheduleList.unshift(payload.data);
+    //     draft.scheduleList = draft.scheduleList.map((schedule) => {
+    //       console.log(schedule);
+    //       if (Number(schedule.id) === Number(payload.data.id)) {
+    //         return {
+    //           ...schedule,
+    //           id: payload.data.id,
+    //           crop: payload.data.crop,
+    //           startTime: payload.data.startTime,
+    //           endTime: payload.data.endTime,
+    //           toDo: payload.data.toDo,
+    //         };
+    //       } else {
+    //         return schedule;
+    //       }
+    //     });
+    //   });
+    // },
     [CREATE_SCHEDULE]: (state, { payload }) =>
       produce(state, (draft) => {
         console.log(state, payload);

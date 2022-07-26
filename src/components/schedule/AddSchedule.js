@@ -1,4 +1,4 @@
-import React, { startTransition, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Modal from "styled-react-modal";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,6 @@ import { addScheduleDB } from "../../redux/modules/schedule";
 
 //달력
 import DatePicker from "react-datepicker";
-import { addDays } from "date-fns";
 import { ko } from "date-fns/esm/locale";
 import moment from "moment";
 
@@ -17,32 +16,32 @@ import Swal from "sweetalert2";
 const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [todo, setTodo] = useState("");
   const [checkedInputs, setCheckedInputs] = useState("");
   const [checkedCrops, setCheckedCrops] = useState("");
-  const [cropTodo, setCropTodo] = useState("");
-  const [work, setWork] = useState("");
   const [memo, setMemo] = useState("");
-  // const [startTime, setStartTime] = useState(new Date());
-  // const [endTime, setEndTime] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(startDate);
+  const [endDate, setEndDate] = useState("");
+  const [dateErr, setDateErr] = useState(false);
   const myCropsList = useSelector((state) => state.users.user?.crops);
 
   const memoRef = useRef();
 
+  const onChangeEndDate = (date) => {
+    console.log(date);
+    if (startDate > date) {
+      setDateErr(true);
+    } else {
+      setDateErr(false);
+      setEndDate(date);
+    }
+  };
   const changeRadioWork = (e) => {
     if (e.target.checked) {
       setMemo(e.target.id);
       memoRef.current.value = e.target.id;
     }
   };
-  //console.log(memo)
-  // const changeRadioWorkNone = (e) => {
-  //   if (e.target.checked) {
-  //     setMemo("");
-  //   }
-  // };
+
   console.log(checkedCrops);
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
@@ -50,22 +49,19 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
     }
   };
 
-  const addSchedule = () => {
-    if (!checkedCrops || !startDate || !endDate || !memo) {
-      window.alert("빈칸을 채워주세요");
-    } else {
-      dispatch(
-        addScheduleDB({
-          cropId: checkedCrops,
-          startTime: startDateFormat,
-          endTime: endDateFormat,
-          toDo: memo,
-        })
-      ).then((res) => {
-        toggleModal();
-      });
-    }
+  const addSchedule = async () => {
+    await dispatch(
+      addScheduleDB({
+        cropId: checkedCrops,
+        startTime: startDateFormat,
+        endTime: endDateFormat,
+        toDo: memo,
+      })
+    ).then((res) => {
+      toggleModal();
+    });
   };
+
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm");
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
   console.log(checkedCrops, startDateFormat, endDateFormat, memo);
@@ -133,34 +129,26 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                     locale={ko}
                   />
-                  {/* <DatePicker
-                    className="startTimePicker"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    showTimeSelect
-                    dateFormat="HH:mm" // 시간 포맷 변경
-                    locale={ko} // 한글로 변경
-                    //inline//달력 보이게
-                  /> */}
                 </StartDate>
                 <EndDate>
                   <SmallTitle className="endDate">종료</SmallTitle>
                   <DatePicker
                     className="endDatePicker"
                     selected={endDate}
-                    onChange={(date) => setEndDate(date)}
+                    onChange={(date) => onChangeEndDate(date)}
                     showTimeSelect
-                    minDate={startDate} //오늘보다 이전 날짜는 선택 못하게
+                    minDate={startDate} //시작일보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy.MM.dd HH:mm"
                     locale={ko} // 한글로 변경
-                    //inline//달력 보이게
                   />
                 </EndDate>
+                {dateErr === true && (
+                  <ErrorMsg>종료시간을 시작시간보다 늦게 지정해주세요</ErrorMsg>
+                )}
               </ContentWrapL>
               <ContentWrapR className="right">
                 <WorkWrap>
                   <SmallTitle className="work">농작업</SmallTitle>
-
                   <WorkSelectBoxWrap>
                     <LabelWork>
                       <FormCheckLeftWork
@@ -203,7 +191,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                   </LabelWork> */}
                   </WorkSelectBoxWrap>
                 </WorkWrap>
-
                 <CategoryBigWrap>
                   <SmallTitle className="todo">작업내용</SmallTitle>
                   <TodoInput
@@ -221,8 +208,12 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
               <DoneBtn
                 onClick={() => {
                   addSchedule();
-                  navigate("/schedule");
                 }}
+                disabled={
+                  !checkedCrops || !startDate || !endDate || !memo || dateErr
+                    ? true
+                    : false
+                }
               >
                 작성완료
               </DoneBtn>
@@ -376,6 +367,12 @@ const EndDate = styled.div`
     }
   }
 `;
+const ErrorMsg = styled.span`
+  text-align: left;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #ec0000;
+`;
 
 const FormCheckText = styled.span`
   width: auto;
@@ -505,6 +502,10 @@ const DoneBtn = styled.button`
 
   &:hover {
     opacity: 0.7;
+  }
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
   }
 `;
 
