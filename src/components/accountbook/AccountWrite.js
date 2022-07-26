@@ -252,12 +252,12 @@ const SDatePicker = styled(DatePicker)`
   font-size: 11px;
   height: 24px;
   background-color: white;
-  border: 1px solid #02113b;
+  border: 1px solid #bfbfbf;
   padding: 0px 6px;
   color: #02113b;
   border-radius: 6px;
   &:focus {
-    outline: 0.5px solid #bfbfbf;
+    outline: 0.5px solid #616161;
   }
 `;
 
@@ -313,13 +313,13 @@ const Selec = styled.select`
   font-size: 11px;
   height: 24px;
   background-color: white;
-  border: 1px solid #616161;
+  border: 1px solid #bfbfbf;
   padding: 0px 6px;
   color: #616161;
   border-radius: 6px;
   cursor: pointer;
   &:focus {
-    outline: 0.5px solid #bfbfbf;
+    outline: 0.5px solid #616161;
   }
 `;
 
@@ -329,7 +329,7 @@ const MemoInput = styled.textarea`
   height: 60px;
   padding: 6px;
   &:focus {
-    outline: 0.5px solid #bfbfbf;
+    outline: 0.5px solid #616161;
   }
 `;
 

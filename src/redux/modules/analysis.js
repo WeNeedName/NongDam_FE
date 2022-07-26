@@ -104,7 +104,6 @@ export const getTotalHarvestDB = (data) => {
 
 // 증가율
 export const getRateDB = () => {
-  // console.log(date);
   return async function (dispatch) {
     apis
       .loadWorkTimeRate()

@@ -504,11 +504,12 @@ const SDatePicker = styled(DatePicker)`
   font-weight: bold;
   /* border-radius: 10px; */
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #bfbfbf;
   text-align: center;
   padding-bottom: 4px;
   &:focus {
     outline: none;
+    border-bottom: 1px solid black;
   }
 `;
 

@@ -40,13 +40,10 @@ const initialState = {
 // Middleware
 // 스케줄 추가하기
 export const addScheduleDB = (data) => {
-  //console.log(data)
   return async function (dispatch) {
-    console.log(data);
     await apis
       .addSchedule(data)
       .then((res) => {
-        console.log(res.data);
         dispatch(createSchedule(res.data));
         Swal.fire({
           title: "작성이 완료되었습니다.",
@@ -83,13 +80,10 @@ export const getCurrentScheduleListDB = () => {
 
 //월별 장부리스트 불러오기
 export const getScheduleListDB = (date) => {
-  //console.log(date);
   return async function (dispatch) {
-    console.log(date);
     apis
       .loadMonthlySchedule(date)
       .then((response) => {
-        console.log(response);
         dispatch(getScheduleList(response.data));
       })
       .catch((error) => {
@@ -105,7 +99,6 @@ export const editScheduleDB = (id, data) => async (dispatch) => {
     console.log("스케줄 수정 준비", id, data);
     await apis.editSchedule(id, data);
     apis.loadCurrentSchedule().then((response) => {
-      console.log(response.data);
       dispatch(getSchedule(response.data));
       dispatch(getScheduleList(response.data));
       Swal.fire({
@@ -128,7 +121,6 @@ export const editScheduleDB = (id, data) => async (dispatch) => {
 //스케줄 삭제하기
 export const deleteScheduleDB = (id) => async (dispatch) => {
   try {
-    //console.log("스케줄 삭제 준비!", id);
     await apis.deleteSchedule(id);
     dispatch(deleteSchedule(id));
   } catch (err) {
@@ -138,7 +130,6 @@ export const deleteScheduleDB = (id) => async (dispatch) => {
 };
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
-  //console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
@@ -149,17 +140,14 @@ export default handleActions(
   {
     [GET_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload);
         draft.currentSchedule = action.payload.currentSchedule;
       }),
     [GET_SCHEDULE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.scheduleList = payload.list;
       }),
     [DELETE_SCHEDULE]: (state, { payload }) =>
       produce(state, (draft) => {
-        // console.log(action);
         draft.currentSchedule = draft.currentSchedule.filter(
           (schedule) => Number(schedule.id) !== Number(payload.id)
         );
@@ -167,52 +155,12 @@ export default handleActions(
           (schedule) => Number(schedule.id) !== Number(payload.id)
         );
       }),
-
-    // [EDIT_SCHEDULE]: (state, { payload }) => {
-    //   produce(state, (draft) => {
-    //     console.log(state, payload);
-    //     draft.currentSchedule.unshift(payload.data);
-    //     draft.currentSchedule = draft.currentSchedule.map((schedule) => {
-    //       console.log(schedule);
-    //       if (Number(schedule.id) === Number(payload.data.id)) {
-    //         return {
-    //           ...schedule,
-    //           id: payload.data.id,
-    //           crop: payload.data.crop,
-    //           startTime: payload.data.startTime,
-    //           endTime: payload.data.endTime,
-    //           toDo: payload.data.toDo,
-    //         };
-    //       } else {
-    //         return schedule;
-    //       }
-    //     });
-    //     //월별 스케줄 생성
-    //     draft.scheduleList.unshift(payload.data);
-    //     draft.scheduleList = draft.scheduleList.map((schedule) => {
-    //       console.log(schedule);
-    //       if (Number(schedule.id) === Number(payload.data.id)) {
-    //         return {
-    //           ...schedule,
-    //           id: payload.data.id,
-    //           crop: payload.data.crop,
-    //           startTime: payload.data.startTime,
-    //           endTime: payload.data.endTime,
-    //           toDo: payload.data.toDo,
-    //         };
-    //       } else {
-    //         return schedule;
-    //       }
-    //     });
-    //   });
-    // },
+      
     [CREATE_SCHEDULE]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         //최근 스케줄 생성
         draft.currentSchedule.unshift(payload.data);
         draft.currentSchedule = draft.currentSchedule.map((schedule) => {
-          console.log(schedule);
           if (Number(schedule.id) === Number(payload.data.id)) {
             return {
               ...schedule,
@@ -229,7 +177,6 @@ export default handleActions(
         //월별 스케줄 생성
         draft.scheduleList.unshift(payload.data);
         draft.scheduleList = draft.scheduleList.map((schedule) => {
-          console.log(schedule);
           if (Number(schedule.id) === Number(payload.data.id)) {
             return {
               ...schedule,
