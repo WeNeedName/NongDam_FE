@@ -25,9 +25,12 @@ const WorkLog = () => {
 
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
 
+  console.log(workLogList);
+
   return (
     <Container>
       <Header currentPage="workLog" />
+
       <LoadWorkLog workLogList={workLogList} />
       <FooterNav currentPage="workLog" />
     </Container>

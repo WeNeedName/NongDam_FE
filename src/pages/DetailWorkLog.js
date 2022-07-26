@@ -28,7 +28,7 @@ const DetailWorkLog = ({}) => {
 
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
-  console.log(workLogOne);
+
   const deleteWorkLogModal = () => {
     Swal.fire({
       title: "정말 삭제하시겠습니까?",
@@ -40,17 +40,18 @@ const DetailWorkLog = ({}) => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteWorkLogDB(params.id));
-        navigate("/worklog");
-        Swal.fire({
-          title: "삭제가 완료되었습니다.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1300,
-          color: "#black",
-          padding: "20px",
-          width: "400px",
-          height: "200px",
+        dispatch(deleteWorkLogDB(params.id)).then(() => {
+          Swal.fire({
+            title: "삭제가 완료되었습니다.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1300,
+            color: "#black",
+            padding: "20px",
+            width: "400px",
+            height: "200px",
+          });
+          navigate("/worklog");
         });
       }
     });
@@ -92,7 +93,7 @@ const DetailWorkLog = ({}) => {
               {workLogOne !== undefined &&
                 workLogOne.date !== undefined &&
                 dateFormat}
-            </DateWrap>{" "}
+            </DateWrap>
             <CropWrap>
               <SmallTitle>작물</SmallTitle>
               <CropContent>
@@ -275,11 +276,11 @@ const CropContent = styled.div`
   width: max-content;
   height: auto;
   padding: 4px 12px;
-  border-radius: 10px;
+  border-radius: 100px;
   border: 1px solid #bfbfbf;
   color: #616161;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 10px;
 `;
 
 const WorkWrap = styled.div`
