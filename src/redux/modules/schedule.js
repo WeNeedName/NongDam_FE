@@ -68,7 +68,6 @@ export const getCurrentScheduleListDB = () => {
     apis
       .loadCurrentSchedule()
       .then((res) => {
-        console.log(res.data);
         dispatch(getSchedule(res.data));
       })
       .catch((err) => {
@@ -155,7 +154,7 @@ export default handleActions(
           (schedule) => Number(schedule.id) !== Number(payload.id)
         );
       }),
-      
+
     [CREATE_SCHEDULE]: (state, { payload }) =>
       produce(state, (draft) => {
         //최근 스케줄 생성

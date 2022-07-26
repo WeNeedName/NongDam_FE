@@ -25,8 +25,6 @@ const WorkLog = () => {
 
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
 
-  console.log(workLogList);
-
   return (
     <Container>
       <Header currentPage="workLog" />
@@ -35,6 +33,7 @@ const WorkLog = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
   margin-top: 100px;
   background-color: #f5f5f5;
