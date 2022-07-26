@@ -12,7 +12,7 @@ const Signup = () => {
   const emailRef = useRef();
 
   const [email, setEmail] = useState("");
-  //const[userMail, setUserMail] = useState('')
+  const [userMail, setUserMail] = useState("");
   const [pw, setPw] = useState("");
   const [pwCheck, setPwCheck] = useState("");
   const [userNickname, setUserNickname] = useState("");
@@ -20,20 +20,26 @@ const Signup = () => {
   const [success, setSuccess] = useState(false);
   const [empty, setEmpty] = useState(false);
 
-  const userSignUp = useSelector((state) => state.users.users);
+  const userId = email + "@" + userMail;
+
+  // const userSignUp = useSelector((state) => state.users.users);
 
   //이메일 검사
   const [userIdErr, setUserIdErr] = useState(false);
+
   const onChangeUserId = (e) => {
-    const userIdRegex =
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    const userIdRegex = /^[A-Za-z0-9+]{5,}$/;
     if (!e.target.value || userIdRegex.test(e.target.value))
       setUserIdErr(false);
     else setUserIdErr(true);
     setEmail(e.target.value);
   };
 
+  console.log(userId);
+  console.log(userMail);
+  console.log(email);
   //비밀번호 검사
+
   const [pwErr, setPwErr] = useState(false);
   const onChangePw = (e) => {
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -63,7 +69,7 @@ const Signup = () => {
 
   const signUp = async () => {
     const userInfo = {
-      email: email,
+      email: userId,
       password: pw,
       nickname: userNickname,
       name: userName,
@@ -114,26 +120,42 @@ const Signup = () => {
         </TopWrap>
 
         <InputBoxesWrap>
-          <InputWrap className="email">
+          <EmailWrap>
             <LabelEmail>이메일</LabelEmail>
-            <InputBox
-              ref={emailRef}
-              className="inputId"
-              type="email"
-              //userIdErr={userIdErr}
-              // placeholder="이메일을 입력해주세요"
-              onChange={(e) => {
-                onChangeUserId(e);
-                autoCapitalize = "off";
-              }}
-            />
-          </InputWrap>
+            <EmailInputWrap className="email">
+              <EmailInputBox
+                ref={emailRef}
+                className="inputId"
+                type="email"
+                //userIdErr={userIdErr}
+                // placeholder="이메일을 입력해주세요"
+                onChange={(e) => {
+                  onChangeUserId(e);
+                }}
+              />
+              <Gol> @ </Gol>
+              <SelectEM
+                // userIdError={userIdError}
+                onChange={(e) => setUserMail(e.target.value)}
+              >
+                <option value="">선택해주세요</option>
+                <option value="naver.com">naver.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="daum.net">daum.net</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="nate.com">nate.com</option>
+                <option value="hotmail.com">hotmail.com</option>
+                <option value="outlook.com">outlook.com</option>
+                <option value="icloud.com">icloud.com</option>
+                <option value="직접입력">직접입력</option>
+              </SelectEM>
+            </EmailInputWrap>
 
-          {userIdErr && <EmailErr>이메일 형식이 올바르지 않습니다.</EmailErr>}
-          {!userIdErr && email !== "" && (
-            <EmailOk>사용 가능한 이메일 형식 입니다.</EmailOk>
-          )}
-
+            {userIdErr && <EmailErr>이메일 형식이 올바르지 않습니다.</EmailErr>}
+            {!userIdErr && email !== "" && (
+              <EmailOk>사용 가능한 이메일 형식 입니다.</EmailOk>
+            )}
+          </EmailWrap>
           <InputWrap className="password">
             <LabelPw pwErr={pwErr}>비밀번호</LabelPw>
             {/* <Info>영문, 숫자 포함한 8자 이상의 비밀번호 입력해주세요</Info> */}
@@ -261,10 +283,20 @@ const Logo = styled.img`
 const InputBoxesWrap = styled.div`
   display: flex;
   flex-direction: column;
-
   margin: 10px;
 `;
 
+const EmailWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const EmailInputWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  margin-bottom: 3px;
+`;
 const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -279,8 +311,8 @@ const LabelEmail = styled.label`
   color: rgb(${(props) => (props.EmailErr ? "255, 119, 119" : "41, 41, 41")});
 `;
 
-const InputBox = styled.input`
-  width: 240px;
+const EmailInputBox = styled.input`
+  width: 70px;
   height: 30px;
   border: 1px solid #999999;
   border-radius: 5px;
@@ -288,6 +320,31 @@ const InputBox = styled.input`
   :focus {
     outline: none;
   }
+`;
+const Gol = styled.span`
+  margin: 0px 4px;
+  font-size: 13px;
+  color: #616161;
+`;
+
+const SelectEM = styled.select`
+  width: 150px;
+  height: 45px;
+  position: relative;
+  display: block;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #616161;
+  line-height: 21px;
+  resize: none;
+  padding: 4px 8px;
+  border: 1px solid #999999;
+  &::placeholder {
+    color: #424242;
+  }
+  /* border-color: rgb(
+    ${(props) => (props.userIdError ? "255, 119, 119" : "219, 219, 219")}
+  ); */
 `;
 
 const EmailErr = styled.div`
@@ -304,6 +361,16 @@ const EmailOk = styled.div`
   color: #0a9c19;
 `;
 
+const InputBox = styled.input`
+  width: 240px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  padding: 5px;
+  :focus {
+    outline: none;
+  }
+`;
 const LabelPw = styled.label`
   text-align: left;
   /* margin-right: 215px; */

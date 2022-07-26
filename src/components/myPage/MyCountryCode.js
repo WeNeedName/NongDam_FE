@@ -16,8 +16,8 @@ const MyCountryCode = ({ setCountryCode, previousCountryCode, userInfo }) => {
   const options = [
     userInfo?.countryCode
       ? ({ value: "", label: userInfo?.countryCode === 1101 && "서울(도매)" },
-        { value: "", label: userInfo?.countryCode === 2101 && "부산(도매)" },
-        { value: "", label: userInfo?.countryCode === 2201 && "대구(도매)" },
+        { value: "", label: userInfo?.countryCode === 2100 && "부산(도매)" },
+        { value: "", label: userInfo?.countryCode === 2200 && "대구(도매)" },
         { value: "", label: userInfo?.countryCode === 2300 && "인천(소매)" },
         { value: "", label: userInfo?.countryCode === 2401 && "광주(도매)" },
         { value: "", label: userInfo?.countryCode === 2501 && "대전(도매)" },
@@ -31,13 +31,12 @@ const MyCountryCode = ({ setCountryCode, previousCountryCode, userInfo }) => {
         { value: "", label: userInfo?.countryCode === 3113 && "의정부(소매)" },
         { value: "", label: userInfo?.countryCode === 3613 && "순천(소매)" },
         { value: "", label: userInfo?.countryCode === 3714 && "안동(소매)" },
-        { value: "", label: userInfo?.countryCode === 3814 && "창원(소매)" },
-        { value: "", label: userInfo?.countryCode === 3145 && "용인(소매)" })
+        { value: "", label: userInfo?.countryCode === 3814 && "창원(소매)" })
       : { value: "", label: "지역을 선택해주세요" },
 
     { value: "1101", label: "서울(도매)" },
-    { value: "2101", label: "부산(도매)" },
-    { value: "2201", label: "대구(도매)" },
+    { value: "2100", label: "부산(도매)" },
+    { value: "2200", label: "대구(도매)" },
     { value: "2300", label: "인천(소매)" },
     { value: "2401", label: "광주(도매)" },
     { value: "2501", label: "대전(도매)" },
@@ -52,7 +51,6 @@ const MyCountryCode = ({ setCountryCode, previousCountryCode, userInfo }) => {
     { value: "3613", label: "순천(소매)" },
     { value: "3714", label: "안동(소매)" },
     { value: "3814", label: "창원(소매)" },
-    { value: "3145", label: "용인(소매)" },
   ];
 
   return (
@@ -74,8 +72,7 @@ const MyCountryCode = ({ setCountryCode, previousCountryCode, userInfo }) => {
 
 const Container = styled.div`
   .react-select {
-    width: 200px;
-
+    width: 300px;
     text-align: left;
     margin-left: 70px;
     margin-top: 10px;
