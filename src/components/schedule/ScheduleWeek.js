@@ -89,32 +89,13 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
-// const boxFade = keyframes`
-//   0% {
-//     opacity: 1;
-//     transform: translateY(5%);
-//   }
-//   50% {
-//     opacity: 0;
-//     transform: translateY(0);
-//   }
-//   100% {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// `;
-
 const ScheduleBoxWrap = styled.div`
   width: 100%;
   padding-right: 70px;
-  height: 650px;
+  height: 530px;
   overflow: auto;
-
   ::-webkit-scrollbar {
     display: none;
-  }
-  @media only screen and (max-width: 760px) {
-    margin-bottom: 60px;
   }
 `;
 
