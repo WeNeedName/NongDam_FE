@@ -39,47 +39,26 @@ const EditMemberInfo = () => {
   const myCropsList = useSelector((state) => state.users.user?.crops); //[{id, name, category, type}]
   const [crops, setCrops] = useState(); //새로 선택한 작물 id값(서버 통신용) [1]
   const [cropsObj, setCropsObj] = useState(); //새로 선택한 작물 value, label값(작물 버튼 용)[{label: [type]name, value: id }]
-  const [realCrops, setRealCrops] = useState();
+  const [prevCropsObj, setPrevCropsObj] = useState();
 
-  const cropsArray = [];
-  const cropTemp = myCropsList?.map((list, idx) => {
-    return cropsArray.push({
-      label: "[" + list.type + "]" + " " + list.name,
-      value: list.id,
-    });
-  });
+  // {myCropsList?.map((list, idx) => {
+  //   console.log(list);
+  //   <div key={idx} />;
+  //   return (
+  //     <PreviousCropsList>
+  //       {"[" + list.type + "]" + " " + list.name}
+  //     </PreviousCropsList>
+  //   );
+  // })}
 
-  const cropTemp2 = cropsObj?.map((list) => {
-    console.log(list);
-    return cropsArray.push({
-      label: list.label,
-      value: list.value,
-    });
-  });
-
+  console.log(prevCropsObj);
   const [sendCrops, setSendCrops] = useState();
 
   //console.log(crops);
-  // console.log(cropsObj);
-  // console.log(myCropsList);
-  console.log(cropsArray);
+  console.log(cropsObj);
+  console.log(myCropsList);
   // console.log(cropsBtnObj);
 
-  const deleteSelectedCrops = (id) => {
-    const newCropSet = [];
-    const cropsArrayTemp = cropsArray?.filter((list) => {
-      console.log(id);
-      list.value === id;
-    });
-    console.log(cropsArrayTemp);
-    // newCropSet.push(cropSet);
-    // console.log(newCropSet);
-    // setRealCrops(newCropSet);
-  };
-
-  console.log(realCrops);
-
-  console.log(realCrops);
   const previousProfileImg = userInfo?.profileImage;
   const [nickname, setNickname] = useState("");
   const [countryCode, setCountryCode] = useState(0);
@@ -136,42 +115,39 @@ const EditMemberInfo = () => {
 
   //서버 통신 부분
   const editInfo = async (event) => {
-    if (crops.length > 7) {
-      window.alert("내 작물은 7개까지 선택하실 수 있습니다.");
+    const data = {
+      nickname: nickname === "" ? previousNickname : nickname,
+      address: address === "" ? previousAddress : address,
+      countryCode:
+        countryCode === undefined ? previousCountryCodeNumber : countryCode,
+      crops: crops.length === 0 ? array : crops,
+    };
+    let frm = new FormData();
+    frm.append("data", JSON.stringify(data));
+    if (profileImg === "") {
+      frm.append("profileImage", null);
     } else {
-      const data = {
-        nickname: nickname === "" ? previousNickname : nickname,
-        address: address === "" ? previousAddress : address,
-        countryCode:
-          countryCode === undefined ? previousCountryCodeNumber : countryCode,
-        crops: crops.length === 0 ? array : crops,
-      };
-      let frm = new FormData();
-      frm.append("data", JSON.stringify(data));
-      if (profileImg === "") {
-        frm.append("profileImage", null);
-      } else {
-        frm.append("profileImage", profileImg);
-      }
-      console.log(data);
-      await axios({
-        method: "put",
-        url: `https://idontcare.shop/member`,
-        data: frm,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          RefreshToken: `Bearer ${refreshToken}`,
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          console.log(res), dispatch(getInfoDB(res)), navigate("/mypage");
-        })
-        .catch((err) => {
-          window.alert(err.response.data.msg);
-        });
+      frm.append("profileImage", profileImg);
     }
+    console.log(data);
+    await axios({
+      method: "put",
+      url: `https://idontcare.shop/member`,
+      data: frm,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        RefreshToken: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res), dispatch(getInfoDB(res)), navigate("/mypage");
+      })
+      .catch((err) => {
+        window.alert(err.response.data.msg);
+      });
   };
+
   return (
     <Wrap ref={modalCloseRef}>
       {/* <Header />
@@ -258,24 +234,22 @@ const EditMemberInfo = () => {
           <TitleAndCrops>
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
             <CropsContent>
-              <PrevAndNewCrops>
-                {cropsArray?.map((list, idx) => {
-                  console.log(list.value);
+              <PreviousMyCrops>
+                {myCropsList?.map((list, idx) => {
+                  console.log(list);
+                  <div key={idx} />;
                   return (
-                    <CropsList id={list.value}>
-                      <DeleteBtn
-                        onClick={(e) => {
-                          deleteSelectedCrops(list.value);
-                        }}
-                      >
-                        X
-                      </DeleteBtn>
-
-                      {list.label}
-                    </CropsList>
+                    <PreviousCropsList>
+                      {"[" + list.type + "]" + " " + list.name}
+                    </PreviousCropsList>
                   );
                 })}
-              </PrevAndNewCrops>
+              </PreviousMyCrops>
+              <PreviousMyCrops>
+                {cropsObj?.map((list) => {
+                  return <PreviousCropsList>{list.label}</PreviousCropsList>;
+                })}
+              </PreviousMyCrops>
 
               <MyCrops
                 setCrops={setCrops}
@@ -546,34 +520,24 @@ const SmallTitleCrops = styled.span`
   font-weight: 700;
   line-height: 40px;
 `;
-const PrevAndNewCrops = styled.div`
+const PreviousMyCrops = styled.div`
   margin-left: 80px;
   width: 300px;
   text-align: start;
 `;
 
-const CropsList = styled.div`
+const PreviousCropsList = styled.div`
   width: auto;
   height: auto;
   display: inline-block;
   flex-wrap: wrap;
   border: 1px solid #bfbfbf;
-  padding: 5px 9px;
-  background-color: white;
+  padding: 4px 8px;
   color: #616161;
   font-size: 5px;
-
   border-radius: 10px;
   margin-right: 5px;
-  margin-bottom: 3px;
   flex-wrap: wrap;
-  cursor: default;
-`;
-
-const DeleteBtn = styled.button`
-  & hover {
-    opacity: 0.7;
-  }
 `;
 
 const CropsContent = styled.div``;
