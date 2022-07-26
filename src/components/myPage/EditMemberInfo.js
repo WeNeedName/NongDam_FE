@@ -62,19 +62,13 @@ const EditMemberInfo = () => {
   //console.log(crops);
   // console.log(cropsObj);
   // console.log(myCropsList);
-  console.log(cropsArray);
   // console.log(cropsBtnObj);
 
   const deleteSelectedCrops = (id) => {
     const newCropSet = [];
     const cropsArrayTemp = cropsArray?.filter((list) => {
-      console.log(id);
-      list.value === id;
+      if (list.value !== id) newCropSet.push(list);
     });
-    console.log(cropsArrayTemp);
-    // newCropSet.push(cropSet);
-    // console.log(newCropSet);
-    // setRealCrops(newCropSet);
   };
 
   console.log(realCrops);
