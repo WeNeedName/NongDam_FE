@@ -25,7 +25,7 @@ const ScheduleModal = ({
   const memoRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const schedule = currentScheduleList.find((list) => list.id === scheduleId);
+  const schedule = currentScheduleList?.find((list) => list.id === scheduleId);
   const myCropsList = useSelector((state) => state.users.user?.crops);
 
   // console.log(myCropsList)
@@ -154,7 +154,7 @@ const ScheduleModal = ({
                     minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
                     locale={ko} // 한글로 변경
-                    autoFocus={true}
+
                     //inline//달력 보이게
                   />
                 ) : (
@@ -392,19 +392,31 @@ const TimeWrap = styled.div`
   .startDatePicker {
     width: 55%;
     font-size: 16px;
-    background-color: transparent;
-    color: #02113b;
-    border: none;
     margin-top: 5px;
     margin-bottom: 30px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
   }
   .endDatePicker {
     width: 55%;
     font-size: 16px;
     margin-top: 5px;
     background-color: transparent;
-    color: #02113b;
+    color: black;
     border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
   }
 `;
 const StartTime = styled.div`

@@ -15,11 +15,11 @@ export default function ToolbarSchedule(props) {
 
   const navigate = (action) => {
     props.onNavigate(action);
-    if(!click)setClick(true)
-    else setClick(false)
+    if (!click) setClick(true);
+    else setClick(false);
   };
 
-  console.log(click)
+  console.log(click);
 
   const month = moment(date).format("MM");
   const year = moment(date).format("YYYY");
@@ -27,27 +27,21 @@ export default function ToolbarSchedule(props) {
   const [view, setView] = useState("month");
   console.log(YYMM);
 
-  
-  // useEffect(() => {
-  //   dispatch(getAccountListDB(YYMM));
-  //   dispatch(getYearMonthDB(YYMM));
-  // }, [click]);
-
   return (
     <ToolbarWrap>
-        {/* <button type="button" onClick={navigate.bind(null, "TODAY")}>
+      {/* <button type="button" onClick={navigate.bind(null, "TODAY")}>
           이번달
         </button> */}
-        <Btn type="button" onClick={navigate.bind(null, "PREV")}>
+      <Btn type="button" onClick={navigate.bind(null, "PREV")}>
         <TriangleIconL />
-        </Btn>
-        
-        <YearMonthTitle className="rbc-toolbar-label">{`${date.getFullYear()}년 ${
-          date.getMonth() + 1
-        }월`}</YearMonthTitle>
-        <Btn type="button" onClick={navigate.bind(null, "NEXT")}>
+      </Btn>
+
+      <YearMonthTitle className="rbc-toolbar-label">{`${date.getFullYear()}년 ${
+        date.getMonth() + 1
+      }월`}</YearMonthTitle>
+      <Btn type="button" onClick={navigate.bind(null, "NEXT")}>
         <TriangleIconR />
-        </Btn>
+      </Btn>
     </ToolbarWrap>
   );
 }
