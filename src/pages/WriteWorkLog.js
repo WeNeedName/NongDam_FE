@@ -127,7 +127,6 @@ const WriteWorkLog = () => {
     images,
     workTime
   );
-  //console.log(workTime)
 
   return (
     <>
