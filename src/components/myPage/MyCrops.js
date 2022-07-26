@@ -52,8 +52,7 @@ const MyCrops = ({ setCrops, previousCrops, setCropsObj }) => {
 
 const Container = styled.div`
   .react-select {
-    width: 200px;
-
+    width: auto;
     text-align: left;
     margin-left: 80px;
     margin-top: 10px;
