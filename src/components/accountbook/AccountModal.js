@@ -101,7 +101,7 @@ const AccountModal = ({ isOpen, toggleModal, accountId, accountList }) => {
       }
     });
   };
-  console.log(account);
+
   return (
     <StyledModal
       isOpen={isOpen}

@@ -124,9 +124,7 @@ const DetailWorkLog = ({}) => {
                     <Quantity>
                       {workLogOne?.subMaterial[0]?.product !== ""
                         ? workLogOne?.subMaterial[0]?.product
-                        : null}
-                    </Quantity>
-                    <Quantity>
+                        : null}{" "}
                       {workLogOne?.subMaterial[0]?.use !== "0"
                         ? workLogOne?.subMaterial[0]?.use
                         : null}
@@ -147,9 +145,7 @@ const DetailWorkLog = ({}) => {
                       {workLogOne?.subMaterial !== undefined &&
                         workLogOne?.subMaterial[1] !== undefined &&
                         workLogOne?.subMaterial[1]?.product !== undefined &&
-                        workLogOne?.subMaterial[1]?.product}
-                    </Quantity>
-                    <Quantity>
+                        workLogOne?.subMaterial[1]?.product}{" "}
                       {workLogOne.subMaterial !== undefined &&
                       workLogOne?.subMaterial !== undefined &&
                       workLogOne?.subMaterial[1]?.use !== undefined &&
@@ -181,7 +177,8 @@ const DetailWorkLog = ({}) => {
               />
             ) : null}
             <WorkWrap>
-              <SmallTitle> 작업내용</SmallTitle>
+              {/* <SmallTitle> 작업내용</SmallTitle> */}
+
               <WorkContent>
                 {workLogOne !== undefined &&
                   workLogOne.memo !== undefined &&
@@ -202,6 +199,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const TotalWrap = styled.div`
   width: 700px;
   height: auto;
@@ -213,10 +211,12 @@ const TotalWrap = styled.div`
   justify-content: center;
   background-color: white;
 `;
+
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const BtnWrap = styled.div``;
 const GreyBtn = styled.button`
   width: 50px;
@@ -258,6 +258,7 @@ const SmallWrap = styled.div`
   display: flex;
   /* margin-right: 10px; */
   margin-bottom: 10px;
+  margin-right: 20px;
 `;
 
 const SmallBoxWrap = styled.div`
@@ -291,15 +292,17 @@ const WorkWrap = styled.div`
 `;
 
 const WorkContent = styled.div`
-  width: 400px;
-  height: 100px;
+  max-width: 680px;
+  width: 90%;
+  height: auto;
   border-radius: 5px;
   display: inline-block;
   text-align: left;
   border: none;
   color: #616161;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 10px;
+  white-space: pre-wrap;
 `;
 
 const QuantityWrap = styled.div`
@@ -307,17 +310,22 @@ const QuantityWrap = styled.div`
 
   margin-bottom: 10px;
 `;
+
 const Chemical = styled.div`
   margin-right: 10px;
 `;
+
 const Fertilizer = styled.div`
-  margin-right: 10px;
+  margin-right: 30px;
 `;
+
 const Harvest = styled.div`
   margin-right: 10px;
 `;
 
-const WorkingHour = styled.div``;
+const WorkingHour = styled.div`
+  margin-right: 20px;
+`;
 
 const Quantity = styled.div`
   font-size: 14px;
