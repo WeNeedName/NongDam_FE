@@ -98,7 +98,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
         <div>
           <PriceInput
             type="text"
-            maxLength="12"
+            maxLength="10"
             onChange={(e) => {
               inputNumberFormat(e);
             }}
@@ -328,6 +328,7 @@ const MemoInput = styled.textarea`
   border-radius: 6px;
   height: 60px;
   padding: 6px;
+  resize: none;
   &:focus {
     outline: 0.5px solid #616161;
   }

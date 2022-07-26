@@ -13,10 +13,11 @@ const DELETE_WORKLOG = "DELETE_WORKLOG";
 const createWorkLog = createAction(CREATE_WORKLOG, (data) => ({ data }));
 const getWorkLogList = createAction(GET_WORKLOG_LIST, (list) => ({ list }));
 const getWorkLog = createAction(GET_WORKLOG, (data) => ({ data }));
-const deleteWorkLog = createAction(DELETE_WORKLOG, (data) => ({ data }));
+const deleteWorkLog = createAction(DELETE_WORKLOG, (id) => ({ id }));
 
 //InitialState = {
 const initialState = {
+  workLogList_is_loaded: false,
   workLogList: [],
   workLog: [],
 };
@@ -48,7 +49,6 @@ export const loadWorkLogDB = (id) => {
     await apis
       .loadWorkLog(id)
       .then((res) => {
-        console.log(res);
         dispatch(getWorkLog(res.data));
       })
       .catch((err) => {
@@ -59,15 +59,12 @@ export const loadWorkLogDB = (id) => {
 
 export const deleteWorkLogDB = (id) => {
   return async function (dispatch) {
-    await apis
-      .deleteWorkLog(id)
-      .then((res) => {
-        console.log(res);
-        dispatch(removeWorkLog(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      await apis.deleteWorkLog(id);
+      dispatch(deleteWorkLog(id));
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
@@ -76,28 +73,26 @@ export default handleActions(
   {
     [CREATE_WORKLOG]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, payload);
         draft.workLogList = payload.workLogList;
       }),
 
     [GET_WORKLOG_LIST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state, action);
+        draft.workLogList_is_loaded = true;
         draft.workLogList = action.payload.list;
       }),
 
     [GET_WORKLOG]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state, action);
         draft.workLog = action.payload.data;
       }),
 
-    [DELETE_WORKLOG]: (state, action) =>
+    [DELETE_WORKLOG]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(state, action);
-        draft.workLog = draft.workLog.filter(
-          (workLog) => Number(workLog.id) !== Number(payload.id)
-        );
+        console.log(payload, state);
+        draft.workLogList = draft.workLogList.filter((workLog) => {
+          Number(workLog.id) !== Number(payload.id);
+        });
       }),
   },
   initialState

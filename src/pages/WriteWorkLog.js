@@ -62,9 +62,19 @@ const WriteWorkLog = () => {
   const numberHarvest = Number(harvest);
   const [message, setMessage] = useState(false);
 
+  console.log(images);
+
   const addWorkLog = async (event) => {
-    if (!title || !crop || !date || !workTime || !memo) {
-      window.alert("빈 칸을 채워주세요");
+    if (!title) {
+      window.alert("제목을 입력해주세요.");
+    } else if (!crop) {
+      window.alert("작물을 선택해주세요.");
+    } else if (!date) {
+      window.alert("날짜를 선택해주세요.");
+    } else if (!workTime) {
+      window.alert("작업시간을 입력해주세요.");
+    } else if (!memo) {
+      window.alert("작업 내용을 입력해주세요.");
     } else {
       const data = {
         title: title,
@@ -92,7 +102,6 @@ const WriteWorkLog = () => {
           Authorization: `Bearer ${token}`,
         },
       }).then((res) => {
-        console.log(res);
         dispatch(addWorkLogDB(data, images));
         Swal.fire({
           title: "작성이 완료되었습니다.",
@@ -104,7 +113,7 @@ const WriteWorkLog = () => {
           width: "400px",
           height: "200px",
         });
-        window.location.assign("/workLog");
+        navigate("/workLog");
       });
     }
   };
@@ -153,9 +162,14 @@ const WriteWorkLog = () => {
             />
             <Harvest setHarvest={setHarvest} />
             <CategoryBigWrap>
-              <SmallTitle className="todo">작업내용</SmallTitle>
+              <MemoTitleWrap>
+                <SmallTitle className="todo">작업내용</SmallTitle>
+                <span>최대 500자</span>
+              </MemoTitleWrap>
+
               <TodoInput
                 type="text"
+                maxLength="500"
                 onChange={(e) => {
                   setMemo(e.target.value);
                 }}
@@ -217,9 +231,21 @@ const Wrap = styled.div`
 `;
 
 const ContentWrap = styled.div`
-  /* padding: 10px; */
   width: 100%;
   height: auto;
+`;
+
+const MemoTitleWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  span {
+    font-size: 12px;
+    color: #ccc;
+    margin-left: 12px;
+    margin-bottom: 2px;
+  }
 `;
 
 const CategoryBigWrap = styled.div`
@@ -241,12 +267,14 @@ const DoneBtn = styled.button`
   margin-right: 10px;
   width: 80px;
   height: 30px;
-  background-color: #22631c;
+  background-color: #55a349;
   color: white;
-  border: 1px solid #22631c;
+  border: 1px solid #55a349;
   border-radius: 8px;
+  cursor: pointer;
   &:hover {
-    opacity: 0.7;
+    background-color: #22631c;
+    border: 1px solid #22631c;
   }
 `;
 
@@ -273,6 +301,8 @@ const TodoInput = styled.textarea`
   border-radius: 10px;
   padding: 8px;
   margin-top: 12px;
+  white-space: pre-wrap;
+  resize: none;
   &::placeholder {
     color: #ddd;
     font-size: 14px;

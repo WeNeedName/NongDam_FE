@@ -15,7 +15,6 @@ const Record = (props) => {
 
   function inputNumberFormat(e) {
     e.target.value = uncomma(e.target.value);
-    props.setWorkTime(e.target.value);
   }
 
   const handleAction = (e) => {
@@ -34,7 +33,7 @@ const Record = (props) => {
             maxLength="8"
             onChange={(e) => {
               inputNumberFormat(e);
-              handleAction();
+              handleAction(e);
             }}
             name="quantity"
             placeholder="수확량"
