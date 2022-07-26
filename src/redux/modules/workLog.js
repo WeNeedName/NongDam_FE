@@ -34,7 +34,6 @@ export const loadWorkLogListDB = () => {
     await apis
       .loadWorkLogList()
       .then((res) => {
-        console.log(res);
         dispatch(getWorkLogList(res.data));
       })
       .catch((err) => {

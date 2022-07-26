@@ -21,10 +21,6 @@ const ScheduleCalendar = () => {
   const scheduleList = useSelector((state) => state.schedule.scheduleList);
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
 
-  console.log(scheduleList);
-  // console.log(yearMonth)
-  // console.log(nowMonth)
-
   //큰 달력에서 모달 열기
   const [isOpen, setOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState(null);
@@ -34,7 +30,7 @@ const ScheduleCalendar = () => {
   function toggleModal() {
     setOpen(!isOpen);
   }
-  console.log(userInfo);
+
   return (
     <>
       {userInfo?.crops.length === 0 ? (

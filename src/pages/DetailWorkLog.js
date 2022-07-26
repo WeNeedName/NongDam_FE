@@ -178,7 +178,6 @@ const DetailWorkLog = ({}) => {
             ) : null}
             <WorkWrap>
               {/* <SmallTitle> 작업내용</SmallTitle> */}
-
               <WorkContent>
                 {workLogOne !== undefined &&
                   workLogOne.memo !== undefined &&
@@ -338,6 +337,8 @@ const Images = styled.div`
   height: 200px;
   border: none;
   background-size: cover;
+  margin-top: 10px;
+  border-radius: 6px;
 `;
 
 export default DetailWorkLog;

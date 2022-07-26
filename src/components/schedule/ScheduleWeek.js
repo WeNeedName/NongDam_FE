@@ -29,8 +29,6 @@ const ScheduleWeek = () => {
     (state) => state.schedule.currentSchedule
   );
 
-  console.log(currentScheduleList);
-
   return (
     <Wrap>
       <Title>이번 주 할 일</Title>

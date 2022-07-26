@@ -48,9 +48,7 @@ const WorkTime = ({ workTimeData }) => {
     function handleWindowResize() {
       setWindowSize(getWindowSize());
     }
-
     window.addEventListener("resize", handleWindowResize);
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
