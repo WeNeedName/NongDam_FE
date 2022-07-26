@@ -18,9 +18,6 @@ import EventModal from "./EventModal";
 const CalendarBook = ({ accountList }) => {
   const dispatch = useDispatch();
   const [eventInfo, setEventInfo] = useState(null);
-  const [income, setIncome] = useState(0);
-  const [expense, setExpense] = useState(0);
-  const [eventDate, setEventDate] = useState([]);
 
   moment.locale("ko-KR");
   const localizer = momentLocalizer(moment);
@@ -100,6 +97,7 @@ const CalendarBook = ({ accountList }) => {
           },
         }}
         onSelectEvent={(eventInfo) => {
+          console.log(eventInfo);
           setEventInfo(eventInfo);
           toggleModal();
         }}
