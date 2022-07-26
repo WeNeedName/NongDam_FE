@@ -136,7 +136,7 @@ export const editPwDB = (pw) => {
 export const logOutDB = () => {
   return function (dispatch) {
     sessionStorage.removeItem("jwtToken");
-    window.location.assign("/");
+    window.location.assign("/login");
   };
 };
 

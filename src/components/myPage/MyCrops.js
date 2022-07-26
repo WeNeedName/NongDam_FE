@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../../redux/modules/users";
 import Select from "react-select";
 
-const MyCrops = ({ setCrops, previousCrops }) => {
+const MyCrops = ({ setCrops, previousCrops, setCropsObj }) => {
   const dispatch = useDispatch();
   const [selectedCrops, setSelectedCrops] = useState([]);
   const cropsData = useSelector((state) => state.users.crops);
@@ -20,6 +20,7 @@ const MyCrops = ({ setCrops, previousCrops }) => {
 
   useEffect(() => {
     setCrops(_crops);
+    setCropsObj(selectedCrops);
   }, [selectedCrops]);
 
   return (
