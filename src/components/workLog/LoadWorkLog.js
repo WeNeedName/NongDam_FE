@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+// 날짜 포맷 라이브러리
+import moment from "moment";
+import "moment/locale/ko";
+//로딩 효과
+import { ShimmerTitle } from "react-shimmer-effects";
+import { ShimmerThumbnail } from "react-shimmer-effects";
+import { ShimmerText } from "react-shimmer-effects";
 
 const LoadWorkLog = ({ workLogList }) => {
   const navigate = useNavigate();
@@ -10,15 +17,16 @@ const LoadWorkLog = ({ workLogList }) => {
 
   //const goToDetail = navigate(`/detail/${workLogList.id}`);
   const [workLogId, setWorkLogId] = useState();
+  const is_loaded = useSelector((state) => state.workLog.workLogList_is_loaded);
 
   return (
     <Container>
       <Wrap className="wrap">
         <TopWrap className="topWrap">
-          <Title className="totalTitle"> 최근 영농일지</Title>
+          <Title className="totalTitle"> 영농일지</Title>
           <BtnWrap>
             {/* <SearchByCrops></SearchByCrops> */}
-            <SearchByDateBtn>날짜로 조회</SearchByDateBtn>
+            {/* <SearchByDateBtn>날짜로 조회</SearchByDateBtn> */}
             <WriteBtn
               className="WriteBtn"
               onClick={() => {
@@ -29,9 +37,9 @@ const LoadWorkLog = ({ workLogList }) => {
             </WriteBtn>
           </BtnWrap>
         </TopWrap>
-
-        {workLogList !== undefined
-          ? workLogList.map((list, i) => {
+        {is_loaded ? (
+          workLogList !== undefined ? (
+            workLogList.map((list, i) => {
               return (
                 <BoxWrap
                   className="boxWrap"
@@ -45,7 +53,10 @@ const LoadWorkLog = ({ workLogList }) => {
                       <LeftContent>
                         <TitleContent>{list?.title}</TitleContent>
                         <TimeContentWrap>
-                          <DateContent>{list?.date}</DateContent>
+                          <DateContent>
+                            {list?.date &&
+                              moment(list?.date).format("YYYY.MM.DD")}
+                          </DateContent>
                         </TimeContentWrap>
                         <WorkContent className="workMemoWrap">
                           {list?.memo}
@@ -53,12 +64,6 @@ const LoadWorkLog = ({ workLogList }) => {
                         <CropContent>{list?.crop?.type}</CropContent>
                       </LeftContent>
                       <RightContent>
-                        <MoreVertIcon
-                          style={{
-                            marginLeft: "140px",
-                            marginBottom: "10px",
-                          }}
-                        />
                         {list.images[0] !== undefined ? (
                           <ImgContent
                             style={{
@@ -73,11 +78,64 @@ const LoadWorkLog = ({ workLogList }) => {
                 </BoxWrap>
               );
             })
-          : null}
+          ) : null
+        ) : (
+          <>
+            {Array.from({ length: 5 }, (v, i) => i).map((list, index) => {
+              return (
+                <ShimmerWrap key={index}>
+                  <ShimmerTextWrap>
+                    <ShimmerTitle
+                      className="thumNail-news-title"
+                      line={1}
+                      gap={10}
+                      variant="secondary"
+                    />
+
+                    <ShimmerText
+                      className="thumNail-workLog-text"
+                      line={4}
+                      gap={10}
+                    />
+                  </ShimmerTextWrap>
+
+                  <ShimmerThumbnail
+                    className="thumNail-workLog"
+                    height={150}
+                    width={150}
+                    rounded
+                  />
+                </ShimmerWrap>
+              );
+            })}
+          </>
+        )}
       </Wrap>
     </Container>
   );
 };
+
+const boxScale = keyframes`
+  0% {
+    transform: scale(1);
+ 
+  }
+  100% {
+    transform: scale(1.02);
+  }
+`;
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -119,16 +177,18 @@ const SearchByDateBtn = styled.button`
   border: 1px solid #bfbfbf;
   background-color: #fff;
 `;
+
 const WriteBtn = styled.button`
   margin-left: 10px;
   padding: 4px 15px;
-  border-radius: 10px;
+  border-radius: 100px;
   color: #ffffff;
-  background-color: #22631c;
-  border: 1px solid #22631c;
+  background-color: #55a349;
+  border: 1px solid #55a349;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: #22631c;
+    border: 1px solid #22631c;
   }
 `;
 
@@ -140,21 +200,46 @@ const BoxWrap = styled.div`
 `;
 
 const WorkLogBox = styled.div`
+  width: 580px;
+  height: auto;
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 3fr 1fr;
-  width: 580px;
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 8px;
   height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
-  background: #fff;
-  border-radius: 6px;
   padding: 25px;
   flex-direction: row;
-  justify-content: center;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  animation: ${boxFade} 1s;
+  cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+  }
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const ShimmerWrap = styled.div`
+  width: 580px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  height: auto;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  padding: 25px 25px 5px 25px;
+  flex-direction: row;
+  position: relative;
+  margin-bottom: 20px;
+  /* animation: ${boxFade} 1s; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
   @media only screen and (max-width: 760px) {
     width: 95%;
   }
@@ -179,15 +264,23 @@ const DateContent = styled.div`
   margin-right: 3px;
 `;
 
-const DurationContent = styled.div`
-  font-size: 14px;
-`;
 const WorkContent = styled.div`
+  /* width: ${(props) => (props.imageURL === "" ? "290px" : "200px")}; */
+  width: 400px;
+
   font-size: 14px;
   flex-direction: row;
   margin: 10px 0px;
   margin-right: 10px;
   line-height: 20px;
+  color: #7a7a7a;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; // 원하는 라인수
+  -webkit-box-orient: vertical;
 `;
 
 const CropContent = styled.div`
@@ -199,7 +292,7 @@ const CropContent = styled.div`
   width: auto;
   height: auto;
   padding: 4px 12px;
-  border-radius: 10px;
+  border-radius: 100px;
 `;
 const RightContent = styled.div`
   margin-top: 0px;
@@ -213,10 +306,14 @@ const ImgContent = styled.img`
   height: 150px;
 `;
 
-const SmallTitle = styled.div`
-  font-size: 18px;
-  font-weight: 500;
-  margin: 10px;
+const ShimmerTextWrap = styled.div`
+  width: 300px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 40px;
 `;
 
 export default LoadWorkLog;
