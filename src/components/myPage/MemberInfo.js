@@ -18,7 +18,6 @@ const EditMemberInfo = () => {
   const { id } = useParams();
   const fileInput = useRef();
   const userInfo = useSelector((state) => state.users.user);
-  console.log(userInfo);
 
   const previousNickname = userInfo?.nickname;
   const previousAddress = userInfo?.address;
@@ -51,7 +50,6 @@ const EditMemberInfo = () => {
                 style={{ backgroundImage: `url(${previousProfileImg})` }}
               />
             </UploadImg>
-
             <Names>
               <EditNicknameWrap>{previousNickname}</EditNicknameWrap>
               <span className="userEmail">{userInfo?.email}</span>
