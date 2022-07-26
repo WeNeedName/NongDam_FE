@@ -85,7 +85,9 @@ const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 14px;
-  /* margin: 8px 0px; */
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const FormCheckText = styled.span`

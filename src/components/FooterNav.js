@@ -133,7 +133,7 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   margin: 0px 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 11px;
   color: ${(props) => (props.currentPage === props.id ? " #333333" : " #666")};
   font-weight: ${(props) => (props.currentPage === props.id ? 500 : 400)};
   &:hover {

@@ -90,6 +90,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 90% 1fr;
     grid-template-rows: 80px repeat(6, auto) 0px;
+    margin-bottom: 70px;
   }
 `;
 

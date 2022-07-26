@@ -12,7 +12,12 @@ const WorkTime = ({ workTimeData }) => {
   const dispatch = useDispatch();
   const rateData = useSelector((state) => state.analysis.rate);
   const [count, setCount] = useState(0);
+  const [windowSize, setWindowSize] = useState(getWindowSize());
   const is_loaded = useSelector((state) => state.analysis.worktime_is_loaded);
+
+  useEffect(() => {
+    dispatch(getRateDB());
+  }, []);
 
   const end = rateData.rate && rateData.rate;
   const start = 0;
@@ -25,9 +30,6 @@ const WorkTime = ({ workTimeData }) => {
     return number === 1 ? 1 : 1 - Math.pow(2, -10 * number);
   };
 
-  useEffect(() => {
-    dispatch(getRateDB());
-  }, []);
   // 숫자 카운팅 애니메이션
   useEffect(() => {
     let currentNumber = start;
@@ -41,17 +43,44 @@ const WorkTime = ({ workTimeData }) => {
     }, frameRate);
   }, [end, frameRate, start, totalFrame]);
 
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
+
   return (
     <>
       <Wrap>
         <TitleWrap>
           <SmileIcon>💪</SmileIcon>
-          <Title>
-            작년에 비해 올해 작업 시간이 <br />
-            {rateData.rate ? count + "%" : "00%"}{" "}
-            {rateData.rateText ? rateData.rateText : "감소"}
-            했어요
-          </Title>
+          {windowSize.innerWidth > 760 ? (
+            <Title>
+              작년에 비해 올해 작업 시간이 <br />
+              {rateData.rate ? count + "%" : "00%"}{" "}
+              {rateData.rateText ? rateData.rateText : "감소"}
+              했어요
+            </Title>
+          ) : (
+            <TitleM>
+              작년에 비해 <br /> 올해 작업 시간이 <br />
+              {rateData.rate ? count + "%" : "00%"}{" "}
+              {rateData.rateText ? rateData.rateText : "감소"}
+              했어요
+            </TitleM>
+          )}
         </TitleWrap>
         {is_loaded ? (
           <WorkTimeBarChart workTimeData={workTimeData} />
@@ -75,6 +104,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   @media only screen and (max-width: 760px) {
+    padding: 20px 20px 30px 20px;
     grid-column: 2 / 3;
     grid-row: 3 / 4;
   }
@@ -111,6 +141,14 @@ const Title = styled.span`
   font-weight: 700;
   margin-left: 10px;
   text-align: left;
+`;
+
+const TitleM = styled.span`
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
+  text-align: left;
+  margin-bottom: 30px;
 `;
 
 export default WorkTime;
