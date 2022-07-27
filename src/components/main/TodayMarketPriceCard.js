@@ -419,6 +419,9 @@ const NotFoundNoticeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media only screen and (max-width: 760px) {
+    height: 80px;
+  }
 `;
 
 const NotFoundNotice = styled.span`

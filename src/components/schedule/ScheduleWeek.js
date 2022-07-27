@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import ScheduleModal from "./ScheduleModal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -29,8 +29,6 @@ const ScheduleWeek = () => {
     (state) => state.schedule.currentSchedule
   );
 
-  console.log(currentScheduleList);
-
   return (
     <Wrap>
       <Title>이번 주 할 일</Title>
@@ -59,9 +57,7 @@ const ScheduleWeek = () => {
                     </TimeWrap>
                   </div>
                   <BottomWrap>
-                    <Crop>
-                      {"[" + sList.crop.type + "]" + " " + sList.crop.name}
-                    </Crop>
+                    <Crop>{sList.crop.type}</Crop>
                   </BottomWrap>
                 </ScheduleBox>
               );
@@ -81,7 +77,7 @@ const ScheduleWeek = () => {
 };
 
 const Wrap = styled.div`
-  padding: 30px;
+  padding: 10px 30px 10px 25px;
 `;
 const Title = styled.div`
   font-size: 24px;
@@ -89,18 +85,33 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const ScheduleBoxWrap = styled.div`
-  width: 100%;
+  width: 80%;
   padding-right: 70px;
-  height: 530px;
+  height: 660px;
   overflow: auto;
+  animation: ${boxFade} 1s;
   ::-webkit-scrollbar {
     display: none;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 60px;
   }
 `;
 
 const ScheduleBox = styled.div`
-  width: 80%;
+  width: 90%;
   padding: 16px 20px;
   display: flex;
   flex-direction: column;

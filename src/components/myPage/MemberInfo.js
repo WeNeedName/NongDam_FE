@@ -38,7 +38,8 @@ const EditMemberInfo = () => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-
+  console.log(userInfo);
+  console.log(previousProfileImg);
   return (
     <Wrap>
       <Title>기본 정보</Title>
@@ -46,9 +47,19 @@ const EditMemberInfo = () => {
         <TopWrap>
           <ImgAndNames>
             <UploadImg>
-              <ProfileImg
-                style={{ backgroundImage: `url(${previousProfileImg})` }}
-              />
+              {profileImg === "https://idontcare.shop/static/default.png" ? (
+                <ProfileImg
+                  style={{
+                    backgroundImage: url(
+                      "https://idontcare.shop/static/default.png"
+                    ),
+                  }}
+                />
+              ) : (
+                <ProfileImg
+                  style={{ backgroundImage: `url(${previousProfileImg})` }}
+                />
+              )}
             </UploadImg>
             <Names>
               <EditNicknameWrap>{previousNickname}</EditNicknameWrap>
@@ -61,7 +72,16 @@ const EditMemberInfo = () => {
         <AddressWrap>
           <TitleAndAddress>
             <SmallTitle>주소</SmallTitle>
-            <PrevAddress>{userInfo?.address}</PrevAddress>
+            <PrevAddress>
+              {userInfo?.address !== "" ? (
+                userInfo?.address
+              ) : (
+                <span>
+                  주소를 입력하시면 농담에서 실시간 날씨정보를 받아보실 수
+                  있어요.
+                </span>
+              )}
+            </PrevAddress>
           </TitleAndAddress>
         </AddressWrap>
 
@@ -72,17 +92,18 @@ const EditMemberInfo = () => {
               <PreviousMyCrops>
                 {userInfo?.crops.length !== 0 ? (
                   <>
-                    {userInfo?.crops.map((list) => {
+                    {userInfo?.crops.map((list, idx) => {
                       return (
-                        <PreviousCropsList>
-                          {"[" + list.type + "]" + " " + list.name}
+                        <PreviousCropsList key={idx}>
+                          {list.type + " " + list.name}
                         </PreviousCropsList>
                       );
                     })}
                   </>
                 ) : (
                   <span className="noCropTitle">
-                    내 작물을 아직 선택하지 않았어요
+                    내 작물을 선택하시면 매일 업데이트되는 시세와 일정 및
+                    일지관리를 할 수 있어요.
                   </span>
                 )}
               </PreviousMyCrops>
@@ -97,8 +118,8 @@ const EditMemberInfo = () => {
               {userInfo?.countryCode ? (
                 <>
                   {userInfo?.countryCode === 1101 && "서울(도매)"}
-                  {userInfo?.countryCode === 2101 && "부산(도매)"}
-                  {userInfo?.countryCode === 2201 && "대구(도매)"}
+                  {userInfo?.countryCode === 2100 && "부산(도매)"}
+                  {userInfo?.countryCode === 2200 && "대구(도매)"}
                   {userInfo?.countryCode === 2300 && "인천(소매)"}
                   {userInfo?.countryCode === 2401 && "광주(도매)"}
                   {userInfo?.countryCode === 2501 && "대전(도매)"}
@@ -113,10 +134,11 @@ const EditMemberInfo = () => {
                   {userInfo?.countryCode === 3613 && "순천(소매)"}
                   {userInfo?.countryCode === 3714 && "안동(소매)"}
                   {userInfo?.countryCode === 3814 && "창원(소매)"}
-                  {userInfo?.countryCode === 3145 && "용인(소매)"}
                 </>
               ) : (
-                <option value="">지역을 아직 선택하지 않았어요</option>
+                <option value="">
+                  지역을 선택하시면 매일 업데이트되는 지역 시세를 알 수 있어요.
+                </option>
               )}
             </Area>
           </TitleAndArea>
@@ -128,13 +150,13 @@ const EditMemberInfo = () => {
 
 const Wrap = styled.div`
   border: none;
-  width: 100%;
+  width: 92%;
   height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
   padding: 40px 40px 40px 40px;
-  grid-column: 3 / 5;
+  grid-column: 3 / 6;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;

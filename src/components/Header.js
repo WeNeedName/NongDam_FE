@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { logOutDB } from "../redux/modules/users";
 import { getInfoDB } from "../redux/modules/users";
 import nongdamLogo from "../images/nongdam_logo.png";
+import HeaderModal from "./HeaderModal";
 
 const Haeder = ({ currentPage }) => {
   const navigate = useNavigate();
@@ -14,106 +15,120 @@ const Haeder = ({ currentPage }) => {
   const isLogin = sessionStorage.getItem("jwtToken");
   const [headerNav, setHeaderNav] = useState(currentPage);
 
+  // 모달 열기
+  const [isOpen, setOpen] = useState(false);
+
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
 
+  function toggleModal() {
+    setOpen(!isOpen);
+  }
+
   return (
-    <Wrap>
-      <Nav>
-        <NavLeft>
-          <Logo
-            onClick={() => {
-              navigate("/");
-              setHeaderNav(headerNav);
-            }}
-            src={nongdamLogo}
-            alt="농담 로고"
-          />
-          {isLogin ? (
-            <>
-              <CategoryWrap>
-                <FormCheckText
-                  id="main"
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                  currentPage={headerNav}
-                >
-                  홈
-                </FormCheckText>
+    <>
+      {" "}
+      <Wrap>
+        <Nav>
+          <NavLeft>
+            <Logo
+              onClick={() => {
+                navigate("/");
+                setHeaderNav(headerNav);
+              }}
+              src={nongdamLogo}
+              alt="농담 로고"
+            />
+            {isLogin ? (
+              <>
+                <CategoryWrap>
+                  <FormCheckText
+                    id="main"
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                    currentPage={headerNav}
+                  >
+                    홈
+                  </FormCheckText>
 
-                <FormCheckText
-                  id="marketPrice"
-                  onClick={() => {
-                    navigate("/marketprice");
-                    setHeaderNav(headerNav);
-                  }}
-                  currentPage={headerNav}
-                >
-                  시세
-                </FormCheckText>
+                  <FormCheckText
+                    id="marketPrice"
+                    onClick={() => {
+                      navigate("/marketprice");
+                      setHeaderNav(headerNav);
+                    }}
+                    currentPage={headerNav}
+                  >
+                    시세
+                  </FormCheckText>
 
-                <FormCheckText
-                  id="schedule"
-                  onClick={() => {
-                    navigate("/schedule");
-                    setHeaderNav(headerNav);
-                  }}
-                  currentPage={headerNav}
-                >
-                  일정
-                </FormCheckText>
+                  <FormCheckText
+                    id="schedule"
+                    onClick={() => {
+                      navigate("/schedule");
+                      setHeaderNav(headerNav);
+                    }}
+                    currentPage={headerNav}
+                  >
+                    일정
+                  </FormCheckText>
 
-                <FormCheckText
-                  id="accountbook"
-                  onClick={() => {
-                    navigate("/accountbook");
-                    setHeaderNav(headerNav);
-                  }}
-                  currentPage={headerNav}
-                >
-                  장부
-                </FormCheckText>
+                  <FormCheckText
+                    id="accountbook"
+                    onClick={() => {
+                      navigate("/accountbook");
+                      setHeaderNav(headerNav);
+                    }}
+                    currentPage={headerNav}
+                  >
+                    장부
+                  </FormCheckText>
 
-                <FormCheckText
-                  id="workLog"
-                  onClick={() => {
-                    navigate("/worklog");
-                  }}
-                  currentPage={headerNav}
-                >
-                  영농일지
-                </FormCheckText>
-                <FormCheckText
-                  id="analysis"
-                  onClick={() => {
-                    navigate("/analysis");
-                    setHeaderNav(headerNav);
-                  }}
-                  currentPage={headerNav}
-                >
-                  농장 관리 현황
-                </FormCheckText>
-              </CategoryWrap>
-            </>
-          ) : null}
-        </NavLeft>
-
-        <ProfileWrap>
-          {isLogin ? (
-            <>
+                  <FormCheckText
+                    id="workLog"
+                    onClick={() => {
+                      navigate("/worklog");
+                    }}
+                    currentPage={headerNav}
+                  >
+                    영농일지
+                  </FormCheckText>
+                  <FormCheckText
+                    id="analysis"
+                    onClick={() => {
+                      navigate("/analysis");
+                      setHeaderNav(headerNav);
+                    }}
+                    currentPage={headerNav}
+                  >
+                    농장 관리 현황
+                  </FormCheckText>
+                </CategoryWrap>
+              </>
+            ) : null}
+          </NavLeft>
+          <ProfileWrap>
+            {isLogin && (
               <UserProfile
                 profileImage={userInfo?.profileImage}
                 onClick={() => {
-                  navigate("/mypage");
+                  toggleModal();
                 }}
               />
-            </>
-          ) : null}
-        </ProfileWrap>
-      </Nav>
-    </Wrap>
+            )}
+          </ProfileWrap>
+        </Nav>
+      </Wrap>
+      {isOpen && (
+        <HeaderModal
+          isOpen={isOpen}
+          toggleModal={toggleModal}
+          userInfo={userInfo}
+        />
+      )}
+    </>
   );
 };
 

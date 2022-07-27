@@ -19,6 +19,23 @@ const AccountAnalysis = ({ incomeData, expenseData }) => {
   const expense_is_loaded = useSelector(
     (state) => state.analysis.expense_is_loaded
   );
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
 
   return (
     <Wrap>
@@ -36,8 +53,14 @@ const AccountAnalysis = ({ incomeData, expenseData }) => {
         expenseData?.data.length !== 0 ? (
           <>
             <BodyWrap>
-              <Income incomeData={incomeData} />
-              <Expense expenseData={expenseData} />
+              <Income
+                incomeData={incomeData}
+                windowSize={windowSize.innerWidth}
+              />
+              <Expense
+                expenseData={expenseData}
+                windowSize={windowSize.innerWidth}
+              />
             </BodyWrap>
           </>
         ) : (

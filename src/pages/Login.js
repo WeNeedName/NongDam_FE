@@ -33,6 +33,12 @@ const Login = () => {
     dispatch(logInDB(userInfo));
   };
 
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      logIn();
+    }
+  };
+
   useEffect(() => {
     idRef.current.focus();
   }, [userSignIn]);
@@ -79,14 +85,13 @@ const Login = () => {
             placeholder="비밀번호"
             autocapitalize="off"
             autoComplete="off"
+            onKeyPress={onKeyPress}
           />
         </InputBoxes>
         <SubmitBtns>
           <LoginBtn
             type="submit"
-            onClick={() => {
-              logIn();
-            }}
+            onClick={logIn}
             disabled={!email || !pw ? true : false}
           >
             로그인
