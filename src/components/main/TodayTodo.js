@@ -178,7 +178,7 @@ const ScheduleContent = styled.span`
 const ScheduleTime = styled.span`
   font-weight: 400;
   font-size: 14px;
-  margin-top: 0px;
+  margin-top: 4px;
 `;
 
 export default TodayTodo;

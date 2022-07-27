@@ -213,6 +213,10 @@ const TotalTitle = styled.div`
   font-size: 24px;
   font-weight: 700;
   align-self: flex-start;
+  @media only screen and (max-width: 760px) {
+    font-size: 24px;
+    margin-left: 10px;
+  }
 `;
 
 const Wrap = styled.div`
@@ -229,6 +233,13 @@ const Wrap = styled.div`
   padding: 30px;
   margin-top: 20px;
   margin-bottom: 60px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+    margin-bottom: 110px;
+    border-radius: 0px;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -262,6 +273,9 @@ const SmallTitle = styled.label`
 
 const BtnWrap = styled.div`
   align-self: flex-end;
+  @media only screen and (max-width: 760px) {
+    margin-top: 20px;
+  }
 `;
 
 const DoneBtn = styled.button`
@@ -311,6 +325,9 @@ const TodoInput = styled.textarea`
   &:focus {
     outline: none;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    width: 90%;
   }
 `;
 

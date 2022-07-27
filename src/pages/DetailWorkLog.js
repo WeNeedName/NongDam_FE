@@ -22,12 +22,14 @@ const DetailWorkLog = ({}) => {
   const params = useParams();
   const [isEdit, setIsEdit] = useState(false);
 
-  useEffect(() => {
-    dispatch(loadWorkLogDB(params.id));
-  }, []);
-
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
+
+  console.log(workLogOne);
+
+  useEffect(() => {
+    dispatch(loadWorkLogDB(params.id));
+  }, [params]);
 
   const deleteWorkLogModal = () => {
     Swal.fire({
@@ -184,6 +186,28 @@ const DetailWorkLog = ({}) => {
                   workLogOne?.memo}
               </WorkContent>
             </WorkWrap>
+            <Hr />
+            {workLogOne.pre && (
+              <PreContentBox
+                onClick={() => {
+                  navigate(`/worklog/detail/${workLogOne?.pre?.id}`);
+                }}
+              >
+                <PreT>이전 일지</PreT>
+                <PreTitle>{workLogOne.pre.title}</PreTitle>
+              </PreContentBox>
+            )}
+
+            {workLogOne.next && (
+              <PreContentBox
+                onClick={() => {
+                  navigate(`/worklog/detail/${workLogOne?.next?.id}`);
+                }}
+              >
+                <PreT>다음 일지</PreT>
+                <PreTitle>{workLogOne.next.title}</PreTitle>
+              </PreContentBox>
+            )}
           </ContentWrap>
         </TotalWrap>
       ) : (
@@ -210,6 +234,12 @@ const TotalWrap = styled.div`
   justify-content: center;
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  @media only screen and (max-width: 760px) {
+    width: 90%;
+    margin-bottom: 110px;
+    border-radius: 0px;
+    margin-top: 110px;
+  }
 `;
 
 const TopWrap = styled.div`
@@ -229,6 +259,12 @@ const GreyBtn = styled.button`
   &:hover {
     opacity: 0.7;
   }
+  @media only screen and (max-width: 760px) {
+    width: 46px;
+    height: 24px;
+    font-size: 11px;
+    border-radius: 4px;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -240,18 +276,29 @@ const ContentWrap = styled.div`
 const Title = styled.div`
   font-size: 36px;
   margin-bottom: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 4px;
+  }
 `;
 
 const DateWrap = styled.div`
   display: flex;
   font-size: 20px;
   margin-bottom: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const SmallTitle = styled.label`
   font-size: 18px;
   font-weight: 700;
   margin-right: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const SmallWrap = styled.div`
@@ -330,6 +377,9 @@ const WorkingHour = styled.div`
 const Quantity = styled.div`
   font-size: 14px;
   margin-top: 5px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const Images = styled.div`
@@ -339,6 +389,41 @@ const Images = styled.div`
   background-size: cover;
   margin-top: 10px;
   border-radius: 6px;
+  background-position: center 30%;
+  background-size: cover;
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+    padding-bottom: 60%;
+    padding-right: 20%;
+    margin-left: -10%;
+    border-radius: 0px;
+  }
+`;
+
+const Hr = styled.div`
+  width: 100%;
+  height: 0.5px;
+  border: none;
+  border-bottom: 1px solid #aaaaaa;
+  margin: 10px 0px;
+`;
+
+const PreContentBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin: 8px 0px;
+  /* margin-left: 20px; */
+`;
+
+const PreT = styled.span`
+  font-size: 14px;
+  color: #878787;
+  margin-right: 20px;
+`;
+
+const PreTitle = styled.span`
+  font-size: 14px;
 `;
 
 export default DetailWorkLog;
