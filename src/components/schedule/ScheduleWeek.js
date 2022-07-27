@@ -79,7 +79,7 @@ const ScheduleWeek = () => {
 };
 
 const Wrap = styled.div`
-  padding: 30px;
+  padding: 10px 30px 10px 25px;
 `;
 const Title = styled.div`
   font-size: 24px;
@@ -89,12 +89,8 @@ const Title = styled.div`
 
 const boxFade = keyframes`
   0% {
-    opacity: 1;
-    transform: translateY(5%);
-  }
-  50% {
     opacity: 0;
-    transform: translateY(0);
+    transform: translateY(5%);
   }
   100% {
     opacity: 1;
@@ -103,11 +99,11 @@ const boxFade = keyframes`
 `;
 
 const ScheduleBoxWrap = styled.div`
-  width: 100%;
+  width: 80%;
   padding-right: 70px;
-  height: 650px;
+  height: 70vh;
   overflow: auto;
-  /* animation: ${boxFade} 1s; */
+  animation: ${boxFade} 1s;
   ::-webkit-scrollbar {
     display: none;
   }

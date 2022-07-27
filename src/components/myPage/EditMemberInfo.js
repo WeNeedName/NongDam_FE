@@ -193,7 +193,9 @@ const EditMemberInfo = () => {
                   />
                 )}
               </div>
+
               <Label htmlFor="inputImage">프로필 선택</Label>
+
               <ImageBtn
                 type="file"
                 id="inputImage"
@@ -207,7 +209,6 @@ const EditMemberInfo = () => {
                 }}
               />
             </UploadImg>
-
             <Names>
               <EditNicknameWrap
                 label="닉네임"
@@ -219,6 +220,7 @@ const EditMemberInfo = () => {
               <span className="userEmail">{userInfo?.email}</span>
             </Names>
           </ImgAndNames>
+          <Label htmlFor="inputImage">프로필 변경</Label>
         </TopWrap>
         <Line />
 
@@ -386,13 +388,13 @@ const EditMemberInfo = () => {
 
 const Wrap = styled.div`
   border: none;
-  width: 100%;
+  width: 92%;
   height: auto;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
   padding: 40px 40px 40px 40px;
-  grid-column: 3 / 5;
+  grid-column: 3 / 6;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
@@ -409,8 +411,7 @@ const ContentWrap = styled.div``;
 
 const TopWrap = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-top: 20px;
 `;
 
@@ -461,6 +462,7 @@ const EditNicknameWrap = styled.input`
   border: none;
   border-bottom: 1px solid #ccc;
   margin-bottom: 6px;
+
   &:focus {
     outline: none;
     border-bottom: 1px solid black;

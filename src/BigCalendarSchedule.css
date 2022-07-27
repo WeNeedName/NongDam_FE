@@ -614,6 +614,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-day-slot .rbc-events-container.rbc-rtl {
   left: 10px;
   right: 0;
+  
 }
 .rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event {
   border: 1px solid #265985;
@@ -655,6 +656,7 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-day-slot .rbc-time-slot {
   border-top: 1px solid #f7f7f7;
+  
 }
 
 .rbc-time-view-resources .rbc-time-gutter,
@@ -665,6 +667,7 @@ button.rbc-input::-moz-focus-inner {
   border-right: 1px solid #ddd;
   z-index: 10;
   margin-right: -1px;
+  
 }
 .rbc-time-view-resources .rbc-time-header {
   overflow: hidden;
@@ -789,7 +792,7 @@ button.rbc-input::-moz-focus-inner {
   border-left: 1px solid #ddd;
 }
 .rbc-time-header > .rbc-row:first-child {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid rgb(221, 221, 221);
 }
 .rbc-time-header > .rbc-row.rbc-row-resource {
   border-bottom: 1px solid #ddd;
@@ -799,6 +802,7 @@ button.rbc-input::-moz-focus-inner {
   display: none;
 }
 
+/* 최상단 첫 행 */
 .rbc-time-header-content {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -823,7 +827,7 @@ button.rbc-input::-moz-focus-inner {
       flex-shrink: 0;
 }
 
-/* 일별데이터 스크롤 관련 */
+/* 일별데이터 스크롤, 최상단 행 border 관련 */
 .rbc-time-content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -835,7 +839,7 @@ button.rbc-input::-moz-focus-inner {
       -ms-flex-align: start;
           align-items: flex-start;
   width: 100%;
-  border-top: 2px solid #ddd;
+  border-top: 2px solid #55A349;
   overflow: auto;
   position: relative;
 
@@ -868,13 +872,14 @@ button.rbc-input::-moz-focus-inner {
   -webkit-user-select: none;
 }
 
+/* 현재시간 알림 줄 */
 .rbc-current-time-indicator {
   position: absolute;
   z-index: 3;
   left: 0;
   right: 0;
   height: 1px;
-  background-color: #74ad31;
+  background-color: #55A349;
   pointer-events: none;
 }
 

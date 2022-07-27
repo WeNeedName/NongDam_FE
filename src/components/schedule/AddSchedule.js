@@ -25,14 +25,13 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const myCropsList = useSelector((state) => state.users.user?.crops);
 
   const memoRef = useRef();
-
+  console.log(startDate, endDate);
   const onChangeEndDate = (date) => {
     console.log(date);
-    if (startDate > date) {
+    if (startDate >= date) {
       setDateErr(true);
     } else {
       setDateErr(false);
-      setEndDate(date);
     }
   };
   const changeRadioWork = (e) => {
@@ -42,7 +41,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
     }
   };
 
-  console.log(checkedCrops);
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
       setCheckedCrops(e.target.id);
@@ -135,9 +133,12 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                   <DatePicker
                     className="endDatePicker"
                     selected={endDate}
-                    onChange={(date) => onChangeEndDate(date)}
+                    onChange={(date) => {
+                      onChangeEndDate(date);
+                      setEndDate(date);
+                    }}
                     showTimeSelect
-                    minDate={startDate} //시작일보다 이전 날짜는 선택 못하게
+                    minDate={new Date(startDate)} //시작일보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy.MM.dd HH:mm"
                     locale={ko} // 한글로 변경
                   />
@@ -474,12 +475,14 @@ const TodoInput = styled.textarea`
   border: 1px solid #bfbfbf;
   padding: 10px;
   border-radius: 10px;
+  resize: none;
   &::placeholder {
     color: #ddd;
     padding: 1px;
   }
   :focus {
     outline: none;
+    border: 1px solid black;
   }
 `;
 

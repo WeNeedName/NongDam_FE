@@ -112,7 +112,7 @@ const MyPageMenu = () => {
 };
 const Wrap = styled.div`
   border: none;
-  width: 100%;
+  width: 85%;
   height: auto;
   background-color: #fff;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);

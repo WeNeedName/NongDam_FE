@@ -45,8 +45,7 @@ const Wrap = styled.div`
   display: grid;
   grid-auto-rows: auto;
 
-  grid-template-columns: 1fr minmax(18%, 18%) repeat(2, minmax(24%, 24%)) 1fr;
-
+  grid-template-columns: 1fr repeat(4, 18.75%) 1fr;
   justify-content: center;
   flex-flow: wrap;
 
@@ -55,10 +54,10 @@ const Wrap = styled.div`
   top: 0px;
   bottom: 0px;
   row-gap: 16px;
-  column-gap: 60px;
+  /* column-gap: 15px; */
 
   @media only screen and (max-width: 1220px) {
-    grid-template-columns: 1fr repeat(3, 27%) 1fr;
+    grid-template-columns: 1fr repeat(3, 25%) 1fr;
   }
   @media only screen and (max-width: 760px) {
     margin-top: 90px;
