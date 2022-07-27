@@ -40,16 +40,16 @@ const TodayTodo = () => {
           {scheduleData.length >= 1 ? (
             scheduleData.slice(0, 2).map((schedule, id) => {
               return (
-                <>
+                <React.Fragment key={id}>
                   <Hr />
-                  <ScheduleBox key={id}>
+                  <ScheduleBox>
                     <ScheduleContent>{schedule?.toDo}</ScheduleContent>
                     <ScheduleTime>
                       {moment(schedule?.startTime).format("HH:mm")} -{" "}
                       {moment(schedule?.endTime).format("HH:mm")}
                     </ScheduleTime>
                   </ScheduleBox>
-                </>
+                </React.Fragment>
               );
             })
           ) : (

@@ -67,7 +67,6 @@ const WorkPhoto = ({
     setNewImages(e.target.files[0]);
   };
 
-  console.log(newImages);
   return (
     <>
       {isEdit ? (

@@ -25,7 +25,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const myCropsList = useSelector((state) => state.users.user?.crops);
 
   const memoRef = useRef();
-  console.log(startDate, endDate);
+
   const onChangeEndDate = (date) => {
     console.log(date);
     if (startDate >= date) {
@@ -62,9 +62,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
 
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm");
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
-  console.log(checkedCrops, startDateFormat, endDateFormat, memo);
-
-  console.log(myCropsList);
 
   const [noCrop, setNoCrop] = useState();
   const goMyPage = () => {

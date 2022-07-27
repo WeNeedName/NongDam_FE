@@ -69,8 +69,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   const [newUnit1, setNewUnit1] = useState(stringChemicalUnit);
 
   const newUsage1 = newUse1 + newUnit1;
-  console.log(newProduct0, newProduct1);
-  console.log(newUsage0, newUsage1);
+
   const product0Change = (e) => {
     setNewProduct0(e.target.value);
   };
@@ -162,19 +161,6 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
       });
     }
   };
-
-  console.log(
-    newTitle,
-    previousTitle,
-    newCrop,
-    previousCrop,
-    myNewDate,
-    previousDate,
-    newWorkTime,
-    previousWorkTime,
-    newMemo,
-    previousMemo
-  );
 
   const changeNewRadioCrops = (e) => {
     if (e.target.checked) {
