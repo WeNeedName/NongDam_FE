@@ -2,34 +2,34 @@ import { apis } from "../../shared/api";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import jwt_decode from "jwt-decode";
+import { Navigate } from "react-router";
 
 //actions
 const LOGIN_USER = "LOGIN_USER";
-// const SIGNOUT = 'users/SIGNOUT'
+const LOGOUT = "users/LOGOUT";
 const SIGNUP_USER = "SIGNUP_USER";
 const KAKAO_LOGIN = "KAKAO_LOGIN";
+const GET_INFO = "GET_INFO";
+const EDIT_INFO = "EDIT_INFO";
+const EDIT_PW = "EDIT_PW";
+const GET_CROPS = "GET_CROPS";
 
 //initial state
 const initialState = {
   user: null,
+  crops: [],
 };
 
 //action creator
 const signUp = createAction(SIGNUP_USER, (user) => ({ user }));
 const logIn = createAction(LOGIN_USER, (user) => ({ user }));
 const kakaoLogIn = createAction(KAKAO_LOGIN, (user) => ({ user }));
+const logOut = createAction(LOGOUT, (user) => ({ user }));
+const getInfo = createAction(GET_INFO, (user) => ({ user }));
+const editInfo = createAction(EDIT_INFO, (user) => ({ user }));
+// const changePw = createAction(EDIT_PW, (pw) => ({ pw }));
+const getCropsList = createAction(GET_CROPS, (data) => ({ data }));
 // const loadNickname = createAction(LOAD_NICKNAME, (user) => ({ user }));
-// const logOut = createAction(LOG_OUT, (user) => ({ user }));
-
-// export const logIn =(userInfo) => {
-//     return {type:LOGIN, userInfo}
-// }
-// export const signOut =() => {
-//     return {type:SIGNOUT}
-// }
-// export const signUp =(userInfo) => {
-//     return {type:SIGNUP, userInfo}
-// }
 
 //미들웨어
 //회원가입
@@ -48,29 +48,37 @@ export const signUpDB = (userInfo) => {
 };
 
 //로그인
-export const logInDB = (userInfo) => {
+export const logInDB = (user) => {
   return function (dispatch) {
-    console.log(userInfo);
     apis
-      .logIn(userInfo)
+      .logIn(user)
       .then((res) => {
         console.log(res);
         const token = res.headers.authorization;
+        const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
         console.log(DecodedToken);
-        localStorage.setItem("jwtToken", token);
+        sessionStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");
-        dispatch(
-          logIn(
-            userInfo
-            // username: username,
-            // nickname: DecodedToken.nickname,
-          )
-        );
+
+        // dispatch(
+        //   logIn(
+        //     {
+        //     email: email,
+        //     nickname: DecodedToken.nickname,
+        //     }
+        //   )
+        // );
+        // localStorage.setItem("email", email);
+        // localStorage.setItem("nickname", DecodedToken.nickname);
       })
       .catch((err) => {
-        window.alert("잘못된 로그인 정보 입니다.");
+        let code = err.response.status;
+
+        if (code == 403) window.alert(err.response.data.msg);
+        else window.alert(err.response.data.msg);
         console.log(err);
       });
   };
@@ -80,10 +88,31 @@ export const logInDB = (userInfo) => {
 export const kakaoLogInDB = (data) => {
   return function (dispatch) {
     apis
-      .KakaoLogIn(data)
+      .kakaoLogIn(data)
       .then((res) => {
-        console.log(res);
+        const token = res.headers.authorization;
+        const refreshToken = res.headers.refreshtoken;
+        const DecodedToken = jwt_decode(token);
+        sessionStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("jwtToken", token);
+        window.alert("환영합니다!");
+        window.location.assign("/");
         dispatch(kakaoLogIn(data));
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert(err.response.data.msg);
+      });
+  };
+};
+
+//회원정보가져오기
+export const getInfoDB = () => {
+  return async function (dispatch) {
+    await apis
+      .userInfo()
+      .then((res) => {
+        dispatch(getInfo(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -91,20 +120,50 @@ export const kakaoLogInDB = (data) => {
   };
 };
 
-//reducer
+//비밀번호변경
+export const editPwDB = (pw) => {
+  return async function (dispatch) {
+    await apis
+      .editPw(pw)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
+        window.alert(err.response.data.msg);
+      });
+  };
+};
+//로그아웃
+export const logOutDB = () => {
+  return function (dispatch) {
+    sessionStorage.removeItem("jwtToken");
+    window.location.assign("/login");
+  };
+};
+
+//작물리스트받아오기
+export const getCropsListDB = () => {
+  return async function (dispatch) {
+    await apis
+      .loadCropsList()
+      .then((res) => {
+        //console.log(res.data)
+        dispatch(getCropsList(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+//리듀서
 export default handleActions(
   {
     [LOGIN_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
-        //   draft.is_login = true;
-        //   console.log(draft.user.username);
-        //   draft.uploading = false;
-        console.log("리듀서로 적용 완료", state, action.payload);
       }),
     [SIGNUP_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state);
         draft.user = action.payload.user;
       }),
 
@@ -112,6 +171,26 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
       }),
+
+    [GET_INFO]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = action.payload.user;
+      }),
+
+    [EDIT_INFO]: (state, action) =>
+      produce(state, (draft) => {
+        //draft.user = action.payload.user
+      }),
+
+    [GET_CROPS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.crops = action.payload.data;
+      }),
+
+    // [LOGOUT]: (state, action) => produce(state, (draft) => {
+    //   draft.user = null;
+    //   draft.isLogin = false;
+    //     }),
 
     //   [LOAD_NICKNAME]: (state, action) =>
     //     produce(state, (draft) => {

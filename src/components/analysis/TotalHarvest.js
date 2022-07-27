@@ -1,141 +1,143 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-// 차트 라이브러리
-import ApexCharts from "react-apexcharts";
+import { useSelector } from "react-redux";
+// 로딩 효과
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
-import moment from "moment";
-import "moment/locale/ko";
+// 컴포넌트
+import TotalHarvestChart from "./TotalHarvestChart";
 
-const TotalHarvest = () => {
-  const [data, setData] = useState(null);
+const TotalHarvest = ({
+  totalHarvestData,
+  setHarvestCaterory,
+  harvestCaterory,
+}) => {
+  const is_loaded = useSelector(
+    (state) => state.analysis.totalharvest_is_loaded
+  );
 
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
-
-  const state = {
-    defaultLocale: "ko",
-    locales: [
-      {
-        name: "ko",
-        options: {
-          months: [
-            "1월",
-            "2월",
-            "3월",
-            "4월",
-            "5월",
-            "6월",
-            "7월",
-            "8월",
-            "9월",
-            "10월",
-            "11월",
-            "12월",
-          ],
-          shortDays: ["월", "화", "수", "목", "금", "토", "일"],
-          toolbar: {
-            download: ["Download SVG", "Download PNG", "Download CSV"],
-            selection: "Selection",
-            selectionZoom: "Selection Zoom",
-            zoomIn: "Zoom In",
-            zoomOut: "Zoom Out",
-            pan: "Panning",
-            reset: "Reset Zoom",
-          },
-        },
-      },
-    ],
-    series: [
-      {
-        name: "복숭아",
-        data: [31, 40, 28, 51, 42, 109, 100],
-      },
-      {
-        name: "사과",
-        data: [11, 32, 45, 32, 34, 52, 41],
-      },
-      {
-        name: "감",
-        data: [5, 10, 15, 20, 11, 8, 4],
-      },
-    ],
-    colors: ["#2E93fA", "#66DA26", "#546E7A", "#E91E63", "#FF9800"],
-    options: {
-      chart: {
-        height: 350,
-        type: "area",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      //   yaxis: {
-      //     title: {
-      //       text: "thousands",
-      //     },
-      //   },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2022-01-19T00:00:00.000Z",
-          "2022-02-19T01:30:00.000Z",
-          "2022-03-19T02:30:00.000Z",
-          "2022-04-19T03:30:00.000Z",
-          "2022-05-19T04:30:00.000Z",
-          "2022-06-19T05:30:00.000Z",
-        ],
-      },
-      fill: {
-        opacity: 0,
-        colors: ["#2E93fA", "#66DA26", "#E91E63"],
-      },
-      //   markers: {
-      //     colors: ["#F44336", "#E91E63", "#9C27B0"],
-      //   },
-
-      tooltip: {
-        x: {
-          //   format: "dd/MM/yy HH:mm",
-          format: "MM월",
-        },
-      },
-    },
+  // 항목 선택
+  const changeRadio = (e) => {
+    if (e.target.checked) {
+      setHarvestCaterory(e.target.id);
+    }
   };
 
   return (
-    <Wrap>
-      <TopWrap>
-        <h3>수확량</h3>
-        <span>기간선택</span>
-      </TopWrap>
-      <ApexCharts
-        options={state.options}
-        series={state.series}
-        type="area"
-        height={250}
-      />
-    </Wrap>
+    <>
+      <Wrap>
+        <Title>수확량</Title>
+        {is_loaded ? (
+          <>
+            <CategoryWrap>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="month"
+                  name="totalHarvestCategory"
+                  onChange={changeRadio}
+                  value={harvestCaterory}
+                  defaultChecked
+                />
+                <FormCheckText>월별</FormCheckText>
+              </Label>
+              <Label>
+                <FormCheckLeft
+                  type="radio"
+                  id="year"
+                  name="totalHarvestCategory"
+                  onChange={changeRadio}
+                  value={harvestCaterory}
+                />
+                <FormCheckText>연도별</FormCheckText>
+              </Label>
+            </CategoryWrap>
+            {harvestCaterory === "month" && (
+              <TotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+            {harvestCaterory === "year" && (
+              <TotalHarvestChart totalHarvestData={totalHarvestData} />
+            )}
+          </>
+        ) : (
+          <ShimmerWrap>
+            <ShimmerThumbnail
+              className="thumNail-weather"
+              height={200}
+              rounded
+            />
+          </ShimmerWrap>
+        )}
+      </Wrap>
+    </>
   );
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 340px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  grid-column: 2 / 6;
+  grid-row: 3 / 4;
+
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+  }
 `;
 
-const TopWrap = styled.div`
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 14px;
+  /* margin: 8px 0px; */
+`;
+
+const FormCheckText = styled.span`
+  width: auto;
+  height: 26px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  margin-right: 4px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+  margin-right: 12px;
+  cursor: pointer;
+  color: black;
+  &:hover {
+  }
+`;
+
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    display: inline-block;
+    background: none;
+    text-align: center;
+    display: none;
+  }
+  &:checked + ${FormCheckText} {
+    font-weight: 700;
+    border-bottom: 2px solid #000000;
+  }
+  display: none;
+`;
+
+const Label = styled.label``;
+
+const ShimmerWrap = styled.div`
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 export default TotalHarvest;

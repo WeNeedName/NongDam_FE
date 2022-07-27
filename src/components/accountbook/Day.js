@@ -5,41 +5,39 @@ import moment from "moment";
 export default function Day(props) {
   const { date } = props;
 
-  const navigate = (action) => {
-    props.onNavigate(action);
-  };
-  // 현재 년도, 월
-  const nowYear = moment().format("DD");
-  //   console.log(typeof nowYear, nowYear);
-  //   console.log(date.getDate());
+  // console.log(date.getMonth() + 1);
 
   return (
     <>
-      <TopWrap className="rbc-month-row" role="rowgroup">
+      <DayTopWrap className="rbc-month-row" role="rowgroup">
         <div className="rbc-row-bg" role="rowgroup">
-          <Wrap className="rbc-day-bg"></Wrap>
+          <DayTopWrapR className="rbc-day-bg"></DayTopWrapR>
         </div>
         <div className="rbc-row-content" role="rowgroup">
           <div className="rbc-row ">
             <DayWrap className="rbc-date-cell" role="cell">
-              <DayBtn type="button" role="cell">
-                {String(date.getDate()).length === 1
-                  ? "0" + String(date.getDate())
-                  : String(date.getDate())}
-              </DayBtn>
+              <DayLabelBtn type="button" role="cell">
+                <DayLabel>
+                  {String(date.getDate()).length === 1
+                    ? "0" + String(date.getDate())
+                    : String(date.getDate())}
+                </DayLabel>
+              </DayLabelBtn>
             </DayWrap>
           </div>
         </div>
-      </TopWrap>
+      </DayTopWrap>
     </>
   );
 }
-const TopWrap = styled.div`
+
+const DayTopWrap = styled.div`
   /* border-top: 1px solid #ddd; */
   width: 100%;
+  margin-top: 4px;
 `;
 
-const Wrap = styled.div`
+const DayTopWrapR = styled.div`
   border-left: none;
 `;
 
@@ -47,7 +45,14 @@ const DayWrap = styled.div`
   padding: 0px;
 `;
 
-const DayBtn = styled.button`
+const DayLabelBtn = styled.button`
   background-color: transparent;
+  cursor: pointer;
   border: none;
+`;
+
+const DayLabel = styled.span`
+  font-size: 13px;
+  font-weight: 700;
+  color: #22641c;
 `;

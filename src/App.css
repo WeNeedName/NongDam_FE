@@ -1,7 +1,6 @@
-.App {
-  text-align: center;
-}
-
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
+@import url(//db.onlinewebfonts.com/c/bde89ab00cb34cc906059b3cbdd513dc?family=SF+Pro+Rounded);
+@font-face {font-family: "SF Pro Rounded"; src: url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.eot"); src: url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.woff") format("woff"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/511031ed9122c8ea1450b18b876221fe.svg#SF Pro Rounded") format("svg"); }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +35,99 @@
     transform: rotate(360deg);
   }
 }
+
+.thumNail {
+height: 140px;
+margin-top: 30px;
+}
+
+.thumNail-text {
+  width: 100px;
+  height: 20px;
+  margin-left: 20px;
+  margin-bottom: 60px;
+}
+
+.thumNail-title {
+  width: 80%;
+  height: 18px;
+  margin-top: 10px;
+}
+
+.thumNail-selec {
+  width: 60%;
+  margin-top: 30px;
+}
+
+.thumNail-news-title {
+  width: 110px;
+  height: 12px;
+  margin-bottom: 8px;
+}
+
+.thumNail-news-image {
+  width: 16%;
+  height: 14px;
+  margin: 8px 0px;
+}
+
+.thumNail-news-text {
+  width: 40%;
+  height: 16px;
+  margin-left: 14px;
+}
+
+.thumNail-toDo-text {
+  width: 40%;
+  height: 16px;
+  margin-top: 10px;
+}
+
+.thumNail-button {
+  width: 30px;
+  margin-right: 14px;
+}
+
+.thumNail-analysis {
+  width: 100%;
+  height: 200px;
+}
+
+.thumNail-data-label {
+  width: 240px;
+  margin-top: 20px;
+}
+
+.thumNail-chart {
+  width: 100%;
+  height: 100%;
+  margin-top: 21px;
+}
+
+/* .thumNail-date {
+} */
+
+.thumNail-price {
+  width: 100px;
+  margin-top: -6px;
+}
+
+.thumNail-weather {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.thumNail-workLog {
+  width: 150px;
+  height: 150px;
+
+}
+
+.thumNail-workLog-text {
+  width: 200px;
+  height: 16px;
+  margin-top: 20px;
+}
+
+
+
