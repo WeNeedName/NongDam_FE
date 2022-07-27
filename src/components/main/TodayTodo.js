@@ -116,7 +116,8 @@ const Wrap = styled.div`
   background-color: #fff;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
-    grid-row: 5 / 7;
+
+    grid-row: 12 / 13;
     height: 200px;
   }
 `;
@@ -178,7 +179,7 @@ const ScheduleContent = styled.span`
 const ScheduleTime = styled.span`
   font-weight: 400;
   font-size: 14px;
-  margin-top: 0px;
+  margin-top: 4px;
 `;
 
 export default TodayTodo;

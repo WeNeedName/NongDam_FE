@@ -206,6 +206,30 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
             </CancelBtn>
           </BtnWrap>
         </TopWrap>
+        <MTopWrap>
+          <BtnWrap>
+            <EditBtn
+              onClick={() => {
+                editWorkLogDB();
+              }}
+            >
+              수정완료
+            </EditBtn>
+            <CancelBtn
+              onClick={() => {
+                navigate("/workLog");
+              }}
+            >
+              취소
+            </CancelBtn>
+          </BtnWrap>
+          <TitleInput
+            defaultValue={workLogOne.title}
+            onChange={(e) => {
+              setNewTitle(e.target.value);
+            }}
+          />
+        </MTopWrap>
 
         <DatePickers>
           <DatePicker
@@ -351,6 +375,117 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
             </ContentWrap>
           </HarvestWrap>
         </QuantityWrap>
+        {/*  모바일용 */}
+        <MobileQuantityWrap>
+          <MWorkingHour>
+            <SmallTitle>작업시간</SmallTitle>
+            <ContentWrap>
+              <HourQuantity
+                type="text"
+                maxLength="4"
+                defaultValue={workLogOne.workTime}
+                onChange={(e) => {
+                  inputNumberFormat(e);
+                  setNewWorkTime(e.target.value);
+                }}
+              />
+              <Kg>시간</Kg>
+            </ContentWrap>
+          </MWorkingHour>
+
+          <MSubMaterialWrap>
+            <ProductWrap>
+              <Fertilizer>
+                <SmallTitle> 비료</SmallTitle>
+                <ContentWrap>
+                  <Product
+                    type="text"
+                    name="product"
+                    placeholder="비료명을 입력해주세요"
+                    defaultValue={workLogOne.subMaterial[0].product}
+                    onChange={product0Change}
+                  />
+                </ContentWrap>
+                <div>
+                  <Quantity
+                    type="text"
+                    maxLength="6"
+                    placeholder="사용량"
+                    defaultValue={numberFertilizerUse}
+                    onChange={(e) => {
+                      inputNumberFormat(e);
+                      e.target.value === ""
+                        ? (setNewUse0(0), setNewUnit0(""))
+                        : setNewUse0(e.target.value);
+                    }}
+                  />
+                  <Measure
+                    defaultValue={stringFertilizerUnit}
+                    onChange={(e) => setNewUnit0(e.target.value)}
+                  >
+                    <option value="">단위</option>
+
+                    <option value="L">L</option>
+                    <option value="mL">mL</option>
+                    <option value="kg">kg</option>
+                  </Measure>
+                </div>
+              </Fertilizer>
+              <Chemical>
+                <SmallTitle> 농약</SmallTitle>
+                <ContentWrap>
+                  <Product
+                    name="product"
+                    placeholder="농약명을 입력해주세요"
+                    defaultValue={workLogOne?.subMaterial[1]?.product}
+                    onChange={product1Change}
+                  />
+                </ContentWrap>
+                <div>
+                  <Quantity
+                    maxLength="6"
+                    placeholder="사용량"
+                    defaultValue={numberChemicalUse}
+                    onChange={(e) => {
+                      {
+                        inputNumberFormat(e);
+                        e.target.value === ""
+                          ? (setNewUse1(0), setNewUnit1(0))
+                          : setNewUse1(e.target.value);
+                      }
+                    }}
+                  />
+                  <Measure
+                    onChange={(e) => setNewUnit1(e.target.value)}
+                    defaultValue={stringChemicalUnit}
+                  >
+                    <option value="">단위</option>
+
+                    <option value="L">L</option>
+                    <option value="mL">mL</option>
+                    <option value="kg">kg</option>
+                  </Measure>
+                </div>
+              </Chemical>
+            </ProductWrap>
+          </MSubMaterialWrap>
+          <MHarvestWrap>
+            <SmallTitle>수확량</SmallTitle>
+            <ContentWrap>
+              <HarvestQuantity
+                type="text"
+                maxLength="8"
+                placeholder="수확량"
+                defaultValue={workLogOne.harvest}
+                onChange={(e) => {
+                  inputNumberFormat(e);
+                  setNewHarvest(e.target.value);
+                }}
+              />
+              <Kg>kg</Kg>
+            </ContentWrap>
+          </MHarvestWrap>
+        </MobileQuantityWrap>
 
         <WorkPhoto
           workLogOne={workLogOne}
@@ -393,11 +528,26 @@ const TotalWrap = styled.div`
   justify-content: center;
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  @media only screen and (max-width: 760px) {
+    width: 90%;
+    border-radius: 0px;
+    margin-bottom: 100px;
+  }
 `;
 
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  @media only screen and (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const MTopWrap = styled.div`
+  display: none;
+  @media only screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 const TitleInput = styled.input`
@@ -417,10 +567,20 @@ const TitleInput = styled.input`
   &::placeholder {
     color: #ccc;
   }
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 4px;
+  }
 `;
 
 const BtnWrap = styled.div`
   display: flex;
+  @media only screen and (max-width: 760px) {
+    position: absolute;
+    right: 20px;
+  }
 `;
 
 const EditBtn = styled.button`
@@ -467,9 +627,17 @@ const SmallTitle = styled.label`
   font-size: 18px;
   font-weight: 700;
   margin-right: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const Label = styled.label``;
+
+const ProductWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const FormCheckText = styled.span`
   width: auto;
@@ -490,12 +658,20 @@ const FormCheckText = styled.span`
     color: black;
     border: 1px solid black;
   }
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   margin-top: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
 `;
 
 const FormCheckLeft = styled.input.attrs({ type: "radio" })`
@@ -515,6 +691,16 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const QuantityWrap = styled.div`
   display: flex;
   margin-top: 30px;
+  @media only screen and (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const MobileQuantityWrap = styled.div`
+  display: none;
+  @media only screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 const Product = styled.input`
@@ -528,6 +714,9 @@ const Product = styled.input`
     outline: none;
     border: 1px solid #02113b;
   }
+  @media only screen and (max-width: 760px) {
+    width: 60px;
+  }
 `;
 
 const ContentWrap = styled.div`
@@ -536,6 +725,16 @@ const ContentWrap = styled.div`
 
 const SubMaterialWrap = styled.div`
   display: flex;
+  @media only screen and (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const MSubMaterialWrap = styled.div`
+  display: none;
+  @media only screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 const Fertilizer = styled.div`
@@ -583,6 +782,9 @@ const Quantity = styled.input`
     outline: none;
     border: 1px solid #02113b;
   }
+  @media only screen and (max-width: 760px) {
+    width: 20px;
+  }
 `;
 
 const Measure = styled.select`
@@ -609,6 +811,17 @@ const HarvestWrap = styled.div`
   margin-right: 40px;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const MHarvestWrap = styled.div`
+  display: none;
+  @media only screen and (max-width: 760px) {
+    display: block;
+    margin-top: 30px;
+  }
 `;
 
 const HarvestQuantity = styled.input`
@@ -669,6 +882,10 @@ const DatePickers = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
+    @media only screen and (max-width: 760px) {
+      font-size: 20px;
+      width: 100px;
+    }
   }
 `;
 
@@ -691,6 +908,14 @@ const WorkingHour = styled.div`
   margin-right: 30px;
 `;
 
+const MWorkingHour = styled.div`
+  display: none;
+  @media only screen and (max-width: 760px) {
+    display: block;
+    margin: 30px 0px;
+  }
+`;
+
 const HourQuantity = styled.input`
   width: 40px;
   padding: 4px 10px;
@@ -702,6 +927,9 @@ const HourQuantity = styled.input`
   &:focus {
     outline: none;
     border-bottom: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    width: 16px;
   }
 `;
 

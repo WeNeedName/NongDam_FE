@@ -49,6 +49,9 @@ const RecordContentWrap = styled.div`
   width: 93%;
   background-color: #fff;
   margin-top: 20px;
+  @media only screen and (max-width: 760px) {
+    margin-top: 30px;
+  }
 `;
 
 const SmallTitle = styled.label`

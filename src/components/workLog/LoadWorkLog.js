@@ -40,55 +40,54 @@ const LoadWorkLog = ({ workLogList }) => {
             </WriteBtn>
           </BtnWrap>
         </TopWrap>
-        {workLogList !== undefined && workLogList.length === 0 && (
-          <>
-            <BannerImage Image={Banner} />
-            <span>배너이미지</span>
-          </>
-        )}
         <>
-          {is_loaded ? (
-            workLogList !== undefined ? (
-              workLogList.map((list, i) => {
-                return (
-                  <BoxWrap
-                    className="boxWrap"
-                    onClick={() => {
-                      navigate(`/worklog/detail/${list.id}`);
-                    }}
-                    key={i}
-                  >
-                    <div>
-                      <WorkLogBox className="workLogBox">
-                        <LeftContent>
-                          <TitleContent>{list?.title}</TitleContent>
-                          <TimeContentWrap>
-                            <DateContent>
-                              {list?.date &&
-                                moment(list?.date).format("YYYY.MM.DD")}
-                            </DateContent>
-                          </TimeContentWrap>
-                          <WorkContent className="workMemoWrap">
-                            {list?.memo}
-                          </WorkContent>
-                          <CropContent>{list?.crop?.type}</CropContent>
-                        </LeftContent>
-                        <RightContent>
-                          {list.images[0] !== undefined ? (
-                            <ImgContent
-                              style={{
-                                backgroundImage: `url(${list?.images})`,
-                                backgroundSize: "cover",
-                              }}
-                            />
-                          ) : null}
-                        </RightContent>
-                      </WorkLogBox>
-                    </div>
-                  </BoxWrap>
-                );
-              })
-            ) : null
+          {is_loaded &&
+          workLogList !== undefined &&
+          workLogList.length === 0 ? (
+            <>
+              <BannerImage Image={Banner} />
+              <span>배너이미지</span>
+            </>
+          ) : is_loaded && workLogList !== undefined ? (
+            workLogList.map((list, i) => {
+              return (
+                <BoxWrap
+                  className="boxWrap"
+                  onClick={() => {
+                    navigate(`/worklog/detail/${list.id}`);
+                  }}
+                  key={i}
+                >
+                  <div>
+                    <WorkLogBox className="workLogBox">
+                      <LeftContent>
+                        <TitleContent>{list?.title}</TitleContent>
+                        <TimeContentWrap>
+                          <DateContent>
+                            {list?.date &&
+                              moment(list?.date).format("YYYY.MM.DD")}
+                          </DateContent>
+                        </TimeContentWrap>
+                        <WorkContent className="workMemoWrap">
+                          {list?.memo}
+                        </WorkContent>
+                        <CropContent>{list?.crop?.type}</CropContent>
+                      </LeftContent>
+                      <RightContent>
+                        {list.images[0] !== undefined && (
+                          <ImgContent
+                            style={{
+                              backgroundImage: `url(${list?.images})`,
+                              backgroundSize: "cover",
+                            }}
+                          />
+                        )}
+                      </RightContent>
+                    </WorkLogBox>
+                  </div>
+                </BoxWrap>
+              );
+            })
           ) : (
             <>
               {Array.from({ length: 5 }, (v, i) => i).map((list, index) => {
@@ -293,7 +292,7 @@ const WorkContent = styled.div`
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
   @media only screen and (max-width: 760px) {
-    width: 230px;
+    width: 90%;
   }
 `;
 
