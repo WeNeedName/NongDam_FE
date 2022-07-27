@@ -160,7 +160,7 @@ const Expense = ({ expenseData, windowSize }) => {
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="260"
+        width={windowSize > 760 ? 260 : 200}
       />
       <Legend>
         {labelList !== undefined &&

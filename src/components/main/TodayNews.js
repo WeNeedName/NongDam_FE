@@ -41,11 +41,12 @@ const TodayNews = () => {
                       <TextWrap>
                         <ContentsT imageURL={list.imageUrl}>
                           {list.title
-                            .replace("&quot;", "''")
-                            .replace(/(<br>|<br\/>|<br \/>)/g, " ")
-                            .replace(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")
-                            .replace(`&lt;`, " ")
-                            .replace(`&gt;`, " ")}
+                            .replaceAll("&quot;", "''")
+                            .replaceAll(/(<br>|<br\/>|<br \/>)/g, " ")
+                            .replaceAll(/(<b>|<b\/>|<b \/>|<\/b>)/g, " ")
+                            .replaceAll(`&lt;`, " ")
+                            .replaceAll(`&gt;`, " ")
+                            .replaceAll(`&apos;`, " ")}
                         </ContentsT>
                         <InfoWrap>
                           <ContentsTInfo>{list.article}</ContentsTInfo>
@@ -134,7 +135,7 @@ const Wrap = styled.div`
   } */
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
-    grid-row: 12 / 13;
+    grid-row: 7 / 10;
   }
 `;
 

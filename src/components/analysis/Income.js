@@ -7,7 +7,7 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const Income = ({ incomeData }) => {
+const Income = ({ incomeData, windowSize }) => {
   const incomeNumList =
     incomeData.data &&
     incomeData.data.map((data) => {
@@ -150,7 +150,7 @@ const Income = ({ incomeData }) => {
         options={donutData.options}
         series={donutData.series}
         type="donut"
-        width="260"
+        width={windowSize > 760 ? 260 : 200}
       />
       <Legend>
         {labelList !== undefined &&
