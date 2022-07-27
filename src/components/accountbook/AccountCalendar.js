@@ -97,7 +97,6 @@ const CalendarBook = ({ accountList }) => {
           },
         }}
         onSelectEvent={(eventInfo) => {
-          console.log(eventInfo);
           setEventInfo(eventInfo);
           toggleModal();
         }}

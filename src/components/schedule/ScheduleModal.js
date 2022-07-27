@@ -56,7 +56,7 @@ const ScheduleModal = ({
       setEndTime(date);
     }
   };
-  console.log(endTime);
+
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
       setCheckedCrops(e.target.id);

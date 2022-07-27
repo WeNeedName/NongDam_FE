@@ -26,7 +26,6 @@ const EventScheduleModal = ({
   const ref = useRef();
   const inputRef = useRef();
   const memoRef = useRef();
-  console.log(eventInfo);
 
   const currentScheduleList = useSelector(
     (state) => state.schedule.currentSchedule
@@ -43,7 +42,7 @@ const EventScheduleModal = ({
       list.startTime === startTimeEventFormat && list.toDo === eventInfo.title
   );
   const myCropsList = useSelector((state) => state.users.user?.crops);
-  console.log(schedule);
+
   const [openEdit, setOpenEdit] = useState(false);
 
   const [startTime, setStartTime] = useState(new Date(schedule?.startTime));

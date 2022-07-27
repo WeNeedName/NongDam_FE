@@ -36,7 +36,6 @@ const AccountListModal = ({
   let mappedData = new Map();
   reverseList !== undefined &&
     reverseList.map((list) => {
-      console.log(list);
       let original;
       if (mappedData.has(list.date)) original = mappedData.get(list.date);
       else original = [];
@@ -80,7 +79,6 @@ const AccountListModal = ({
                   <Hr />
                   {list[1] &&
                     list[1].map((data, idx) => {
-                      console.log(data);
                       return (
                         <EventWrapB key={idx}>
                           <WhereToUseWrap>

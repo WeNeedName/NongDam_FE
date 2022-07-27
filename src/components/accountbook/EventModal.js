@@ -90,7 +90,6 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
         <BodyWrap>
           {filteredList &&
             filteredList.map((list, id) => {
-              console.log(filteredList);
               return (
                 <div key={list.id}>
                   <Hr />

@@ -54,7 +54,7 @@ const Wrap = styled.div`
   top: 0px;
   bottom: 0px;
   row-gap: 16px;
-  /* column-gap: 15px; */
+  column-gap: 15px;
 
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, 25%) 1fr;

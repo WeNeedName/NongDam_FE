@@ -31,8 +31,6 @@ const MyCrops = ({
     setCropsObj(selectedCrops);
   }, [selectedCrops]);
 
-  console.log(selectedCrops);
-
   return (
     <Container>
       <Select

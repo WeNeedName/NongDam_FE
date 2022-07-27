@@ -36,7 +36,6 @@ const EditPw = () => {
     setNewPwCheck(e.target.value);
   };
 
-  console.log(oldPw, newPw);
   const editMyPw = () => {
     const oldAndNewPws = {
       oldPassword: oldPw,

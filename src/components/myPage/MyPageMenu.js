@@ -37,7 +37,7 @@ const MyPageMenu = () => {
 
   const changeRadio = (e) => {
     if (e.target.checked) {
-      props.setCrop(e.target.id);
+      setChecked(e.target.id);
     }
   };
 

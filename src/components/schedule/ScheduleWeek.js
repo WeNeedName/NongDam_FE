@@ -57,9 +57,7 @@ const ScheduleWeek = () => {
                     </TimeWrap>
                   </div>
                   <BottomWrap>
-                    <Crop>
-                      {"[" + sList.crop.type + "]" + " " + sList.crop.name}
-                    </Crop>
+                    <Crop>{sList.crop.type}</Crop>
                   </BottomWrap>
                 </ScheduleBox>
               );
@@ -101,7 +99,7 @@ const boxFade = keyframes`
 const ScheduleBoxWrap = styled.div`
   width: 80%;
   padding-right: 70px;
-  height: 70vh;
+  height: 660px;
   overflow: auto;
   animation: ${boxFade} 1s;
   ::-webkit-scrollbar {
@@ -113,7 +111,7 @@ const ScheduleBoxWrap = styled.div`
 `;
 
 const ScheduleBox = styled.div`
-  width: 80%;
+  width: 90%;
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
