@@ -201,6 +201,8 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
     },
   };
 
+  console.log(allDataListSort);
+
   return (
     <>
       <ChartWrap>
