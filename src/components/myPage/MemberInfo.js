@@ -38,8 +38,7 @@ const EditMemberInfo = () => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-  console.log(userInfo);
-  console.log(previousProfileImg);
+
   return (
     <Wrap>
       <Title>기본 정보</Title>
