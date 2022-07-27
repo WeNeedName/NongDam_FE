@@ -72,9 +72,9 @@ const EditMemberInfo = () => {
               <PreviousMyCrops>
                 {userInfo?.crops.length !== 0 ? (
                   <>
-                    {userInfo?.crops.map((list) => {
+                    {userInfo?.crops.map((list, idx) => {
                       return (
-                        <PreviousCropsList>
+                        <PreviousCropsList key={idx}>
                           {"[" + list.type + "]" + " " + list.name}
                         </PreviousCropsList>
                       );

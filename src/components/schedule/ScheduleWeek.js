@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import ScheduleModal from "./ScheduleModal";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -87,20 +87,20 @@ const Title = styled.div`
   margin-bottom: 20px;
 `;
 
-// const boxFade = keyframes`
-//   0% {
-//     opacity: 1;
-//     transform: translateY(5%);
-//   }
-//   50% {
-//     opacity: 0;
-//     transform: translateY(0);
-//   }
-//   100% {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// `;
+const boxFade = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(5%);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const ScheduleBoxWrap = styled.div`
   width: 100%;

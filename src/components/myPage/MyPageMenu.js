@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,14 +6,41 @@ import { editPwDB } from "../../redux/modules/users";
 import { logOutDB } from "../../redux/modules/users";
 import { positionFromAngle } from "@nivo/core";
 import { relativeTimeRounding } from "moment";
+// alert 라이브러리
+import Swal from "sweetalert2";
 
 const MyPageMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.users.user);
+  const [checked, setChecked] = useState("");
+
   const goToMemberInfo = () => {
     navigate("/mypage");
   };
+
+  const logOutConfirm = () => {
+    Swal.fire({
+      title: "정말 나가시겠어요?",
+      // icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#55A349",
+      cancelButtonColor: "#ddd",
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(logOutDB());
+      }
+    });
+  };
+
+  const changeRadio = (e) => {
+    if (e.target.checked) {
+      props.setCrop(e.target.id);
+    }
+  };
+
   return (
     <Wrap>
       <ContentWrap>
@@ -26,31 +53,58 @@ const MyPageMenu = () => {
           <UserEmail>{userInfo?.email}</UserEmail>
         </SmallInfo>
         <BottomWrap>
-          <span
-            className="EditInfo"
-            onClick={() => {
-              navigate("/mypage/editmemberinfo");
-            }}
-          >
-            회원정보 수정
-          </span>
+          <Label>
+            <FormCheckLeft
+              type="radio"
+              id="edit"
+              name="radioButton"
+              onChange={changeRadio}
+              value={checked}
+            />
+            <FormCheckText
+              className="EditInfo"
+              onClick={() => {
+                navigate("/mypage/editmemberinfo");
+              }}
+            >
+              회원정보 수정
+            </FormCheckText>
+          </Label>
+          <Label>
+            <FormCheckLeft
+              type="radio"
+              id="edit"
+              name="radioButton"
+              onChange={changeRadio}
+              value={checked}
+            />
 
-          <span
-            className="ChangePw"
-            onClick={() => {
-              navigate("/mypage/editpw");
-            }}
-          >
-            비밀번호 변경
-          </span>
-          <span
-            className="logOut"
-            onClick={() => {
-              dispatch(logOutDB());
-            }}
-          >
-            로그아웃
-          </span>
+            <FormCheckText
+              className="ChangePw"
+              onClick={() => {
+                navigate("/mypage/editpw");
+              }}
+            >
+              비밀번호 변경
+            </FormCheckText>
+          </Label>
+          <Label>
+            <FormCheckLeft
+              type="radio"
+              id="edit"
+              name="radioButton"
+              onChange={changeRadio}
+              value={checked}
+            />
+            <FormCheckText
+              className="logOut"
+              onClick={() => {
+                logOutConfirm();
+              }}
+            >
+              로그아웃
+            </FormCheckText>
+          </Label>
         </BottomWrap>
       </ContentWrap>
     </Wrap>
@@ -160,6 +214,34 @@ const BottomWrap = styled.div`
   @media only screen and (max-width: 760px) {
     margin-top: 30px;
   }
+`;
+
+const FormCheckText = styled.span`
+  width: auto;
+  height: auto;
+  font-weight: 400;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+  &:hover {
+    font-weight: 600;
+  }
+`;
+
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    font-weight: 600;
+  }
+  &:checked + ${FormCheckText} {
+    font-weight: 600;
+  }
+  display: none;
+`;
+
+const Label = styled.label`
+  margin-bottom: 10px;
 `;
 
 export default MyPageMenu;
