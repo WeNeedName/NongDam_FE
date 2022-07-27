@@ -11,7 +11,6 @@ export default function ToolbarSchedule(props) {
   // const [nowYear, setNowYear] = useState(null);
 
   const { date } = props;
-  console.log(props);
 
   const navigate = (action) => {
     props.onNavigate(action);
@@ -19,13 +18,10 @@ export default function ToolbarSchedule(props) {
     else setClick(false);
   };
 
-  console.log(click);
-
   const month = moment(date).format("MM");
   const year = moment(date).format("YYYY");
   const YYMM = { month: month, year: year };
   const [view, setView] = useState("month");
-  console.log(YYMM);
 
   return (
     <ToolbarWrap>

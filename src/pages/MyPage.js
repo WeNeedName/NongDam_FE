@@ -24,12 +24,7 @@ const MyPage = () => {
   }, []);
 
   const userInfo = useSelector((state) => state.users.user);
-  //console.log(isLogin)
-  // function logOut()
-  // {
-  //     sessionStorage.clear()
-  //     navigate("/");
-  // }
+
   return (
     <Wrap>
       <Header />

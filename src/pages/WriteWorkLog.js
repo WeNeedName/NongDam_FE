@@ -127,7 +127,6 @@ const WriteWorkLog = () => {
     images,
     workTime
   );
-  //console.log(workTime)
 
   return (
     <>
@@ -208,12 +207,14 @@ const Container = styled.div`
   background-color: #f5f5f5;
   margin-top: 100px;
 `;
+
 const TotalTitle = styled.div`
   grid-column: 2 / 3;
   font-size: 24px;
   font-weight: 700;
   align-self: flex-start;
 `;
+
 const Wrap = styled.div`
   grid-column: 2 / 3;
   max-width: 700px;

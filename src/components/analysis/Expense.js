@@ -7,7 +7,7 @@ import ReactApexChart from "react-apexcharts";
 import moment from "moment";
 import "moment/locale/ko";
 
-const Expense = ({ expenseData }) => {
+const Expense = ({ expenseData, windowSize }) => {
   const expenseNumList =
     expenseData.data &&
     expenseData.data.map((data) => {
@@ -166,9 +166,9 @@ const Expense = ({ expenseData }) => {
         {labelList !== undefined &&
           labelList.map((data, idx) => {
             return (
-              <LabelWrap>
+              <LabelWrap key={idx}>
                 <LabelTip index={idx} colorList={colorList} />
-                <Label key={idx}>{data}</Label>
+                <Label>{data}</Label>
               </LabelWrap>
             );
           })}

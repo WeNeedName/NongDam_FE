@@ -4,7 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../../redux/modules/users";
 import Select from "react-select";
 
-const MyCrops = ({ setCrops, previousCrops, setCropsObj }) => {
+const MyCrops = ({
+  setCrops,
+  previousCrops,
+  setCropsObj,
+  sendCrops,
+  setSendCrops,
+  cropsObj,
+  cropsArray,
+}) => {
   const dispatch = useDispatch();
   const [selectedCrops, setSelectedCrops] = useState([]);
   const cropsData = useSelector((state) => state.users.crops);
@@ -22,6 +30,8 @@ const MyCrops = ({ setCrops, previousCrops, setCropsObj }) => {
     setCrops(_crops);
     setCropsObj(selectedCrops);
   }, [selectedCrops]);
+
+  console.log(selectedCrops);
 
   return (
     <Container>
@@ -42,7 +52,13 @@ const MyCrops = ({ setCrops, previousCrops, setCropsObj }) => {
         }
         placeholder="작물을 검색해주세요"
         onChange={(value) => {
-          setSelectedCrops(value);
+          // if (!sendCrops)
+          setCropsObj(value);
+
+          // else {
+          //   const arr = sendCrops.push(value);
+          //   setSendCrops(arr);
+          // }
         }}
         classNamePrefix="select"
       />

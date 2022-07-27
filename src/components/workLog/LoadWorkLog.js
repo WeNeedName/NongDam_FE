@@ -40,88 +40,87 @@ const LoadWorkLog = ({ workLogList }) => {
             </WriteBtn>
           </BtnWrap>
         </TopWrap>
-        {workLogList !== undefined && workLogList.length !== 0 ? (
-          <>
-            {is_loaded ? (
-              workLogList !== undefined ? (
-                workLogList.map((list, i) => {
-                  return (
-                    <BoxWrap
-                      className="boxWrap"
-                      onClick={() => {
-                        navigate(`/worklog/detail/${list.id}`);
-                      }}
-                      key={i}
-                    >
-                      <div>
-                        <WorkLogBox className="workLogBox">
-                          <LeftContent>
-                            <TitleContent>{list?.title}</TitleContent>
-                            <TimeContentWrap>
-                              <DateContent>
-                                {list?.date &&
-                                  moment(list?.date).format("YYYY.MM.DD")}
-                              </DateContent>
-                            </TimeContentWrap>
-                            <WorkContent className="workMemoWrap">
-                              {list?.memo}
-                            </WorkContent>
-                            <CropContent>{list?.crop?.type}</CropContent>
-                          </LeftContent>
-                          <RightContent>
-                            {list.images[0] !== undefined ? (
-                              <ImgContent
-                                style={{
-                                  backgroundImage: `url(${list?.images})`,
-                                  backgroundSize: "cover",
-                                }}
-                              />
-                            ) : null}
-                          </RightContent>
-                        </WorkLogBox>
-                      </div>
-                    </BoxWrap>
-                  );
-                })
-              ) : null
-            ) : (
-              <>
-                {Array.from({ length: 5 }, (v, i) => i).map((list, index) => {
-                  return (
-                    <ShimmerWrap key={index}>
-                      <ShimmerTextWrap>
-                        <ShimmerTitle
-                          className="thumNail-news-title"
-                          line={1}
-                          gap={10}
-                          variant="secondary"
-                        />
-
-                        <ShimmerText
-                          className="thumNail-workLog-text"
-                          line={4}
-                          gap={10}
-                        />
-                      </ShimmerTextWrap>
-
-                      <ShimmerThumbnail
-                        className="thumNail-workLog"
-                        height={150}
-                        width={150}
-                        rounded
-                      />
-                    </ShimmerWrap>
-                  );
-                })}
-              </>
-            )}
-          </>
-        ) : (
+        {workLogList !== undefined && workLogList.length === 0 && (
           <>
             <BannerImage Image={Banner} />
             <span>배너이미지</span>
           </>
         )}
+        <>
+          {is_loaded ? (
+            workLogList !== undefined ? (
+              workLogList.map((list, i) => {
+                return (
+                  <BoxWrap
+                    className="boxWrap"
+                    onClick={() => {
+                      navigate(`/worklog/detail/${list.id}`);
+                    }}
+                    key={i}
+                  >
+                    <div>
+                      <WorkLogBox className="workLogBox">
+                        <LeftContent>
+                          <TitleContent>{list?.title}</TitleContent>
+                          <TimeContentWrap>
+                            <DateContent>
+                              {list?.date &&
+                                moment(list?.date).format("YYYY.MM.DD")}
+                            </DateContent>
+                          </TimeContentWrap>
+                          <WorkContent className="workMemoWrap">
+                            {list?.memo}
+                          </WorkContent>
+                          <CropContent>{list?.crop?.type}</CropContent>
+                        </LeftContent>
+                        <RightContent>
+                          {list.images[0] !== undefined ? (
+                            <ImgContent
+                              style={{
+                                backgroundImage: `url(${list?.images})`,
+                                backgroundSize: "cover",
+                              }}
+                            />
+                          ) : null}
+                        </RightContent>
+                      </WorkLogBox>
+                    </div>
+                  </BoxWrap>
+                );
+              })
+            ) : null
+          ) : (
+            <>
+              {Array.from({ length: 5 }, (v, i) => i).map((list, index) => {
+                return (
+                  <ShimmerWrap key={index}>
+                    <ShimmerTextWrap>
+                      <ShimmerTitle
+                        className="thumNail-news-title"
+                        line={1}
+                        gap={10}
+                        variant="secondary"
+                      />
+
+                      <ShimmerText
+                        className="thumNail-workLog-text"
+                        line={4}
+                        gap={10}
+                      />
+                    </ShimmerTextWrap>
+
+                    <ShimmerThumbnail
+                      className="thumNail-workLog"
+                      height={150}
+                      width={150}
+                      rounded
+                    />
+                  </ShimmerWrap>
+                );
+              })}
+            </>
+          )}
+        </>
       </Wrap>
     </Container>
   );
@@ -263,7 +262,7 @@ const LeftContent = styled.div`
 
 const TitleContent = styled.div`
   font-size: 24px;
-  margin: 10px 0px;
+  margin-bottom: 10px;
   font-weight: 500;
 `;
 const TimeContentWrap = styled.div`
@@ -293,6 +292,9 @@ const WorkContent = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
+  @media only screen and (max-width: 760px) {
+    width: 230px;
+  }
 `;
 
 const CropContent = styled.div`

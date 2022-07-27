@@ -29,8 +29,6 @@ const ScheduleWeek = () => {
     (state) => state.schedule.currentSchedule
   );
 
-  console.log(currentScheduleList);
-
   return (
     <Wrap>
       <Title>이번 주 할 일</Title>
@@ -93,7 +91,6 @@ const boxFade = keyframes`
   0% {
     opacity: 0;
     transform: translateY(5%);
- 
   }
   100% {
     opacity: 1;
