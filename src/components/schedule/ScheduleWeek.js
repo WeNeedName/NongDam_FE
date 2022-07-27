@@ -91,7 +91,6 @@ const boxFade = keyframes`
   0% {
     opacity: 0;
     transform: translateY(5%);
- 
   }
   100% {
     opacity: 1;
