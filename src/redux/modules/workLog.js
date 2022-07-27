@@ -37,7 +37,7 @@ export const loadWorkLogListDB = () => {
         dispatch(getWorkLogList(res.data));
       })
       .catch((err) => {
-        window.alert("영농일지를 불러오는 중에 오류가 발생했습니다.");
+        window.alert(err.response.data.msg);
         console.log(err);
       });
   };
@@ -51,6 +51,7 @@ export const loadWorkLogDB = (id) => {
         dispatch(getWorkLog(res.data));
       })
       .catch((err) => {
+        window.alert(err.response.data.msg);
         console.log(err);
       });
   };
@@ -62,6 +63,7 @@ export const deleteWorkLogDB = (id) => {
       await apis.deleteWorkLog(id);
       dispatch(deleteWorkLog(id));
     } catch (error) {
+      window.alert(error.response.data.msg);
       console.log(error);
     }
   };
