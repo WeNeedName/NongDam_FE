@@ -16,6 +16,23 @@ import "moment/locale/ko";
 const MyCropsMarketPriceCard = ({ checkedInputs }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
 
   // const [checkedInputs, setCheckedInputs] = useState("month");
 
@@ -48,14 +65,20 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
   }
   // x축 월 리스트 만들기
   const today = new Date();
-  const month = moment(today).format("YYYY.MM");
+  const month =
+    windowSize.innerWidth > 760
+      ? moment(today).format("YYYY.MM")
+      : moment(today).format("YY.MM");
   let day = new Date();
   const myDateList = Array.from([day, day, day, day, day, day], (x) =>
     x.setMonth(x.getMonth() - 2)
   );
+
   const newMonthDateList = [];
   const newMyDateList = myDateList.map((list) => {
-    return newMonthDateList.push(moment(list).format("YYYY.MM"));
+    if (windowSize.innerWidth > 760)
+      newMonthDateList.push(moment(list).format("YYYY.MM"));
+    else newMonthDateList.push(moment(list).format("YY.MM"));
   });
   newMonthDateList.unshift(month);
   const monthDate = newMonthDateList.reverse();
@@ -241,7 +264,7 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
           },
         },
       };
-      console.log();
+
       return (
         <React.Fragment key={index}>
           {usersNewCropList.length !== index + 1 ? (
@@ -378,6 +401,9 @@ const Wrap = styled.div`
   background-color: #fff;
   margin-right: 20px;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    width: 340px;
+  }
 `;
 
 const EndWrap = styled.div`
@@ -385,6 +411,9 @@ const EndWrap = styled.div`
   height: 100%;
   border: none;
   background-color: #f5f5f5;
+  @media only screen and (max-width: 760px) {
+    width: 7%;
+  }
 `;
 
 const RowWrap = styled.div`

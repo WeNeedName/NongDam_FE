@@ -191,6 +191,9 @@ const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
+  @media only screen and (max-width: 760px) {
+    height: 80px;
+  }
 `;
 
 const Hr = styled.div`

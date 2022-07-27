@@ -239,7 +239,7 @@ const Wrap = styled.div`
   position: relative;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
-    grid-row: 7 / 10;
+    grid-row: 5 / 7;
   }
 `;
 

@@ -137,11 +137,20 @@ const TitleInput = styled.input`
   &::placeholder {
     color: #ccc;
   }
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+    font-size: 30px;
+    margin-bottom: 4px;
+  }
 `;
 
 const CategoryWrap = styled.div`
   display: flex;
   margin-top: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
 `;
 
 const SmallTitle = styled.label`

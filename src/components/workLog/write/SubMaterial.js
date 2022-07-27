@@ -175,6 +175,9 @@ const Product = styled.input`
     outline: none;
     border: 1px solid #02113b;
   }
+  @media only screen and (max-width: 760px) {
+    width: 280px;
+  }
 `;
 
 const QuantityMeasure = styled.div``;
@@ -212,6 +215,9 @@ const STabs = styled(Tabs)`
   font-size: 12px;
   width: 400px;
   /* width: 50%; */
+  @media only screen and (max-width: 760px) {
+    width: 300px;
+  }
 `;
 
 const STabList = styled(TabList)`
@@ -240,6 +246,7 @@ const STab = styled(Tab)`
     color: #02113b;
   }
 `;
+
 STab.tabsRole = "Tab";
 
 const STabPanel = styled(TabPanel)`
@@ -252,6 +259,9 @@ const STabPanel = styled(TabPanel)`
 
   &.is-selected {
     display: block;
+  }
+  @media only screen and (max-width: 760px) {
+    width: 300px;
   }
 `;
 STabPanel.tabsRole = "TabPanel";

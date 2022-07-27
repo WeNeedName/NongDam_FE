@@ -192,6 +192,7 @@ const ListNum = styled.span`
 `;
 
 const EventWrap = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -200,6 +201,7 @@ const EventWrap = styled.div`
 `;
 
 const BodyWrap = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -211,12 +213,15 @@ const Hr = styled.div`
 `;
 
 const WhereToUseWrap = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
 const WhereToUseType = styled.div`
+  max-width: 300px;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -31,7 +31,7 @@ const ScheduleWeek = () => {
 
   return (
     <Wrap>
-      <Title>이번 주 할 일</Title>
+      <Title>📆 이번 주 할 일</Title>
       <ScheduleBoxWrap scrollPosition={scrollPosition}>
         {currentScheduleList !== undefined
           ? currentScheduleList.map((sList, scheduleId) => {
