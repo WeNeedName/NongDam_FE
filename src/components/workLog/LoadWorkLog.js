@@ -26,7 +26,7 @@ const LoadWorkLog = ({ workLogList }) => {
     <Container>
       <Wrap className="wrap">
         <TopWrap className="topWrap">
-          <Title className="totalTitle"> 영농일지</Title>
+          <Title className="totalTitle">✏️ 농장일지</Title>
           <BtnWrap>
             {/* <SearchByCrops></SearchByCrops> */}
             {/* <SearchByDateBtn>날짜로 조회</SearchByDateBtn> */}

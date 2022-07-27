@@ -30,7 +30,7 @@ const EventScheduleModal = ({
   const currentScheduleList = useSelector(
     (state) => state.schedule.currentSchedule
   );
-
+  const yearMonth = useSelector((state) => state.account.yearMonth);
   //스케줄 상세 모달 열기
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const [scheduleId, setScheduleId] = useState();
@@ -65,7 +65,6 @@ const EventScheduleModal = ({
       setDateErr(true);
     } else {
       setDateErr(false);
-      setEndTime(date);
     }
   };
   const changeRadioCrops = (e) => {
@@ -122,7 +121,7 @@ const EventScheduleModal = ({
       toDo: toDo,
     };
 
-    dispatch(editScheduleDB(id, data)).then(() => {
+    dispatch(editScheduleDB(id, data, yearMonth)).then(() => {
       toggleModal();
     });
   };
@@ -212,7 +211,7 @@ const EventScheduleModal = ({
                         // });
                       }}
                       showTimeSelect
-                      minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
+                      //오늘보다 이전 날짜는 선택 못하게
                       dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
                       locale={ko} // 한글로 변경
 
@@ -228,7 +227,10 @@ const EventScheduleModal = ({
                     <DatePicker
                       className="endDatePicker"
                       selected={endTime}
-                      onChange={(date) => onChangeEndDate(date)}
+                      onChange={(date) => {
+                        onChangeEndDate(date);
+                        setEndTime(date);
+                      }}
                       showTimeSelect
                       minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
                       dateFormat="yyyy년 MM월 dd일 HH:mm"
@@ -237,7 +239,7 @@ const EventScheduleModal = ({
                     />
                     {dateErr === true && (
                       <ErrorMsg>
-                        종료시간을 시작시간보다 늦게 지정해주세요
+                        종료시간은 시작시간보다 빠르게 지정할 수 없습니다.
                       </ErrorMsg>
                     )}
                   </>

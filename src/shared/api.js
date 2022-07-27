@@ -84,10 +84,10 @@ export const apis = {
   loadCropsList: () => api.get("/crops"),
 
   // 일정(schedule)
-  loadSchedule: () => api.get("/schedule"),
+  // loadSchedule: () => api.get("/schedule"),
+  loadSchedule: (date) => api.get(`/schedule/${date.year}-${date.month}`),
   loadCurrentSchedule: () => api.get("/schedule"),
-  loadMonthlySchedule: (date) =>
-    api.get(`/schedule/${date.year}-${date.month}`),
+
   addSchedule: (data) => api.post("/schedule", data),
   editSchedule: (id, schedule) => api.put(`/schedule/${id}`, schedule),
   deleteSchedule: (scheduleId) => api.delete(`/schedule/${scheduleId}`),

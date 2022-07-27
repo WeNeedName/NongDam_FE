@@ -93,7 +93,7 @@ const Haeder = ({ currentPage }) => {
                     }}
                     currentPage={headerNav}
                   >
-                    영농일지
+                    농장일지
                   </FormCheckText>
                   <FormCheckText
                     id="analysis"

@@ -132,7 +132,7 @@ const WriteWorkLog = () => {
     <>
       <Header currentPage="workLog" />
       <Container>
-        <TotalTitle>영농일지 작성</TotalTitle>
+        <TotalTitle>✍️ 농장일지 작성</TotalTitle>
         <Wrap>
           <ContentWrap>
             <Work

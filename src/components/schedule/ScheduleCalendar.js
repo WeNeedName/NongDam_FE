@@ -20,7 +20,7 @@ const ScheduleCalendar = () => {
   const userInfo = useSelector((state) => state.users.user);
   const scheduleList = useSelector((state) => state.schedule.scheduleList);
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
-
+  console.log(scheduleList);
   //큰 달력에서 모달 열기
   const [isOpen, setOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState(null);
@@ -60,7 +60,6 @@ const ScheduleCalendar = () => {
             }
           }}
         >
-          {" "}
           month
         </MonthChangeBtn>
       ) : null}
@@ -163,20 +162,24 @@ const NoticeBtn = styled.button`
 const MonthChangeBtn = styled.div`
   border: 1px solid #bfbfbf;
   border-radius: 13px;
-  padding: 3.5px 13px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 13px;
+  padding-left: 13px;
   color: #616161;
   font-size: 14px;
   background-color: transparent;
   position: absolute;
-  left: 75%;
-  top: 4.7%;
+  /* left: 75%; */
+  right: 120px;
+  top: 35px;
   cursor: pointer;
   &:hover {
     opacity: 0.7;
   }
   @media only screen and (max-width: 760px) {
     left: 74%;
-    top: 4.8%;
+    top: 11%;
   }
 `;
 
