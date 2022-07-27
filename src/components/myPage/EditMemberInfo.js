@@ -193,9 +193,6 @@ const EditMemberInfo = () => {
                   />
                 )}
               </div>
-
-              <Label htmlFor="inputImage">프로필 선택</Label>
-
               <ImageBtn
                 type="file"
                 id="inputImage"
@@ -405,6 +402,7 @@ const Wrap = styled.div`
 const Title = styled.span`
   font-size: 18px;
   font-weight: 700;
+  margin-left: 20px;
 `;
 
 const ContentWrap = styled.div``;
