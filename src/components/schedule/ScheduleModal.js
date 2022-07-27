@@ -28,7 +28,7 @@ const ScheduleModal = ({
   const dispatch = useDispatch();
   const schedule = currentScheduleList?.find((list) => list.id === scheduleId);
   const myCropsList = useSelector((state) => state.users.user?.crops);
-
+  const yearMonth = useSelector((state) => state.account.yearMonth);
   // console.log(myCropsList)
   console.log(schedule);
 
@@ -53,7 +53,6 @@ const ScheduleModal = ({
       setDateErr(true);
     } else {
       setDateErr(false);
-      setEndTime(date);
     }
   };
 
@@ -78,7 +77,7 @@ const ScheduleModal = ({
       toDo: toDo,
     };
 
-    dispatch(editScheduleDB(id, data)).then(() => {
+    dispatch(editScheduleDB(id, data, yearMonth)).then(() => {
       toggleModal();
     });
   };
@@ -180,12 +179,11 @@ const ScheduleModal = ({
                     selected={startTime}
                     onChange={(date) => {
                       setStartTime(date);
-                      inputRef.current.focus({
-                        cursor: "end",
-                      });
+                      // inputRef.current.focus({
+                      //   cursor: "end",
+                      // });
                     }}
                     showTimeSelect
-                    minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
                     locale={ko} // 한글로 변경
 
@@ -201,7 +199,10 @@ const ScheduleModal = ({
                   <DatePicker
                     className="endDatePicker"
                     selected={endTime}
-                    onChange={(date) => onChangeEndDate(date)}
+                    onChange={(date) => {
+                      onChangeEndDate(date);
+                      setEndTime(date);
+                    }}
                     showTimeSelect
                     minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
                     dateFormat="yyyy년 MM월 dd일 HH:mm"

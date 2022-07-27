@@ -29,6 +29,7 @@ const getYearMonth = createAction(GET_YEAR_MONTH, (data) => ({ data }));
 
 // InitialState
 const initialState = {
+  is_loaded: false,
   scheduleList: [],
   currentSchedule: [],
   yearMonth: {
@@ -77,11 +78,11 @@ export const getCurrentScheduleListDB = () => {
   };
 };
 
-//월별 장부리스트 불러오기
+//월별 일정리스트 불러오기
 export const getScheduleListDB = (date) => {
   return async function (dispatch) {
     apis
-      .loadMonthlySchedule(date)
+      .loadSchedule(date)
       .then((response) => {
         dispatch(getScheduleList(response.data));
       })
@@ -93,13 +94,28 @@ export const getScheduleListDB = (date) => {
 };
 
 //스케줄 수정하기
-export const editScheduleDB = (id, data) => async (dispatch) => {
+export const editScheduleDB = (id, data, yearMonth) => async (dispatch) => {
   try {
-    console.log("스케줄 수정 준비", id, data);
+    //console.log("스케줄 수정 준비", id, data);
     await apis.editSchedule(id, data);
+    apis.loadSchedule(yearMonth).then((response) => {
+      //dispatch(getSchedule(response.data));
+      dispatch(getScheduleList(response.data));
+      Swal.fire({
+        title: "수정이 완료되었습니다.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        color: "#black",
+        padding: "10px",
+        width: "400px",
+        // height: "200px",
+      });
+    });
+
     apis.loadCurrentSchedule().then((response) => {
       dispatch(getSchedule(response.data));
-      dispatch(getScheduleList(response.data));
+      //dispatch(getScheduleList(response.data));
       Swal.fire({
         title: "수정이 완료되었습니다.",
         icon: "success",
@@ -108,11 +124,11 @@ export const editScheduleDB = (id, data) => async (dispatch) => {
         color: "#black",
         padding: "20px",
         width: "400px",
-        height: "200px",
+        // height: "200px",
       });
     });
   } catch (error) {
-    //window.alert("일정 수정 중에 오류가 발생했습니다");
+    window.alert("일정 수정 중에 오류가 발생했습니다");
     console.log(error);
   }
 };
@@ -137,14 +153,22 @@ export const getYearMonthDB = (date) => {
 // reducer
 export default handleActions(
   {
-    [GET_SCHEDULE]: (state, action) =>
+    [GET_YEAR_MONTH]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.currentSchedule = action.payload.currentSchedule;
+        // console.log(payload);
+        draft.yearMonth = payload.data;
       }),
+
     [GET_SCHEDULE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.scheduleList = payload.list;
       }),
+    [GET_SCHEDULE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loaded = true;
+        draft.currentSchedule = action.payload.currentSchedule;
+      }),
+
     [DELETE_SCHEDULE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.currentSchedule = draft.currentSchedule.filter(

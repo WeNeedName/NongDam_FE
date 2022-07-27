@@ -23,6 +23,10 @@ export default function ToolbarSchedule(props) {
   const YYMM = { month: month, year: year };
   const [view, setView] = useState("month");
 
+  useEffect(() => {
+    dispatch(getYearMonthDB(YYMM));
+  }, [click]);
+
   return (
     <ToolbarWrap>
       {/* <button type="button" onClick={navigate.bind(null, "TODAY")}>
