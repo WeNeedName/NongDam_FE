@@ -77,7 +77,10 @@ const StyledModal = styled(ReactModal)`
   right: 10%;
   border: 1px solid #eee;
   z-index: 10000;
-  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+  &:focus {
+    outline: none;
+  }
   @media only screen and (max-width: 1220px) {
     top: 10%;
     right: 5%;
@@ -103,7 +106,7 @@ const Email = styled.span`
 const Menu = styled.span`
   width: 100%;
   height: auto;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 14px;
   &:hover {
     font-weight: 500;
@@ -124,7 +127,7 @@ const LogOut = styled.span`
   width: 100%;
   height: auto;
   margin-top: 16px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     font-weight: 500;
