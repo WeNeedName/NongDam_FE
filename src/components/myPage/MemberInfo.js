@@ -95,7 +95,7 @@ const EditMemberInfo = () => {
                     {userInfo?.crops.map((list, idx) => {
                       return (
                         <PreviousCropsList key={idx}>
-                          {"[" + list.type + "]" + " " + list.name}
+                          {list.type + " " + list.name}
                         </PreviousCropsList>
                       );
                     })}
@@ -118,8 +118,8 @@ const EditMemberInfo = () => {
               {userInfo?.countryCode ? (
                 <>
                   {userInfo?.countryCode === 1101 && "서울(도매)"}
-                  {userInfo?.countryCode === 2101 && "부산(도매)"}
-                  {userInfo?.countryCode === 2201 && "대구(도매)"}
+                  {userInfo?.countryCode === 2100 && "부산(도매)"}
+                  {userInfo?.countryCode === 2200 && "대구(도매)"}
                   {userInfo?.countryCode === 2300 && "인천(소매)"}
                   {userInfo?.countryCode === 2401 && "광주(도매)"}
                   {userInfo?.countryCode === 2501 && "대전(도매)"}
@@ -134,7 +134,6 @@ const EditMemberInfo = () => {
                   {userInfo?.countryCode === 3613 && "순천(소매)"}
                   {userInfo?.countryCode === 3714 && "안동(소매)"}
                   {userInfo?.countryCode === 3814 && "창원(소매)"}
-                  {userInfo?.countryCode === 3145 && "용인(소매)"}
                 </>
               ) : (
                 <option value="">
