@@ -208,9 +208,9 @@ const EventScheduleModal = ({
                       selected={startTime}
                       onChange={(date) => {
                         setStartTime(date);
-                        inputRef.current.focus({
-                          cursor: "end",
-                        });
+                        // inputRef.current.focus({
+                        //   cursor: "end",
+                        // });
                       }}
                       showTimeSelect
                       minDate={new Date()} //오늘보다 이전 날짜는 선택 못하게
@@ -570,7 +570,9 @@ const InputMemo = styled.textarea`
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
+  resize: none;
   :focus {
+    border: 1px solid black;
     outline: none;
   }
 `;
