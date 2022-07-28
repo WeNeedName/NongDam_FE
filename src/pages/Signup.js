@@ -190,7 +190,7 @@ const Signup = () => {
             {pwCheckErr && pwCheck !== "" && (
               <PwCheckErr>비밀번호가 일치하지 않습니다.</PwCheckErr>
             )}
-            {pwCheck === pw && !pwErr && (
+            {pwCheck !== "" && pwCheck === pw && !pwCheckErr && (
               <PwCheckOk>비밀번호가 일치합니다.</PwCheckOk>
             )}
           </InputWrap>
