@@ -58,9 +58,7 @@ button.rbc-input::-moz-focus-inner {
   direction: rtl;
 }
 
-.rbc-off-range {
-  /* color: #999999; */
-}
+
 /* 이전, 다음달 날짜영역 */
 .rbc-off-range-bg {
   background: #F7F7F7;
@@ -82,9 +80,7 @@ button.rbc-input::-moz-focus-inner {
   min-height: 0;
   /* border-bottom: 1px solid #ddd; */
 }
-.rbc-header + .rbc-header {
-  /* border-left: 1px solid #ddd; */
-}
+
 .rbc-rtl .rbc-header + .rbc-header {
   border-left-width: 0;
   /* border-right: 1px solid #ddd; */
@@ -260,12 +256,7 @@ button.rbc-input::-moz-focus-inner {
   cursor: inherit;
   pointer-events: none;
 }
-.rbc-event.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
-  /* background-color: #265985; */
-}
-.rbc-event:focus, .rbc-day-slot .rbc-background-event:focus {
-  /* outline: 1px auto #3b99fc; */
-}
+
 
 .rbc-event-ex, .rbc-day-slot .rbc-background-event {
   border: none;
@@ -285,12 +276,7 @@ button.rbc-input::-moz-focus-inner {
   cursor: inherit;
   pointer-events: none;
 }
-.rbc-event-ex.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
-  /* background-color: #265985; */
-}
-.rbc-event-ex:focus, .rbc-day-slot .rbc-background-event:focus {
-  /* outline: 1px auto #3b99fc; */
-}
+
 
 .rbc-event-label {
   font-size: 80%;

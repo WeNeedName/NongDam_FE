@@ -206,6 +206,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
             </CancelBtn>
           </BtnWrap>
         </TopWrap>
+
         <MTopWrap>
           <BtnWrap>
             <EditBtn
@@ -552,7 +553,7 @@ const MTopWrap = styled.div`
 
 const TitleInput = styled.input`
   height: 30px;
-  width: 400px;
+  width: 420px;
   border-left: none;
   border-right: none;
   border-top: none;

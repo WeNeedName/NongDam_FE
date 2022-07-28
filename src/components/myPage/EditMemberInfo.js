@@ -37,7 +37,6 @@ const EditMemberInfo = () => {
     return array.push(list.id);
   });
 
-  //작물 버튼 생성중
   const myCropsList = useSelector((state) => state.users.user?.crops); //[{id, name, category, type}]
   const [crops, setCrops] = useState(); //새로 선택한 작물 id값(서버 통신용) [1]
   const [cropsObj, setCropsObj] = useState([]); //새로 선택한 작물 value, label값(작물 버튼 용)[{label: [type]name, value: id }]
@@ -51,9 +50,6 @@ const EditMemberInfo = () => {
       value: list.id,
     });
   });
-
-  // 기존 작물 + 새로운 작물 리스트
-  const [sendCrops, setSendCrops] = useState();
 
   useEffect(() => {
     cropsArray.push(...cropsObj);
@@ -85,7 +81,6 @@ const EditMemberInfo = () => {
   const [countryCode, setCountryCode] = useState(0);
   const [profileImg, setProfileImg] = useState("");
   const [address, setAddress] = useState("");
-  const [disable, setDisable] = useState(true);
   const [ImgSrc, setImgSrc] = useState("");
 
   const modalCloseRef = useRef();
@@ -120,31 +115,22 @@ const EditMemberInfo = () => {
     }
   };
   const previousCountryCodeNumber = Number(previousCountryCode);
-
-  const sendCropsFilter =
-    sendCrops !== undefined &&
-    sendCrops.map((list) => {
-      return (list = list.value);
-    });
-
-  const cropsArrayFilter =
-    cropsArray !== undefined &&
-    cropsArray.filter((list) => {
-      return (list = list.value);
-    });
+  // 작물 다 지우면 [0] 으로 전송
+  const sendCrop = allCropListFilter.length > 0 ? allCropListFilter : [0];
 
   //서버 통신 부분
   const editInfo = async (event) => {
-    if (crops.length > 7) {
-      window.alert("내 작물은 7개까지 선택하실 수 있습니다.");
+    if (allCropList.length > 7) {
+      window.alert("내 작물은 최대 7개까지 선택하실 수 있습니다.");
     } else {
       const data = {
         nickname: nickname === "" ? previousNickname : nickname,
         address: address === "" ? previousAddress : address,
         countryCode:
           countryCode === undefined ? previousCountryCodeNumber : countryCode,
-        crops: sendCrops !== undefined ? sendCropsFilter : allCropListFilter,
+        crops: sendCrop,
       };
+      console.log(data);
       let frm = new FormData();
       frm.append("data", JSON.stringify(data));
       if (profileImg === "") {
@@ -290,15 +276,7 @@ const EditMemberInfo = () => {
                     })}
               </PrevAndNewCrops>
 
-              <MyCrops
-                setCrops={setCrops}
-                previousCrops={previousCrops}
-                setCropsObj={setCropsObj}
-                sendCrops={sendCrops}
-                setSendCrops={setSendCrops}
-                cropsObj={cropsObj}
-                cropsArray={cropsArray}
-              />
+              <MyCrops setCrops={setCrops} setCropsObj={setCropsObj} />
             </CropsContent>
           </TitleAndCrops>
         </CropsWrap>
@@ -388,6 +366,9 @@ const Wrap = styled.div`
   background: #ffffff;
   padding: 40px 40px 40px 40px;
   grid-column: 3 / 6;
+  @media only screen and (max-width: 1550px) {
+    margin-left: 10px;
+  }
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
@@ -548,7 +529,6 @@ const AddressContent = styled.button`
 `;
 const AddressBtn = styled.button`
   font-size: 11px;
-  width: 65px;
   padding: 4px 10px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;

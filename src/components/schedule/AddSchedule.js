@@ -326,6 +326,7 @@ const SmallTitle = styled.label`
 const CropSelectBoxWrap = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const StartDate = styled.div`
@@ -385,6 +386,7 @@ const FormCheckText = styled.span`
   align-items: center;
   cursor: pointer;
   color: #ccc;
+  margin-bottom: 6px;
   &:hover {
     color: black;
     border: 1px solid black;

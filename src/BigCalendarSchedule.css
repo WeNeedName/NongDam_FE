@@ -66,9 +66,7 @@ button.rbc-input::-moz-focus-inner {
   direction: rtl;
 }
 
-.rbc-off-range {
-  /* color: #999999; */
-}
+
 /* 이전, 다음달 날짜영역 */
 .rbc-off-range-bg {
   background: #F7F7F7;
@@ -90,13 +88,12 @@ button.rbc-input::-moz-focus-inner {
   font-weight: bold;
   font-size: 100%;
   min-height: 0;
-  font-weight: 300;
+  font-weight: 400;
   color: #22641C;
+  margin-bottom: 2px;
   /* border-bottom: 1px solid #ddd; */
 }
-.rbc-header + .rbc-header {
-  /* border-left: 1px solid #ddd; */
-}
+
 .rbc-rtl .rbc-header + .rbc-header {
   border-left-width: 0;
   /* border-right: 1px solid #ddd; */
@@ -277,13 +274,8 @@ button.rbc-input::-moz-focus-inner {
   cursor: inherit;
   pointer-events: none;
 }
-.rbc-event.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
-  /* background-color: #265985; */
-  
-}
-.rbc-event:focus, .rbc-day-slot .rbc-background-event:focus {
-  /* outline: 1px auto #3b99fc; */
-}
+
+
 
 .rbc-event-ex, .rbc-day-slot .rbc-background-event {
   border: none;
@@ -305,13 +297,7 @@ button.rbc-input::-moz-focus-inner {
   
   pointer-events: none;
 }
-.rbc-event-ex.rbc-selected, .rbc-day-slot .rbc-selected.rbc-background-event {
-  
-  /* background-color: #265985; */
-}
-.rbc-event-ex:focus, .rbc-day-slot .rbc-background-event:focus {
-  /* outline: 1px auto #3b99fc; */
-}
+
 
 .rbc-event-label {
   font-size: 90%;
@@ -854,16 +840,14 @@ button.rbc-input::-moz-focus-inner {
 /* 일일 데이터 중, allday 데이터 표시 */
 .rbc-time-header.rbc-overflowing {
   border-right: 1px solid #ddd; 
-  
+
 }
-
-
 
 .rbc-rtl .rbc-time-header.rbc-overflowing {
   border-right-width: 0;
   border-left: 1px solid #ddd;
-  
-  
+  /* margin : -1px; */
+  /* margin-right : -1px; */
 }
 .rbc-time-header > .rbc-row:first-child {
   border-bottom: 1px solid rgb(221, 221, 221);
@@ -871,7 +855,6 @@ button.rbc-input::-moz-focus-inner {
 .rbc-time-header > .rbc-row.rbc-row-resource {
   border-bottom: 1px solid #ddd;
 }
-
 .rbc-time-header-cell-single-day {
   display: none;
 }
@@ -884,7 +867,6 @@ button.rbc-input::-moz-focus-inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  
   /* background-color: blue; */
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -892,12 +874,10 @@ button.rbc-input::-moz-focus-inner {
           flex-direction: column;
   /* border-left: 1px solid #ddd; */
 }
-
 .rbc-rtl .rbc-time-header-content {
   border-left-width: 0;
   /* border-right: 1px solid #ddd; */
 }
-
 .rbc-time-header-content > .rbc-row.rbc-row-resource {
   border-bottom: 1px solid #ddd;
   -ms-flex-negative: 0;
@@ -935,8 +915,9 @@ button.rbc-input::-moz-focus-inner {
           
         
 }
+/* 시간 간격 조절(margin) */
 .rbc-time-content > * + * > * {
-  margin-top : 40px;
+  
   border-left: 1px solid #ddd;
   
 }

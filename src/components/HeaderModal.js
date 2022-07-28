@@ -30,41 +30,35 @@ const HeaderModal = ({ isOpen, toggleModal, userInfo }) => {
   };
 
   return (
-    <Wrap>
-      <StyledModal
-        isOpen={isOpen}
-        onEscapeKeydown={toggleModal}
-        shouldCloseOnOverlayClick={true}
-        onRequestClose={toggleModal}
-        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0)" } }}
-      >
-        <MenuWrap>
-          {/* <Nickname>{userInfo?.nickname}님</Nickname>
+    <StyledModal
+      isOpen={isOpen}
+      onEscapeKeydown={toggleModal}
+      shouldCloseOnOverlayClick={true}
+      onRequestClose={toggleModal}
+      style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0)" } }}
+    >
+      <MenuWrap>
+        {/* <Nickname>{userInfo?.nickname}님</Nickname>
             <Email>{userInfo?.email}</Email> */}
-          <Menu
-            onClick={() => {
-              navigate("/mypage");
-            }}
-          >
-            마이페이지
-          </Menu>
-          <Hr />
-          <LogOut
-            onClick={() => {
-              logOutConfirm();
-            }}
-          >
-            로그아웃
-          </LogOut>
-        </MenuWrap>
-      </StyledModal>
-    </Wrap>
+        <Menu
+          onClick={() => {
+            navigate("/mypage");
+          }}
+        >
+          마이페이지
+        </Menu>
+        <Hr />
+        <LogOut
+          onClick={() => {
+            logOutConfirm();
+          }}
+        >
+          로그아웃
+        </LogOut>
+      </MenuWrap>
+    </StyledModal>
   );
 };
-
-const Wrap = styled.div`
-  position: relative;
-`;
 
 const StyledModal = styled(ReactModal)`
   max-width: 200px;
