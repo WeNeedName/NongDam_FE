@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpDB } from "../redux/modules/users";
 import { useNavigate } from "react-router-dom";
-
 import nongdamLogo from "../images/nongdam_logo.png";
+// alert 라이브러리
+import Swal from "sweetalert2";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -55,14 +56,6 @@ const Signup = () => {
     setPwCheck(e.target.value);
   };
 
-  //닉네임 유효성 검사
-  // const [nickNameErr, setNicknameErr] = useState(false);
-
-  // const NicknameCheck = (e) => {
-  //     dispatch(NicknameDB(e.target.value));
-  //     setUserNickname(e.target.value);
-  // }
-
   const signUp = async () => {
     const userInfo = {
       email: userId,
@@ -70,26 +63,48 @@ const Signup = () => {
       nickname: userNickname,
       name: userName,
     };
-    dispatch(signUpDB(userInfo)).then((res) => {
-      window.alert(
-        "회원가입이 완료되었습니다. 입력하신 이메일에서 메일 인증후 이용 가능합니다."
-      );
-      navigate("/login");
-    });
-
-    //     if(userNickname?.response?.status === 400) {
-    //         setNicknameErr(true);
-    //         window.alert(userNickname?.response?.data);
-    //     }else if(userNickname?.response?.data === "닉네임 중복"){
-    //         setNicknameErr(true);
-    //     }else setNicknameErr(false);
+    dispatch(signUpDB(userInfo));
+    Swal.fire({
+      title: "인증메일 전송 중입니다.",
+      html: " <b></b> 잠시 후 완료됩니다.",
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false,
+      // didOpen: () => {
+      //   Swal.showLoading();
+      //   const b = Swal.getHtmlContainer().querySelector("b");
+      //   timerInterval = setInterval(() => {
+      //     b.textContent = Swal.getTimerLeft();
+      //   }, 100);
+      // },
+      // willClose: () => {
+      //   clearInterval(timerInterval);
+      // },
+    })
+      .then((res) => {
+        Swal.fire({
+          title: "메일 전송이 완료되었습니다.",
+          html: " 가입하신 메일로 인증 후에 이용 가능합니다.",
+          showConfirmButton: true,
+          confirmButtonColor: "#55A349",
+          color: "#black",
+          padding: "20px 20px 40px 20px",
+          width: "400px",
+          height: "200px",
+          fontWeight: "400px",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+        });
+      })
+      .then(() => {
+        navigate("/login");
+      });
   };
-  //console.log(userId, pw)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // userId;
-    // setPw();
+
     setSuccess(true);
   };
   useEffect(() => {
@@ -214,6 +229,29 @@ const Signup = () => {
           </InputWrap>
         </InputBoxesWrap>
         <BtnWrap>
+          <Info>
+            회원가입 시{" "}
+            <InfoLink
+              onClick={() => {
+                const openNewWindow = window.open("about:blank");
+                openNewWindow.location.href =
+                  "https://dust-sulfur-10c.notion.site/2c4cd8fc0c91493abc3ffed858998727";
+              }}
+            >
+              이용약관{" "}
+            </InfoLink>
+            및{" "}
+            <InfoLink
+              onClick={() => {
+                const openNewWindow = window.open("about:blank");
+                openNewWindow.location.href =
+                  "https://dust-sulfur-10c.notion.site/5ffc468037d54d608784aa3184ecdf44";
+              }}
+            >
+              개인정보취급방침
+            </InfoLink>
+            에 동의하는 것으로 간주됩니다.
+          </Info>
           <SignUpBtn
             type="submit"
             onClick={() => {
@@ -272,8 +310,8 @@ const TopWrap = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 180px;
-  margin-right: 10px;
+  width: 120px;
+  margin-right: 26px;
   cursor: pointer;
 `;
 
@@ -486,6 +524,22 @@ const BtnWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 16px;
+`;
+
+const Info = styled.span`
+  font-size: 10px;
+  margin-bottom: 10px;
+  color: #666666;
+`;
+
+const InfoLink = styled.span`
+  font-size: 10px;
+  margin-bottom: 6px;
+  color: #666666;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 const SignUpBtn = styled.button`
