@@ -8,6 +8,7 @@ import styled, { keyframes } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { getInfoDB } from "../redux/modules/users";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
@@ -31,31 +32,34 @@ const MyPage = () => {
   const userInfo = useSelector((state) => state.users.user);
 
   return (
-    <Wrap>
-      <Header />
-      <MyPageMenu />
-      <Routes>
-        <Route path="/" element={<MemberInfo />} />
-        <Route path="/editmemberinfo" element={<EditMemberInfo />} />
-        <Route path="/editpw" element={<EditPw userInfo={userInfo} />} />
-      </Routes>
-      <Icon
-        onMouseOver={() => setIsHovering(true)}
-        onMouseOut={() => setIsHovering(false)}
-        Image={presentIcon}
-        chickenIcon={chickenIcon}
-        onClick={() => {
-          const openNewWindow = window.open("about:blank");
-          openNewWindow.location.href =
-            "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
-        }}
-      />
-      {isHovering ? (
-        <Info>
-          <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
-        </Info>
-      ) : null}
-    </Wrap>
+    <>
+      <Wrap>
+        <Header />
+        <MyPageMenu />
+        <Routes>
+          <Route path="/" element={<MemberInfo />} />
+          <Route path="/editmemberinfo" element={<EditMemberInfo />} />
+          <Route path="/editpw" element={<EditPw userInfo={userInfo} />} />
+        </Routes>
+        <Icon
+          onMouseOver={() => setIsHovering(true)}
+          onMouseOut={() => setIsHovering(false)}
+          Image={presentIcon}
+          chickenIcon={chickenIcon}
+          onClick={() => {
+            const openNewWindow = window.open("about:blank");
+            openNewWindow.location.href =
+              "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
+          }}
+        />
+        {isHovering ? (
+          <Info>
+            <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+          </Info>
+        ) : null}
+      </Wrap>
+      <Footer currentpage="schedule" />
+    </>
   );
 };
 
@@ -83,7 +87,7 @@ const boxFadeC = keyframes`
 const Wrap = styled.div`
   height: 80vh;
   margin-top: 100px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 
   display: grid;
   grid-auto-rows: auto;

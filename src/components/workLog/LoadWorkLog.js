@@ -342,10 +342,17 @@ const BannerImage = styled.div`
 
 const InfoWrap = styled.div`
   width: 100%;
-  height: 500px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  color: #b1b1b1;
+  font-size: 14px;
+  span {
+    margin-bottom: 2px;
+  }
 `;
 
 export default LoadWorkLog;

@@ -11,6 +11,7 @@ import AccountWeek from "../components/accountbook/AccountWeek";
 import AccountCalendar from "../components/accountbook/AccountCalendar";
 import AccountWrite from "../components/accountbook/AccountWrite";
 import FooterNav from "../components/FooterNav";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
@@ -48,45 +49,48 @@ const AccountBook = () => {
   }
 
   return (
-    <Wrap>
-      <Header currentPage="accountbook" />
-      <CalendarWrap>
-        <AccountCalendar accountList={accountList} />
-        <AddAccountBtn
-          onClick={() => {
-            toggleModal();
-          }}
-        >
-          + 기록하기
-        </AddAccountBtn>
-      </CalendarWrap>
-      <CuurentListWrap>
-        <AccountWeek
-          currentAccount_list={currentAccount_list}
-          accountList={accountList}
-          yearMonth={yearMonth}
-        />
-      </CuurentListWrap>
+    <>
+      <Wrap>
+        <Header currentPage="accountbook" />
+        <CalendarWrap>
+          <AccountCalendar accountList={accountList} />
+          <AddAccountBtn
+            onClick={() => {
+              toggleModal();
+            }}
+          >
+            + 기록하기
+          </AddAccountBtn>
+        </CalendarWrap>
+        <CuurentListWrap>
+          <AccountWeek
+            currentAccount_list={currentAccount_list}
+            accountList={accountList}
+            yearMonth={yearMonth}
+          />
+        </CuurentListWrap>
 
-      {isOpen && <AccountWrite isOpen={isOpen} toggleModal={toggleModal} />}
-      <Icon
-        onMouseOver={() => setIsHovering(true)}
-        onMouseOut={() => setIsHovering(false)}
-        Image={presentIcon}
-        chickenIcon={chickenIcon}
-        onClick={() => {
-          const openNewWindow = window.open("about:blank");
-          openNewWindow.location.href =
-            "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
-        }}
-      />
-      {isHovering ? (
-        <Info>
-          <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
-        </Info>
-      ) : null}
-      <FooterNav currentPage="accountbook" />
-    </Wrap>
+        {isOpen && <AccountWrite isOpen={isOpen} toggleModal={toggleModal} />}
+        <Icon
+          onMouseOver={() => setIsHovering(true)}
+          onMouseOut={() => setIsHovering(false)}
+          Image={presentIcon}
+          chickenIcon={chickenIcon}
+          onClick={() => {
+            const openNewWindow = window.open("about:blank");
+            openNewWindow.location.href =
+              "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
+          }}
+        />
+        {isHovering ? (
+          <Info>
+            <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+          </Info>
+        ) : null}
+        <FooterNav currentPage="accountbook" />
+      </Wrap>
+      <Footer currentpage="schedule" />
+    </>
   );
 };
 
@@ -123,6 +127,7 @@ const Wrap = styled.div`
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 26px;
+  margin-bottom: 50px;
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr minmax(600px, 720px) 24% 1fr;
   }
