@@ -150,8 +150,8 @@ const TopWrap = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 180px;
-  margin-right: 10px;
+  width: 130px;
+  margin-right: 26px;
   cursor: pointer;
 `;
 

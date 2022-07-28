@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import styled from "styled-components";
-import { SubmitBtn } from "../../elements/Buttons";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { editPwDB } from "../../redux/modules/users";
@@ -107,9 +106,6 @@ const EditPw = () => {
           onClick={() => {
             editMyPw();
           }}
-          style={{
-            marginLeft: "600px",
-          }}
           disabled={
             !oldPw ||
             !newPw ||
@@ -142,6 +138,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
+    margin-left: -20px;
   }
 `;
 const Title = styled.div`
@@ -177,4 +174,30 @@ const EachBoxWrap = styled.div`
 `;
 
 const Submit = styled.button``;
+
+export const SubmitBtn = styled.button`
+  margin-top: 20px;
+  /* font-size: 11px; */
+  color: white;
+  background-color: #55a349;
+  border: 1px solid #55a349;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-left: 18px;
+  cursor: pointer;
+  margin-left: 600px;
+  &:hover {
+    background: #22631c;
+    border: 1px solid #22631c;
+  }
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  @media only screen and (max-width: 760px) {
+    align-self: flex-start;
+    margin-left: 0px;
+  }
+`;
+
 export default EditPw;
