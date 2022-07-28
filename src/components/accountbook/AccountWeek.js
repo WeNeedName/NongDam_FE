@@ -415,7 +415,7 @@ const FormCheckText = styled.span`
   border-radius: 100px;
   width: auto;
   height: 16px;
-  margin-right: 12px;
+  margin-right: 8px;
   margin-bottom: 14px;
   font-size: 13px;
   cursor: pointer;

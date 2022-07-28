@@ -63,7 +63,6 @@ export const getWeatherDB = () => {
       .loadWeather()
       .then((response) => {
         dispatch(getWeather(response.data));
-        console.log(response);
       })
       .catch((error) => {
         // window.alert("날씨정보를 불러오는 중에 오류가 발생했습니다.");

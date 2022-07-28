@@ -4,8 +4,6 @@ import styled from "styled-components";
 import nongdamLogoGrey from "../images/nongdam_logo_grey.png";
 
 const FooterNav = ({ currentPage }) => {
-  const [headerNav, setHeaderNav] = useState(currentPage);
-
   return (
     <Wrap>
       <InfoWrap>
