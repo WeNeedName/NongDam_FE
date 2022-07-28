@@ -384,6 +384,7 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
+  margin-bottom: 17px;
   font-size: 12px;
   cursor: pointer;
   &:hover {

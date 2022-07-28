@@ -28,7 +28,6 @@ const Haeder = ({ currentPage }) => {
 
   return (
     <>
-      {" "}
       <Wrap>
         <Nav>
           <NavLeft>
@@ -93,7 +92,7 @@ const Haeder = ({ currentPage }) => {
                     }}
                     currentPage={headerNav}
                   >
-                    농장일지
+                    영농일지
                   </FormCheckText>
                   <FormCheckText
                     id="analysis"
@@ -137,7 +136,7 @@ const Wrap = styled.div`
   height: 80px;
   background: #ffffff;
   box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.08);
-  z-index: 10;
+  z-index: 10000;
   display: grid;
   grid-template-columns: 1fr repeat(3, 25.5%) 1fr;
   /* grid-column: 1 / 6;

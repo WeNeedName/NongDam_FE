@@ -125,10 +125,10 @@ const NoticeWrap = styled.div`
   z-index: 100;
 
   background: linear-gradient(
-    to top,
-    rgba(255, 255, 255, 0.8) 80%,
-    rgba(255, 255, 255, 0.3) 30%,
-    transparent 100%
+    to bottom,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 1) 80%,
+    white 100%
   );
   position: absolute;
   bottom: 0;
