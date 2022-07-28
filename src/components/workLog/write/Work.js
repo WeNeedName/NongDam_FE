@@ -48,6 +48,7 @@ const Work = (props) => {
   return (
     <TodoContentWrap>
       <TitleInput
+        maxLength="18"
         placeholder="제목을 작성해주세요"
         onChange={(e) => {
           props.setTitle(e.target.value);

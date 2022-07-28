@@ -300,6 +300,9 @@ const ChartWrap = styled.div`
   column-gap: 8px;
   cursor: pointer;
   position: relative;
+  @media only screen and (max-width: 760px) {
+    min-height: 140px;
+  }
 `;
 
 const boxFade = keyframes`
@@ -377,6 +380,9 @@ const NoticeWrap = styled.div`
   left: 0;
   border-radius: 10px;
   margin-bottom: 8%;
+  @media only screen and (max-width: 760px) {
+    bottom: -20px;
+  }
 `;
 
 const NoticeT = styled.span`

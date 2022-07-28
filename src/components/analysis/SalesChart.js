@@ -276,6 +276,7 @@ const ChartWrap = styled.div`
   position: relative;
   @media only screen and (max-width: 760px) {
     margin-bottom: 10px;
+    min-height: 140px;
   }
 `;
 
@@ -382,7 +383,7 @@ const Xasis = styled.span`
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -399,6 +400,9 @@ const NoticeWrap = styled.div`
   left: 0;
   border-radius: 10px;
   padding-top: 10%;
+  @media only screen and (max-width: 1220px) {
+    height: 97%;
+  }
 `;
 
 const NoticeT = styled.span`

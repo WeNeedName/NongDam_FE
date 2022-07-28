@@ -28,7 +28,8 @@ const TodayNews = () => {
                   <ContentsBoxWrap
                     key={idx}
                     onClick={() => {
-                      window.location.href = list.link;
+                      const openNewWindow = window.open("about:blank");
+                      openNewWindow.location.href = list.link;
                     }}
                   >
                     <ContentsWrap>

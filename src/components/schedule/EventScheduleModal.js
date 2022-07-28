@@ -457,10 +457,11 @@ const TimeWrap = styled.div`
   flex-direction: column;
   margin-bottom: 15px;
   .startDatePicker {
-    width: 55%;
+    width: 58%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 30px;
+    text-align: center;
     background-color: transparent;
     color: black;
     border: none;
@@ -472,9 +473,10 @@ const TimeWrap = styled.div`
     }
   }
   .endDatePicker {
-    width: 55%;
+    width: 58%;
     font-size: 16px;
     margin-top: 5px;
+    text-align: center;
     background-color: transparent;
     color: black;
     border: none;
