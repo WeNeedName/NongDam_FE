@@ -45,7 +45,9 @@ const MyPageMenu = () => {
     <Wrap>
       <ContentWrap>
         <ProfileImg
-          onClick={goToMemberInfo}
+          onClick={() => {
+            goToMemberInfo();
+          }}
           style={{ backgroundImage: `url(${userInfo?.profileImage})` }}
         />
         <SmallInfo>

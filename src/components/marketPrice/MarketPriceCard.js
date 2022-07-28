@@ -42,7 +42,6 @@ const MarketPriceCard = ({ cropsData }) => {
     data: checkedInputs,
   };
 
-  console.log(userInfo);
   return (
     <Wrap>
       {is_loaded ? (

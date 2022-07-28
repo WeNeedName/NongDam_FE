@@ -154,7 +154,7 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
-  padding: 40px 40px 40px 40px;
+  padding: 40px 60px 40px 20px;
   grid-column: 3 / 6;
   @media only screen and (max-width: 1550px) {
     margin-left: 10px;
@@ -168,6 +168,7 @@ const Wrap = styled.div`
 const Title = styled.span`
   font-size: 18px;
   font-weight: 700;
+  margin-left: 20px;
 `;
 
 const ContentWrap = styled.div``;
@@ -266,6 +267,8 @@ const Line = styled.hr`
   margin-bottom: 30px;
   width: 95%;
   border: solid 0.5px #d8d8d8;
+  margin-left: 20px;
+  padding-right: 40px;
 `;
 
 const SmallTitle = styled.span`

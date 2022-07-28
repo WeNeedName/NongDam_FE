@@ -77,7 +77,7 @@ const FooterNav = ({ currentPage }) => {
         </CategoryWrap>
 
         <CategoryWrap>
-          {/* <FormCheckText
+          <FormCheckText
             id="analysis"
             onClick={() => {
               navigate("/analysis");
@@ -86,7 +86,7 @@ const FooterNav = ({ currentPage }) => {
             currentPage={headerNav}
           >
             농장 현황
-          </FormCheckText> */}
+          </FormCheckText>
         </CategoryWrap>
       </NavWrap>
     </Wrap>

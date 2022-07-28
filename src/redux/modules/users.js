@@ -62,22 +62,10 @@ export const logInDB = (user) => {
         sessionStorage.setItem("jwtToken", token);
         window.alert("환영합니다!");
         window.location.assign("/");
-
-        // dispatch(
-        //   logIn(
-        //     {
-        //     email: email,
-        //     nickname: DecodedToken.nickname,
-        //     }
-        //   )
-        // );
-        // localStorage.setItem("email", email);
-        // localStorage.setItem("nickname", DecodedToken.nickname);
       })
       .catch((err) => {
         let code = err.response.status;
-
-        if (code == 403) window.alert(err.response.data.msg);
+        if (code == 403) sessionStorage.removeItem("jwtToken");
         else window.alert(err.response.data.msg);
         console.log(err);
       });

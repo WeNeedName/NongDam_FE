@@ -19,6 +19,7 @@ import Income from "../components/analysis/Expense";
 import Expense from "../components/analysis/Income";
 import WorkTime from "../components/analysis/WorkTime";
 import FooterNav from "../components/FooterNav";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
@@ -90,6 +91,7 @@ const Analysis = () => {
         ) : null}
         <FooterNav currentPage="analysis" />
       </Wrap>
+      <Footer currentpage="schedule" />
     </>
   );
 };

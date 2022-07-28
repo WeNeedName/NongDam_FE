@@ -44,10 +44,11 @@ const LoadWorkLog = ({ workLogList }) => {
           {is_loaded &&
           workLogList !== undefined &&
           workLogList.length === 0 ? (
-            <>
+            <InfoWrap>
               <BannerImage Image={Banner} />
-              <span>배너이미지</span>
-            </>
+              <span>게시물이 없습니다.</span>
+              <span>지금 농장일지를 작성해보세요!</span>
+            </InfoWrap>
           ) : is_loaded && workLogList !== undefined ? (
             workLogList.map((list, i) => {
               return (
@@ -337,6 +338,21 @@ const BannerImage = styled.div`
   background-image: url(${(props) => props.Image});
   background-position: center 30%;
   background-size: cover;
+`;
+
+const InfoWrap = styled.div`
+  width: 100%;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  color: #b1b1b1;
+  font-size: 14px;
+  span {
+    margin-bottom: 2px;
+  }
 `;
 
 export default LoadWorkLog;
