@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Header from "../components/Header";
 import EditWorkLog from "./EditWorkLog";
 
@@ -16,11 +16,16 @@ import withReactContent from "sweetalert2-react-content";
 // 컴포넌트
 import FooterNav from "../components/FooterNav";
 
+// 이미지
+import chickenIcon from "../images/chickenIcon.png";
+import presentIcon from "../images/presentIcon.png";
+
 const DetailWorkLog = ({}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const [isEdit, setIsEdit] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
@@ -65,31 +70,31 @@ const DetailWorkLog = ({}) => {
       {!isEdit ? (
         <TotalWrap>
           <ContentWrap>
+            <BtnWrap>
+              <GreyBtn
+                onClick={() => {
+                  setIsEdit(true);
+                }}
+              >
+                수정
+              </GreyBtn>
+              <GreyBtn
+                onClick={() => {
+                  deleteWorkLogModal();
+                }}
+              >
+                삭제
+              </GreyBtn>
+              <GreyBtn
+                onClick={() => {
+                  navigate("/worklog");
+                }}
+              >
+                목록
+              </GreyBtn>
+            </BtnWrap>
             <TopWrap>
               <Title> {workLogOne?.title} </Title>
-              <BtnWrap>
-                <GreyBtn
-                  onClick={() => {
-                    setIsEdit(true);
-                  }}
-                >
-                  수정
-                </GreyBtn>
-                <GreyBtn
-                  onClick={() => {
-                    deleteWorkLogModal();
-                  }}
-                >
-                  삭제
-                </GreyBtn>
-                <GreyBtn
-                  onClick={() => {
-                    navigate("/worklog");
-                  }}
-                >
-                  목록
-                </GreyBtn>
-              </BtnWrap>
             </TopWrap>
             <DateWrap>
               {workLogOne !== undefined &&
@@ -213,10 +218,47 @@ const DetailWorkLog = ({}) => {
       ) : (
         <EditWorkLog workLogOne={workLogOne} isEdit={isEdit} />
       )}
+      <Icon
+        onMouseOver={() => setIsHovering(true)}
+        onMouseOut={() => setIsHovering(false)}
+        Image={presentIcon}
+        chickenIcon={chickenIcon}
+        onClick={() => {
+          const openNewWindow = window.open("about:blank");
+          openNewWindow.location.href =
+            "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
+        }}
+      />
+      {isHovering ? (
+        <Info>
+          <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+        </Info>
+      ) : null}
       <FooterNav currentPage="workLog" />
     </Container>
   );
 };
+
+const boxFadeB = keyframes`
+  0% {
+  opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const boxFadeC = keyframes`
+  0% {
+    transform: scale(1, 1);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+  }
+  100% {
+    transform: scale(1.2, 1.2);
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -244,10 +286,13 @@ const TotalWrap = styled.div`
 
 const TopWrap = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `;
 
-const BtnWrap = styled.div``;
+const BtnWrap = styled.div`
+  align-self: flex-end;
+`;
 const GreyBtn = styled.button`
   width: 50px;
   height: 30px;
@@ -276,9 +321,10 @@ const ContentWrap = styled.div`
 const Title = styled.div`
   font-size: 36px;
   margin-bottom: 10px;
+  margin-top: 10px;
   @media only screen and (max-width: 760px) {
     font-size: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 4px;
   }
 `;
@@ -424,6 +470,62 @@ const PreT = styled.span`
 
 const PreTitle = styled.span`
   font-size: 14px;
+`;
+
+const Info = styled.div`
+  width: 240px;
+  height: 60px;
+  border-radius: 8px;
+  position: absolute;
+  position: fixed;
+  right: 190px;
+  bottom: 100px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  animation: ${boxFadeB} 1s;
+  z-index: 1000;
+  @media only screen and (max-width: 760px) {
+    bottom: 120px;
+    right: 150px;
+    display: none;
+  }
+`;
+
+const Icon = styled.div`
+  width: 80px;
+  height: 80px;
+  background-image: url(${(props) => props.Image});
+  background-position: center 30%;
+  background-size: cover;
+  position: fixed;
+  bottom: 90px;
+  right: 70px;
+  z-index: 110;
+  border-radius: 100px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+  &:hover {
+    animation: ${boxFadeC} 2s;
+    background-image: url(${(props) => props.chickenIcon});
+  }
+  @media only screen and (max-width: 760px) {
+    width: 60px;
+    height: 60px;
+    bottom: 120px;
+    right: 50px;
+    display: none;
+  }
+`;
+
+const Emoji = styled.div`
+  font-size: 20px;
+  margin-right: 4px;
 `;
 
 export default DetailWorkLog;

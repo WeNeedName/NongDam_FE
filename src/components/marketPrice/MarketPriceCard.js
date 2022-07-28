@@ -42,11 +42,12 @@ const MarketPriceCard = ({ cropsData }) => {
     data: checkedInputs,
   };
 
+  console.log(userInfo);
   return (
     <Wrap>
       {is_loaded ? (
         <>
-          {userInfo?.address === "" && (
+          {userInfo?.countryCode === 0 && (
             <NoticeWrap>
               <NoticeT>
                 지금 지역을 등록하고

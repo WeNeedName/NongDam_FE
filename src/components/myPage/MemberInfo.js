@@ -213,7 +213,7 @@ const Names = styled.div`
 `;
 
 const EditNicknameWrap = styled.span`
-  width: 70px;
+  width: auto;
   margin-left: 17px;
   font-size: 18px;
   font-weight: 700;

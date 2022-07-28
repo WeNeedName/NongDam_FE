@@ -28,8 +28,9 @@ const TodaysSalePrice = ({ salePrice }) => {
 
   return (
     <Wrap>
-      {userInfo?.address === "" ? (
+      {userInfo?.countryCode === 0 ? (
         <NoticeWrap>
+          <NoticeTopWrap />
           <NoticeT>
             지금 지역을 등록하고
             <br />
@@ -45,6 +46,7 @@ const TodaysSalePrice = ({ salePrice }) => {
         </NoticeWrap>
       ) : userInfo?.crops.length === 0 ? (
         <NoticeWrap>
+          <NoticeTopWrap />
           <NoticeT>
             지금 작물을 등록하고
             <br />
@@ -209,8 +211,6 @@ const NotFoundNoticeWrap = styled.div`
   height: 200px;
   display: flex;
   flex-direction: column;
-  /* align-items: center;
-  justify-content: center; */
 `;
 
 const NotFoundNotice = styled.span`
@@ -221,12 +221,12 @@ const NotFoundNotice = styled.span`
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 83%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 1;
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 1) 0%,
@@ -237,6 +237,23 @@ const NoticeWrap = styled.div`
   bottom: 0;
   left: 0;
   border-radius: 10px;
+  padding-bottom: 30px;
+`;
+
+const NoticeTopWrap = styled.div`
+  width: 200px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+  background-color: white;
+  position: absolute;
+  top: -50px;
+  left: 0;
+  border-radius: 10px;
+  padding-bottom: 30px;
 `;
 
 const NoticeT = styled.span`
@@ -257,6 +274,8 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: #1aacff;
   font-size: 12px;
+  margin-bottom: 36px;
+
   cursor: pointer;
   &:hover {
     font-weight: 600;

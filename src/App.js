@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
+import RouteChangeTracker from "./RouteChangeTracker";
 
 //컴포넌트
 import Main from "./pages/Main";
@@ -22,7 +23,7 @@ import DetailWorkLog from "./pages/DetailWorkLog";
 
 function App() {
   const navigate = useNavigate();
-
+  RouteChangeTracker();
   const isLogin = sessionStorage.getItem("jwtToken");
 
   useEffect(() => {

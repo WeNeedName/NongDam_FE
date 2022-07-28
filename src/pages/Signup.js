@@ -35,11 +35,7 @@ const Signup = () => {
     setEmail(e.target.value);
   };
 
-  console.log(userId);
-  console.log(userMail);
-  console.log(email);
   //비밀번호 검사
-
   const [pwErr, setPwErr] = useState(false);
   const onChangePw = (e) => {
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -127,6 +123,7 @@ const Signup = () => {
                 ref={emailRef}
                 className="inputId"
                 type="email"
+                userIdErr={userIdErr}
                 //userIdErr={userIdErr}
                 // placeholder="이메일을 입력해주세요"
                 onChange={(e) => {
@@ -159,7 +156,7 @@ const Signup = () => {
           <InputWrap className="password">
             <LabelPw pwErr={pwErr}>비밀번호</LabelPw>
             {/* <Info>영문, 숫자 포함한 8자 이상의 비밀번호 입력해주세요</Info> */}
-            <InputBox
+            <InputBoxPw
               pwErr={pwErr}
               onChange={(e) => {
                 onChangePw(e);
@@ -190,10 +187,10 @@ const Signup = () => {
             {pwCheck === "" && (
               <InfoPc>비밀번호를 한 번 더 입력해주세요.</InfoPc>
             )}
-            {pwCheck !== "" && !pwErr && pwCheckErr && (
+            {pwCheckErr && pwCheck !== "" && (
               <PwCheckErr>비밀번호가 일치하지 않습니다.</PwCheckErr>
             )}
-            {pwCheck !== "" && !pwErr && !pwCheckErr && (
+            {pwCheck === pw && !pwErr && (
               <PwCheckOk>비밀번호가 일치합니다.</PwCheckOk>
             )}
           </InputWrap>
@@ -312,15 +309,18 @@ const LabelEmail = styled.label`
 `;
 
 const EmailInputBox = styled.input`
-  width: 70px;
+  width: 100px;
   height: 30px;
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
   :focus {
     outline: none;
+    border: 2px solid
+      ${(props) => (props.userIdErr ? "rgb(255, 119, 119)" : "#55a349")};
   }
 `;
+
 const Gol = styled.span`
   margin: 0px 4px;
   font-size: 13px;
@@ -328,7 +328,7 @@ const Gol = styled.span`
 `;
 
 const SelectEM = styled.select`
-  width: 150px;
+  width: 120px;
   height: 45px;
   position: relative;
   display: block;
@@ -341,6 +341,10 @@ const SelectEM = styled.select`
   border: 1px solid #999999;
   &::placeholder {
     color: #424242;
+  }
+  &:focus {
+    outline: none;
+    border: 2px solid #55a349;
   }
   /* border-color: rgb(
     ${(props) => (props.userIdError ? "255, 119, 119" : "219, 219, 219")}
@@ -369,8 +373,37 @@ const InputBox = styled.input`
   padding: 5px;
   :focus {
     outline: none;
+    border: 2px solid
+      ${(props) => (props.pwCheckErr ? "rgb(255, 119, 119)" : "#55a349")};
   }
 `;
+
+const InputBoxPw = styled.input`
+  width: 240px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  padding: 5px;
+  :focus {
+    outline: none;
+    border: 2px solid
+      ${(props) => (props.pwErr ? "rgb(255, 119, 119)" : "#55a349")};
+  }
+`;
+
+const InputBoxE = styled.input`
+  width: 240px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-radius: 5px;
+  padding: 5px;
+  :focus {
+    outline: none;
+    border: 2px solid
+      ${(props) => (props.pwErr ? "rgb(255, 119, 119)" : "#55a349")};
+  }
+`;
+
 const LabelPw = styled.label`
   text-align: left;
   /* margin-right: 215px; */

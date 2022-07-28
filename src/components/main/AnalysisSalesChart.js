@@ -279,6 +279,7 @@ const ChartWrap = styled.div`
   position: relative;
   @media only screen and (max-width: 760px) {
     margin-bottom: 10px;
+    min-height: 200px;
   }
 `;
 
