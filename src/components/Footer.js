@@ -5,7 +5,7 @@ import nongdamLogoGrey from "../images/nongdam_logo_grey.png";
 
 const FooterNav = ({ currentPage }) => {
   const [headerNav, setHeaderNav] = useState(currentPage);
-  console.log(headerNav);
+
   return (
     <Wrap>
       <InfoWrap>
