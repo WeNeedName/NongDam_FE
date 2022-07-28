@@ -63,6 +63,9 @@ const Container = styled.div`
     margin-left: 80px;
     margin-top: 10px;
     border-radius: 10px;
+    @media only screen and (max-width: 760px) {
+      margin-left: 30px;
+    }
   }
 `;
 
