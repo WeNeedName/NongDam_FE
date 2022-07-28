@@ -160,8 +160,11 @@ const Wrap = styled.div`
     margin-left: 10px;
   }
   @media only screen and (max-width: 760px) {
+    width: 90%;
     grid-column: 2 / 3;
     grid-row: 3 / 4;
+    margin-left: -20px;
+    margin-bottom: 60px;
   }
 `;
 
@@ -275,6 +278,9 @@ const SmallTitle = styled.span`
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const BottomWrap = styled.div``;
@@ -299,6 +305,9 @@ const PrevAddress = styled.button`
   border: none;
   background-color: transparent;
   color: #02113b;
+  @media only screen and (max-width: 760px) {
+    margin-left: 40px;
+  }
 `;
 
 const EditAddressBtn = styled.button`
@@ -322,6 +331,9 @@ const CropsWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    margin-right: 0px;
+  }
 `;
 
 const TitleAndCrops = styled.div`
@@ -334,6 +346,9 @@ const SmallTitleCrops = styled.span`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const PreviousMyCrops = styled.div`
@@ -343,6 +358,10 @@ const PreviousMyCrops = styled.div`
 
   .noCropTitle {
     font-size: 14px;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+    width: 200px;
   }
 `;
 
@@ -358,6 +377,9 @@ const PreviousCropsList = styled.div`
   border-radius: 10px;
   margin-right: 5px;
   flex-wrap: wrap;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 6px;
+  }
 `;
 
 const CropsContent = styled.div``;
@@ -395,11 +417,17 @@ const SmallTitleArea = styled.div`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const Area = styled.div`
   font-size: 14px;
   margin-left: 78px;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+  }
 `;
 
 const BtnWrap = styled.div``;

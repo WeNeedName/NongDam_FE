@@ -30,8 +30,6 @@ const DetailWorkLog = ({}) => {
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
 
-  console.log(workLogOne);
-
   useEffect(() => {
     dispatch(loadWorkLogDB(params.id));
   }, [params]);

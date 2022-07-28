@@ -50,9 +50,6 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
 
   const is_loaded = useSelector((state) => state.account.is_loaded);
 
-  console.log(yearMonth.year + "-" + yearMonth.month);
-  console.log(accountList);
-
   // 항목(전체, 수입, 지출) 필터링
   const filteredCategory =
     currentAccount_list !== undefined &&
@@ -313,6 +310,7 @@ const Wrap = styled.div`
   padding: 30px;
   @media only screen and (max-width: 760px) {
     padding: 30px 0px;
+    margin-right: 20px;
   }
 `;
 

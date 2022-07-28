@@ -372,7 +372,8 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
-    margin-bottom: 30px;
+    margin-left: -20px;
+    margin-bottom: 60px;
   }
 `;
 
@@ -501,6 +502,9 @@ const SmallTitle = styled.span`
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const BottomWrap = styled.div``;
@@ -527,6 +531,10 @@ const AddressContent = styled.button`
   color: #02113b;
   overflow-wrap: break-word;
   text-align: left;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+    width: 170px;
+  }
 `;
 const AddressBtn = styled.button`
   font-size: 11px;
@@ -540,6 +548,9 @@ const AddressBtn = styled.button`
   color: #616161;
   &:hover {
     opacity: 0.7;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-right: 0px;
   }
 `;
 const CropsWrap = styled.div`
@@ -560,11 +571,18 @@ const SmallTitleCrops = styled.span`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 const PrevAndNewCrops = styled.div`
   margin-left: 80px;
   width: 300px;
   text-align: start;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+    width: 220px;
+  }
 `;
 
 const CropsList = styled.div`
@@ -642,6 +660,9 @@ const CountryCodeContent = styled.div`
   color: #02113b;
   overflow-wrap: break-word;
   text-align: left;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+  }
 `;
 
 const TitleAndArea = styled.div`
@@ -655,6 +676,9 @@ const SmallTitleArea = styled.div`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 const AreaBtn = styled.button`
   align-items: center;

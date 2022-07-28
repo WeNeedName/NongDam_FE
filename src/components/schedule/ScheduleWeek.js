@@ -78,6 +78,10 @@ const ScheduleWeek = () => {
 
 const Wrap = styled.div`
   padding: 10px 30px 10px 25px;
+  @media only screen and (max-width: 760px) {
+    padding: 30px 0px;
+    margin-right: 20px;
+  }
 `;
 const Title = styled.div`
   font-size: 24px;
@@ -106,6 +110,8 @@ const ScheduleBoxWrap = styled.div`
     display: none;
   }
   @media only screen and (max-width: 760px) {
+    max-width: 760px;
+    width: 100%;
     margin-bottom: 60px;
   }
 `;

@@ -152,6 +152,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: -10px;
+  margin-right: 10px;
 `;
 
 const Wrap = styled.div`
@@ -190,7 +192,6 @@ const SearchByDateBtn = styled.button`
 `;
 
 const WriteBtn = styled.button`
-  margin-left: 10px;
   padding: 4px 15px;
   border-radius: 100px;
   color: #ffffff;
@@ -200,6 +201,9 @@ const WriteBtn = styled.button`
   &:hover {
     background-color: #22631c;
     border: 1px solid #22631c;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-right: -10px;
   }
 `;
 
