@@ -220,7 +220,13 @@ const Signup = () => {
               signUp(email, pw, userName, userNickname);
             }}
             disabled={
-              !email || !pw || !pwCheck || userIdErr || pwCheckErr
+              !email ||
+              !pw ||
+              !pwCheck ||
+              !userName ||
+              !userNickname ||
+              userIdErr ||
+              pwCheckErr
                 ? true
                 : false
             }
