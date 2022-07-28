@@ -50,14 +50,25 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
 
   const is_loaded = useSelector((state) => state.account.is_loaded);
 
+  console.log(yearMonth.year + "-" + yearMonth.month);
+  console.log(accountList);
+
   // 항목(전체, 수입, 지출) 필터링
   const filteredCategory =
     currentAccount_list !== undefined &&
     currentAccount_list.filter((v) => v.category === checkedInputs);
 
   // 월 전체내역 수입 총합
+  const filterMonth =
+    accountList &&
+    accountList.filter(
+      (v) =>
+        (v =
+          moment(v.date).format("YYYY-MM") ===
+          yearMonth?.year + "-" + yearMonth?.month)
+    );
   const filteredIncome =
-    accountList && accountList.filter((v) => v.category === "수입");
+    filterMonth && filterMonth.filter((v) => v.category === "수입");
   const filteredIncomePrice =
     filteredIncome &&
     filteredIncome.map((v) => {
@@ -69,7 +80,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
 
   // 월 전체내역 지출 총합
   const filtereExpense =
-    accountList && accountList.filter((v) => v.category === "지출");
+    filterMonth && filterMonth.filter((v) => v.category === "지출");
   const filteredExpensePrice =
     filtereExpense &&
     filtereExpense.map((v) => {
