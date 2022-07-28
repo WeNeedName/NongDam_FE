@@ -9,6 +9,23 @@ import "moment/locale/ko";
 
 const AnalysisSalesChart = ({ salesData }) => {
   const navigate = useNavigate();
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
 
   // 1. y축 [0 - 사잇값 - 최댓값] 배열 만들기
   const allDataList = [];
@@ -55,7 +72,7 @@ const AnalysisSalesChart = ({ salesData }) => {
     });
 
   const lineWidthArr = Array.from({ length: 7 }, (v, i) => (v = 2));
-
+  console.log(salesData?.xlabel);
   // 4. 내 작물 월별 수확량 차트 state
   const state = {
     series:
@@ -239,10 +256,16 @@ const AnalysisSalesChart = ({ salesData }) => {
               </YasisLabelBox>
             </ChartBox>
             <XasisWrap>
-              {salesData?.xlabel !== undefined &&
-                salesData?.xlabel.map((data, id) => {
-                  return <Xasis key={id}>{data}</Xasis>;
-                })}
+              {salesData?.xlabel !== undefined && windowSize.innerWidth > 760
+                ? salesData?.xlabel.map((data, id) => {
+                    return <Xasis key={id}>{data}</Xasis>;
+                  })
+                : salesData?.xlabel.map((data, id) => {
+                    console.log(data);
+                    return (
+                      <Xasis key={id}>{moment(data).format("YY.MM")}</Xasis>
+                    );
+                  })}
             </XasisWrap>
           </>
         ) : (
