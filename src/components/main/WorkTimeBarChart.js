@@ -78,7 +78,9 @@ const WorkTimeBarChart = ({ workTimeData }) => {
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => {
       const num = start + i * step;
       const mathPow =
-        String(num).length >= 2 ? Math.pow(10, String(num).length - 1) : 1;
+        String(Math.round(num)).length >= 2
+          ? Math.pow(10, String(Math.round(num)).length - 1)
+          : 1;
       const mathRound = Math.ceil(num / mathPow) * mathPow;
       return mathRound;
     });
