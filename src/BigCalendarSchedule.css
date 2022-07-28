@@ -840,16 +840,14 @@ button.rbc-input::-moz-focus-inner {
 /* 일일 데이터 중, allday 데이터 표시 */
 .rbc-time-header.rbc-overflowing {
   border-right: 1px solid #ddd; 
-  
+
 }
-
-
 
 .rbc-rtl .rbc-time-header.rbc-overflowing {
   border-right-width: 0;
   border-left: 1px solid #ddd;
-  
-  
+  /* margin : -1px; */
+  /* margin-right : -1px; */
 }
 .rbc-time-header > .rbc-row:first-child {
   border-bottom: 1px solid rgb(221, 221, 221);
@@ -857,7 +855,6 @@ button.rbc-input::-moz-focus-inner {
 .rbc-time-header > .rbc-row.rbc-row-resource {
   border-bottom: 1px solid #ddd;
 }
-
 .rbc-time-header-cell-single-day {
   display: none;
 }
@@ -870,7 +867,6 @@ button.rbc-input::-moz-focus-inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  
   /* background-color: blue; */
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -878,12 +874,10 @@ button.rbc-input::-moz-focus-inner {
           flex-direction: column;
   /* border-left: 1px solid #ddd; */
 }
-
 .rbc-rtl .rbc-time-header-content {
   border-left-width: 0;
   /* border-right: 1px solid #ddd; */
 }
-
 .rbc-time-header-content > .rbc-row.rbc-row-resource {
   border-bottom: 1px solid #ddd;
   -ms-flex-negative: 0;
@@ -921,8 +915,9 @@ button.rbc-input::-moz-focus-inner {
           
         
 }
+/* 시간 간격 조절(margin) */
 .rbc-time-content > * + * > * {
-  margin-top : 40px;
+  
   border-left: 1px solid #ddd;
   
 }
