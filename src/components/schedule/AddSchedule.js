@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { addScheduleDB } from "../../redux/modules/schedule";
-import MyDatePickerS from "./MyDatePickerS";
+
 //달력
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "../../react-datepickerSchedule.css";
 import { ko } from "date-fns/esm/locale";
 import moment, { months } from "moment";
+const _ = require("lodash");
 
 import Swal from "sweetalert2";
 
@@ -24,7 +25,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const [endDate, setEndDate] = useState("");
   const [dateErr, setDateErr] = useState(false);
   const myCropsList = useSelector((state) => state.users.user?.crops);
-
+  console.log(startDate);
   const memoRef = useRef();
 
   const onChangeEndDate = (date) => {
@@ -81,6 +82,21 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   //     </div>
   //   );
   // };
+  // const years = _.range(1990, getYear(new Date()) + 1, 1);
+  // const months = [
+  //   "1월",
+  //   "2월",
+  //   "3월",
+  //   "4월",
+  //   "5월",
+  //   "6월",
+  //   "7월",
+  //   "8월",
+  //   "9월",
+  //   "10월",
+  //   "11월",
+  //   "12월",
+  // ];
 
   return (
     <>
@@ -133,18 +149,14 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     <StartDate>
                       <SmallTitle className="startDate">시작</SmallTitle>
                       <div>
-                        <MyDatePickerS
-                          setStartDate={setStartDate}
-                          startDate={startDate}
-                        />
-                        {/* <DatePicker
+                        <DatePicker
                           className="startDatePicker"
                           selected={startDate}
                           onChange={(date) => setStartDate(date)}
                           showTimeSelect
                           dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                           locale={ko}
-                        /> */}
+                        />
                       </div>
                     </StartDate>
                   </div>
