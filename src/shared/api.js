@@ -32,13 +32,22 @@ formApi.interceptors.request.use(function (config) {
   return config;
 });
 
-api.interceptors.response.use((response) => {
-  if (response.headers.authorization !== undefined) {
-    console.log("set New Token");
-    sessionStorage.setItem("jwtToken", response.headers.authorization);
+api.interceptors.response.use(
+  (response) => {
+    if (response.headers.authorization !== undefined) {
+      console.log("set New Token");
+      sessionStorage.setItem("jwtToken", response.headers.authorization);
+    }
+    return response;
+  },
+  (error) => {
+    if (error.status === 403) {
+      window.alert("로그인 인증시간이 만료되었습니다.");
+      window.location.assign("/login");
+    }
+    return error;
   }
-  return response;
-});
+);
 
 export const apis = {
   // 메인페이지
