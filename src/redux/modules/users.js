@@ -65,7 +65,6 @@ export const logInDB = (user) => {
       })
       .catch((err) => {
         let code = err.response.status;
-
         if (code == 403) sessionStorage.removeItem("jwtToken");
         else window.alert(err.response.data.msg);
         console.log(err);

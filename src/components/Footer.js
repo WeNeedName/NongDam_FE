@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+// 이미지
+import nongdamLogoGrey from "../images/nongdam_logo_grey.png";
 
-const FooterNav = () => {
+const FooterNav = ({ currentPage }) => {
+  const [headerNav, setHeaderNav] = useState(currentPage);
+  console.log(headerNav);
   return (
     <Wrap>
       <InfoWrap>
-        <span>하단 푸터</span>
+        <Logo logoImage={nongdamLogoGrey} />
         <RightWrap>
           <LinkWrap>
             <Link
@@ -39,17 +43,14 @@ const Wrap = styled.div`
   width: 100vw;
   height: 180px;
   background: #fafafa;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.08);
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   bottom: 0;
   left: 0;
-
   grid-column: 1 / 6;
   grid-row: 10 / 12;
-
   @media only screen and (max-width: 760px) {
     display: none;
   }
@@ -92,6 +93,15 @@ const Link = styled.span`
   margin-bottom: 4px;
   margin-top: -3px;
   cursor: pointer;
+`;
+
+const Logo = styled.div`
+  width: 100px;
+  height: 30px;
+  background-image: url(${(props) => props.logoImage});
+  background-position: center 30%;
+  background-size: cover;
+  opacity: 0.8;
 `;
 
 export default FooterNav;
