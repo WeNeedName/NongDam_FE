@@ -20,7 +20,7 @@ const ScheduleCalendar = () => {
   const userInfo = useSelector((state) => state.users.user);
   const scheduleList = useSelector((state) => state.schedule.scheduleList);
   const yearMonth = useSelector((state) => state.schedule.yearMonth);
-  console.log(scheduleList);
+
   //큰 달력에서 모달 열기
   const [isOpen, setOpen] = useState(false);
   const [eventInfo, setEventInfo] = useState(null);
