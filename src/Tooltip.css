@@ -1,0 +1,142 @@
+.tooltip-box {
+background-color: white;
+padding: 6px 20px 6px 10px;
+border: 1px solid #E3E3E3;
+box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+border-radius: 4px;
+}
+
+.donut-tooltip-box {
+    background-color: white;
+    padding: 6px 10px 6px 10px;
+    border: 1px solid #E3E3E3;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+
+    }
+
+.line {
+    /* width: 80px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 6px 0px; */
+}
+
+.line-B {
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 6px 0px; */
+}
+
+.line-bottom {
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   margin-top: 4px;
+}
+
+.label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #60636C;
+}
+
+.price-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16px;
+    color: #02113B;
+    margin-left: 2px;
+}
+
+.kg-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #02113B;
+    margin-left: 2px;
+}
+
+.crop-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #02113B;
+    margin-left: 2px;
+}
+
+
+.date-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16px;
+    color: #60636C80;
+}
+
+
+.data-name-label {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #02113B;
+    margin-right: 4px;
+}
+
+.label-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #02113B;
+}
+
+.kg-label-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #02113B;
+}
+
+.donut-label-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    color: #02113B;
+}
+
+
+.donut-price-data {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #02113B;
+    margin-top: 4px;
+}

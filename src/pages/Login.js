@@ -1,20 +1,22 @@
 import { React, useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logInDB } from "../redux/modules/users";
-import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
-// 컴포넌트
 import Signup from "./Signup";
-// 이미지
-import KakaoLogin from "../images/kakao_login_medium_narrow.png";
+import { logInDB } from "../redux/modules/users";
+import KakaoLogin from "../images/kakao_login_large_wide.png";
+import { KAKAO_AUTH_URL } from "../shared/KakaoOauth";
+import { useNavigate } from "react-router";
+import Header from "../components/Header";
+import PersonIcon from "@mui/icons-material/Person";
+import LockIcon from "@mui/icons-material/Lock";
+import { Translate } from "@mui/icons-material";
+
+import nongdamLogo from "../images/nongdam_logo.png";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const idRef = useRef();
   const errRef = useRef();
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -23,24 +25,18 @@ const Login = () => {
   const dispatch = useDispatch();
   const userSignIn = useSelector((state) => state.users.users);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   setId();
-  //   setPw();
-  //   setSuccess(true);
-  // };
-
   const logIn = () => {
-    if (email === "" || pw === "") {
-      window.alert("빈칸 다 채워줘요");
-      return;
-    }
     const userInfo = {
       email: email,
       password: pw,
     };
-    dispatch(logInDB(userInfo)).then(navigate("/"));
+    dispatch(logInDB(userInfo));
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key == "Enter") {
+      logIn();
+    }
   };
 
   useEffect(() => {
@@ -49,88 +45,226 @@ const Login = () => {
 
   return (
     <>
-      <section>
-        <h1>로그인페이지</h1>
+      <Container>
+        <TopWrap>
+          <Logo
+            onClick={() => {
+              navigate("/");
+              setHeaderNav(headerNav);
+            }}
+            src={nongdamLogo}
+            alt="농담 로고"
+          />
+          <p className="slogan"> 농장을 한 눈에 담다, 농담!</p>
+          <p className="desc">
+            행복한 농사 생활을 위한 농담 <br />내 농장에 필요한 모든 걸 한 눈에
+            보세요.
+          </p>
+        </TopWrap>
 
-        {/* <form onSubmit={handleSubmit}> */}
-        <IdBox>
-          {" "}
-          <label className="id">ID</label>
-          <input
+        <InputBoxes>
+          <div className="icon">
+            <PersonIcon fontSize="small" />
+          </div>
+          <IdInput
             ref={idRef}
             autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="이메일"
+            autocapitalize="off"
           />
-        </IdBox>
-
-        <PwBox>
-          {" "}
-          <label className="pw">PW</label>
-          <input
-            type="text"
+          <div className="pwIcon">
+            <LockIcon fontSize="small" />
+          </div>
+          <PwInput
+            type="password"
             onChange={(e) => setPw(e.target.value)}
             value={pw}
             required
+            placeholder="비밀번호"
+            autocapitalize="off"
+            autoComplete="off"
+            onKeyPress={onKeyPress}
           />
-        </PwBox>
-        <p>
+        </InputBoxes>
+        <SubmitBtns>
           <LoginBtn
             type="submit"
-            style={{ width: "100px" }}
-            onClick={() => {
-              logIn();
-            }}
+            onClick={logIn}
+            disabled={!email || !pw ? true : false}
           >
-            {" "}
             로그인
           </LoginBtn>
-        </p>
-
-        <p>
+          <span>or</span>
           <SocialBtn
             onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
             }}
             src={KakaoLogin}
           />
-        </p>
-        {/* </form> */}
-        <p>
-          회원이 아니시라면? <br />
-          <span className="line">
-            <a href="/signup"> 회원가입</a>
-          </span>
-        </p>
-      </section>
+        </SubmitBtns>
+        <ToSignUp>
+          회원이 아니시라면?
+          <ToSignUpBtn
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            회원가입
+          </ToSignUpBtn>
+        </ToSignUp>
+      </Container>
     </>
   );
 };
 
-const InputBoxes = styled.div`
+const Container = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  position: relative;
+`;
 
-  .inputId {
-    margin: 10px;
+const TopWrap = styled.div`
+  .title {
+    font-weight: 700;
+    font-size: 30px;
+    color: #55a349;
+    margin-bottom: 40px;
   }
-  .inputPw {
-    margin: 10px;
+  .slogan {
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .desc {
+    font-size: 11px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #666666;
   }
 `;
 
-const IdBox = styled.div`
-  display: flex;
+const Logo = styled.img`
+  width: 130px;
+  margin-right: 26px;
+  cursor: pointer;
 `;
 
-const PwBox = styled.div`
+const InputBoxes = styled.form`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    position: absolute;
+    transform: translate(-100px, -15px);
+    z-index: 1;
+    color: #8b95a1;
+  }
+  .pwIcon {
+    position: absolute;
+    transform: translate(-100px, 20px);
+    z-index: 1;
+    color: #8b95a1;
+    size: 5px;
+  }
 `;
-const LoginBtn = styled.button``;
+
+const IdInput = styled.input`
+  width: 200px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 35px;
+
+  :focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    font-size: 10px;
+  }
+`;
+const PwInput = styled.input`
+  width: 200px;
+  height: 30px;
+  border: 1px solid #999999;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding-top: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 35px;
+
+  :focus {
+    outline: none;
+  }
+  ::placeholder {
+    font-size: 10px;
+  }
+`;
+
+const SubmitBtns = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LoginBtn = styled.button`
+  width: 240px;
+  height: 36px;
+  justify-content: center;
+  text-align: center;
+  padding: 4px 13px;
+  background-color: #55a349;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  size: 11px;
+  margin-top: 13px;
+  margin-bottom: 5px;
+
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  &:disabled {
+    opacity: 1;
+    cursor: default;
+  }
+`;
 const SocialBtn = styled.img`
+  width: 240px;
+  height: 36px;
+  margin: 5px;
   cursor: pointer;
   :hover {
-    box-shadow: 0 0 3px #142785;
+    opacity: 0.7;
   }
 `;
+const ToSignUp = styled.div`
+  margin-top: 30px;
+`;
+
+const ToSignUpBtn = styled.span`
+  margin-left: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    font-weight: 700;
+  }
+`;
+
 export default Login;
