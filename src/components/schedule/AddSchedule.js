@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { addScheduleDB } from "../../redux/modules/schedule";
-
+import MyDatePickerS from "./MyDatePickerS";
 //달력
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
-import moment from "moment";
+import moment, { months } from "moment";
 
 import Swal from "sweetalert2";
 
@@ -68,6 +69,19 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
     navigate("/mypage/editmemberinfo");
   };
 
+  // const MyContainer = ({ className, children }) => {
+  //   return (
+  //     <div style={{ padding: "px", background: "#216ba5", color: "#fff" }}>
+  //       <CalendarContainer className={className}>
+  //         <div style={{ background: "#f0f0f0" }}>
+  //           What is your favorite day?
+  //         </div>
+  //         <div style={{ position: "relative" }}>{children}</div>
+  //       </CalendarContainer>
+  //     </div>
+  //   );
+  // };
+
   return (
     <>
       {myCropsList.length === 0 ? (
@@ -114,35 +128,47 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                       : null}
                   </CropSelectBoxWrap>
                 </CropWrap>
-                <StartDate>
-                  <SmallTitle className="startDate">시작</SmallTitle>
-                  <DatePicker
-                    className="startDatePicker"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    showTimeSelect
-                    dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
-                    locale={ko}
-                  />
-                </StartDate>
-                <EndDate>
-                  <SmallTitle className="endDate">종료</SmallTitle>
-                  <DatePicker
-                    className="endDatePicker"
-                    selected={endDate}
-                    onChange={(date) => {
-                      onChangeEndDate(date);
-                      setEndDate(date);
-                    }}
-                    showTimeSelect
-                    minDate={new Date(startDate)} //시작일보다 이전 날짜는 선택 못하게
-                    dateFormat="yyyy.MM.dd HH:mm"
-                    locale={ko} // 한글로 변경
-                  />
-                </EndDate>
-                {dateErr === true && (
-                  <ErrorMsg>종료시간을 시작시간보다 늦게 지정해주세요</ErrorMsg>
-                )}
+                <div className="calender-container">
+                  <div className="calender-box">
+                    <StartDate>
+                      <SmallTitle className="startDate">시작</SmallTitle>
+                      <div>
+                        <MyDatePickerS
+                          setStartDate={setStartDate}
+                          startDate={startDate}
+                        />
+                        {/* <DatePicker
+                          className="startDatePicker"
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                          showTimeSelect
+                          dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
+                          locale={ko}
+                        /> */}
+                      </div>
+                    </StartDate>
+                  </div>
+                  <EndDate>
+                    <SmallTitle className="endDate">종료</SmallTitle>
+                    <DatePicker
+                      className="endDatePicker"
+                      selected={endDate}
+                      onChange={(date) => {
+                        onChangeEndDate(date);
+                        setEndDate(date);
+                      }}
+                      showTimeSelect
+                      minDate={new Date(startDate)} //시작일보다 이전 날짜는 선택 못하게
+                      dateFormat="yyyy.MM.dd HH:mm"
+                      locale={ko} // 한글로 변경
+                    />
+                  </EndDate>
+                  {dateErr === true && (
+                    <ErrorMsg>
+                      종료시간을 시작시간보다 늦게 지정해주세요
+                    </ErrorMsg>
+                  )}
+                </div>
               </ContentWrapL>
               <ContentWrapR className="right">
                 <WorkWrap>
@@ -329,6 +355,8 @@ const CropSelectBoxWrap = styled.div`
   flex-wrap: wrap;
 `;
 
+const CalendarContainer = styled.div``;
+
 const StartDate = styled.div`
   margin-bottom: 10px;
   .startDatePicker {
@@ -345,6 +373,27 @@ const StartDate = styled.div`
       border-bottom: 1px solid black;
     }
   }
+
+  /* .react-datepicker__day-name {
+    width: 28px;
+  }
+  .custom-datepicker {
+    border: 1px solid blue;
+  }
+  .custom-day {
+    width: 28px;
+    height: 28px;
+    line-height: 1.8;
+    text-align: center;
+  }
+  .gray-day {
+    color: #aba8b9;
+  }
+  .selected-day {
+    background: #2e1c8b;
+    border-radius: 50%;
+    font-weight: 700;
+  } */
 `;
 
 const InputDate = styled.span`
