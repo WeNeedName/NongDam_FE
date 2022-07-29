@@ -41,36 +41,6 @@ const AnalysisCard = ({
     <Wrap>
       {is_loaded ? (
         <>
-          {userInfo?.address === "" ? (
-            <NoticeWrap>
-              <NoticeT>
-                지금 장부를 작성하고
-                <br />내 매출 현황을 확인해보세요!
-              </NoticeT>
-              <NoticeBtn
-                onClick={() => {
-                  navigate("/accountbook");
-                }}
-              >
-                작성하러 가기
-              </NoticeBtn>
-            </NoticeWrap>
-          ) : userInfo?.crops.length === 0 ? (
-            <NoticeWrap>
-              <NoticeT>
-                마이페이지에서 지역과 작물 등록 후 서비스를 이용하시면
-                <br />
-                다양한 통계 정보를 확인하실 수 있습니다
-              </NoticeT>
-              <NoticeBtn
-                onClick={() => {
-                  navigate("/mypage");
-                }}
-              >
-                등록하러 가기
-              </NoticeBtn>
-            </NoticeWrap>
-          ) : null}
           <TopWrap>
             <Title>📊 농장 관리 현황</Title>
             <ShowMoreBtn

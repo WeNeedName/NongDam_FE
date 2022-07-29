@@ -244,10 +244,10 @@ const WorkTimeBarChart = ({ workTimeData }) => {
       },
     },
   };
-
+  console.log(sumList);
   return (
     <ChartWrap>
-      {sumList[0] !== 0 && sumList[1] !== 0 ? (
+      {sumList[0] !== 0 || sumList[1] !== 0 ? (
         <>
           <YasisWrap>
             {workTimeData?.xlabel !== undefined &&
