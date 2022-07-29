@@ -40,7 +40,9 @@ const EditPw = () => {
       oldPassword: oldPw,
       newPassword: newPw,
     };
-    dispatch(editPwDB(oldAndNewPws));
+    dispatch(editPwDB(oldAndNewPws)).then(() => {
+      navigate("/mypage");
+    });
   };
 
   return (
