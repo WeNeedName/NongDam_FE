@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCropsListDB } from "../../redux/modules/users";
 import Select from "react-select";
 
-const MyCrops = ({ setCrops, setCropsObj }) => {
+const MyCrops = ({ setCrops, setCropsObj, sendCrop }) => {
   const dispatch = useDispatch();
   const [selectedCrops, setSelectedCrops] = useState([]);
   const cropsData = useSelector((state) => state.users.crops);
@@ -40,6 +40,7 @@ const MyCrops = ({ setCrops, setCropsObj }) => {
               })
             : null
         }
+        isOptionDisabled={() => sendCrop.length >= 7}
         placeholder="작물을 검색해주세요"
         onChange={(value) => {
           // if (!sendCrops)
