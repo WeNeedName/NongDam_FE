@@ -157,6 +157,7 @@ const EditMemberInfo = () => {
         });
     }
   };
+
   return (
     <Wrap ref={modalCloseRef}>
       {/* <Header />
@@ -208,8 +209,10 @@ const EditMemberInfo = () => {
             <SmallTitle>주소</SmallTitle>
             {address ? (
               <AddressContent>{address}</AddressContent>
-            ) : (
+            ) : userInfo?.address ? (
               <AddressContent>{userInfo?.address}</AddressContent>
+            ) : (
+              <AddressContent>주소를 입력해주세요</AddressContent>
             )}
 
             {/* {address} */}

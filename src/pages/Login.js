@@ -96,13 +96,13 @@ const Login = () => {
           >
             로그인
           </LoginBtn>
-          {/* <span>or</span>
+          <span>or</span>
           <SocialBtn
             onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
             }}
             src={KakaoLogin}
-          /> */}
+          />
         </SubmitBtns>
         <ToSignUp>
           회원이 아니시라면?
