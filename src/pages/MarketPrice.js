@@ -105,7 +105,7 @@ const MarketPrice = () => {
   return (
     <div>
       <Header currentPage="marketPrice" />
-      <Wrap>
+      <Wrap crops={userInfo?.crops.length}>
         <BodyWrap userInfo={userInfo}>
           <MarketPriceCard
             cropsData={cropsData}
@@ -184,8 +184,8 @@ const MarketPrice = () => {
           </Info>
         ) : null}
         <FooterNav currentPage="marketPrice" />
-        <Footer />
       </Wrap>
+      <Footer />
     </div>
   );
 };
@@ -227,6 +227,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  margin-bottom: ${({ crops }) => (crops === 0 ? "150px" : "0px")};
 `;
 
 const BodyWrap = styled.div`
