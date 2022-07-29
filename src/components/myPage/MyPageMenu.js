@@ -45,7 +45,9 @@ const MyPageMenu = () => {
     <Wrap>
       <ContentWrap>
         <ProfileImg
-          onClick={goToMemberInfo}
+          onClick={() => {
+            goToMemberInfo();
+          }}
           style={{ backgroundImage: `url(${userInfo?.profileImage})` }}
         />
         <SmallInfo>
@@ -124,6 +126,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    margin-left: 10px;
   }
 `;
 

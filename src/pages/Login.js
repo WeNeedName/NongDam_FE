@@ -96,13 +96,13 @@ const Login = () => {
           >
             로그인
           </LoginBtn>
-          <span>or</span>
+          {/* <span>or</span>
           <SocialBtn
             onClick={() => {
               window.location.href = KAKAO_AUTH_URL;
             }}
             src={KakaoLogin}
-          />
+          /> */}
         </SubmitBtns>
         <ToSignUp>
           회원이 아니시라면?
@@ -142,16 +142,16 @@ const TopWrap = styled.div`
     font-size: 20px;
   }
   .desc {
-    font-size: 11px;
+    font-size: 12px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     color: #666666;
   }
 `;
 
 const Logo = styled.img`
-  width: 180px;
-  margin-right: 10px;
+  width: 130px;
+  margin-right: 26px;
   cursor: pointer;
 `;
 
@@ -193,7 +193,7 @@ const IdInput = styled.input`
   }
 
   ::placeholder {
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 const PwInput = styled.input`
@@ -211,7 +211,7 @@ const PwInput = styled.input`
     outline: none;
   }
   ::placeholder {
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 

@@ -14,6 +14,7 @@ import ScheduleCalendar from "../components/schedule/ScheduleCalendar";
 import ScheduleWeek from "../components/schedule/ScheduleWeek";
 import AddSchedule from "../components/schedule/AddSchedule";
 import FooterNav from "../components/FooterNav";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
@@ -52,43 +53,46 @@ const Schedule = () => {
   }, [dispatch]);
 
   return (
-    <Wrap>
-      <Header currentPage="schedule" />
-      <>
-        <CalendarWrap>
-          <ScheduleCalendar userInfo={userInfo} />
-          <AddScheduleBtn
-            onClick={() => {
-              toggleModal();
-            }}
-          >
-            + 기록하기
-          </AddScheduleBtn>
-        </CalendarWrap>
-        <CurrentListWrap>
-          <ScheduleWeek />
-        </CurrentListWrap>
+    <>
+      <Wrap>
+        <Header currentPage="schedule" />
+        <>
+          <CalendarWrap>
+            <ScheduleCalendar userInfo={userInfo} />
+            <AddScheduleBtn
+              onClick={() => {
+                toggleModal();
+              }}
+            >
+              + 기록하기
+            </AddScheduleBtn>
+          </CalendarWrap>
+          <CurrentListWrap>
+            <ScheduleWeek />
+          </CurrentListWrap>
 
-        {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
-        <Icon
-          onMouseOver={() => setIsHovering(true)}
-          onMouseOut={() => setIsHovering(false)}
-          Image={presentIcon}
-          chickenIcon={chickenIcon}
-          onClick={() => {
-            const openNewWindow = window.open("about:blank");
-            openNewWindow.location.href =
-              "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
-          }}
-        />
-        {isHovering ? (
-          <Info>
-            <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
-          </Info>
-        ) : null}
-        <FooterNav currentPage="schedule" />
-      </>
-    </Wrap>
+          {isOpen && <AddSchedule isOpen={isOpen} toggleModal={toggleModal} />}
+          <Icon
+            onMouseOver={() => setIsHovering(true)}
+            onMouseOut={() => setIsHovering(false)}
+            Image={presentIcon}
+            chickenIcon={chickenIcon}
+            onClick={() => {
+              const openNewWindow = window.open("about:blank");
+              openNewWindow.location.href =
+                "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
+            }}
+          />
+          {isHovering ? (
+            <Info>
+              <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+            </Info>
+          ) : null}
+          <FooterNav currentPage="schedule" />
+        </>
+      </Wrap>
+      <Footer currentpage="schedule" />
+    </>
   );
 };
 
@@ -125,14 +129,16 @@ const Wrap = styled.div`
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 26px;
+  margin-bottom: 50px;
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr minmax(600px, 720px) 24% 1fr;
   }
   @media only screen and (max-width: 760px) {
     grid-template-columns: 1fr 95% 1fr;
-    grid-template-rows: 70px minmax(320px, 400px) 1fr;
+    grid-template-rows: 70px minmax(610px, 700px) 1fr;
   }
 `;
+
 const CalendarWrap = styled.div`
   padding: 30px 30px 36px 30px;
   background: #ffffff;
@@ -143,10 +149,13 @@ const CalendarWrap = styled.div`
   grid-row: 2 / 3;
   position: relative;
   @media only screen and (max-width: 760px) {
-    padding: 20px 10px 16px 10px;
-
+    padding: 20px 10px 20px 10px;
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    margin-top: 10px;
+    border-radius: 0px;
+    width: 100%;
+    margin-left: -10px;
   }
 `;
 
@@ -179,6 +188,7 @@ const CurrentListWrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
+    border-left: none;
   }
 `;
 
@@ -224,10 +234,7 @@ const Icon = styled.div`
     background-image: url(${(props) => props.chickenIcon});
   }
   @media only screen and (max-width: 760px) {
-    width: 60px;
-    height: 60px;
-    bottom: 120px;
-    right: 50px;
+    display: none;
   }
 `;
 

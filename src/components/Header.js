@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOutDB } from "../redux/modules/users";
 import { getInfoDB } from "../redux/modules/users";
-import nongdamLogo from "../images/nongdam_logo.png";
 import HeaderModal from "./HeaderModal";
+// 이미지
+import nongdamLogo from "../images/nongdam_logo.png";
 
 const Haeder = ({ currentPage }) => {
   const navigate = useNavigate();
@@ -92,7 +93,7 @@ const Haeder = ({ currentPage }) => {
                     }}
                     currentPage={headerNav}
                   >
-                    영농일지
+                    농장일지
                   </FormCheckText>
                   <FormCheckText
                     id="analysis"
@@ -171,11 +172,11 @@ const NavLeft = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 180px;
+  width: 90px;
   margin-right: 40px;
   cursor: pointer;
   @media only screen and (max-width: 760px) {
-    width: 140px;
+    width: 70px;
     height: auto;
   }
 `;

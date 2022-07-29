@@ -19,10 +19,12 @@ import Income from "../components/analysis/Expense";
 import Expense from "../components/analysis/Income";
 import WorkTime from "../components/analysis/WorkTime";
 import FooterNav from "../components/FooterNav";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
 import presentIcon from "../images/presentIcon.png";
+import WIPIcon from "../images/WIPIcon.png";
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ const Analysis = () => {
   const [harvestCaterory, setHarvestCaterory] = useState("month");
   const [salesCategory, setSalesCategory] = useState("month");
   const [isHovering, setIsHovering] = useState(false);
+  const [windowSize, setWindowSize] = useState(getWindowSize());
 
   const isLogin = sessionStorage.getItem("jwtToken");
   const incomeData = useSelector((state) => state.analysis.income);
@@ -56,40 +59,65 @@ const Analysis = () => {
     dispatch(getSalesDB(salesCategory));
   }, [salesCategory]);
 
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
+
   return (
     <>
-      <Wrap>
-        <Header currentPage="analysis" />
-        <AccountAnalysis incomeData={incomeData} expenseData={expenseData} />
-        <WorkTime workTimeData={workTimeData} />
-        <TotalHarvest
-          totalHarvestData={totalHarvestData}
-          setHarvestCaterory={setHarvestCaterory}
-          harvestCaterory={harvestCaterory}
-        />
-        <Sales
-          salesData={salesData}
-          setSalesCategory={setSalesCategory}
-          salesCategory={salesCategory}
-        />
-        <Icon
-          onMouseOver={() => setIsHovering(true)}
-          onMouseOut={() => setIsHovering(false)}
-          Image={presentIcon}
-          chickenIcon={chickenIcon}
-          onClick={() => {
-            const openNewWindow = window.open("about:blank");
-            openNewWindow.location.href =
-              "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
-          }}
-        />
-        {isHovering ? (
-          <Info>
-            <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
-          </Info>
-        ) : null}
-        <FooterNav currentPage="analysis" />
-      </Wrap>
+      <Header currentPage="analysis" />
+      {windowSize.innerWidth > 760 ? (
+        <Wrap>
+          <AccountAnalysis incomeData={incomeData} expenseData={expenseData} />
+          <WorkTime workTimeData={workTimeData} />
+          <TotalHarvest
+            totalHarvestData={totalHarvestData}
+            setHarvestCaterory={setHarvestCaterory}
+            harvestCaterory={harvestCaterory}
+          />
+          <Sales
+            salesData={salesData}
+            setSalesCategory={setSalesCategory}
+            salesCategory={salesCategory}
+          />
+          <Icon
+            onMouseOver={() => setIsHovering(true)}
+            onMouseOut={() => setIsHovering(false)}
+            Image={presentIcon}
+            chickenIcon={chickenIcon}
+            onClick={() => {
+              const openNewWindow = window.open("about:blank");
+              openNewWindow.location.href =
+                "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
+            }}
+          />
+          {isHovering ? (
+            <Info>
+              <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+            </Info>
+          ) : null}
+        </Wrap>
+      ) : (
+        <IconWrap>
+          <WIPIconS src={WIPIcon} alt="준비 중 아이콘" />
+          <InfoT>농장 현황은 웹에서 확인하실 수 있습니다</InfoT>
+          <InfoT2>모바일은 준비 중이니 조금만 기다려주세요!</InfoT2>
+        </IconWrap>
+      )}
+      <FooterNav currentPage="analysis" />
+      <Footer currentpage="schedule" />
     </>
   );
 };
@@ -191,16 +219,41 @@ const Icon = styled.div`
     background-image: url(${(props) => props.chickenIcon});
   }
   @media only screen and (max-width: 760px) {
-    width: 60px;
-    height: 60px;
-    bottom: 120px;
-    right: 50px;
+    display: none;
   }
 `;
 
 const Emoji = styled.div`
   font-size: 20px;
   margin-right: 4px;
+`;
+
+const IconWrap = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const WIPIconS = styled.img`
+  width: 110px;
+  margin-bottom: 30px;
+`;
+
+const InfoT = styled.span`
+  font-size: 14px;
+  color: #a3a3a3;
+  font-weight: 500;
+  margin: 1px 0px;
+`;
+
+const InfoT2 = styled.span`
+  font-size: 14px;
+  color: #a3a3a3;
+  font-weight: 400;
+  margin: 1px 0px;
 `;
 
 export default Analysis;

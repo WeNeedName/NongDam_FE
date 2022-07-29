@@ -9,6 +9,23 @@ import "moment/locale/ko";
 
 const AnalysisSalesChart = ({ salesData }) => {
   const navigate = useNavigate();
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
 
   // 1. y축 [0 - 사잇값 - 최댓값] 배열 만들기
   const allDataList = [];
@@ -35,7 +52,7 @@ const AnalysisSalesChart = ({ salesData }) => {
     );
   const yaxis =
     allDataListSort[0] !== "0" && mathRound <= 1
-      ? ["0", "1"]
+      ? ["1", "0"]
       : allDataListSort[0] !== "0"
       ? range(smallestNumberWon, mathRound, mathRound / 4).reverse()
       : ["0", "0", "0", "0", "0"];
@@ -239,10 +256,16 @@ const AnalysisSalesChart = ({ salesData }) => {
               </YasisLabelBox>
             </ChartBox>
             <XasisWrap>
-              {salesData?.xlabel !== undefined &&
-                salesData?.xlabel.map((data, id) => {
-                  return <Xasis key={id}>{data}</Xasis>;
-                })}
+              {salesData?.xlabel !== undefined && windowSize.innerWidth > 760
+                ? salesData?.xlabel.map((data, id) => {
+                    return <Xasis key={id}>{data}</Xasis>;
+                  })
+                : salesData?.xlabel.map((data, id) => {
+                    console.log(data);
+                    return (
+                      <Xasis key={id}>{moment(data).format("YY.MM")}</Xasis>
+                    );
+                  })}
             </XasisWrap>
           </>
         ) : (

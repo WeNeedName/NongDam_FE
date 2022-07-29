@@ -5,13 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { addScheduleDB } from "../../redux/modules/schedule";
-
+import MyDatePickerS from "./MyDatePickerS";
 //달력
+
 import DatePicker, { registerLocale } from "react-datepicker";
 import "../../react-datepickerSchedule.css";
 import { ko } from "date-fns/esm/locale";
 import moment, { months } from "moment";
 const _ = require("lodash");
+
 
 import Swal from "sweetalert2";
 
@@ -82,6 +84,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   //     </div>
   //   );
   // };
+
   // const years = _.range(1990, getYear(new Date()) + 1, 1);
   // const months = [
   //   "1월",
@@ -97,6 +100,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   //   "11월",
   //   "12월",
   // ];
+
 
   return (
     <>
@@ -149,14 +153,18 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     <StartDate>
                       <SmallTitle className="startDate">시작</SmallTitle>
                       <div>
+
                         <DatePicker
+
                           className="startDatePicker"
                           selected={startDate}
                           onChange={(date) => setStartDate(date)}
                           showTimeSelect
                           dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                           locale={ko}
+
                         />
+
                       </div>
                     </StartDate>
                   </div>

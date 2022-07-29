@@ -8,6 +8,7 @@ import { loadWorkLogListDB, loadWorkLogDB } from "../redux/modules/workLog";
 
 import { useSelector, useDispatch } from "react-redux";
 import FooterNav from "../components/FooterNav";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
@@ -31,27 +32,30 @@ const WorkLog = () => {
   const workLogList = useSelector((state) => state?.workLog?.workLogList);
 
   return (
-    <Container>
-      <Header currentPage="workLog" />
-      <LoadWorkLog workLogList={workLogList} />
-      <Icon
-        onMouseOver={() => setIsHovering(true)}
-        onMouseOut={() => setIsHovering(false)}
-        Image={presentIcon}
-        chickenIcon={chickenIcon}
-        onClick={() => {
-          const openNewWindow = window.open("about:blank");
-          openNewWindow.location.href =
-            "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
-        }}
-      />
-      {isHovering ? (
-        <Info>
-          <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
-        </Info>
-      ) : null}
-      <FooterNav currentPage="workLog" />
-    </Container>
+    <>
+      <Container length={workLogList?.length}>
+        <Header currentPage="workLog" />
+        <LoadWorkLog workLogList={workLogList} />
+        <Icon
+          onMouseOver={() => setIsHovering(true)}
+          onMouseOut={() => setIsHovering(false)}
+          Image={presentIcon}
+          chickenIcon={chickenIcon}
+          onClick={() => {
+            const openNewWindow = window.open("about:blank");
+            openNewWindow.location.href =
+              "https://docs.google.com/forms/d/e/1FAIpQLSfdZk0LhMOcp8FVaChB2mvIvixRKmY4A_iErl-UsoI0qPJVLg/viewform?usp=sf_link";
+          }}
+        />
+        {isHovering ? (
+          <Info>
+            <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+          </Info>
+        ) : null}
+        <FooterNav currentPage="workLog" />
+      </Container>
+      <Footer currentpage="schedule" />
+    </>
   );
 };
 
@@ -79,6 +83,8 @@ const boxFadeC = keyframes`
 const Container = styled.div`
   margin-top: 100px;
   background-color: #f5f5f5;
+  margin-bottom: ${(props) =>
+    props.length === 1 ? "400px" : props.length === 2 ? "200px" : "0"};
 `;
 
 const Info = styled.div`
@@ -123,10 +129,7 @@ const Icon = styled.div`
     background-image: url(${(props) => props.chickenIcon});
   }
   @media only screen and (max-width: 760px) {
-    width: 60px;
-    height: 60px;
-    bottom: 120px;
-    right: 50px;
+    display: none;
   }
 `;
 

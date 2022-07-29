@@ -76,8 +76,7 @@ const EditMemberInfo = () => {
                 userInfo?.address
               ) : (
                 <span>
-                  주소를 입력하시면 농담에서 실시간 날씨정보를 받아보실 수
-                  있어요.
+                  주소를 입력하시면 실시간 날씨정보를 확인하실 수 있어요.
                 </span>
               )}
             </PrevAddress>
@@ -101,7 +100,7 @@ const EditMemberInfo = () => {
                   </>
                 ) : (
                   <span className="noCropTitle">
-                    내 작물을 선택하시면 매일 업데이트되는 시세와 일정 및
+                    내 작물을 선택하시면 매일 업데이트되는 시세확인, 일정 및
                     일지관리를 할 수 있어요.
                   </span>
                 )}
@@ -154,20 +153,24 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
-  padding: 40px 40px 40px 40px;
+  padding: 40px 60px 40px 20px;
   grid-column: 3 / 6;
   @media only screen and (max-width: 1550px) {
     margin-left: 10px;
   }
   @media only screen and (max-width: 760px) {
+    width: 90%;
     grid-column: 2 / 3;
     grid-row: 3 / 4;
+    margin-left: -20px;
+    margin-bottom: 60px;
   }
 `;
 
 const Title = styled.span`
   font-size: 18px;
   font-weight: 700;
+  margin-left: 20px;
 `;
 
 const ContentWrap = styled.div``;
@@ -266,12 +269,17 @@ const Line = styled.hr`
   margin-bottom: 30px;
   width: 95%;
   border: solid 0.5px #d8d8d8;
+  margin-left: 20px;
+  padding-right: 40px;
 `;
 
 const SmallTitle = styled.span`
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const BottomWrap = styled.div``;
@@ -296,6 +304,9 @@ const PrevAddress = styled.button`
   border: none;
   background-color: transparent;
   color: #02113b;
+  @media only screen and (max-width: 760px) {
+    margin-left: 40px;
+  }
 `;
 
 const EditAddressBtn = styled.button`
@@ -319,6 +330,9 @@ const CropsWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    margin-right: 0px;
+  }
 `;
 
 const TitleAndCrops = styled.div`
@@ -331,6 +345,9 @@ const SmallTitleCrops = styled.span`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const PreviousMyCrops = styled.div`
@@ -340,6 +357,10 @@ const PreviousMyCrops = styled.div`
 
   .noCropTitle {
     font-size: 14px;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+    width: 200px;
   }
 `;
 
@@ -355,6 +376,9 @@ const PreviousCropsList = styled.div`
   border-radius: 10px;
   margin-right: 5px;
   flex-wrap: wrap;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 6px;
+  }
 `;
 
 const CropsContent = styled.div``;
@@ -392,11 +416,17 @@ const SmallTitleArea = styled.div`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const Area = styled.div`
   font-size: 14px;
   margin-left: 78px;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+  }
 `;
 
 const BtnWrap = styled.div``;

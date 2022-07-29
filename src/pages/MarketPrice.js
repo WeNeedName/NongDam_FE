@@ -14,6 +14,7 @@ import MyCropsMarketPriceCard from "../components/marketPrice/MyCropsMarketPrice
 import TodaysMarketPrice from "../components/marketPrice/TodaysMarketPrice";
 import TodaysSalePrice from "../components/marketPrice/TodaysSalePrice";
 import FooterNav from "../components/FooterNav";
+import Footer from "../components/Footer";
 
 // 이미지
 import chickenIcon from "../images/chickenIcon.png";
@@ -183,6 +184,7 @@ const MarketPrice = () => {
           </Info>
         ) : null}
         <FooterNav currentPage="marketPrice" />
+        <Footer />
       </Wrap>
     </div>
   );
@@ -392,10 +394,7 @@ const Icon = styled.div`
     background-image: url(${(props) => props.chickenIcon});
   }
   @media only screen and (max-width: 760px) {
-    width: 60px;
-    height: 60px;
-    bottom: 120px;
-    right: 50px;
+    display: none;
   }
 `;
 

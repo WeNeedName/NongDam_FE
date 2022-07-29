@@ -32,6 +32,11 @@ const AnalysisCard = ({
     }
   };
 
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
+
   return (
     <Wrap>
       {is_loaded ? (
@@ -234,6 +239,7 @@ const Wrap = styled.div`
     grid-column: 2 / 3;
     grid-row: 10 / 12;
     padding: 20px 20px 20px 20px;
+    display: none;
   }
 `;
 

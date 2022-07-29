@@ -122,12 +122,11 @@ const Wrap = styled.div`
   display: grid;
   grid-auto-rows: auto;
   grid-template-columns: 1fr repeat(3, 25%) 1fr;
-  grid-template-rows: 80px repeat(6, 110px) 0;
+  grid-template-rows: 80px repeat(6, 110px);
   justify-content: center;
   flex-flow: wrap;
   row-gap: 16px;
   column-gap: 20px;
-  margin-bottom: 20px;
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, 27.5%) 1fr;
   }
@@ -179,10 +178,7 @@ const Icon = styled.div`
     background-image: url(${(props) => props.chickenIcon});
   }
   @media only screen and (max-width: 760px) {
-    width: 60px;
-    height: 60px;
-    bottom: 120px;
-    right: 50px;
+    display: none;
   }
 `;
 

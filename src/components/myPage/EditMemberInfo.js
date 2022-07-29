@@ -248,13 +248,14 @@ const EditMemberInfo = () => {
                       const label = list?.label?.split(" ")[1];
 
                       return (
-                        <CropsList key={idx}>
+                        <CropsList
+                          key={idx}
+                          onClick={(e) => {
+                            deleteSelectedCrops(list.value);
+                          }}
+                        >
                           {label}
-                          <DeleteBtn
-                            onClick={(e) => {
-                              deleteSelectedCrops(list.value);
-                            }}
-                          >
+                          <DeleteBtn>
                             <Cancel src={CancelIcon} alt="작물 삭제" />
                           </DeleteBtn>
                         </CropsList>
@@ -262,13 +263,14 @@ const EditMemberInfo = () => {
                     })
                   : cropsArray?.map((list, idx) => {
                       return (
-                        <CropsList key={idx}>
+                        <CropsList
+                          key={idx}
+                          onClick={(e) => {
+                            deleteSelectedCrops(list.value);
+                          }}
+                        >
                           {list?.label?.split(" ")[1]}
-                          <DeleteBtn
-                            onClick={(e) => {
-                              deleteSelectedCrops(list.value);
-                            }}
-                          >
+                          <DeleteBtn>
                             <Cancel src={CancelIcon} alt="작물 삭제" />
                           </DeleteBtn>
                         </CropsList>
@@ -276,7 +278,11 @@ const EditMemberInfo = () => {
                     })}
               </PrevAndNewCrops>
 
-              <MyCrops setCrops={setCrops} setCropsObj={setCropsObj} />
+              <MyCrops
+                setCrops={setCrops}
+                setCropsObj={setCropsObj}
+                sendCrop={sendCrop}
+              />
             </CropsContent>
           </TitleAndCrops>
         </CropsWrap>
@@ -364,7 +370,7 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 16px;
   background: #ffffff;
-  padding: 40px 40px 40px 40px;
+  padding: 40px 60px 40px 20px;
   grid-column: 3 / 6;
   @media only screen and (max-width: 1550px) {
     margin-left: 10px;
@@ -372,7 +378,8 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
-    margin-bottom: 30px;
+    margin-left: -20px;
+    margin-bottom: 60px;
   }
 `;
 
@@ -434,7 +441,6 @@ const EditNicknameWrap = styled.input`
   font-size: 18px;
   font-weight: 700;
   border: none;
-  border: none;
   border-bottom: 1px solid #ccc;
   margin-bottom: 6px;
 
@@ -493,6 +499,8 @@ const Line = styled.hr`
   margin-bottom: 30px;
   width: 95%;
   border: solid 0.5px #d8d8d8;
+  margin-left: 20px;
+  padding-right: 40px;
 `;
 
 const SmallTitle = styled.span`
@@ -500,6 +508,9 @@ const SmallTitle = styled.span`
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 
 const BottomWrap = styled.div``;
@@ -526,6 +537,10 @@ const AddressContent = styled.button`
   color: #02113b;
   overflow-wrap: break-word;
   text-align: left;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+    width: 170px;
+  }
 `;
 const AddressBtn = styled.button`
   font-size: 11px;
@@ -539,6 +554,9 @@ const AddressBtn = styled.button`
   color: #616161;
   &:hover {
     opacity: 0.7;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-right: 0px;
   }
 `;
 const CropsWrap = styled.div`
@@ -559,11 +577,18 @@ const SmallTitleCrops = styled.span`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 const PrevAndNewCrops = styled.div`
   margin-left: 80px;
   width: 300px;
   text-align: start;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+    width: 220px;
+  }
 `;
 
 const CropsList = styled.div`
@@ -576,18 +601,17 @@ const CropsList = styled.div`
   background-color: white;
   color: #616161;
   font-size: 5px;
-
+  cursor: pointer;
   border-radius: 10px;
   margin-right: 8px;
   margin-bottom: 8px;
   flex-wrap: wrap;
-  cursor: default;
 `;
 
 const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
-
+  cursor: pointer;
   color: #ccc;
   & hover {
     opacity: 0.7;
@@ -641,6 +665,9 @@ const CountryCodeContent = styled.div`
   color: #02113b;
   overflow-wrap: break-word;
   text-align: left;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+  }
 `;
 
 const TitleAndArea = styled.div`
@@ -654,6 +681,9 @@ const SmallTitleArea = styled.div`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 760px) {
+    font-size: 12px;
+  }
 `;
 const AreaBtn = styled.button`
   align-items: center;

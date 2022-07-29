@@ -56,8 +56,16 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
     currentAccount_list.filter((v) => v.category === checkedInputs);
 
   // 월 전체내역 수입 총합
+  const filterMonth =
+    accountList &&
+    accountList.filter(
+      (v) =>
+        (v =
+          moment(v.date).format("YYYY-MM") ===
+          yearMonth?.year + "-" + yearMonth?.month)
+    );
   const filteredIncome =
-    accountList && accountList.filter((v) => v.category === "수입");
+    filterMonth && filterMonth.filter((v) => v.category === "수입");
   const filteredIncomePrice =
     filteredIncome &&
     filteredIncome.map((v) => {
@@ -69,7 +77,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
 
   // 월 전체내역 지출 총합
   const filtereExpense =
-    accountList && accountList.filter((v) => v.category === "지출");
+    filterMonth && filterMonth.filter((v) => v.category === "지출");
   const filteredExpensePrice =
     filtereExpense &&
     filtereExpense.map((v) => {
@@ -302,6 +310,7 @@ const Wrap = styled.div`
   padding: 30px;
   @media only screen and (max-width: 760px) {
     padding: 30px 0px;
+    margin-right: 20px;
   }
 `;
 
@@ -406,7 +415,7 @@ const FormCheckText = styled.span`
   border-radius: 100px;
   width: auto;
   height: 16px;
-  margin-right: 12px;
+  margin-right: 8px;
   margin-bottom: 14px;
   font-size: 13px;
   cursor: pointer;

@@ -3,6 +3,11 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import jwt_decode from "jwt-decode";
 import { Navigate } from "react-router";
+// alert 라이브러리
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 //actions
 const LOGIN_USER = "LOGIN_USER";
@@ -57,27 +62,28 @@ export const logInDB = (user) => {
         const token = res.headers.authorization;
         const refreshToken = res.headers.refreshtoken;
         const DecodedToken = jwt_decode(token);
-        console.log(DecodedToken);
         sessionStorage.setItem("refreshToken", refreshToken);
         sessionStorage.setItem("jwtToken", token);
-        window.alert("환영합니다!");
-        window.location.assign("/");
-
-        // dispatch(
-        //   logIn(
-        //     {
-        //     email: email,
-        //     nickname: DecodedToken.nickname,
-        //     }
-        //   )
-        // );
-        // localStorage.setItem("email", email);
-        // localStorage.setItem("nickname", DecodedToken.nickname);
+        Swal.fire({
+          title: "환영합니다!",
+          showConfirmButton: false,
+          timer: 1600,
+          color: "#black",
+          padding: "20px 20px 40px 20px",
+          width: "400px",
+          height: "200px",
+          fontWeight: "400px",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+        }).then(() => {
+          window.location.assign("/");
+        });
       })
       .catch((err) => {
+        console.log(err);
         let code = err.response.status;
-
-        if (code == 403) window.alert(err.response.data.msg);
+        if (code == 403) sessionStorage.removeItem("jwtToken");
         else window.alert(err.response.data.msg);
         console.log(err);
       });
@@ -95,8 +101,18 @@ export const kakaoLogInDB = (data) => {
         const DecodedToken = jwt_decode(token);
         sessionStorage.setItem("refreshToken", refreshToken);
         sessionStorage.setItem("jwtToken", token);
-        window.alert("환영합니다!");
-        window.location.assign("/");
+        Swal.fire({
+          title: "환영합니다!",
+          showConfirmButton: false,
+          timer: 1300,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+          fontWeight: "400px",
+        }).then(() => {
+          window.location.assign("/");
+        });
         dispatch(kakaoLogIn(data));
       })
       .catch((err) => {
@@ -125,7 +141,19 @@ export const editPwDB = (pw) => {
   return async function (dispatch) {
     await apis
       .editPw(pw)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "변경이 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+      })
       .catch((err) => {
         console.log(err);
         window.alert(err.response.data.msg);
@@ -186,21 +214,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.crops = action.payload.data;
       }),
-
-    // [LOGOUT]: (state, action) => produce(state, (draft) => {
-    //   draft.user = null;
-    //   draft.isLogin = false;
-    //     }),
-
-    //   [LOAD_NICKNAME]: (state, action) =>
-    //     produce(state, (draft) => {
-    //       console.log(action.payload.user);
-    //       return { nickname: action.payload.user };
-    //     }),
-    //   [GET_NICKNAME]: (state, action) =>
-    //     produce(state, (draft) => {
-    //       return { user: action.data };
-    //     }),
   },
   initialState
 );

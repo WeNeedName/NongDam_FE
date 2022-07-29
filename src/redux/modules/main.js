@@ -67,6 +67,10 @@ export const getWeatherDB = () => {
       .catch((error) => {
         // window.alert("날씨정보를 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
+        if (error.response.status === 403) {
+          sessionStorage.removeItem("jwtToken");
+          window.location.assign("/login");
+        }
       });
   };
 };

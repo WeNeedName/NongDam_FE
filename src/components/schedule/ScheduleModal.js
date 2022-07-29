@@ -29,8 +29,6 @@ const ScheduleModal = ({
   const schedule = currentScheduleList?.find((list) => list.id === scheduleId);
   const myCropsList = useSelector((state) => state.users.user?.crops);
   const yearMonth = useSelector((state) => state.account.yearMonth);
-  // console.log(myCropsList)
-  console.log(schedule);
 
   const [openEdit, setOpenEdit] = useState(false);
   const [startTime, setStartTime] = useState(new Date(schedule.startTime));
@@ -81,6 +79,8 @@ const ScheduleModal = ({
       toggleModal();
     });
   };
+
+  console.log(schedule);
 
   const deleteSchedule = () => {
     Swal.fire({
@@ -137,6 +137,7 @@ const ScheduleModal = ({
                   <CropEditWrap>
                     {myCropsList !== undefined
                       ? myCropsList.map((list, idx) => {
+                          console.log(list);
                           return (
                             <Label key={idx}>
                               <FormCheckLeft
@@ -153,7 +154,7 @@ const ScheduleModal = ({
                               <FormCheckText>
                                 {/* {list !== undefined && "[" + list?.type + "]"}
                                 <br /> */}
-                                {list !== undefined && list?.name}
+                                {list !== undefined && list?.type}
                               </FormCheckText>
                             </Label>
                           );
@@ -378,6 +379,7 @@ const CropEditWrap = styled.div`
   display: flex;
   margin-top: 5px;
   margin-bottom: 25px;
+  flex-wrap: wrap;
 `;
 const FormCheckText = styled.span`
   width: auto;
@@ -391,9 +393,9 @@ const FormCheckText = styled.span`
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-right: 10px;
   cursor: pointer;
   color: #ccc;
+  margin: 4px 6px 4px 0px;
   &:hover {
     color: black;
     border: 1px solid black;

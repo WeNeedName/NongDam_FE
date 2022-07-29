@@ -30,8 +30,6 @@ const DetailWorkLog = ({}) => {
   const workLogOne = useSelector((state) => state?.workLog?.workLog);
   const dateFormat = moment(workLogOne?.date).format("YYYY.MM.DD");
 
-  console.log(workLogOne);
-
   useEffect(() => {
     dispatch(loadWorkLogDB(params.id));
   }, [params]);
@@ -276,6 +274,7 @@ const TotalWrap = styled.div`
   justify-content: center;
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 40px;
   @media only screen and (max-width: 760px) {
     width: 90%;
     margin-bottom: 110px;
