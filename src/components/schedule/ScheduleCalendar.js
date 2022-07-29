@@ -107,14 +107,8 @@ const ScheduleCalendar = () => {
   );
 };
 
-// const Nav = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
-//   margin-top: 30px;
-// `;
 const Wrap = styled.div``;
+
 const NoticeWrap = styled.div`
   width: 100%;
   height: 100%;
@@ -127,7 +121,7 @@ const NoticeWrap = styled.div`
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 1) 80%,
+    rgba(255, 255, 255, 1) 30%,
     white 100%
   );
   position: absolute;
