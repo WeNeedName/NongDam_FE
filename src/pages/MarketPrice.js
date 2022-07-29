@@ -227,7 +227,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: ${({ crops }) => (crops === 0 ? "150px" : "0px")};
+  margin-bottom: ${({ crops }) => (crops === 0 ? "300px" : "0px")};
 `;
 
 const BodyWrap = styled.div`
