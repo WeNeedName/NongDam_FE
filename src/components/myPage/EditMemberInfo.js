@@ -153,7 +153,11 @@ const EditMemberInfo = () => {
           console.log(res), dispatch(getInfoDB(res)), navigate("/mypage");
         })
         .catch((err) => {
-          window.alert(err.response.data.msg);
+          console.log(err);
+          if (err.response.status === 403 || err.response.status === 0)
+            window.alert(
+              "프로필 이미지 사이즈는 최대 5MB까지 등록 가능합니다."
+            );
         });
     }
   };
@@ -212,7 +216,7 @@ const EditMemberInfo = () => {
             ) : userInfo?.address ? (
               <AddressContent>{userInfo?.address}</AddressContent>
             ) : (
-              <AddressContent>주소를 입력해주세요</AddressContent>
+              <AddressContent>주소를 등록해주세요</AddressContent>
             )}
 
             {/* {address} */}
