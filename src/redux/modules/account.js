@@ -88,7 +88,7 @@ export const addAccountDB = (account) => async (dispatch) => {
       title: "작성이 완료되었습니다.",
       icon: "success",
       showConfirmButton: false,
-      timer: 1300,
+      timer: 1500,
       color: "#black",
       padding: "20px",
       width: "400px",
