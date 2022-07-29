@@ -204,7 +204,7 @@ const AnalysisTotalHarvestChart = ({ totalHarvestData }) => {
   return (
     <>
       <ChartWrap>
-        {allDataListSort[0] !== "0" ? (
+        {allDataListSort.length !== 0 && allDataListSort[0] !== "0" ? (
           <>
             <YasisWrap>
               {yaxis !== undefined &&
