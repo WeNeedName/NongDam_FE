@@ -20,85 +20,73 @@ const FooterNav = ({ currentPage }) => {
   return (
     <Wrap>
       <NavWrap>
-        <CategoryWrap>
+        <CategoryWrap
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <Icon src={homeIcon} alt="홈" />
-          <FormCheckText
-            id="main"
-            onClick={() => {
-              navigate("/");
-            }}
-            currentPage={headerNav}
-          >
+          <FormCheckText id="main" currentPage={headerNav}>
             홈
           </FormCheckText>
         </CategoryWrap>
 
-        <CategoryWrap>
+        <CategoryWrap
+          onClick={() => {
+            navigate("/marketprice");
+            setHeaderNav(headerNav);
+          }}
+        >
           <Icon src={marketpriceIcon} alt="시세" />
-          <FormCheckText
-            id="marketPrice"
-            onClick={() => {
-              navigate("/marketprice");
-              setHeaderNav(headerNav);
-            }}
-            currentPage={headerNav}
-          >
+          <FormCheckText id="marketPrice" currentPage={headerNav}>
             시세
           </FormCheckText>
         </CategoryWrap>
 
-        <CategoryWrap>
+        <CategoryWrap
+          onClick={() => {
+            navigate("/schedule");
+            setHeaderNav(headerNav);
+          }}
+        >
           <IconB src={scheduleIcon} alt="일정" />
-          <FormCheckText
-            id="schedule"
-            onClick={() => {
-              navigate("/schedule");
-              setHeaderNav(headerNav);
-            }}
-            currentPage={headerNav}
-          >
+          <FormCheckText id="schedule" currentPage={headerNav}>
             일정
           </FormCheckText>
         </CategoryWrap>
 
-        <CategoryWrap>
+        <CategoryWrap
+          onClick={() => {
+            navigate("/accountbook");
+            setHeaderNav(headerNav);
+          }}
+        >
           <Icon src={accountIcon} alt="장부" />
 
-          <FormCheckText
-            id="accountbook"
-            onClick={() => {
-              navigate("/accountbook");
-              setHeaderNav(headerNav);
-            }}
-            currentPage={headerNav}
-          >
+          <FormCheckText id="accountbook" currentPage={headerNav}>
             장부
           </FormCheckText>
         </CategoryWrap>
 
-        <CategoryWrap>
+        <CategoryWrap
+          onClick={() => {
+            navigate("/worklog");
+          }}
+        >
           <Icon src={workLogIcon} alt="일지" />
-          <FormCheckText
-            id="workLog"
-            onClick={() => {
-              navigate("/worklog");
-            }}
-            currentPage={headerNav}
-          >
+          <FormCheckText id="workLog" currentPage={headerNav}>
             일지
           </FormCheckText>
         </CategoryWrap>
 
-        <CategoryWrap>
+        <CategoryWrap
+          onClick={() => {
+            navigate("/analysis");
+            setHeaderNav(headerNav);
+          }}
+        >
           <Icon src={analysisIcon} alt="농장 현황" />
-          <FormCheckText
-            id="analysis"
-            onClick={() => {
-              navigate("/analysis");
-              setHeaderNav(headerNav);
-            }}
-            currentPage={headerNav}
-          >
+          <FormCheckText id="analysis" currentPage={headerNav}>
             농장 현황
           </FormCheckText>
         </CategoryWrap>
