@@ -141,7 +141,19 @@ export const editPwDB = (pw) => {
   return async function (dispatch) {
     await apis
       .editPw(pw)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          title: "변경이 완료되었습니다.",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+        });
+      })
       .catch((err) => {
         console.log(err);
         window.alert(err.response.data.msg);
