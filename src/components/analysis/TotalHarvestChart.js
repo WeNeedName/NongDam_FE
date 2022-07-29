@@ -242,9 +242,9 @@ const TotalHarvestChart = ({ totalHarvestData }) => {
         ) : (
           <NoticeWrap>
             <NoticeT>
-              지금 농장일지를 기록하고
+              지금 농장일지에 수확량을 기록하고
               <br />
-              수확량을 알아보세요!
+              통계를 확인해보세요!
             </NoticeT>
             <NoticeBtn
               onClick={() => {
