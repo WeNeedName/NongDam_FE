@@ -72,7 +72,7 @@ const AnalysisSalesChart = ({ salesData }) => {
     });
 
   const lineWidthArr = Array.from({ length: 7 }, (v, i) => (v = 2));
-  console.log(salesData?.xlabel);
+
   // 4. 내 작물 월별 수확량 차트 state
   const state = {
     series:
