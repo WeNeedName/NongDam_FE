@@ -248,13 +248,14 @@ const EditMemberInfo = () => {
                       const label = list?.label?.split(" ")[1];
 
                       return (
-                        <CropsList key={idx}>
+                        <CropsList
+                          key={idx}
+                          onClick={(e) => {
+                            deleteSelectedCrops(list.value);
+                          }}
+                        >
                           {label}
-                          <DeleteBtn
-                            onClick={(e) => {
-                              deleteSelectedCrops(list.value);
-                            }}
-                          >
+                          <DeleteBtn>
                             <Cancel src={CancelIcon} alt="작물 삭제" />
                           </DeleteBtn>
                         </CropsList>
@@ -262,13 +263,14 @@ const EditMemberInfo = () => {
                     })
                   : cropsArray?.map((list, idx) => {
                       return (
-                        <CropsList key={idx}>
+                        <CropsList
+                          key={idx}
+                          onClick={(e) => {
+                            deleteSelectedCrops(list.value);
+                          }}
+                        >
                           {list?.label?.split(" ")[1]}
-                          <DeleteBtn
-                            onClick={(e) => {
-                              deleteSelectedCrops(list.value);
-                            }}
-                          >
+                          <DeleteBtn>
                             <Cancel src={CancelIcon} alt="작물 삭제" />
                           </DeleteBtn>
                         </CropsList>
@@ -276,7 +278,11 @@ const EditMemberInfo = () => {
                     })}
               </PrevAndNewCrops>
 
-              <MyCrops setCrops={setCrops} setCropsObj={setCropsObj} />
+              <MyCrops
+                setCrops={setCrops}
+                setCropsObj={setCropsObj}
+                sendCrop={sendCrop}
+              />
             </CropsContent>
           </TitleAndCrops>
         </CropsWrap>
@@ -595,18 +601,17 @@ const CropsList = styled.div`
   background-color: white;
   color: #616161;
   font-size: 5px;
-
+  cursor: pointer;
   border-radius: 10px;
   margin-right: 8px;
   margin-bottom: 8px;
   flex-wrap: wrap;
-  cursor: default;
 `;
 
 const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
-
+  cursor: pointer;
   color: #ccc;
   & hover {
     opacity: 0.7;
