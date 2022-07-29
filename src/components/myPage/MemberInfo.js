@@ -76,8 +76,7 @@ const EditMemberInfo = () => {
                 userInfo?.address
               ) : (
                 <span>
-                  주소를 입력하시면 농담에서 실시간 날씨정보를 받아보실 수
-                  있어요.
+                  주소를 입력하시면 실시간 날씨정보를 확인하실 수 있어요.
                 </span>
               )}
             </PrevAddress>
@@ -101,7 +100,7 @@ const EditMemberInfo = () => {
                   </>
                 ) : (
                   <span className="noCropTitle">
-                    내 작물을 선택하시면 매일 업데이트되는 시세와 일정 및
+                    내 작물을 선택하시면 매일 업데이트되는 시세확인, 일정 및
                     일지관리를 할 수 있어요.
                   </span>
                 )}
