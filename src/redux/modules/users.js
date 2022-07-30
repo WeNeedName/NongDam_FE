@@ -45,9 +45,39 @@ export const signUpDB = (userInfo) => {
       .then((res) => {
         console.log(res);
         dispatch(signUp(userInfo));
+        Swal.fire({
+          title: "메일 전송이 완료되었습니다.",
+          html: " 가입하신 메일로 인증 후에 이용 가능합니다.",
+          showConfirmButton: true,
+          confirmButtonColor: "#55A349",
+          color: "#black",
+          padding: "20px 20px 40px 20px",
+          width: "400px",
+          height: "200px",
+          fontWeight: "400px",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+        }).then(() => {
+          window.location.assign("/login");
+        });
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          title: err.response.data.msg,
+          icon: "warning",
+          showConfirmButton: true,
+          confirmButtonColor: "#55A349",
+          cancelButtonColor: "#ddd",
+          confirmButtonText: "확인",
+          cancelButtonText: "취소",
+          color: "#black",
+          padding: "20px",
+          width: "400px",
+          height: "200px",
+          fontWeight: "400px",
+        });
       });
   };
 };
@@ -84,7 +114,21 @@ export const logInDB = (user) => {
         console.log(err);
         let code = err.response.status;
         if (code == 403) sessionStorage.removeItem("jwtToken");
-        else window.alert(err.response.data.msg);
+        else
+          Swal.fire({
+            title: err.response.data.msg,
+            icon: "warning",
+            showConfirmButton: true,
+            confirmButtonColor: "#55A349",
+            cancelButtonColor: "#ddd",
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
+            color: "#black",
+            padding: "20px",
+            width: "400px",
+            height: "200px",
+            fontWeight: "400px",
+          });
         console.log(err);
       });
   };
@@ -117,7 +161,23 @@ export const kakaoLogInDB = (data) => {
       })
       .catch((err) => {
         console.log(err);
-        window.alert(err.response.data.msg);
+        let code = err.response.status;
+        if (code == 403) sessionStorage.removeItem("jwtToken");
+        else
+          Swal.fire({
+            title: err.response.data.msg,
+            icon: "warning",
+            showConfirmButton: true,
+            confirmButtonColor: "#55A349",
+            cancelButtonColor: "#ddd",
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
+            color: "#black",
+            padding: "20px",
+            width: "400px",
+            height: "200px",
+            fontWeight: "400px",
+          });
       });
   };
 };

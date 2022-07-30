@@ -85,6 +85,7 @@ const WorkPhoto = ({
               <InputBox
                 id="imageUpload"
                 type="file"
+                accept="image/*"
                 onChange={(e) => {
                   {
                     newEncodeFileToBase64(e.target.files[0]);
@@ -119,6 +120,7 @@ const WorkPhoto = ({
               <InputBox
                 type="file"
                 id="imageUpload"
+                accept="image/*"
                 onChange={(e) => {
                   {
                     encodeFileToBase64(e.target.files[0]);
