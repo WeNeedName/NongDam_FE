@@ -84,6 +84,7 @@ export const getScheduleListDB = (date) => {
     apis
       .loadSchedule(date)
       .then((response) => {
+        console.log(response);
         dispatch(getScheduleList(response.data));
       })
       .catch((error) => {
@@ -145,6 +146,7 @@ export const deleteScheduleDB = (id) => async (dispatch) => {
 };
 // 선택한 년도, 월 설정
 export const getYearMonthDB = (date) => {
+  console.log(date);
   return async function (dispatch) {
     dispatch(getYearMonth(date));
   };
@@ -161,8 +163,10 @@ export default handleActions(
 
     [GET_SCHEDULE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
+        console.log(payload);
         draft.scheduleList = payload.list;
       }),
+
     [GET_SCHEDULE]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loaded = true;

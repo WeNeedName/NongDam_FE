@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getAccountListDB, getYearMonthDB } from "../../redux/modules/account";
+import { getYearMonthDB } from "../../redux/modules/schedule";
 
 export default function ToolbarSchedule(props) {
   const dispatch = useDispatch();
