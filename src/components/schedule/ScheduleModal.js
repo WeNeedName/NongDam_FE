@@ -80,8 +80,6 @@ const ScheduleModal = ({
     });
   };
 
-  console.log(schedule);
-
   const deleteSchedule = () => {
     Swal.fire({
       title: "정말 삭제하시겠습니까?",
@@ -137,7 +135,6 @@ const ScheduleModal = ({
                   <CropEditWrap>
                     {myCropsList !== undefined
                       ? myCropsList.map((list, idx) => {
-                          console.log(list);
                           return (
                             <Label key={idx}>
                               <FormCheckLeft
