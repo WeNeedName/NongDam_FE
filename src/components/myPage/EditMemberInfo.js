@@ -183,6 +183,7 @@ const EditMemberInfo = () => {
               <ImageBtn
                 type="file"
                 id="inputImage"
+                accept="image/*"
                 onChange={(e) => {
                   {
                     encodeFileToBase64(e.target.files[0]);
@@ -558,7 +559,7 @@ const AddressBtn = styled.button`
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   background-color: transparent;
-  margin-top: 3px;
+  margin-top: 1px;
   margin-right: 120px;
   cursor: pointer;
   color: #616161;
@@ -593,7 +594,7 @@ const SmallTitleCrops = styled.span`
   }
 `;
 const PrevAndNewCrops = styled.div`
-  margin-left: 63px;
+  margin-left: 60px;
   width: 500px;
   text-align: start;
 
