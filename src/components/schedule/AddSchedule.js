@@ -70,7 +70,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const goMyPage = () => {
     navigate("/mypage/editmemberinfo");
   };
-
   // const MyContainer = ({ className, children }) => {
   //   return (
   //     <div style={{ padding: "px", background: "#216ba5", color: "#fff" }}>
