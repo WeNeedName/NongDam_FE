@@ -123,7 +123,6 @@ const Signup = () => {
                 <option value="hotmail.com">hotmail.com</option>
                 <option value="outlook.com">outlook.com</option>
                 <option value="icloud.com">icloud.com</option>
-                <option value="직접입력">직접입력</option>
               </SelectEM>
             </EmailInputWrap>
 
