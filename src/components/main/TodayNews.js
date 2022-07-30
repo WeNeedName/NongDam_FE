@@ -37,7 +37,7 @@ const TodayNews = () => {
                         <ImageContent imageURL={list.imageUrl} />
                       ) : null}
 
-                      <ShowMoreBtn>더보기</ShowMoreBtn>
+                      {/* <ShowMoreBtn>더보기</ShowMoreBtn> */}
 
                       <TextWrap>
                         <ContentsT imageURL={list.imageUrl}>
@@ -170,6 +170,10 @@ const ContentsBoxWrap = styled.div`
   position: relative;
   cursor: pointer;
   animation: ${boxFade} 1s;
+  border-radius: 6px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 `;
 
 const ShowMoreBtn = styled.div`
@@ -224,27 +228,27 @@ const InfoWrap = styled.div`
 `;
 
 const ContentsT = styled.div`
-  width: ${(props) => (props.imageURL === "" ? "290px" : "200px")};
+  width: ${(props) => (props.imageURL === "" ? "300px" : "300px")};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
   @media only screen and (max-width: 1220px) {
-    width: ${(props) => (props.imageURL === "" ? "80%" : "170px")};
+    width: ${(props) => (props.imageURL === "" ? "80%" : "230px")};
   }
   @media only screen and (max-width: 760px) {
-    width: ${(props) => (props.imageURL === "" ? "90%" : "190px")};
+    width: ${(props) => (props.imageURL === "" ? "90%" : "290px")};
   }
 `;
 
 const ContentsTInfo = styled.div`
   font-weight: 400;
-  font-size: 10px;
+  font-size: 11px;
 `;
 
 const ImageContent = styled.div`
@@ -257,6 +261,7 @@ const ImageContent = styled.div`
   border-radius: 4px;
   cursor: pointer;
   margin-right: 12px;
+  margin-left: 10px;
   @media only screen and (max-width: 1220px) {
     width: 28%;
     padding-bottom: 22%;
