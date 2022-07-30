@@ -341,6 +341,7 @@ const TitleAndCrops = styled.div`
 `;
 
 const SmallTitleCrops = styled.span`
+  width: 55px;
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
@@ -353,6 +354,7 @@ const SmallTitleCrops = styled.span`
 const PreviousMyCrops = styled.div`
   text-align: start;
   margin-left: 88px;
+
   width: auto;
 
   .noCropTitle {
@@ -372,9 +374,10 @@ const PreviousCropsList = styled.div`
   border: 1px solid #bfbfbf;
   padding: 4px 8px;
   color: #616161;
-  font-size: 5px;
+  font-size: 12px;
   border-radius: 10px;
   margin-right: 5px;
+  margin-bottom: 3px;
   flex-wrap: wrap;
   @media only screen and (max-width: 760px) {
     margin-bottom: 6px;

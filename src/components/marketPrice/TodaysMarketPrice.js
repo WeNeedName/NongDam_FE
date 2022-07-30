@@ -47,7 +47,12 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
 
   const marketPriceCategory = {
     productClsCode: checkedInputs,
-    cropId: selectedCrops === 21 ? selectedCrops : selectedCrops?.value,
+    cropId:
+      selectedCrops === 21 && userInfo !== null
+        ? userInfo?.crops[0]?.id
+        : selectedCrops === 21
+        ? selectedCrops
+        : selectedCrops.value,
   };
 
   // 숫자에 콤마넣기

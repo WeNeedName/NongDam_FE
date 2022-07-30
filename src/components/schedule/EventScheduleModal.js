@@ -221,31 +221,33 @@ const EventScheduleModal = ({
                     <StartTime>{startTimeLoadFormat}</StartTime>
                   )}
                 </Start>
-                <SmallTitle>종료</SmallTitle>
-                {openEdit ? (
-                  <>
-                    <DatePicker
-                      className="endDatePicker"
-                      selected={endTime}
-                      onChange={(date) => {
-                        onChangeEndDate(date);
-                        setEndTime(date);
-                      }}
-                      showTimeSelect
-                      minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
-                      dateFormat="yyyy년 MM월 dd일 HH:mm"
-                      locale={ko} // 한글로 변경
-                      //inline//달력 보이게
-                    />
-                    {dateErr === true && (
-                      <ErrorMsg>
-                        종료시간은 시작시간보다 빠르게 지정할 수 없습니다.
-                      </ErrorMsg>
-                    )}
-                  </>
-                ) : (
-                  <EndTime>{endTimeLoadFormat}</EndTime>
-                )}
+                <End>
+                  <SmallTitle>종료</SmallTitle>
+                  {openEdit ? (
+                    <>
+                      <DatePicker
+                        className="endDatePicker"
+                        selected={endTime}
+                        onChange={(date) => {
+                          onChangeEndDate(date);
+                          setEndTime(date);
+                        }}
+                        showTimeSelect
+                        minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
+                        dateFormat="yyyy년 MM월 dd일 HH:mm"
+                        locale={ko} // 한글로 변경
+                        //inline//달력 보이게
+                      />
+                      {dateErr === true && (
+                        <ErrorMsg>
+                          종료시간은 시작시간보다 빠르게 지정할 수 없습니다.
+                        </ErrorMsg>
+                      )}
+                    </>
+                  ) : (
+                    <EndTime>{endTimeLoadFormat}</EndTime>
+                  )}
+                </End>
               </TimeWrap>
             </LeftWrap>
             <RightWrap>
@@ -305,12 +307,12 @@ const EventScheduleModal = ({
                     </MemoWrap>
                   </>
                 ) : (
-                  <>
+                  <WorkContentLoadWrap>
                     <SmallTitle>작업 내용</SmallTitle>
                     {schedule.toDo !== "" ? (
                       <WorkContent>{schedule.toDo}</WorkContent>
                     ) : null}
-                  </>
+                  </WorkContentLoadWrap>
                 )}
               </WorkWrap>
 
@@ -357,16 +359,26 @@ const EventScheduleModal = ({
   );
 };
 const StyledModal = Modal.styled`
-  width: auto;
-  min-width: 500px;
-  max-width: 800px;
-  height : auto;
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
+min-width : 300px;
+height : auto;
+background-color: white;
+border-radius: 10px;
+padding-top : 30px;
+padding-left : 30px;
+padding-bottom: 20px;
+padding-right : 15px;
+  @media only screen and (max-width: 760px) {
+    width: 80%;
+    padding: 20px;
+  }
 `;
 
-const WrapWrap = styled.div``;
+const WrapWrap = styled.div`
+  width: auto;
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+  }
+`;
 const TotalTitle = styled.label`
   font-size: 27px;
   font-weight: 700;
@@ -376,18 +388,39 @@ const TotalTitle = styled.label`
   margin-bottom: 10px;
 `;
 const Wrap = styled.div`
-  display: grid;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  margin: 10px;
+  background-color: white;
+  border-radius: 20px;
   position: relative;
-  grid-auto-rows: auto;
-  grid-template-columns: 1fr 1fr;
+  @media only screen and (max-width: 760px) {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+  }
 `;
 const LeftWrap = styled.div`
-  width: auto;
+  flex-direction: column;
+  min-width: 150px;
+  margin-right: 70px;
 `;
 
 const CropWrap = styled.div`
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  flex-wrap: wrap;
+
+  @media only Screen and (max-width: 760px) {
+    margin-left: -40px;
+    margin-top: 20px;
+  }
 `;
 
 const SmallTitle = styled.span`
@@ -399,8 +432,10 @@ const Label = styled.label`
 `;
 const CropEditWrap = styled.div`
   display: flex;
+  max-width: 300px;
   margin-top: 5px;
   margin-bottom: 25px;
+  flex-wrap: wrap;
 `;
 const FormCheckText = styled.span`
   width: auto;
@@ -414,7 +449,8 @@ const FormCheckText = styled.span`
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-right: 10px;
+
+  margin: 4px 6px 4px 0px;
   cursor: pointer;
   color: #ccc;
   &:hover {
@@ -493,7 +529,7 @@ const StartTime = styled.div`
   background-color: transparent;
   color: #02113b;
   border: none;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   :focus {
     outline: none;
   }
@@ -514,9 +550,12 @@ const ErrorMsg = styled.span`
   color: #ec0000;
 `;
 const Start = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
+const End = styled.div`
+  margin-bottom: 5px;
+`;
 const RightWrap = styled.div``;
 const WorkWrap = styled.div``;
 const WorkSelectBoxWrap = styled.div`
@@ -563,7 +602,8 @@ const MemoWrap = styled.div`
 `;
 
 const InputMemo = styled.textarea`
-  width: 300px;
+  min-width: 250px;
+  height: auto;
   font-size: 15px;
   color: #616161;
   padding-top: 10px;
@@ -573,18 +613,30 @@ const InputMemo = styled.textarea`
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
+
   resize: none;
-  :focus {
-    border: 1px solid black;
-    outline: none;
+  &::placeholder {
+    color: #ddd;
+    font-size: 14px;
   }
+  &:focus {
+    outline: none;
+    border: 1px solid black;
+  }
+`;
+
+const WorkContentLoadWrap = styled.div`
+  /* width: 100%;
+  height: 60%; */
 `;
 
 const WorkContent = styled.div`
   font-size: 14px;
   color: #616161;
-  max-width: 300px;
-  min-height: 150px;
+  max-width: 350px;
+  min-width: 250px;
+  min-height: 100px;
+  margin-top: 5px;
   padding: 10px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;

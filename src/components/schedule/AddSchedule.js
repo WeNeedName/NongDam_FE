@@ -14,7 +14,6 @@ import { ko } from "date-fns/esm/locale";
 import moment, { months } from "moment";
 const _ = require("lodash");
 
-
 import Swal from "sweetalert2";
 
 const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
@@ -27,7 +26,7 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const [endDate, setEndDate] = useState("");
   const [dateErr, setDateErr] = useState(false);
   const myCropsList = useSelector((state) => state.users.user?.crops);
-  console.log(startDate);
+
   const memoRef = useRef();
 
   const onChangeEndDate = (date) => {
@@ -71,7 +70,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const goMyPage = () => {
     navigate("/mypage/editmemberinfo");
   };
-
   // const MyContainer = ({ className, children }) => {
   //   return (
   //     <div style={{ padding: "px", background: "#216ba5", color: "#fff" }}>
@@ -100,7 +98,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   //   "11월",
   //   "12월",
   // ];
-
 
   return (
     <>
@@ -153,18 +150,14 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                     <StartDate>
                       <SmallTitle className="startDate">시작</SmallTitle>
                       <div>
-
                         <DatePicker
-
                           className="startDatePicker"
                           selected={startDate}
                           onChange={(date) => setStartDate(date)}
                           showTimeSelect
                           dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                           locale={ko}
-
                         />
-
                       </div>
                     </StartDate>
                   </div>
@@ -277,11 +270,14 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
 };
 
 const StyledModal = Modal.styled`
-  max-width: 600px;
-  width: 100%;
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
+min-width : 300px;
+height : auto;
+background-color: white;
+border-radius: 10px;
+padding-top : 24px;
+padding-left : 30px;
+padding-bottom: 30px;
+padding-right : 30px;
   @media only screen and (max-width: 760px) {
     width: 80%;
     padding: 20px;
@@ -325,7 +321,10 @@ const GoToMyPage = styled.button`
 `;
 
 const WrapWrap = styled.div`
-  width: 600px;
+  width: auto;
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+  }
 `;
 const TotalTitle = styled.label`
   font-size: 27px;
@@ -333,23 +332,38 @@ const TotalTitle = styled.label`
   display: flex;
   text-align: left;
   align-items: start;
+  margin-bottom: 10px;
 `;
 const Wrap = styled.div`
-  width: 100%;
-  height: 70%;
-  display: grid;
-  flex-direction: column;
+  width: auto;
+  height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
   background-color: white;
-  border-radius: 20px;
-  position: relative;
-  grid-auto-rows: auto;
-  grid-template-columns: 1fr 1fr;
+  /* grid-auto-rows: auto;
+  grid-template-columns: 1fr 1fr; */
+  @media only screen and (max-width: 760px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `;
-const ContentWrapL = styled.div``;
-const ContentWrapR = styled.div``;
+const ContentWrapL = styled.div`
+  flex-direction: column;
+  max-width: 300px;
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+  }
+`;
+const ContentWrapR = styled.div`
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+
+    margin-top: 20px;
+  }
+`;
 
 const TodoContent = styled.div`
   // padding: 0px 0px;
@@ -361,7 +375,11 @@ const CropWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+  @media only Screen and (max-width: 760px) {
+    margin-right: 20px;
+  }
 `;
 
 const SmallTitle = styled.label`
@@ -393,7 +411,9 @@ const StartDate = styled.div`
       border-bottom: 1px solid black;
     }
   }
-
+  @media only Screen and (max-width: 760px) {
+    margin-bottom: 30px;
+  }
   /* .react-datepicker__day-name {
     width: 28px;
   }
@@ -419,7 +439,9 @@ const StartDate = styled.div`
 const InputDate = styled.span`
   color: pink;
 `;
+
 const EndDate = styled.div`
+  margin-top: 15px;
   .endDatePicker {
     width: 55%;
     font-size: 20px;
@@ -433,6 +455,10 @@ const EndDate = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
+  }
+
+  @media only Screen and (max-width: 760px) {
+    margin-bottom: 10px;
   }
 `;
 const ErrorMsg = styled.span`
@@ -530,6 +556,9 @@ const WorkWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+  @media only Screen and (max-width: 760px) {
+    margin-right: 0px;
+  }
 `;
 
 const WorkSelectBoxWrap = styled.div`
@@ -543,6 +572,7 @@ const TodoInput = styled.textarea`
   border: 1px solid #bfbfbf;
   padding: 10px;
   border-radius: 10px;
+  margin-right: 12px;
   resize: none;
   &::placeholder {
     color: #ddd;
@@ -557,7 +587,12 @@ const TodoInput = styled.textarea`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-right: 18px;
+  margin-right: 13px;
+  margin-top: 10px;
+  @media only Screen and (max-width: 760px) {
+    margin-top: 20px;
+    justify-content: flex-start;
+  }
 `;
 
 const DoneBtn = styled.button`
