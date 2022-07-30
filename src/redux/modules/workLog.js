@@ -37,8 +37,13 @@ export const loadWorkLogListDB = () => {
         dispatch(getWorkLogList(res.data));
       })
       .catch((err) => {
-        window.alert(err.response.data.msg);
-        console.log(err);
+        if (error.response.status === 403) {
+          sessionStorage.removeItem("jwtToken");
+          window.location.assign("/login");
+        } else {
+          window.alert(err.response.data.msg);
+          console.log(err);
+        }
       });
   };
 };
