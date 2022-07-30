@@ -187,9 +187,7 @@ const ScheduleModal = ({
                     //inline//달력 보이게
                   />
                 ) : (
-                  <LoadStart>
-                    <StartTime>{startTimeLoadFormat}</StartTime>
-                  </LoadStart>
+                  <LoadStart>{startTimeLoadFormat}</LoadStart>
                 )}
               </Start>
               <End>
@@ -340,10 +338,10 @@ const StyledModal = Modal.styled`
   height : auto;
   background-color: white;
   border-radius: 10px;
-  padding-top : 20px;
-  padding-left : 30px;
-  padding-bottom: 15px;
-  padding-right : 15px;
+  padding-top : 15px;
+  padding-left : 17px;
+  padding-bottom: 5px;
+  padding-right : 10px;
   @media only screen and (max-width: 760px) {
     width: 80%;
     padding: 20px;
@@ -387,15 +385,15 @@ const Wrap = styled.div`
 const LeftWrap = styled.div`
   flex-direction: column;
   min-width: 150px;
-  margin-right: 80px;
+  margin-right: 70px;
 `;
 
 const CropWrap = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 150px;
   max-width: 300px;
   margin-top: 10px;
-  margin-bottom: 0px;
   flex-wrap: wrap;
 
   @media only Screen and (max-width: 760px) {
@@ -456,8 +454,8 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const CropLoadWrap = styled.div`
   display: flex;
   position: relative;
-  margin-bottom: 20px;
-  min-width: 250px;
+  margin-bottom: 0px;
+  min-width: 200px;
 `;
 
 const CropName = styled.p`
@@ -475,7 +473,6 @@ const Content = styled.p``;
 const TimeWrap = styled.div`
   flex-direction: column;
   width: auto;
-
   margin-bottom: 15px;
   .startDatePicker {
     width: 55%;
@@ -513,21 +510,20 @@ const TimeWrap = styled.div`
   }
 `;
 const LoadStart = styled.div`
-  margin-bottom: 40px;
-`;
-const StartTime = styled.div`
   font-size: 16px;
   background-color: transparent;
   color: #02113b;
+  margin-bottom: 15px;
   border: none;
-  margin-bottom: 10px;
   :focus {
     outline: none;
+  }
+  @media only screen and (max-width: 760px) {
+    padding-bottom: 20px;
   }
 `;
 const EndTime = styled.div`
   font-size: 16px;
-
   background-color: transparent;
   color: #02113b;
   border: none;
@@ -646,7 +642,7 @@ const WorkContent = styled.div`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-right: 1px;
 `;
 const EditBtn = styled.button`

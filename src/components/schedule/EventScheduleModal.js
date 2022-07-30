@@ -363,9 +363,9 @@ min-width : 300px;
 height : auto;
 background-color: white;
 border-radius: 10px;
-padding-top : 30px;
-padding-left : 30px;
-padding-bottom: 20px;
+padding-top : 23px;
+padding-left : 20px;
+padding-bottom: 23px;
 padding-right : 15px;
   @media only screen and (max-width: 760px) {
     width: 80%;
@@ -386,6 +386,7 @@ const TotalTitle = styled.label`
   text-align: left;
   align-items: start;
   margin-bottom: 10px;
+  margin-left: 6px;
 `;
 const Wrap = styled.div`
   width: 100%;
@@ -406,7 +407,7 @@ const Wrap = styled.div`
 const LeftWrap = styled.div`
   flex-direction: column;
   min-width: 150px;
-  margin-right: 70px;
+  margin-right: 30px;
 `;
 
 const CropWrap = styled.div`
@@ -646,7 +647,7 @@ const WorkContent = styled.div`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 15px;
+  margin-top: 35px;
   margin-right: 1px;
 `;
 const EditBtn = styled.button`
