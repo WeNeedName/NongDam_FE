@@ -26,7 +26,10 @@ const Work = (props) => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-  const myCropsList = useSelector((state) => state.users.user?.crops);
+  const myCropsList = useSelector((state) => {
+    console.log(state);
+    state.user?.crops;
+  });
 
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
@@ -58,7 +61,7 @@ const Work = (props) => {
       <CategoryBigWrap>
         <SmallTitle>작물</SmallTitle>
         <CategoryWrap>
-          {myCropsList !== undefined &&
+          {myCropsList !== undefined ? (
             myCropsList.map((list) => {
               return (
                 <Label key={list.id}>
@@ -72,7 +75,21 @@ const Work = (props) => {
                   <FormCheckText>{list.type}</FormCheckText>
                 </Label>
               );
-            })}
+            })
+          ) : (
+            <NoCropWrap>
+              <NoCropMsg>
+                내 작물을 등록해주세요
+                <NoticeBtn
+                  onClick={() => {
+                    navigate("/mypage/editmemberinfo");
+                  }}
+                >
+                  등록하러 가기
+                </NoticeBtn>
+              </NoCropMsg>
+            </NoCropWrap>
+          )}
         </CategoryWrap>
       </CategoryBigWrap>
       <CategoryBigWrap>
@@ -110,7 +127,7 @@ const Work = (props) => {
 
 const TodoContentWrap = styled.div`
   padding: 0px;
-  width: 93%;
+  width: 100%;
   height: auto;
   background-color: #fff;
 `;
@@ -195,6 +212,36 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label``;
+
+const NoCropWrap = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const NoCropMsg = styled.span`
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+`;
+
+const NoticeBtn = styled.button`
+  padding: 8px 18px;
+  margin-top: 4px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #1aacff;
+  font-size: 12px;
+  cursor: pointer;
+  &:hover {
+    font-weight: 600;
+  }
+`;
 
 const DatePickers = styled.div`
   margin-top: 6px;
