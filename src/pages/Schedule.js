@@ -50,7 +50,7 @@ const Schedule = () => {
 
   useEffect(() => {
     dispatch(getScheduleListDB(yearMonth));
-  }, [yearMonth]);
+  }, [dispatch]);
 
   return (
     <>
