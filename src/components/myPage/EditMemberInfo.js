@@ -524,7 +524,7 @@ const BottomWrap = styled.div``;
 
 const AddressWrap = styled.div`
   margin-left: 20px;
-  margin-right: 30px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -532,13 +532,15 @@ const AddressWrap = styled.div`
 
 const TitleAndAddress = styled.div`
   display: flex;
+
   text-align: center;
   align-items: center;
 `;
-const AddressContent = styled.button`
-  max-width: 420px;
-  margin-left: 85px;
-  font-size: 14px;
+const AddressContent = styled.div`
+  /* max-width: 900px; */
+  width: auto;
+  margin-left: 90px;
+  font-size: 15px;
   border: none;
   background-color: transparent;
   color: #02113b;
@@ -550,13 +552,14 @@ const AddressContent = styled.button`
   }
 `;
 const AddressBtn = styled.button`
-  font-size: 11px;
+  font-size: 12px;
+  min-width: 70px;
   padding: 4px 10px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   background-color: transparent;
-
-  margin-right: 170px;
+  margin-top: 3px;
+  margin-right: 120px;
   cursor: pointer;
   color: #616161;
   &:hover {
@@ -568,7 +571,7 @@ const AddressBtn = styled.button`
 `;
 const CropsWrap = styled.div`
   margin-top: 30px;
-  margin-left: 20px;
+  margin-left: 8px;
   margin-right: 27px;
   display: flex;
   justify-content: space-between;
@@ -584,14 +587,16 @@ const SmallTitleCrops = styled.span`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  width: 70px;
   @media only screen and (max-width: 760px) {
     font-size: 12px;
   }
 `;
 const PrevAndNewCrops = styled.div`
-  margin-left: 80px;
-  width: 300px;
+  margin-left: 63px;
+  width: 500px;
   text-align: start;
+
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
     width: 220px;
@@ -607,7 +612,7 @@ const CropsList = styled.div`
   padding: 5px 9px;
   background-color: white;
   color: #616161;
-  font-size: 5px;
+  font-size: 12px;
   cursor: pointer;
   border-radius: 10px;
   margin-right: 8px;
