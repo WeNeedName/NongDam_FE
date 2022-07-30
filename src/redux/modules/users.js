@@ -113,7 +113,21 @@ export const logInDB = (user) => {
       .catch((err) => {
         console.log(err);
         let code = err.response.status;
-        if (code == 403) sessionStorage.removeItem("jwtToken");
+        if (code == 403)
+          Swal.fire({
+            title: "이메일 인증을 완료해주세요.",
+            icon: "warning",
+            showConfirmButton: true,
+            confirmButtonColor: "#55A349",
+            cancelButtonColor: "#ddd",
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
+            color: "#black",
+            padding: "20px",
+            width: "400px",
+            height: "200px",
+            fontWeight: "400px",
+          });
         else
           Swal.fire({
             title: err.response.data.msg,
