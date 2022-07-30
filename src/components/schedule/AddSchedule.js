@@ -270,15 +270,14 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
 };
 
 const StyledModal = Modal.styled`
-  
 min-width : 300px;
 height : auto;
 background-color: white;
 border-radius: 10px;
-padding-top : 30px;
+padding-top : 24px;
 padding-left : 30px;
-padding-bottom: 20px;
-padding-right : 15px;
+padding-bottom: 30px;
+padding-right : 30px;
   @media only screen and (max-width: 760px) {
     width: 80%;
     padding: 20px;
@@ -333,31 +332,35 @@ const TotalTitle = styled.label`
   display: flex;
   text-align: left;
   align-items: start;
+  margin-bottom: 10px;
 `;
 const Wrap = styled.div`
-  width: 100%;
+  width: auto;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-color: white;
-  border-radius: 20px;
-
   /* grid-auto-rows: auto;
   grid-template-columns: 1fr 1fr; */
   @media only screen and (max-width: 760px) {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 `;
 const ContentWrapL = styled.div`
   flex-direction: column;
   max-width: 300px;
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+  }
 `;
 const ContentWrapR = styled.div`
   @media only Screen and (max-width: 760px) {
-    margin-left: -60px;
+    justify-content: flex-start;
+
     margin-top: 20px;
   }
 `;
@@ -585,8 +588,10 @@ const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: 13px;
+  margin-top: 10px;
   @media only Screen and (max-width: 760px) {
-    margin-right: -5px;
+    margin-top: 20px;
+    justify-content: flex-start;
   }
 `;
 
