@@ -11,6 +11,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailRef = useRef();
+  const pwCheckRef = useRef("");
 
   const [email, setEmail] = useState("");
   const [userMail, setUserMail] = useState("");
@@ -46,13 +47,20 @@ const Signup = () => {
   };
 
   //확인용 비밀번호 검사
+  const pwcheckText = pwCheckRef.current.value;
+
   const [pwCheckErr, setPwCheckErr] = useState(false);
+  console.log(pwcheckText, pw);
   const onChangePwCheck = (e) => {
-    if (e.target.value !== "" && e.target.value === pw) setPwCheckErr(false);
+    if (pwcheckText !== "" && pwcheckText === pw) setPwCheckErr(false);
     else setPwCheckErr(true);
     setPwCheck(e.target.value);
   };
-  console.log(pwCheckErr);
+
+  useEffect(() => {
+    if (pwcheckText !== "" && pwcheckText === pw) setPwCheckErr(false);
+    else setPwCheckErr(true);
+  }, [pw, pwcheckText]);
 
   const signUp = async () => {
     const userInfo = {
@@ -65,7 +73,7 @@ const Signup = () => {
     Swal.fire({
       title: "인증메일 전송 중입니다.",
       html: " <b></b> 잠시 후 완료됩니다.",
-      timer: 2000,
+      timer: 2300,
       timerProgressBar: true,
       showConfirmButton: false,
     });
@@ -74,6 +82,8 @@ const Signup = () => {
   useEffect(() => {
     emailRef.current.focus();
   }, []);
+
+  console.log(pwcheckText, pw);
 
   return (
     <ContainerWrap>
@@ -123,7 +133,6 @@ const Signup = () => {
                 <option value="hotmail.com">hotmail.com</option>
                 <option value="outlook.com">outlook.com</option>
                 <option value="icloud.com">icloud.com</option>
-                <option value="직접입력">직접입력</option>
               </SelectEM>
             </EmailInputWrap>
 
@@ -159,6 +168,7 @@ const Signup = () => {
               onChange={(e) => {
                 onChangePwCheck(e);
               }}
+              ref={pwCheckRef}
               //placeholder="비밀번호를 한 번 더 입력해주세요"
               type="password"
             />
@@ -224,11 +234,10 @@ const Signup = () => {
             disabled={
               !email ||
               !pw ||
-              !pwCheck ||
+              pwcheckText !== pw ||
               !userName ||
               !userNickname ||
-              userIdErr ||
-              pwCheckErr
+              userIdErr
                 ? true
                 : false
             }
