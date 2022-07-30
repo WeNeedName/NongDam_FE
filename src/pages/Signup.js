@@ -18,12 +18,8 @@ const Signup = () => {
   const [pwCheck, setPwCheck] = useState("");
   const [userNickname, setUserNickname] = useState("");
   const [userName, setUserName] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [empty, setEmpty] = useState(false);
 
   const userId = email + "@" + userMail;
-
-  // const userSignUp = useSelector((state) => state.users.users);
 
   //이메일 검사
   const [userIdErr, setUserIdErr] = useState(false);
@@ -38,6 +34,7 @@ const Signup = () => {
 
   //비밀번호 검사
   const [pwErr, setPwErr] = useState(false);
+
   const onChangePw = (e) => {
     const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!e.target.value || pwRegex.test(e.target.value)) setPwErr(false);
@@ -51,10 +48,11 @@ const Signup = () => {
   //확인용 비밀번호 검사
   const [pwCheckErr, setPwCheckErr] = useState(false);
   const onChangePwCheck = (e) => {
-    if (e.target.value === pw) setPwCheckErr(false);
+    if (e.target.value !== "" && e.target.value === pw) setPwCheckErr(false);
     else setPwCheckErr(true);
     setPwCheck(e.target.value);
   };
+  console.log(pwCheckErr);
 
   const signUp = async () => {
     const userInfo = {
@@ -70,43 +68,9 @@ const Signup = () => {
       timer: 2000,
       timerProgressBar: true,
       showConfirmButton: false,
-      // didOpen: () => {
-      //   Swal.showLoading();
-      //   const b = Swal.getHtmlContainer().querySelector("b");
-      //   timerInterval = setInterval(() => {
-      //     b.textContent = Swal.getTimerLeft();
-      //   }, 100);
-      // },
-      // willClose: () => {
-      //   clearInterval(timerInterval);
-      // },
-    })
-      .then((res) => {
-        Swal.fire({
-          title: "메일 전송이 완료되었습니다.",
-          html: " 가입하신 메일로 인증 후에 이용 가능합니다.",
-          showConfirmButton: true,
-          confirmButtonColor: "#55A349",
-          color: "#black",
-          padding: "20px 20px 40px 20px",
-          width: "400px",
-          height: "200px",
-          fontWeight: "400px",
-          showClass: {
-            popup: "animate__animated animate__fadeInDown",
-          },
-        });
-      })
-      .then(() => {
-        navigate("/login");
-      });
+    });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setSuccess(true);
-  };
   useEffect(() => {
     emailRef.current.focus();
   }, []);
@@ -202,10 +166,10 @@ const Signup = () => {
             {pwCheck === "" && (
               <InfoPc>비밀번호를 한 번 더 입력해주세요.</InfoPc>
             )}
-            {pwCheckErr && pwCheck !== "" && (
+            {pwCheck !== pw && pwCheck !== "" && (
               <PwCheckErr>비밀번호가 일치하지 않습니다.</PwCheckErr>
             )}
-            {pwCheck !== "" && pwCheck === pw && !pwCheckErr && (
+            {pwCheck !== "" && pwCheck === pw && (
               <PwCheckOk>비밀번호가 일치합니다.</PwCheckOk>
             )}
           </InputWrap>
@@ -308,8 +272,7 @@ const TopWrap = styled.div`
     font-size: 20px;
   }
   .desc {
-    font-size: 11px;
-    margin-top: 20px;
+    font-size: 13px;
     margin-bottom: 20px;
     color: #666666;
   }
@@ -534,13 +497,13 @@ const BtnWrap = styled.div`
 `;
 
 const Info = styled.span`
-  font-size: 10px;
+  font-size: 11px;
   margin-bottom: 10px;
   color: #666666;
 `;
 
 const InfoLink = styled.span`
-  font-size: 10px;
+  font-size: 11px;
   margin-bottom: 6px;
   color: #666666;
   font-weight: 500;

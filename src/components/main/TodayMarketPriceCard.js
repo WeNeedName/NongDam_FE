@@ -61,10 +61,10 @@ const TodayMarketPrice = () => {
     <Wrap>
       {is_loaded ? (
         <>
-          {userInfo?.address === "" ? (
+          {userInfo?.countryCode === 0 ? (
             <NoticeWrap>
               <NoticeT>
-                지금 작물을 등록하고
+                지금 시세 지역과 작물을 등록하고
                 <br />내 시세를 확인해보세요!
               </NoticeT>
               <NoticeBtn
@@ -78,8 +78,8 @@ const TodayMarketPrice = () => {
           ) : userInfo?.crops.length === 0 ? (
             <NoticeWrap>
               <NoticeT>
-                마이페이지에서 지역과 작물을 등록하시면
-                <br />내 작물의 오늘 시세를 확인하실 수 있습니다
+                지금 작물을 등록하고
+                <br />내 시세를 확인해보세요!
               </NoticeT>
               <NoticeBtn
                 onClick={() => {

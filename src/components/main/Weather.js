@@ -29,6 +29,8 @@ const Weather = () => {
     dispatch(getWeatherDB());
   }, [dispatch]);
 
+  console.log(userInfo);
+
   return (
     <Wrap>
       {is_loaded ? (
