@@ -72,8 +72,13 @@ export const getCurrentScheduleListDB = () => {
         dispatch(getSchedule(res.data));
       })
       .catch((err) => {
-        //window.alert("최근 스케줄 불러오는 중에 오류가 발생했습니다.");
-        console.log(err);
+        if (error.response.status === 403) {
+          sessionStorage.removeItem("jwtToken");
+          window.location.assign("/login");
+        } else {
+          window.alert(err.response.data.msg);
+          console.log(err);
+        }
       });
   };
 };

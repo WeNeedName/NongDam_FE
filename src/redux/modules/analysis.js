@@ -45,7 +45,13 @@ export const getIncomeDB = () => {
         dispatch(getIncome(response.data));
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 403) {
+          sessionStorage.removeItem("jwtToken");
+          window.location.assign("/login");
+        } else {
+          window.alert(err.response.data.msg);
+          console.log(err);
+        }
       });
   };
 };
