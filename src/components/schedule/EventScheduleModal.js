@@ -474,6 +474,7 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const CropLoadWrap = styled.div`
+  min-width: 200px;
   display: flex;
 `;
 
