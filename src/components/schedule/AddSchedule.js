@@ -252,10 +252,11 @@ padding-top : 24px;
 padding-left : 30px;
 padding-bottom: 30px;
 padding-right : 30px;
+z-index: 1000;
   @media only screen and (max-width: 760px) {
     width: 80%;
     height: 600px;
-    padding: 80px;
+    padding: 40px 40px;
   }
 `;
 
