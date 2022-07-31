@@ -438,7 +438,7 @@ const InputWrap = styled.div`
     margin-right: 0px;
     @media only screen and (max-width: 760px) {
       font-size: 14px;
-      margin-right: 8px;
+      /* margin-right: 8px; */
     }
   }
 `;
