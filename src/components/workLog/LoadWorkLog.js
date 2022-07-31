@@ -192,7 +192,7 @@ const SearchByDateBtn = styled.button`
 `;
 
 const WriteBtn = styled.button`
-  padding: 6px 18px;
+  padding: 4px 18px;
   border-radius: 100px;
   color: #ffffff;
   background-color: #55a349;

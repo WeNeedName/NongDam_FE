@@ -233,7 +233,7 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const StyledSelect = styled(Select)`
-  width: 200px;
+  width: 180px;
   height: 30px;
   margin: 0px 0px 20px 0px;
   font-size: 14px;
@@ -265,7 +265,6 @@ const NoticeT = styled.span`
   align-items: center;
   font-weight: 600;
   font-size: 14px;
-  line-height: 24px;
   text-align: center;
   @media only screen and (max-width: 760px) {
     font-size: 16px;
