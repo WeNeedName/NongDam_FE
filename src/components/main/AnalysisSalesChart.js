@@ -50,12 +50,13 @@ const AnalysisSalesChart = ({ salesData }) => {
     Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
       Math.round(start + i * step)
     );
-  const yaxis =
+  let yaxis =
     allDataListSort[0] !== "0" && mathRound <= 1
       ? ["1", "0"]
       : allDataListSort[0] !== "0"
-      ? range(smallestNumberWon, mathRound, mathRound / 4).reverse()
+      ? range(smallestNumberWon, mathRound, mathRound / 3).reverse()
       : ["0", "0", "0", "0", "0"];
+  yaxis[2] = 0;
 
   // 2. 수확량 차트 state.series 값 배열
   const seriesList =
