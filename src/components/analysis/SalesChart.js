@@ -25,19 +25,20 @@ const TotalHarvestChart = ({ salesData }) => {
       ? Math.pow(10, String(largestNumberWon).length - 1)
       : 1;
   const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
-
   const range = (start, stop, step) =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
       Math.round(start + i * step)
     );
-  const yaxis =
+  let yaxis =
     allDataListSort[0] !== "0" && mathRound <= 1
       ? ["1", "0"]
       : allDataListSort[0] !== "0"
-      ? range(smallestNumberWon, mathRound, mathRound / 4).reverse()
+      ? range(smallestNumberWon, mathRound, mathRound / 3).reverse()
       : ["0", "0", "0", "0", "0"];
 
-  // 2. 수확량 차트 state.series 값 배열
+  yaxis[2] = 0;
+
+  // 2. 차트 state.series 값 배열
   const seriesList =
     salesData.datas !== undefined &&
     salesData.datas.map((data) => {
@@ -53,7 +54,7 @@ const TotalHarvestChart = ({ salesData }) => {
 
   const lineWidthArr = Array.from({ length: 7 }, (v, i) => (v = 2));
 
-  // 4. 내 작물 월별 수확량 차트 state
+  // 4. 매출현황 차트 state
   const state = {
     series:
       salesData.datas !== undefined
@@ -141,7 +142,7 @@ const TotalHarvestChart = ({ salesData }) => {
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          const price = Math.floor(series[seriesIndex][dataPointIndex] / 10000);
+          const price = Math.round(series[seriesIndex][dataPointIndex] / 10000);
           return (
             '<div class="tooltip-box">' +
             '<div class="line">' +
