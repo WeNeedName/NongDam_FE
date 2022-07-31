@@ -184,7 +184,7 @@ const AccountWrite = ({ isOpen, toggleModal, accountId }) => {
 
       <ContentWrap>
         <ContentLabel>메모</ContentLabel>
-        <MemoInput onChange={(e) => setMemo(e.target.value)} />
+        <MemoInput maxLength="100" onChange={(e) => setMemo(e.target.value)} />
       </ContentWrap>
       <BtnWrap>
         <DoneBtn
@@ -324,6 +324,7 @@ const Selec = styled.select`
 `;
 
 const MemoInput = styled.textarea`
+  font-family: "Noto Sans KR", sans-serif;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   height: 60px;
