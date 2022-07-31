@@ -289,7 +289,7 @@ const SubTitle = styled.span`
 `;
 
 const StyledSelect = styled(Select)`
-  width: 200px;
+  width: 180px;
   height: 30px;
   margin: 0px 0px 20px 0px;
   font-size: 14px;
