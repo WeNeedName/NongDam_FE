@@ -128,6 +128,9 @@ const ScheduleBox = styled.div`
   margin: 10px 0px;
 
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  @media only screen and (max-width: 760px) {
+    width: 95%;
+  }
 `;
 
 const TopWrap = styled.div`
@@ -138,13 +141,16 @@ const TopWrap = styled.div`
   }
 `;
 const Todo = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #02113b;
   margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  @media only screen and (max-width: 760px) {
+    font-size: 22px;
+  }
 `;
 
 const TimeWrap = styled.div`
@@ -153,12 +159,18 @@ const TimeWrap = styled.div`
 `;
 
 const Date = styled.span`
-  font-size: 14px;
+  font-size: 15px;
   margin-right: 3px;
+  @media only screen and (max-width: 760px) {
+    font-size: 18px;
+  }
 `;
 
 const Time = styled.span`
-  font-size: 14px;
+  font-size: 15px;
+  @media only screen and (max-width: 760px) {
+    font-size: 18px;
+  }
 `;
 const BottomWrap = styled.div`
   display: flex;
@@ -176,8 +188,8 @@ const Crop = styled.div`
   border: 1px solid #bfbfbf;
   color: #616161;
   border-radius: 100px;
-
-  font-size: 8px;
+  margin-top: 4px;
+  font-size: 12px;
   color: #616161;
 `;
 

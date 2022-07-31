@@ -2,8 +2,6 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const eventStyleGetter = (event, start, end, isSelected) => {
-  //   console.log(event);
-
   const style = {
     backgroundColor: event.title.slice(0, 1) === "+" ? "#D7EDF9" : " #FBCCCC",
     borderRadius: "0px",
@@ -11,10 +9,10 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     color: event.title.slice(0, 1) === "+" ? "#2399DC" : "#EB3333",
     border: "0px",
     display: "block",
-    marginTop: "4px",
+    marginTop: "6px",
     textAlign: "right",
-    fontSize: "13px",
-    animationName: "boxFade",
+    fontSize: "15px",
+    fontWeight: isSelected ? "500" : "400",
   };
 
   return {

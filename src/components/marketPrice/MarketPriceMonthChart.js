@@ -252,7 +252,7 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
-  font-size: 11px;
+  font-size: 12px;
   color: #666666;
 `;
 
@@ -261,7 +261,6 @@ const YasisLabelBox = styled.div`
   background-color: #ffffff;
   /* border: 1px solid #e3e3e3; */
   border-radius: 4px;
-  padding: 4px;
   position: absolute;
   right: -20px;
   top: -34px;
@@ -288,8 +287,8 @@ const YasisColorTipA = styled.div`
   background: #7ee3ab;
   margin-right: 6px;
   @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
 `;
 
@@ -300,13 +299,14 @@ const YasisColorTipB = styled.div`
   margin-right: 6px;
   margin-left: 10px;
   @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
+    margin-left: 0px;
   }
 `;
 
 const YasisLabel = styled.span`
-  font-size: 11px;
+  font-size: 12px;
   color: #666666;
 `;
 

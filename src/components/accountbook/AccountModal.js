@@ -357,19 +357,20 @@ const Day = styled.span`
 
 const PriceInput = styled.input`
   width: 120px;
-  height: 24px;
+  height: 28px;
   background: #fafafa;
   box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   border: none;
   padding-left: 10px;
+  font-size: 16px;
   &:focus {
     outline: 0.5px solid #bfbfbf;
   }
 `;
 
 const WonT = styled.span`
-  font-size: 12px;
+  font-size: 16px;
   margin-left: 6px;
 `;
 
@@ -391,9 +392,9 @@ const ContentLabel = styled.span`
 `;
 
 const FormCheckText = styled.span`
-  width: 40px;
-  height: 18px;
-  font-size: 11px;
+  width: 44px;
+  height: 22px;
+  font-size: 13px;
   padding-bottom: 4px;
   border-radius: 100px;
   background: transparent;
@@ -401,7 +402,7 @@ const FormCheckText = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 8px;
+  margin-right: 10px;
   color: #cccccc;
   cursor: pointer;
   &:hover {
@@ -439,7 +440,7 @@ const Selec = styled.select`
   border-radius: 10px;
   border: 1px solid #bfbfbf;
   padding-left: 10px;
-  font-size: 12px;
+  font-size: 14px;
   &:focus {
     outline: 0.5px solid #bfbfbf;
   }
@@ -460,8 +461,9 @@ const MemoInput = styled.textarea`
   border-radius: 6px;
   height: 60px;
   padding: 6px;
+  font-size: 16px;
   &::placeholder {
-    font-size: 12px;
+    font-size: 14px;
   }
   &:focus {
     outline: 0.5px solid #bfbfbf;
@@ -522,12 +524,12 @@ const BtnWrap = styled.div`
 
 const DoneBtn = styled.button`
   padding: 6px 16px;
-  height: 26px;
+  height: 30px;
   background: #55a349;
   border-radius: 6px;
   color: white;
-  border: none;
-  font-size: 11px;
+  border: 1px solid #55a349;
+  font-size: 13px;
   cursor: pointer;
   &:hover {
     background: #22631c;
@@ -537,13 +539,13 @@ const DoneBtn = styled.button`
 
 const ModifiBtn = styled.button`
   padding: 6px 10px;
-  height: 26px;
+  height: 30px;
   background-color: transparent;
   border-radius: 6px;
   color: #616161;
   border: 1px solid #bfbfbf;
   margin-left: 8px;
-  font-size: 11px;
+  font-size: 13px;
   cursor: pointer;
   &:hover {
     background: #55a349;
@@ -554,13 +556,13 @@ const ModifiBtn = styled.button`
 
 const CancelBtn = styled.button`
   padding: 6px 10px;
-  height: 26px;
+  height: 30px;
   background-color: transparent;
   border-radius: 6px;
   color: #616161;
   border: 1px solid #bfbfbf;
   margin-left: 8px;
-  font-size: 11px;
+  font-size: 13px;
   cursor: pointer;
   &:hover {
     opacity: 0.7;

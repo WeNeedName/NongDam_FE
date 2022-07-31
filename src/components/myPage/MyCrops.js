@@ -59,14 +59,15 @@ const MyCrops = ({ setCrops, setCropsObj, sendCrop }) => {
 
 const Container = styled.div`
   .react-select {
-    max-width: 485px;
+    max-width: 400px;
     /* width: auto; */
     text-align: left;
     margin-left: 60px;
     margin-top: 10px;
     border-radius: 10px;
+    font-size: 14px;
     @media only screen and (max-width: 760px) {
-      margin-left: 30px;
+      margin-left: 10px;
     }
   }
 `;

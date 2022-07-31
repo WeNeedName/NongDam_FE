@@ -33,6 +33,7 @@ const Weather = () => {
     <Wrap>
       {is_loaded ? (
         <>
+          <Title>⛅️ 농장 날씨</Title>
           {userInfo?.address === "" && (
             <NoticeWrap>
               <NoticeT>
@@ -49,59 +50,64 @@ const Weather = () => {
               </NoticeBtn>
             </NoticeWrap>
           )}
-          <Title>⛅️ 농장 날씨</Title>
-          <MiddleWrap>
-            <MiddleLeftWrap>
-              <Region>{weatherData.address}</Region>
-              <IconWrap>
-                <Icon iconURL={weatherData.iconURL} />
-                <TempWrap>
-                  <Temp>{weatherData.temp}°</Temp>
-                  <WeatherT>{weatherData.weather}</WeatherT>
-                </TempWrap>
-              </IconWrap>
-            </MiddleLeftWrap>
-            <MiddleRightWrap>
-              <InfoWrap>
-                <Info>강수량</Info>
-                <Info>습도</Info>
-                <Info>이슬점</Info>
-                <Info>바람</Info>
-              </InfoWrap>
-              <InfoWrapRight>
-                <InfoNum>{weatherData.rn} mm</InfoNum>
-                <InfoNum>{weatherData.rhm} %</InfoNum>
-                <InfoNum>{weatherData.dewPoint} ℃</InfoNum>
-                <InfoNum>{weatherData.ws} m/s</InfoNum>
-              </InfoWrapRight>
-            </MiddleRightWrap>
-          </MiddleWrap>
-          <BottomWrap>
-            <CategoryWrap>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="hour"
-                  name="radioButton"
-                  onChange={changeRadio}
-                  value={checkedInputs}
-                  defaultChecked
-                />
-                <FormCheckText>시간별</FormCheckText>
-              </Label>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="day"
-                  name="radioButton"
-                  onChange={changeRadio}
-                  value={checkedInputs}
-                />
-                <FormCheckText>주간</FormCheckText>
-              </Label>
-            </CategoryWrap>
-            <WeatherChart checkedInputs={checkedInputs} />
-          </BottomWrap>
+          {userInfo?.address !== "" && (
+            <>
+              <MiddleWrap>
+                <MiddleLeftWrap>
+                  <Region>{weatherData.address}</Region>
+                  <IconWrap>
+                    <Icon iconURL={weatherData.iconURL} />
+                    <TempWrap>
+                      <Temp>{weatherData.temp}°</Temp>
+                      <WeatherT>{weatherData.weather}</WeatherT>
+                    </TempWrap>
+                  </IconWrap>
+                </MiddleLeftWrap>
+                <MiddleRightWrap>
+                  <InfoWrap>
+                    <Info>강수량</Info>
+                    <Info>습도</Info>
+                    <Info>이슬점</Info>
+                    <Info>바람</Info>
+                  </InfoWrap>
+                  <InfoWrapRight>
+                    <InfoNum>{weatherData.rn} mm</InfoNum>
+                    <InfoNum>{weatherData.rhm} %</InfoNum>
+                    <InfoNum>{weatherData.dewPoint} ℃</InfoNum>
+                    <InfoNum>{weatherData.ws} m/s</InfoNum>
+                  </InfoWrapRight>
+                </MiddleRightWrap>
+              </MiddleWrap>
+              <BottomWrap>
+                <CategoryWrap>
+                  <Label>
+                    <FormCheckLeft
+                      type="radio"
+                      id="hour"
+                      name="radioButton"
+                      onChange={changeRadio}
+                      value={checkedInputs}
+                      defaultChecked
+                    />
+                    <FormCheckText>시간별</FormCheckText>
+                  </Label>
+                  <Label>
+                    <FormCheckLeft
+                      type="radio"
+                      id="day"
+                      name="radioButton"
+                      onChange={changeRadio}
+                      value={checkedInputs}
+                    />
+                    <FormCheckText>주간</FormCheckText>
+                  </Label>
+                </CategoryWrap>
+                {userInfo?.address !== "" && (
+                  <WeatherChart checkedInputs={checkedInputs} />
+                )}
+              </BottomWrap>
+            </>
+          )}
         </>
       ) : (
         <>
@@ -159,6 +165,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 2 / 5;
+    height: 446px;
   }
 `;
 
@@ -301,7 +308,6 @@ const FormCheckText = styled.span`
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
-  margin-right: 4px;
   background: transparent;
   display: flex;
   justify-content: center;
@@ -310,6 +316,10 @@ const FormCheckText = styled.span`
   cursor: pointer;
   color: black;
   &:hover {
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+    margin-right: 14px;
   }
 `;
 
@@ -336,9 +346,8 @@ const NoticeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
   background: linear-gradient(
-    to top,
+    to bottom,
     rgba(255, 255, 255, 1) 0%,
     rgba(255, 255, 255, 1) 100%,
     transparent 100%
@@ -357,6 +366,9 @@ const NoticeT = styled.span`
   font-size: 14px;
   line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -370,6 +382,10 @@ const NoticeBtn = styled.button`
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 
