@@ -117,6 +117,7 @@ const ScheduleModal = ({
       isOpen={isOpen}
       onBackgroundClick={toggleModal}
       onEscapeKeydown={toggleModal}
+      openEdit={openEdit}
     >
       <WrapWrap>
         {openEdit ? (
@@ -324,7 +325,8 @@ const StyledModal = Modal.styled`
   @media only screen and (max-width: 760px) {
     min-width : 340px;
     width: 70%;
-  }
+  height: ${({ openEdit }) => (openEdit ? "680px" : "520px")}
+};
 `;
 
 const WrapWrap = styled.div`

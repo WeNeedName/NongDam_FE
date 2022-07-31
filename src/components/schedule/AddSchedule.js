@@ -248,6 +248,7 @@ padding-bottom: 30px;
 padding-right : 30px;
   @media only screen and (max-width: 760px) {
     width: 80%;
+height : 600px;
     padding: 20px;
   }
 `;
