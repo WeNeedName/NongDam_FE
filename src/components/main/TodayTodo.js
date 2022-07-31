@@ -20,9 +20,6 @@ const TodayTodo = () => {
     dispatch(loadTodayScheduleDB());
   }, [dispatch]);
 
-  // console.log(scheduleData[0].startTime, typeof scheduleData[0].startTime);
-  // console.log(moment(scheduleData[0].startTime).format("HH:mm"));
-
   return (
     <Wrap>
       {is_loaded ? (
@@ -116,8 +113,7 @@ const Wrap = styled.div`
   background-color: #fff;
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
-
-    grid-row: 10 / 11;
+    grid-row: 5 / 7;
     height: 200px;
   }
 `;
@@ -141,6 +137,9 @@ const ShowMoreBtn = styled.span`
   line-height: 24px;
   color: #8e8f93;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const Guide = styled.div`
@@ -174,12 +173,18 @@ const ScheduleContent = styled.span`
   font-weight: 700;
   font-size: 14px;
   margin-top: 14px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const ScheduleTime = styled.span`
   font-weight: 400;
   font-size: 14px;
   margin-top: 4px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 export default TodayTodo;

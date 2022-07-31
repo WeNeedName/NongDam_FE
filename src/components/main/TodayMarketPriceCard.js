@@ -100,7 +100,7 @@ const TodayMarketPrice = () => {
               더 보기
             </ShowMoreBtn>
           </TopWrap>
-          <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
+          <SubTitle>내 농장작물의 오늘 시세를 알아보세요</SubTitle>
           <Region>
             {TodaymarketPriceData
               ? TodaymarketPriceData?.country +
@@ -238,8 +238,9 @@ const Wrap = styled.div`
   grid-row: 2 / 5;
   position: relative;
   @media only screen and (max-width: 760px) {
+    height: 340px;
     grid-column: 2 / 3;
-    grid-row: 5 / 7;
+    grid-row: 10 / 11;
   }
 `;
 
@@ -270,41 +271,49 @@ const Region = styled.div`
   font-size: 14px;
   font-weight: 700;
   margin: 10px 0px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-top: 20px;
+  }
 `;
 
 const SubTitle = styled.span`
-  margin: 4px 0px;
-  font-size: 12px;
+  margin: 4px 0px 6px 0px;
+  font-size: 14px;
 `;
 
 const StyledSelect = styled(Select)`
   width: 200px;
   height: 30px;
   margin: 0px 0px 20px 0px;
+  font-size: 14px;
   @media only screen and (max-width: 1220px) {
-    width: 160px;
+    width: 180px;
   }
 `;
 
 const SearchBtn = styled.button`
-  width: 66px;
-  height: 28px;
-  font-size: 12px;
+  width: 70px;
+  height: 32px;
+  font-size: 14px;
   color: #616161;
   padding: 4px;
   background: #ffffff;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
+
   &:hover {
     color: black;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 6px;
   }
 `;
 
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
-  /* margin-top: 20px; */
   animation: ${boxFade} 1s;
 `;
 
@@ -312,12 +321,14 @@ const Hr = styled.div`
   width: 100%;
   height: 1px;
   margin-left: -20px;
-  padding-right: 40px;
+  padding-right: 44px;
   border-bottom: 0.5px solid #dddddd;
   margin-top: 20px;
 `;
 
-const PriceWrap = styled.div``;
+const PriceWrap = styled.div`
+  /* margin-bottom: 16px; */
+`;
 
 const TodayPrice = styled.span`
   font-weight: 500;
@@ -340,7 +351,7 @@ const CategoryTWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
 `;
 
 const DateT = styled.span`
@@ -409,16 +420,27 @@ const InputWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0px 0px 0px 6px;
+  margin: 0px 0px 0px 0px;
   margin-bottom: 14px;
+  margin-left: 8px;
+  input {
+    color: black;
+    background-color: black;
+  }
+  label {
+    font-size: 14px;
+    margin-right: 0px;
+    @media only screen and (max-width: 760px) {
+      font-size: 16px;
+      margin-right: 8px;
+    }
+  }
 `;
 
 const NotFoundNoticeWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   @media only screen and (max-width: 760px) {
     height: 80px;
   }
@@ -426,18 +448,20 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 20px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 87%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 1) 0%,
@@ -445,8 +469,8 @@ const NoticeWrap = styled.div`
     transparent 100%
   );
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
   border-radius: 10px;
 `;
 
@@ -458,6 +482,9 @@ const NoticeT = styled.span`
   font-size: 14px;
   line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -468,9 +495,14 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: #1aacff;
   font-size: 12px;
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

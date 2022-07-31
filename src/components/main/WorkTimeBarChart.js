@@ -374,20 +374,20 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 24px;
   text-align: center;
 `;
 
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 4px;
+  margin-top: 8px;
   background-color: transparent;
   border: none;
   border-radius: 4px;
   color: #1aacff;
   margin-bottom: 17px;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
