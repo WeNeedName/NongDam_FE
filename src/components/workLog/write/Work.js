@@ -26,10 +26,8 @@ const Work = (props) => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-  const myCropsList = useSelector((state) => {
-    console.log(state);
-    state.user?.crops;
-  });
+
+  const userInfo = useSelector((state) => state.users.user);
 
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
@@ -47,7 +45,7 @@ const Work = (props) => {
     e.target.value = uncomma(e.target.value);
     props.setWorkTime(e.target.value);
   }
-
+  console.log(userInfo.crops);
   return (
     <TodoContentWrap>
       <TitleInput
@@ -61,8 +59,8 @@ const Work = (props) => {
       <CategoryBigWrap>
         <SmallTitle>작물</SmallTitle>
         <CategoryWrap>
-          {myCropsList !== undefined ? (
-            myCropsList.map((list) => {
+          {userInfo.crops !== undefined && userInfo.crops.length !== 0 ? (
+            userInfo.crops.map((list) => {
               return (
                 <Label key={list.id}>
                   <FormCheckLeft
