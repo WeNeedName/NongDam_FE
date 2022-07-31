@@ -16,35 +16,45 @@ const Sales = ({ salesData, setSalesCategory, salesCategory }) => {
     }
   };
 
+  const allDataList = [];
+  salesData.datas !== undefined &&
+    salesData.datas.map((list, idx) => {
+      return allDataList.push(...list.data);
+    });
+  const allDataListSort = allDataList.sort((a, b) => b - a);
+
   return (
     <>
       <Wrap>
         <Title>매출 현황</Title>
         {is_loaded ? (
           <>
-            <CategoryWrap>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="month"
-                  name="SalesCategory"
-                  onChange={changeRadio}
-                  value={salesCategory}
-                  defaultChecked
-                />
-                <FormCheckText>월별</FormCheckText>
-              </Label>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="year"
-                  name="SalesCategory"
-                  onChange={changeRadio}
-                  value={salesCategory}
-                />
-                <FormCheckText>연도별</FormCheckText>
-              </Label>
-            </CategoryWrap>
+            {allDataListSort[0] !== "0" ? (
+              <CategoryWrap>
+                <Label>
+                  <FormCheckLeft
+                    type="radio"
+                    id="month"
+                    name="SalesCategory"
+                    onChange={changeRadio}
+                    value={salesCategory}
+                    defaultChecked
+                  />
+                  <FormCheckText>월별</FormCheckText>
+                </Label>
+                <Label>
+                  <FormCheckLeft
+                    type="radio"
+                    id="year"
+                    name="SalesCategory"
+                    onChange={changeRadio}
+                    value={salesCategory}
+                  />
+                  <FormCheckText>연도별</FormCheckText>
+                </Label>
+              </CategoryWrap>
+            ) : null}
+
             {salesCategory === "month" && <SalesChart salesData={salesData} />}
             {salesCategory === "year" && <SalesChart salesData={salesData} />}
           </>
