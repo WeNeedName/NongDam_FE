@@ -134,9 +134,9 @@ const CategoryWrap = styled.div`
 `;
 
 const FormCheckText = styled.span`
-  margin: 2px 20px;
+  margin: 4px 18px;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 13px;
   color: ${(props) => (props.currentPage === props.id ? " #333333" : " #666")};
   font-weight: ${(props) => (props.currentPage === props.id ? 600 : 400)};
   &:hover {
