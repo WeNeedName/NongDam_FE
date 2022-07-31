@@ -1,165 +1,141 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-// 차트 라이브러리
-import ApexCharts from "react-apexcharts";
+import { useSelector } from "react-redux";
+// 로딩 효과
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
-import moment from "moment";
-import "moment/locale/ko";
+//컴포넌트
+import SalesChart from "./SalesChart";
 
-const Sales = () => {
-  const [data, setData] = useState(null);
-
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
-
-  const state = {
-    defaultLocale: "ko",
-    locales: [
-      {
-        name: "ko",
-        options: {
-          months: [
-            "1월",
-            "2월",
-            "3월",
-            "4월",
-            "5월",
-            "6월",
-            "7월",
-            "8월",
-            "9월",
-            "10월",
-            "11월",
-            "12월",
-          ],
-          shortMonths: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ],
-          days: [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-          toolbar: {
-            download: ["Download SVG", "Download PNG", "Download CSV"],
-            selection: "Selection",
-            selectionZoom: "Selection Zoom",
-            zoomIn: "Zoom In",
-            zoomOut: "Zoom Out",
-            pan: "Panning",
-            reset: "Reset Zoom",
-          },
-        },
-      },
-    ],
-    series: [
-      {
-        name: "수입",
-        data: [31, 40, 28, 51, 42, 109, 100],
-      },
-      {
-        name: "지출",
-        data: [11, 32, 45, 32, 34, 52, 41],
-      },
-      {
-        name: "순이익",
-        data: [21, 8, -17, 19, 8, 57, 59],
-      },
-    ],
-    colors: ["#2E93fA", "#66DA26", "#546E7A", "#E91E63", "#FF9800"],
-    options: {
-      chart: {
-        height: 350,
-        type: "area",
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "smooth",
-      },
-      //   yaxis: {
-      //     title: {
-      //       text: "thousands",
-      //     },
-      //   },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2022-01-19T00:00:00.000Z",
-          "2022-02-19T01:30:00.000Z",
-          "2022-03-19T02:30:00.000Z",
-          "2022-04-19T03:30:00.000Z",
-          "2022-05-19T04:30:00.000Z",
-          "2022-06-19T05:30:00.000Z",
-        ],
-      },
-      fill: {
-        opacity: 1,
-        colors: ["#2E93fA", "#66DA26", "#E91E63"],
-      },
-      //   markers: {
-      //     colors: ["#F44336", "#E91E63", "#9C27B0"],
-      //   },
-
-      tooltip: {
-        x: {
-          //   format: "dd/MM/yy HH:mm",
-          format: "MM월",
-        },
-      },
-    },
+const Sales = ({ salesData, setSalesCategory, salesCategory }) => {
+  const is_loaded = useSelector((state) => state.analysis.sales_is_loaded);
+  // 항목 선택
+  const changeRadio = (e) => {
+    if (e.target.checked) {
+      setSalesCategory(e.target.id);
+    }
   };
 
-  return (
-    <Wrap>
-      <TopWrap>
-        <h3>매출현황</h3>
-        <span>기간선택</span>
-      </TopWrap>
+  const allDataList = [];
+  salesData.datas !== undefined &&
+    salesData.datas.map((list, idx) => {
+      return allDataList.push(...list.data);
+    });
+  const allDataListSort = allDataList.sort((a, b) => b - a);
 
-      <ApexCharts
-        options={state.options}
-        series={state.series}
-        type="area"
-        height={250}
-      />
-    </Wrap>
+  return (
+    <>
+      <Wrap>
+        <Title>매출 현황</Title>
+        {is_loaded ? (
+          <>
+            {allDataListSort[0] !== "0" ? (
+              <CategoryWrap>
+                <Label>
+                  <FormCheckLeft
+                    type="radio"
+                    id="month"
+                    name="SalesCategory"
+                    onChange={changeRadio}
+                    value={salesCategory}
+                    defaultChecked
+                  />
+                  <FormCheckText>월별</FormCheckText>
+                </Label>
+                <Label>
+                  <FormCheckLeft
+                    type="radio"
+                    id="year"
+                    name="SalesCategory"
+                    onChange={changeRadio}
+                    value={salesCategory}
+                  />
+                  <FormCheckText>연도별</FormCheckText>
+                </Label>
+              </CategoryWrap>
+            ) : null}
+
+            {salesCategory === "month" && <SalesChart salesData={salesData} />}
+            {salesCategory === "year" && <SalesChart salesData={salesData} />}
+          </>
+        ) : (
+          <ShimmerWrap>
+            <ShimmerThumbnail
+              className="thumNail-weather"
+              height={200}
+              rounded
+            />
+          </ShimmerWrap>
+        )}
+      </Wrap>
+    </>
   );
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 340px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  grid-column: 6 / 10;
+  grid-row: 3 / 4;
+
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  @media only screen and (max-width: 760px) {
+    grid-column: 2 / 3;
+    grid-row: 5 / 6;
+  }
 `;
 
-const TopWrap = styled.div`
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 14px;
+`;
+
+const FormCheckText = styled.span`
+  width: auto;
+  height: 26px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  margin-right: 4px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+  margin-right: 12px;
+  cursor: pointer;
+  color: black;
+  &:hover {
+  }
+`;
+
+const FormCheckLeft = styled.input.attrs({ type: "radio" })`
+  &:checked {
+    display: inline-block;
+    background: none;
+    text-align: center;
+    display: none;
+  }
+  &:checked + ${FormCheckText} {
+    font-weight: 700;
+    border-bottom: 2px solid #000000;
+  }
+  display: none;
+`;
+
+const Label = styled.label``;
+
+const ShimmerWrap = styled.div`
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 export default Sales;

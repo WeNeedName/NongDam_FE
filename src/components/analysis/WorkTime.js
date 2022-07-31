@@ -1,130 +1,152 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState, useRef } from "react";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-// 차트 라이브러리
-import ReactApexChart from "react-apexcharts";
-// date 가공 라이브러리
-import moment from "moment";
-import "moment/locale/ko";
-import dayjs from "dayjs";
+import { getRateDB } from "../../redux/modules/analysis";
+// 로딩 효과
+import { ShimmerThumbnail } from "react-shimmer-effects";
 
-const WorkTime = () => {
-  const [data, setData] = useState(null);
+// 컴포넌트
+import WorkTimeBarChart from "./WorkTimeBarChart";
 
-  const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(nowTime);
+const WorkTime = ({ workTimeData }) => {
+  const dispatch = useDispatch();
+  const rateData = useSelector((state) => state.analysis.rate);
+  const [count, setCount] = useState(0);
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+  const is_loaded = useSelector((state) => state.analysis.worktime_is_loaded);
 
-  const state = {
-    series: [
-      {
-        name: "1분기",
-        data: [10, 13],
-      },
-      {
-        name: "2분기",
-        data: [17, 20],
-      },
-      {
-        name: "3분기",
-        data: [44, 46],
-      },
-      {
-        name: "4분기",
-        data: [21, 27],
-      },
-      //   {
-      //     name: "Tank Picture",
-      //     data: [12, 17, 11, 9, 15, 11, 20],
-      //   },
-      //   {
-      //     name: "Bucket Slope",
-      //     data: [9, 7, 5, 8, 6, 9, 4],
-      //   },
-      //   {
-      //     name: "Reborn Kid",
-      //     data: [25, 12, 19, 32, 25, 24, 10],
-      //   },
-    ],
-    options: {
-      chart: {
-        type: "bar",
-        height: 350,
-        stacked: true,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true,
-        },
-      },
-      stroke: {
-        width: 1,
-        colors: ["#fff"],
-      },
-      //   title: {
-      //     text: "Fiction Books Sales",
-      //   },
-      xaxis: {
-        categories: [2022, 2021],
-        labels: {
-          formatter: function (val) {
-            return val + "K";
-          },
-        },
-      },
-      yaxis: {
-        title: {
-          text: undefined,
-        },
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + "K";
-          },
-        },
-      },
-      fill: {
-        opacity: 1,
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "left",
-        offsetX: 40,
-      },
-    },
+  useEffect(() => {
+    dispatch(getRateDB());
+  }, []);
+
+  const end = rateData.rate && rateData.rate;
+  const start = 0;
+  const duration = 1000;
+
+  const frameRate = 1000 / 60;
+  const totalFrame = Math.round(duration / frameRate);
+
+  const easeOutExpo = (number) => {
+    return number === 1 ? 1 : 1 - Math.pow(2, -10 * number);
   };
 
+  // 숫자 카운팅 애니메이션
+  useEffect(() => {
+    let currentNumber = start;
+    const counter = setInterval(() => {
+      const progress = easeOutExpo(++currentNumber / totalFrame);
+      if (rateData.rate) setCount(Math.round(end * progress));
+
+      if (progress === 1) {
+        clearInterval(counter);
+      }
+    }, frameRate);
+  }, [end, frameRate, start, totalFrame]);
+
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
+  console.log(rateData);
   return (
-    <Wrap>
-      <TopWrap>
-        <h3>작업시간</h3>
-        <span>기간선택</span>
-      </TopWrap>
-      <ReactApexChart
-        options={state.options}
-        series={state.series}
-        type="bar"
-        height={260}
-      />
-    </Wrap>
+    <>
+      <Wrap>
+        <TitleWrap>
+          <SmileIcon>💪</SmileIcon>
+          {windowSize.innerWidth > 760 ? (
+            <Title>
+              작년에 비해 올해 작업 시간이 <br />
+              {rateData.rate ? count + "%" : "0%"}{" "}
+              {rateData.rateText ? rateData.rateText : "증가"}
+              했어요
+            </Title>
+          ) : (
+            <TitleM>
+              작년에 비해 <br /> 올해 작업 시간이 <br />
+              {rateData.rate ? count + "%" : "0%"}{" "}
+              {rateData.rateText ? rateData.rateText : "증가"}
+              했어요
+            </TitleM>
+          )}
+        </TitleWrap>
+        {is_loaded ? (
+          <WorkTimeBarChart workTimeData={workTimeData} />
+        ) : (
+          <ShimmerThumbnail className="thumNail-weather" height={160} rounded />
+        )}
+      </Wrap>
+    </>
   );
 };
 
 const Wrap = styled.div`
-  width: 500px;
-  height: 400px;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0px 3px 6px #00000029;
-  padding: 4px 18px;
-  margin: 20px;
+  background: #ffffff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  grid-column: 7 / 10;
+  grid-row: 2 / 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media only screen and (max-width: 760px) {
+    padding: 20px 20px 30px 20px;
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+  }
 `;
 
-const TopWrap = styled.div`
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+ 
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateY(6%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  animation: ${boxFade} 1s;
+`;
+
+const SmileIcon = styled.span`
+  font-size: 24px;
+`;
+
+const Title = styled.span`
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
+  text-align: left;
+`;
+
+const TitleM = styled.span`
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 10px;
+  text-align: left;
+  margin-bottom: 30px;
 `;
 
 export default WorkTime;
