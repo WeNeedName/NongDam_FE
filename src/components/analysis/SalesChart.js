@@ -17,8 +17,8 @@ const TotalHarvestChart = ({ salesData }) => {
   const largestNumber = Number(allDataListSort[0]);
   const smallestNumber = Number(allDataListSort[allDataListSort.length - 1]);
   // 1-1. 만원 단위로 절사
-  const largestNumberWon = Math.floor(largestNumber / 10000);
-  const smallestNumberWon = Math.floor(smallestNumber / 10000);
+  const largestNumberWon = Math.round(largestNumber / 10000);
+  const smallestNumberWon = Math.round(smallestNumber / 10000);
 
   const mathPow =
     allDataListSort[0]?.length >= 2
