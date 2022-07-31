@@ -252,12 +252,13 @@ const Signup = () => {
 
 const ContainerWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-top: 60px;
 `;
 
 const Container = styled.div`
@@ -591,6 +592,8 @@ const SignUpBtn = styled.button`
   border: none;
   size: 11px;
   margin: 10px;
+  margin-bottom: 40px;
+
   cursor: pointer;
   &:hover {
     opacity: 0.7;
