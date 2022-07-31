@@ -374,23 +374,29 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 8px;
+  margin-top: 4px;
   background-color: transparent;
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  margin-bottom: 17px;
-  font-size: 14px;
+  font-size: 12px;
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

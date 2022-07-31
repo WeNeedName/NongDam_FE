@@ -312,7 +312,6 @@ const NoticeT = styled.span`
   align-items: center;
   font-weight: 600;
   font-size: 14px;
-  line-height: 24px;
   text-align: center;
   @media only screen and (max-width: 760px) {
     font-size: 16px;
