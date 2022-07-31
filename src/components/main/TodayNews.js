@@ -238,8 +238,8 @@ const ContentsT = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
-  @media only screen and (max-width: 1220px) {
-    width: ${(props) => (props.imageURL === "" ? "80%" : "230px")};
+  @media only screen and (max-width: 1550px) {
+    width: ${(props) => (props.imageURL === "" ? "80%" : "220px")};
   }
   @media only screen and (max-width: 760px) {
     width: ${(props) => (props.imageURL === "" ? "90%" : "290px")};
