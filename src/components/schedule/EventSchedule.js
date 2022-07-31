@@ -26,9 +26,6 @@ const eventStyleGetter = (event, start, end, isSelected) => {
   )[0];
   emptyArray.push(pickedGreen);
 
-  // var movenum = allnum.splice(Math.floor(Math.random() * allnum.length), 1)[0];
-  // newnum.push(movenum);
-
   const style = {
     borderRadius: "0px",
     opacity: 1.0,

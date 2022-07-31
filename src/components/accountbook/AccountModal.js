@@ -80,7 +80,7 @@ const AccountModal = ({ isOpen, toggleModal, accountId, accountList }) => {
       title: "정말 삭제하시겠습니까?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#318F27",
+      confirmButtonColor: "#55A349",
       cancelButtonColor: "#ddd",
       confirmButtonText: "확인",
       cancelButtonText: "취소",
