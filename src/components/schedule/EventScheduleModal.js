@@ -521,7 +521,7 @@ const TimeWrap = styled.div`
 const Start = styled.div`
   margin-bottom: 5px;
   .startDatePicker {
-    width: 58%;
+    width: 61%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 30px;
@@ -562,7 +562,7 @@ const LoadStart = styled.div`
 const End = styled.div`
   margin-bottom: 5px;
   .endDatePicker {
-    width: 58%;
+    width: 61%;
     font-size: 16px;
     margin-top: 5px;
     text-align: center;
