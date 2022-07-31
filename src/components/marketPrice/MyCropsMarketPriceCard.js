@@ -74,15 +74,19 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
     x.setMonth(x.getMonth() - 2)
   );
 
+  console.log(myDateList);
+
   const newMonthDateList = [];
   const newMyDateList = myDateList.map((list) => {
+    console.log(moment(list).format("YYYY.MM"));
     if (windowSize.innerWidth > 760)
       newMonthDateList.push(moment(list).format("YYYY.MM"));
     else newMonthDateList.push(moment(list).format("YY.MM"));
   });
+
   newMonthDateList.unshift(month);
   const monthDate = newMonthDateList.reverse();
-
+  console.log(month);
   // x축 연도 리스트 만들기
   const myYearList = Array.from([day, day, day, day, day], (x) =>
     x.setYear(x.getFullYear() - 1)

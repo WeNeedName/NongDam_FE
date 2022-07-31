@@ -220,7 +220,6 @@ const WhereToUseWrap = styled.div`
 `;
 
 const WhereToUseType = styled.div`
-  max-width: 300px;
   width: auto;
   display: flex;
   flex-direction: column;
