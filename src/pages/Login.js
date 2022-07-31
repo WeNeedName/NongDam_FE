@@ -173,6 +173,7 @@ const InputBoxes = styled.form`
     transform: translate(-100px, -15px);
     z-index: 1;
     color: #8b95a1;
+    margin-bottom: 6px;
   }
   .pwIcon {
     position: absolute;

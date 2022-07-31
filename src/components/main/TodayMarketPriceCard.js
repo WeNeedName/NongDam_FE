@@ -437,7 +437,7 @@ const InputWrap = styled.div`
     font-size: 14px;
     margin-right: 0px;
     @media only screen and (max-width: 760px) {
-      font-size: 16px;
+      font-size: 14px;
       margin-right: 8px;
     }
   }

@@ -507,6 +507,7 @@ const SDatePicker = styled(DatePicker)`
   /* border-radius: 10px; */
   border: none;
   border-bottom: 1px solid #bfbfbf;
+  border-radius: 0;
   text-align: center;
   padding-bottom: 4px;
   &:focus {
