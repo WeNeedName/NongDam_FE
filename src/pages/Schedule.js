@@ -54,8 +54,8 @@ const Schedule = () => {
 
   return (
     <>
+      {!isOpen && <Header currentPage="schedule" />}
       <Wrap>
-        <Header currentPage="schedule" />
         <>
           <CalendarWrap>
             <ScheduleCalendar userInfo={userInfo} />
@@ -90,7 +90,7 @@ const Schedule = () => {
               <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
             </Info>
           ) : null}
-          <FooterNav currentPage="schedule" />
+          {!isOpen && <FooterNav currentPage="schedule" />}
         </>
       </Wrap>
       <Footer currentpage="schedule" />
