@@ -110,29 +110,31 @@ const TodayMarketPrice = () => {
               : null}
           </Region>
           <SelecWrap>
-            <StyledSelect
-              name="crops"
-              placeholder={"작물을 검색해보세요"}
-              options={
-                userInfo !== null
-                  ? userInfo?.crops.map((crops) => {
-                      return {
-                        label: "[" + crops.type + "]" + " " + crops.name,
-                        value: crops.id,
-                      };
-                    })
-                  : cropsData?.map((crops) => {
-                      return {
-                        label: "[" + crops.type + "]" + " " + crops.name,
-                        value: crops.id,
-                      };
-                    })
-              }
-              classNamePrefix="react-select"
-              onChange={(value) => {
-                setSelectedCrops(value);
-              }}
-            />
+            {userInfo?.countryCode !== 0 && userInfo?.crops.length !== 0 ? (
+              <StyledSelect
+                name="crops"
+                placeholder={"작물을 검색해보세요"}
+                options={
+                  userInfo !== null
+                    ? userInfo.crops.map((crops) => {
+                        return {
+                          label: "[" + crops.type + "]" + " " + crops.name,
+                          value: crops.id,
+                        };
+                      })
+                    : cropsData.map((crops) => {
+                        return {
+                          label: "[" + crops.type + "]" + " " + crops.name,
+                          value: crops.id,
+                        };
+                      })
+                }
+                classNamePrefix="react-select"
+                onChange={(value) => {
+                  setSelectedCrops(value);
+                }}
+              />
+            ) : null}
 
             <InputWrap>
               <input
@@ -165,35 +167,39 @@ const TodayMarketPrice = () => {
             조회하기
           </SearchBtn>
           <Hr />
-          <BottomWrap>
-            <CategoryTWrap>
-              <CategoryT> {TodaymarketPriceData?.crop} </CategoryT>
-              <DateT>
-                {TodaymarketPriceData?.latestDate !== ""
-                  ? moment(TodaymarketPriceData?.latestDate).format(
-                      "YYYY.MM.DD"
-                    ) +
-                    " " +
-                    "기준"
-                  : null}
-              </DateT>
-            </CategoryTWrap>
+          {userInfo?.countryCode !== 0 && userInfo?.crops.length !== 0 && (
+            <BottomWrap>
+              <CategoryTWrap>
+                <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
+                <DateT>
+                  {TodaymarketPriceData.latestDate !== ""
+                    ? moment(TodaymarketPriceData?.latestDate).format(
+                        "YYYY.MM.DD"
+                      ) +
+                      " " +
+                      "기준"
+                    : null}
+                </DateT>
+              </CategoryTWrap>
 
-            {TodaymarketPriceData?.latestDate !== "" ? (
-              <>
-                <PriceWrap>
-                  <TodayPrice>
-                    {comma(TodaymarketPriceData?.latestDatePrice)}
-                  </TodayPrice>
-                  <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
-                </PriceWrap>
-              </>
-            ) : (
-              <NotFoundNoticeWrap>
-                <NotFoundNotice>최근 조사된 데이터가 없습니다.</NotFoundNotice>
-              </NotFoundNoticeWrap>
-            )}
-          </BottomWrap>
+              {TodaymarketPriceData.latestDate !== "" ? (
+                <>
+                  <PriceWrap>
+                    <TodayPrice>
+                      {comma(TodaymarketPriceData?.latestDatePrice)}
+                    </TodayPrice>
+                    <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
+                  </PriceWrap>
+                </>
+              ) : (
+                <NotFoundNoticeWrap>
+                  <NotFoundNotice>
+                    최근 조사된 데이터가 없습니다.
+                  </NotFoundNotice>
+                </NotFoundNoticeWrap>
+              )}
+            </BottomWrap>
+          )}
         </>
       ) : (
         <>
