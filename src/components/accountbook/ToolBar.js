@@ -61,7 +61,7 @@ const YearMonthTitle = styled.span`
 const Btn = styled.button`
   width: 20px;
   height: 20px;
-  background: #318f27;
+  background: #55a349;
   border: none;
   border-radius: 100%;
   position: relative;

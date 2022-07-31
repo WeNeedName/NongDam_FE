@@ -126,7 +126,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    margin-left: 10px;
+    margin-left: 16px;
   }
 `;
 
@@ -223,7 +223,7 @@ const FormCheckText = styled.span`
   width: auto;
   height: auto;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
   background: transparent;
   border: none;
 
@@ -244,7 +244,7 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const Label = styled.label`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export default MyPageMenu;

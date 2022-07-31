@@ -60,6 +60,7 @@ button.rbc-input::-moz-focus-inner {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 .rbc-rtl {
@@ -350,13 +351,13 @@ button.rbc-input::-moz-focus-inner {
   background-color: rgba(255, 255, 255, 0.3);
   z-index: 4;
   font-weight: bold;
-  font-size: 85%;
+  font-size: 14px;
   height: auto;
   line-height: normal;
-  color: #3174ad;
+  color: #55A349;
 }
 .rbc-show-more:hover, .rbc-show-more:focus {
-  color: #265985;
+  color: #22631c;
 }
 /* 내역 있는 날 표시 글 */
 .rbc-month-view {

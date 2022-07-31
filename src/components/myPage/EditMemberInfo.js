@@ -201,8 +201,9 @@ const EditMemberInfo = () => {
                 defaultValue={previousNickname}
                 className="EditNickname"
                 placeholder="닉네임을 기입해주세요"
+                maxLength="8"
               />
-              <span className="userEmail">{userInfo?.email}</span>
+              <Email>{userInfo?.email}</Email>
             </Names>
           </ImgAndNames>
           <Label htmlFor="inputImage">프로필 변경</Label>
@@ -210,8 +211,8 @@ const EditMemberInfo = () => {
         <Line />
 
         <AddressWrap>
-          <TitleAndAddress>
-            <SmallTitle>주소</SmallTitle>
+          <SmallTitle>주소</SmallTitle>
+          <AddressRightWrap>
             {address ? (
               <AddressContent>{address}</AddressContent>
             ) : userInfo?.address ? (
@@ -221,17 +222,18 @@ const EditMemberInfo = () => {
             )}
 
             {/* {address} */}
-          </TitleAndAddress>
-          {/* 버튼 클릭 시 팝업 생성 */}
-          <AddressBtn
-            type="button"
-            onClick={() => {
-              openPostCode();
-            }}
-            value={address}
-          >
-            주소검색
-          </AddressBtn>
+
+            {/* 버튼 클릭 시 팝업 생성 */}
+            <AddressBtn
+              type="button"
+              onClick={() => {
+                openPostCode();
+              }}
+              value={address}
+            >
+              주소검색
+            </AddressBtn>
+          </AddressRightWrap>
         </AddressWrap>
         <div id="popupDom">
           {/* 팝업 생성 기준 div */}
@@ -435,11 +437,6 @@ const Names = styled.div`
   flex-direction: column;
   text-align: start;
   justify-content: center;
-
-  .userEmail {
-    margin-left: 20px;
-    font-size: 11px;
-  }
 `;
 
 const EditNicknameWrap = styled.input`
@@ -456,6 +453,11 @@ const EditNicknameWrap = styled.input`
     outline: none;
     border-bottom: 1px solid black;
   }
+`;
+
+const Email = styled.span`
+  font-size: 14px;
+  margin-left: 16px;
 `;
 
 const EditBtn = styled.button`
@@ -489,7 +491,7 @@ const Label = styled.label`
   margin-top: 20px;
   margin-left: 30px;
   width: 70px;
-  font-size: 11px;
+  font-size: 13px;
   color: #616161;
   background-color: transparent;
   border: 1px solid #bfbfbf;
@@ -499,6 +501,9 @@ const Label = styled.label`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
   }
 `;
 
@@ -513,34 +518,22 @@ const Line = styled.hr`
 
 const SmallTitle = styled.span`
   min-width: 30px;
-  font-size: 14px;
+  font-size: 16px;
   color: #02113b;
   font-weight: 700;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
-  }
 `;
 
 const BottomWrap = styled.div``;
 
 const AddressWrap = styled.div`
   margin-left: 20px;
-
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
-const TitleAndAddress = styled.div`
-  display: flex;
-
-  text-align: center;
-  align-items: center;
-`;
 const AddressContent = styled.div`
   /* max-width: 900px; */
   width: auto;
-  margin-left: 90px;
   font-size: 15px;
   border: none;
   background-color: transparent;
@@ -548,23 +541,36 @@ const AddressContent = styled.div`
   overflow-wrap: break-word;
   text-align: left;
   @media only screen and (max-width: 760px) {
-    margin-left: 30px;
-    width: 170px;
+    width: auto;
+    margin-left: 0px;
   }
 `;
+
+const AddressRightWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 90px;
+  text-align: left;
+  @media only screen and (max-width: 760px) {
+    margin-left: 30px;
+  }
+`;
+
 const AddressBtn = styled.button`
-  font-size: 12px;
+  font-size: 14px;
   min-width: 70px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   background-color: transparent;
-  margin-top: 1px;
+  margin-top: 10px;
   margin-right: 120px;
   cursor: pointer;
   color: #616161;
   &:hover {
-    opacity: 0.7;
+    border: 1px solid black;
+    font-weight: 600;
   }
   @media only screen and (max-width: 760px) {
     margin-right: 0px;
@@ -581,16 +587,16 @@ const CropsWrap = styled.div`
 `;
 const TitleAndCrops = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `;
 const SmallTitleCrops = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
   width: 70px;
   @media only screen and (max-width: 760px) {
-    font-size: 12px;
+    font-size: 16px;
   }
 `;
 const PrevAndNewCrops = styled.div`
@@ -599,7 +605,7 @@ const PrevAndNewCrops = styled.div`
   text-align: start;
 
   @media only screen and (max-width: 760px) {
-    margin-left: 30px;
+    margin-left: 10px;
     width: 220px;
   }
 `;
@@ -610,15 +616,19 @@ const CropsList = styled.div`
   display: inline-block;
   flex-wrap: wrap;
   border: 1px solid #bfbfbf;
-  padding: 5px 9px;
+  padding: 5px 6px 5px 9px;
   background-color: white;
   color: #616161;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 8px;
   margin-right: 8px;
   margin-bottom: 8px;
   flex-wrap: wrap;
+  &:hover {
+    font-weight: 500;
+    border: 1px solid black;
+  }
 `;
 
 const DeleteBtn = styled.button`
@@ -626,9 +636,8 @@ const DeleteBtn = styled.button`
   border: none;
   cursor: pointer;
   color: #ccc;
-  & hover {
-    opacity: 0.7;
-  }
+  margin-left: 4px;
+  opacity: 1;
 `;
 
 const CropsContent = styled.div``;
@@ -671,31 +680,32 @@ const AreaWrap = styled.div`
 
 const CountryCodeContent = styled.div`
   max-width: 420px;
-  margin-left: 70px;
-  font-size: 14px;
+  margin-left: 60px;
+  font-size: 16px;
   border: none;
   background-color: transparent;
   color: #02113b;
   overflow-wrap: break-word;
   text-align: left;
   @media only screen and (max-width: 760px) {
-    margin-left: 30px;
+    margin-left: 20px;
   }
 `;
 
 const TitleAndArea = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
 `;
 
 const SmallTitleArea = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
   @media only screen and (max-width: 760px) {
-    font-size: 12px;
+    font-size: 16px;
+    margin-top: -6px;
   }
 `;
 const AreaBtn = styled.button`

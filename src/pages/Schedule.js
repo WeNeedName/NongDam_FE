@@ -59,13 +59,15 @@ const Schedule = () => {
         <>
           <CalendarWrap>
             <ScheduleCalendar userInfo={userInfo} />
-            <AddScheduleBtn
-              onClick={() => {
-                toggleModal();
-              }}
-            >
-              + 기록하기
-            </AddScheduleBtn>
+            {userInfo?.crops.length !== 0 && (
+              <AddScheduleBtn
+                onClick={() => {
+                  toggleModal();
+                }}
+              >
+                + 기록하기
+              </AddScheduleBtn>
+            )}
           </CalendarWrap>
           <CurrentListWrap>
             <ScheduleWeek />
@@ -164,20 +166,23 @@ const AddScheduleBtn = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 4px 15px;
+  padding: 10px 18px;
   width: auto;
   height: 26px;
-  background: #318f27;
+  background: #55a349;
   border: none;
   border-radius: 50px;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   position: absolute;
   top: 36px;
   right: 30px;
   cursor: pointer;
   &:hover {
     background-color: #22631c;
+  }
+  @media only screen and (max-width: 760px) {
+    right: 16px;
   }
 `;
 

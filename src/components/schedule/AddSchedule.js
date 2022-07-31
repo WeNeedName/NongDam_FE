@@ -5,16 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { addScheduleDB } from "../../redux/modules/schedule";
-import MyDatePickerS from "./MyDatePickerS";
-//달력
 
+//달력
 import DatePicker, { registerLocale } from "react-datepicker";
 import "../../react-datepickerSchedule.css";
 import { ko } from "date-fns/esm/locale";
 import moment, { months } from "moment";
 const _ = require("lodash");
-
-import Swal from "sweetalert2";
 
 const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const navigate = useNavigate();
@@ -66,38 +63,9 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm");
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
 
-  const [noCrop, setNoCrop] = useState();
   const goMyPage = () => {
     navigate("/mypage/editmemberinfo");
   };
-  // const MyContainer = ({ className, children }) => {
-  //   return (
-  //     <div style={{ padding: "px", background: "#216ba5", color: "#fff" }}>
-  //       <CalendarContainer className={className}>
-  //         <div style={{ background: "#f0f0f0" }}>
-  //           What is your favorite day?
-  //         </div>
-  //         <div style={{ position: "relative" }}>{children}</div>
-  //       </CalendarContainer>
-  //     </div>
-  //   );
-  // };
-
-  // const years = _.range(1990, getYear(new Date()) + 1, 1);
-  // const months = [
-  //   "1월",
-  //   "2월",
-  //   "3월",
-  //   "4월",
-  //   "5월",
-  //   "6월",
-  //   "7월",
-  //   "8월",
-  //   "9월",
-  //   "10월",
-  //   "11월",
-  //   "12월",
-  // ];
 
   return (
     <>
@@ -400,7 +368,7 @@ const CalendarContainer = styled.div``;
 const StartDate = styled.div`
   margin-bottom: 10px;
   .startDatePicker {
-    width: 55%;
+    width: 70%;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
@@ -412,30 +380,13 @@ const StartDate = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
+    @media only Screen and (max-width: 760px) {
+      width: 65%;
+    }
   }
   @media only Screen and (max-width: 760px) {
     margin-bottom: 30px;
   }
-  /* .react-datepicker__day-name {
-    width: 28px;
-  }
-  .custom-datepicker {
-    border: 1px solid blue;
-  }
-  .custom-day {
-    width: 28px;
-    height: 28px;
-    line-height: 1.8;
-    text-align: center;
-  }
-  .gray-day {
-    color: #aba8b9;
-  }
-  .selected-day {
-    background: #2e1c8b;
-    border-radius: 50%;
-    font-weight: 700;
-  } */
 `;
 
 const InputDate = styled.span`
@@ -445,7 +396,7 @@ const InputDate = styled.span`
 const EndDate = styled.div`
   margin-top: 15px;
   .endDatePicker {
-    width: 55%;
+    width: 70%;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
@@ -456,6 +407,9 @@ const EndDate = styled.div`
     &:focus {
       outline: none;
       border-bottom: 1px solid black;
+    }
+    @media only Screen and (max-width: 760px) {
+      width: 65%;
     }
   }
 

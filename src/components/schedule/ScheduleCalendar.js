@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Calendar, momentLocalizer } from "react-big-calendar";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "../../BigCalendarSchedule.css";
 
@@ -12,7 +13,7 @@ import EventSchedule from "./EventSchedule";
 import EventScheduleModal from "./EventScheduleModal";
 
 const ScheduleCalendar = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [nowMonth, setNowMonth] = useState(null);
 
   moment.locale("ko-KR");
@@ -26,15 +27,32 @@ const ScheduleCalendar = () => {
   const [eventInfo, setEventInfo] = useState(null);
   const [eventDate, setEventDate] = useState([]);
   const [view, setView] = useState("month");
+  const [windowSize, setWindowSize] = useState(getWindowSize());
 
   function toggleModal() {
     setOpen(!isOpen);
   }
 
+  // 윈도우 사이즈 추적
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  function getWindowSize() {
+    const { innerWidth, innerHeight } = window;
+    return { innerWidth, innerHeight };
+  }
+
   return (
     <>
       {userInfo?.crops.length === 0 ? (
-        <NoticeWrap>
+        <NoticeWrap windowSize={windowSize.innerWidth}>
           <NoticeT>
             지금 내 작물을 등록하고
             <br />
@@ -63,37 +81,70 @@ const ScheduleCalendar = () => {
           month
         </MonthChangeBtn>
       ) : null}
-
-      <Calendar
-        events={scheduleList.map((list, id) => {
-          // 여기에 달력 모달 내용 삽입
-          <div key={id} />;
-          return {
-            title: list.toDo,
-            allDay: false,
-            start: new Date(list.startTime),
-            end: new Date(list.endTime),
-            crop: list.crop,
-          };
-        })}
-        localizer={localizer}
-        style={{ height: 100 + "%", width: 100 + "%" }}
-        components={{
-          toolbar: ToolBarSchedule,
-          month: {
-            dateHeader: Day,
-          },
-        }}
-        defaultView="month"
-        view={view}
-        onView={(view) => setView(view)}
-        setNowMonth={setNowMonth}
-        onSelectEvent={(eventInfo) => {
-          setEventInfo(eventInfo);
-          toggleModal();
-        }}
-        eventPropGetter={EventSchedule}
-      />
+      {windowSize.innerWidth > 760 && (
+        <Calendar
+          events={scheduleList.map((list, id) => {
+            // 여기에 달력 모달 내용 삽입
+            <div key={id} />;
+            return {
+              title: list.toDo,
+              allDay: false,
+              start: new Date(list.startTime),
+              end: new Date(list.endTime),
+              crop: list.crop,
+            };
+          })}
+          localizer={localizer}
+          style={{ height: 100 + "%", width: 100 + "%" }}
+          components={{
+            toolbar: ToolBarSchedule,
+            month: {
+              dateHeader: Day,
+            },
+          }}
+          defaultView="month"
+          view={view}
+          onView={(view) => setView(view)}
+          setNowMonth={setNowMonth}
+          onSelectEvent={(eventInfo) => {
+            setEventInfo(eventInfo);
+            toggleModal();
+          }}
+          eventPropGetter={EventSchedule}
+        />
+      )}
+      {windowSize.innerWidth <= 760 && userInfo?.crops.length !== 0 ? (
+        <Calendar
+          events={scheduleList.map((list, id) => {
+            // 여기에 달력 모달 내용 삽입
+            <div key={id} />;
+            return {
+              title: list.toDo,
+              allDay: false,
+              start: new Date(list.startTime),
+              end: new Date(list.endTime),
+              crop: list.crop,
+            };
+          })}
+          localizer={localizer}
+          style={{ height: 100 + "%", width: 100 + "%" }}
+          components={{
+            toolbar: ToolBarSchedule,
+            month: {
+              dateHeader: Day,
+            },
+          }}
+          defaultView="month"
+          view={view}
+          onView={(view) => setView(view)}
+          setNowMonth={setNowMonth}
+          onSelectEvent={(eventInfo) => {
+            setEventInfo(eventInfo);
+            toggleModal();
+          }}
+          eventPropGetter={EventSchedule}
+        />
+      ) : null}
 
       {isOpen && (
         <EventScheduleModal
@@ -116,12 +167,11 @@ const NoticeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
-
+  z-index: ${({ windowSize }) => (windowSize <= 760 ? "0" : "100")};
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 40%,
     white 100%
   );
   position: absolute;
@@ -135,18 +185,20 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 28px;
   text-align: center;
 `;
+
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 4px;
+  margin-top: 8px;
   background-color: transparent;
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: 14px;
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
