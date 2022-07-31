@@ -28,11 +28,13 @@ const TodaysSalePrice = ({ salePrice }) => {
 
   return (
     <Wrap>
+      <CategoryT>💵 예상 판매 금액</CategoryT>
+      <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요</Info>
+
       {userInfo?.countryCode === 0 ? (
         <NoticeWrap>
-          <NoticeTopWrap />
           <NoticeT>
-            지금 지역을 등록하고
+            지금 시세지역과 작물을 등록하고
             <br />
             예상판매 금액을 확인해보세요!
           </NoticeT>
@@ -46,7 +48,6 @@ const TodaysSalePrice = ({ salePrice }) => {
         </NoticeWrap>
       ) : userInfo?.crops.length === 0 ? (
         <NoticeWrap>
-          <NoticeTopWrap />
           <NoticeT>
             지금 작물을 등록하고
             <br />
@@ -61,8 +62,7 @@ const TodaysSalePrice = ({ salePrice }) => {
           </NoticeBtn>
         </NoticeWrap>
       ) : null}
-      <CategoryT>💵 예상 판매 금액</CategoryT>
-      <Info>kg 수를 입력하고 예상 판매 금액을 조회해보세요.</Info>
+
       <SumWrap>
         <KgInput
           onChange={(e) => {
@@ -73,39 +73,41 @@ const TodaysSalePrice = ({ salePrice }) => {
         />
         <TodayPriceSumT>kg</TodayPriceSumT>
       </SumWrap>
-      <BottomWrap>
-        <Hr />
-        {salePrice !== 0 ? (
-          <SellingPrice>
-            {sellingPrice < 1000
-              ? kg * salePrice + "원"
-              : sellingPrice < 10000
-              ? String(sellingPrice).slice(-4, -3) +
-                "천" +
-                " " +
-                String(sellingPrice).slice(-3) +
-                "원"
-              : String(sellingPrice).slice(-4, -3) === "0" &&
-                String(sellingPrice).slice(0, -4).length < 3
-              ? String(sellingPrice).slice(0, -4) +
-                "만" +
-                " " +
-                String(sellingPrice).slice(-3) +
-                "원"
-              : String(sellingPrice).slice(0, -4).length < 3
-              ? String(sellingPrice).slice(0, -4) +
-                "만" +
-                " " +
-                String(sellingPrice).slice(-4, -3) +
-                "천원"
-              : comma(String(sellingPrice).slice(0, -4)) + "만원"}
-          </SellingPrice>
-        ) : (
-          <NotFoundNoticeWrap>
-            <NotFoundNotice>판매 금액을 예상할 수 없습니다.</NotFoundNotice>
-          </NotFoundNoticeWrap>
-        )}
-      </BottomWrap>
+      {userInfo?.countryCode !== 0 && userInfo?.crops.length !== 0 && (
+        <BottomWrap>
+          <Hr />
+          {salePrice !== 0 ? (
+            <SellingPrice>
+              {sellingPrice < 1000
+                ? kg * salePrice + "원"
+                : sellingPrice < 10000
+                ? String(sellingPrice).slice(-4, -3) +
+                  "천" +
+                  " " +
+                  String(sellingPrice).slice(-3) +
+                  "원"
+                : String(sellingPrice).slice(-4, -3) === "0" &&
+                  String(sellingPrice).slice(0, -4).length < 3
+                ? String(sellingPrice).slice(0, -4) +
+                  "만" +
+                  " " +
+                  String(sellingPrice).slice(-3) +
+                  "원"
+                : String(sellingPrice).slice(0, -4).length < 3
+                ? String(sellingPrice).slice(0, -4) +
+                  "만" +
+                  " " +
+                  String(sellingPrice).slice(-4, -3) +
+                  "천원"
+                : comma(String(sellingPrice).slice(0, -4)) + "만원"}
+            </SellingPrice>
+          ) : (
+            <NotFoundNoticeWrap>
+              <NotFoundNotice>판매 금액을 예상할 수 없습니다.</NotFoundNotice>
+            </NotFoundNoticeWrap>
+          )}
+        </BottomWrap>
+      )}
     </Wrap>
   );
 };
@@ -137,6 +139,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 4 / 5;
+    height: 300px;
   }
 `;
 
@@ -149,8 +152,8 @@ const CategoryT = styled.span`
 
 const Info = styled.span`
   font-weight: 400;
-  font-size: 12px;
-  margin-top: 4px;
+  font-size: 14px;
+  margin: 4px 0px 6px 0px;
 `;
 
 const SumWrap = styled.div`
@@ -215,18 +218,20 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 20px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 60%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 1) 0%,
@@ -240,22 +245,6 @@ const NoticeWrap = styled.div`
   padding-bottom: 30px;
 `;
 
-const NoticeTopWrap = styled.div`
-  width: 200px;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 4;
-  background-color: white;
-  position: absolute;
-  top: -50px;
-  left: 0;
-  border-radius: 10px;
-  padding-bottom: 30px;
-`;
-
 const NoticeT = styled.span`
   display: flex;
   flex-direction: column;
@@ -264,6 +253,9 @@ const NoticeT = styled.span`
   font-size: 14px;
   line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -274,11 +266,14 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: #1aacff;
   font-size: 12px;
-  margin-bottom: 36px;
-
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 
