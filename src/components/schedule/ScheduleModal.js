@@ -30,15 +30,9 @@ const ScheduleModal = ({
   const myCropsList = useSelector((state) => state.users.user?.crops);
   const yearMonth = useSelector((state) => state.account.yearMonth);
 
-  const endDateForm = moment(new Date(schedule.endTime)).format(
-    "YYYY-MM-DD HH:mm"
-  );
-  const startDateForm = moment(new Date(schedule.startTime)).format(
-    "YYYY-MM-DD HH:mm"
-  );
   const [openEdit, setOpenEdit] = useState(false);
-  const [startTime, setStartTime] = useState(startDateForm);
-  const [endTime, setEndTime] = useState(endDateForm);
+  const [startTime, setStartTime] = useState(new Date(schedule.startTime));
+  const [endTime, setEndTime] = useState(new Date(schedule.endTime));
   const [toDo, setToDo] = useState(schedule.toDo);
 
   const [newCrop, setNewCrop] = useState("");
