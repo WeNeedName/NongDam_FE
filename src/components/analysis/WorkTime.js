@@ -67,14 +67,14 @@ const WorkTime = ({ workTimeData }) => {
           {windowSize.innerWidth > 760 ? (
             <Title>
               작년에 비해 올해 작업 시간이 <br />
-              {rateData.rate ? count + "%" : "00%"}{" "}
+              {rateData.rate ? count + "%" : "0%"}{" "}
               {rateData.rateText ? rateData.rateText : "감소"}
               했어요
             </Title>
           ) : (
             <TitleM>
               작년에 비해 <br /> 올해 작업 시간이 <br />
-              {rateData.rate ? count + "%" : "00%"}{" "}
+              {rateData.rate ? count + "%" : "0%"}{" "}
               {rateData.rateText ? rateData.rateText : "감소"}
               했어요
             </TitleM>
