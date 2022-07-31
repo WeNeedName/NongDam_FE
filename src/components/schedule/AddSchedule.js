@@ -12,6 +12,8 @@ import "../../react-datepickerSchedule.css";
 import { ko } from "date-fns/esm/locale";
 import moment, { months } from "moment";
 const _ = require("lodash");
+// 이미지
+import CancelIcon from "../../images/cancelIcon.png";
 
 const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const navigate = useNavigate();
@@ -89,7 +91,11 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
           onEscapeKeydown={toggleModal}
         >
           <WrapWrap>
-            <TotalTitle>일정 기록하기</TotalTitle>
+            <TitleWrap>
+              <TotalTitle>일정 기록하기</TotalTitle>
+              <CancelBtnA src={CancelIcon} alt="닫기" onClick={toggleModal} />
+            </TitleWrap>
+
             <Wrap>
               <ContentWrapL className="left">
                 <CropWrap>
@@ -249,8 +255,7 @@ padding-right : 30px;
   @media only screen and (max-width: 760px) {
     width: 80%;
     height: 600px;
-    padding: 20px;
-    margin: 90px 0px;
+    padding: 80px;
   }
 `;
 
@@ -296,6 +301,14 @@ const WrapWrap = styled.div`
     width: 100%;
   }
 `;
+
+const TitleWrap = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const TotalTitle = styled.label`
   font-size: 27px;
   font-weight: 700;
@@ -304,6 +317,12 @@ const TotalTitle = styled.label`
   align-items: start;
   margin-bottom: 10px;
 `;
+
+const CancelBtnA = styled.img`
+  width: 18px;
+  cursor: pointer;
+`;
+
 const Wrap = styled.div`
   width: auto;
   height: 100%;
