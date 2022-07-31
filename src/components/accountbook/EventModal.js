@@ -159,7 +159,9 @@ const StyledModal = Modal.styled`
   border-radius: 10px;
   padding: 30px;
   @media only screen and (max-width: 760px) {
-    width: 340px;
+    border-radius: 0px;
+    width: 330px;
+    margin: 20px 0px;
   }
 
 `;
