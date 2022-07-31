@@ -13,6 +13,10 @@ import { ko } from "date-fns/esm/locale";
 import moment from "moment";
 import "moment/locale/ko";
 import { CountertopsOutlined } from "@mui/icons-material";
+// 이미지
+import CancelIcon from "../../images/cancelIcon.png";
+// 컴포넌트
+import AccountModal from "./AccountModal";
 
 const AccountListModal = ({
   isOpenList,
@@ -22,8 +26,14 @@ const AccountListModal = ({
   ExpenseSum,
   IncomeSum,
 }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // 장부내역 상세 모달 열기
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [accountId, setAccountId] = useState();
+
+  function detailToggleModal(id) {
+    setAccountOpen(!accountOpen);
+    setAccountId(id);
+  }
 
   // 숫자 콤마넣기
   function comma(str) {
@@ -45,6 +55,7 @@ const AccountListModal = ({
         category: list.category,
         price: list.price,
         memo: list.memo,
+        id: list.id,
       });
       mappedData.set(list.date, original);
     });
@@ -55,7 +66,11 @@ const AccountListModal = ({
       onBackgroundClick={MonthListToggleModal}
       onEscapeKeydown={MonthListToggleModal}
     >
-      <Title>{month + "월 결산"}</Title>
+      <TitleWrap>
+        <Title>{month + "월 결산"}</Title>
+        <CancelBtn src={CancelIcon} alt="닫기" onClick={MonthListToggleModal} />
+      </TitleWrap>
+
       <TopWrap>
         <ListNum>총 {accountList.length}건</ListNum>
         <PriceSumWrap>
@@ -80,7 +95,12 @@ const AccountListModal = ({
                   {list[1] &&
                     list[1].map((data, idx) => {
                       return (
-                        <EventWrapB key={idx}>
+                        <EventWrap
+                          key={idx}
+                          onClick={() => {
+                            detailToggleModal(data.id);
+                          }}
+                        >
                           <WhereToUseWrap>
                             <WhereToUseType>
                               {data.type === 0 && "농산물 판매"}
@@ -97,7 +117,7 @@ const AccountListModal = ({
                               {data.type === 11 && "수도광열비"}
                               {data.type === 12 && "기타 지출"}
                             </WhereToUseType>
-                            <MemoT>{data.memo}</MemoT>
+                            {/* <MemoT>{data.memo}</MemoT> */}
                           </WhereToUseWrap>
 
                           <Price category={data.category}>
@@ -114,7 +134,7 @@ const AccountListModal = ({
                                   "$1,"
                                 )}
                           </Price>
-                        </EventWrapB>
+                        </EventWrap>
                       );
                     })}
                 </div>
@@ -128,6 +148,14 @@ const AccountListModal = ({
           </NoticeWrap>
         </BodyWrap>
       )}
+      {accountOpen && (
+        <AccountModal
+          isOpen={accountOpen}
+          toggleModal={detailToggleModal}
+          accountId={accountId}
+          accountList={accountList}
+        />
+      )}
     </StyledModal>
   );
 };
@@ -139,6 +167,9 @@ const StyledModal = Modal.styled`
   border-radius: 10px;
   padding: 30px; 
   z-index: 100;
+  @media only screen and (max-width: 760px) {
+    width: 330px;
+  }
 `;
 
 const Wrap = styled.div`
@@ -152,16 +183,28 @@ const Wrap = styled.div`
   left: 60px;
 `;
 
+const TitleWrap = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Title = styled.span`
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
+`;
+
+const CancelBtn = styled.img`
+  width: 18px;
+  cursor: pointer;
 `;
 
 const DateT = styled.div`
   width: 100%;
   height: auto;
   color: #aaa;
-  font-size: 14px;
+  font-size: 18px;
   margin-top: 10px;
 `;
 
@@ -170,7 +213,7 @@ const TopWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 16px 0px 10px 0px;
+  margin: 20px 0px 16px 0px;
 `;
 
 const PriceSumWrap = styled.div`
@@ -180,19 +223,19 @@ const PriceSumWrap = styled.div`
 `;
 
 const PriceSumNumIn = styled.span`
-  font-size: 13px;
+  font-size: 18px;
   color: #2399dc;
 `;
 
 const PriceSumNumEx = styled.span`
-  font-size: 13px;
+  font-size: 18px;
   color: #eb3333;
   margin-left: 12px;
 `;
 
 const ListNum = styled.span`
   color: #aaa;
-  font-size: 14px;
+  font-size: 18px;
 `;
 
 const EventWrap = styled.div`
@@ -201,14 +244,10 @@ const EventWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-`;
-
-const EventWrapB = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
+  cursor: pointer;
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 const BodyWrap = styled.div`
@@ -225,7 +264,7 @@ const BodyWrap = styled.div`
 const Hr = styled.div`
   width: 100%;
   border-top: 1px solid #dddddd;
-  margin: 10px 0px;
+  margin: 16px 0px;
 `;
 
 const WhereToUseWrap = styled.div`
@@ -243,8 +282,11 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #616161;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 14px;
   color: #616161;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const MemoT = styled.span`
@@ -260,7 +302,7 @@ const MemoT = styled.span`
 `;
 
 const Price = styled.span`
-  font-size: 16px;
+  font-size: 20px;
   color: ${(props) => (props.category === "수입" ? "#2399DC" : "#EB3333")};
 `;
 

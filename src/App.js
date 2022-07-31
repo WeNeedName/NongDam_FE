@@ -46,7 +46,6 @@ function App() {
         <Route path="/worklog/detail/:id" element={<DetailWorkLog />} />
         <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />
-        {/* <Route path="/addSchedule" element={<AddSchedule />} /> */}
         <Route path="/code/auth" element={<OauthFilter />} />
       </Routes>
     </>

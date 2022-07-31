@@ -12,6 +12,8 @@ import { ko } from "date-fns/esm/locale";
 // 날짜 라이브러리
 import moment from "moment";
 import "moment/locale/ko";
+// 이미지
+import CancelIcon from "../../images/cancelIcon.png";
 // 컴포넌트
 import AccountModal from "./AccountModal";
 
@@ -73,7 +75,10 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
         onBackgroundClick={toggleModal}
         onEscapeKeydown={toggleModal}
       >
-        <Title>{eventInfoDayFormat}</Title>
+        <TitleWrap>
+          <Title>{eventInfoDayFormat}</Title>
+          <CancelBtn src={CancelIcon} alt="닫기" onClick={toggleModal} />
+        </TitleWrap>
         <TopWrap>
           <ListNum>총 {filteredList.length}건</ListNum>
           <PriceSumWrap>
@@ -86,7 +91,6 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
             )}
           </PriceSumWrap>
         </TopWrap>
-
         <BodyWrap>
           {filteredList &&
             filteredList.map((list, id) => {
@@ -114,7 +118,7 @@ const EventModal = ({ isOpen, toggleModal, eventInfo, accountList }) => {
                         {list.type === 11 && "수도광열비"}
                         {list.type === 12 && "기타 지출"}
                       </WhereToUseType>
-                      <MemoT>{list.memo}</MemoT>
+                      {/* <MemoT>{list.memo}</MemoT> */}
                     </WhereToUseWrap>
 
                     <Price category={list.category}>
@@ -156,9 +160,29 @@ const StyledModal = Modal.styled`
   padding: 30px;
 `;
 
+const TitleWrap = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Title = styled.span`
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
+`;
+
+const CancelBtn = styled.img`
+  width: 18px;
+  cursor: pointer;
+`;
+
+const DateT = styled.div`
+  width: 100%;
+  height: auto;
+  color: #aaa;
+  font-size: 18px;
+  margin-top: 10px;
 `;
 
 const TopWrap = styled.div`
@@ -166,7 +190,7 @@ const TopWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 0px;
+  margin: 20px 0px 16px 0px;
 `;
 
 const PriceSumWrap = styled.div`
@@ -176,51 +200,56 @@ const PriceSumWrap = styled.div`
 `;
 
 const PriceSumNumIn = styled.span`
-  font-size: 13px;
+  font-size: 18px;
   color: #2399dc;
 `;
 
 const PriceSumNumEx = styled.span`
-  font-size: 13px;
+  font-size: 18px;
   color: #eb3333;
   margin-left: 12px;
 `;
 
 const ListNum = styled.span`
   color: #aaa;
-  font-size: 14px;
+  font-size: 18px;
 `;
 
 const EventWrap = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  &:hover {
+    font-weight: 600;
+  }
 `;
 
 const BodyWrap = styled.div`
   width: 100%;
+  height: 400px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Hr = styled.div`
   width: 100%;
   border-top: 1px solid #dddddd;
-  margin: 14px 0px;
+  margin: 16px 0px;
 `;
 
 const WhereToUseWrap = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
 const WhereToUseType = styled.div`
-  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -229,24 +258,15 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #616161;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 14px;
   color: #616161;
-`;
-
-const MemoT = styled.span`
-  width: 176px;
-  font-size: 12px;
-  margin-left: 8px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 1; // 원하는 라인수
-  -webkit-box-orient: vertical;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const Price = styled.span`
-  font-size: 16px;
+  font-size: 20px;
   color: ${(props) => (props.category === "수입" ? "#2399DC" : "#EB3333")};
 `;
 

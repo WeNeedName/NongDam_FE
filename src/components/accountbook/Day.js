@@ -5,8 +5,6 @@ import moment from "moment";
 export default function Day(props) {
   const { date } = props;
 
-  // console.log(date.getMonth() + 1);
-
   return (
     <>
       <DayTopWrap className="rbc-month-row" role="rowgroup">
@@ -35,24 +33,29 @@ const DayTopWrap = styled.div`
   /* border-top: 1px solid #ddd; */
   width: 100%;
   margin-top: 4px;
+  z-index: 0;
 `;
 
 const DayTopWrapR = styled.div`
   border-left: none;
+  z-index: 0;
 `;
 
 const DayWrap = styled.div`
   padding: 0px;
+  z-index: 0;
 `;
 
 const DayLabelBtn = styled.button`
   background-color: transparent;
   cursor: pointer;
   border: none;
+  z-index: 0;
 `;
 
 const DayLabel = styled.span`
   font-size: 13px;
   font-weight: 700;
   color: #22641c;
+  z-index: 0;
 `;
