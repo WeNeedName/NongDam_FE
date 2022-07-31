@@ -62,7 +62,7 @@ const Container = styled.div`
     max-width: 485px;
     /* width: auto; */
     text-align: left;
-    margin-left: 65px;
+    margin-left: 60px;
     margin-top: 10px;
     border-radius: 10px;
     @media only screen and (max-width: 760px) {
