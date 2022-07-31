@@ -350,6 +350,7 @@ const Wrap = styled.div`
     align-items: flex-start;
   }
 `;
+
 const ContentWrapL = styled.div`
   flex-direction: column;
   max-width: 300px;
@@ -357,6 +358,7 @@ const ContentWrapL = styled.div`
     justify-content: flex-start;
   }
 `;
+
 const ContentWrapR = styled.div`
   @media only Screen and (max-width: 760px) {
     justify-content: flex-start;

@@ -243,25 +243,6 @@ const MarketPriceChart = ({ checkedInputs, MyCrops, index }) => {
   );
 };
 
-//   return (
-//     <>
-//       <ChartBox>
-//         <ApexCharts
-//           options={state.options}
-//           series={state.series}
-//           type="line"
-//           height={92 + "%"}
-//         />
-//       </ChartBox>
-//       <XasisWrap>
-//         {day.map((data, id) => {
-//           return <Xasis key={id}>{data}</Xasis>;
-//         })}
-//       </XasisWrap>
-//     </>
-//   );
-// };
-
 const ChartBox = styled.div`
   width: 100%;
   margin-top: 6px;
