@@ -12,7 +12,7 @@ import MyCrops from "./MyCrops";
 import axios from "axios";
 import { SubmitBtn, CancelBtn } from "../../elements/Buttons";
 
-const EditMemberInfo = () => {
+const MemberInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -67,80 +67,82 @@ const EditMemberInfo = () => {
           </ImgAndNames>
         </TopWrap>
         <Line />
-
-        <AddressWrap>
-          <TitleAndAddress>
-            <SmallTitle>주소</SmallTitle>
-            <PrevAddress>
-              {userInfo?.address !== "" ? (
-                userInfo?.address
-              ) : (
-                <span>
-                  주소를 입력하시면 실시간 날씨정보를 확인하실 수 있어요.
-                </span>
-              )}
-            </PrevAddress>
-          </TitleAndAddress>
-        </AddressWrap>
-
-        <CropsWrap>
-          <TitleAndCrops>
-            <SmallTitleCrops> 내 작물</SmallTitleCrops>
-            <CropsContent>
-              <PreviousMyCrops>
-                {userInfo?.crops.length !== 0 ? (
-                  <>
-                    {userInfo?.crops.map((list, idx) => {
-                      return (
-                        <PreviousCropsList key={idx}>
-                          {list.type + " " + list.name}
-                        </PreviousCropsList>
-                      );
-                    })}
-                  </>
+        <BottomWrap>
+          <AddressWrap>
+            <TitleAndAddress>
+              <SmallTitle>주소</SmallTitle>
+              <PrevAddress>
+                {userInfo?.address !== "" ? (
+                  userInfo?.address
                 ) : (
-                  <span className="noCropTitle">
-                    내 작물을 선택하시면 매일 업데이트되는 시세확인, 일정 및
-                    일지관리를 할 수 있어요.
+                  <span>
+                    주소를 입력하시면 실시간 날씨정보를 확인하실 수 있어요.
                   </span>
                 )}
-              </PreviousMyCrops>
-            </CropsContent>
-          </TitleAndCrops>
-        </CropsWrap>
-        <AreaWrap>
-          <TitleAndArea>
-            <SmallTitleArea>시세지역</SmallTitleArea>
+              </PrevAddress>
+            </TitleAndAddress>
+          </AddressWrap>
 
-            <Area>
-              {userInfo?.countryCode ? (
-                <>
-                  {userInfo?.countryCode === 1101 && "서울(도매)"}
-                  {userInfo?.countryCode === 2100 && "부산(도매)"}
-                  {userInfo?.countryCode === 2200 && "대구(도매)"}
-                  {userInfo?.countryCode === 2300 && "인천(소매)"}
-                  {userInfo?.countryCode === 2401 && "광주(도매)"}
-                  {userInfo?.countryCode === 2501 && "대전(도매)"}
-                  {userInfo?.countryCode === 2601 && "울산(소매)"}
-                  {userInfo?.countryCode === 3111 && "수원(소매)"}
-                  {userInfo?.countryCode === 3211 && "춘천(소매)"}
-                  {userInfo?.countryCode === 3311 && "청주(소매)"}
-                  {userInfo?.countryCode === 3511 && "전주(소매)"}
-                  {userInfo?.countryCode === 3711 && "포항(소매)"}
-                  {userInfo?.countryCode === 3911 && "제주(소매)"}
-                  {userInfo?.countryCode === 3113 && "의정부(소매)"}
-                  {userInfo?.countryCode === 3613 && "순천(소매)"}
-                  {userInfo?.countryCode === 3714 && "안동(소매)"}
-                  {userInfo?.countryCode === 3814 && "창원(소매)"}
-                </>
-              ) : (
-                <option value="">
-                  지역을 선택하시면 매일 업데이트되는 지역 시세를 알 수 있어요.
-                </option>
-              )}
-            </Area>
-          </TitleAndArea>
-        </AreaWrap>
+          <CropsWrap>
+            <TitleAndCrops>
+              <SmallTitleCrops> 내 작물</SmallTitleCrops>
+              <CropsContent>
+                <PreviousMyCrops>
+                  {userInfo?.crops.length !== 0 ? (
+                    <>
+                      {userInfo?.crops.map((list, idx) => {
+                        return (
+                          <PreviousCropsList key={idx}>
+                            {list.type + " " + list.name}
+                          </PreviousCropsList>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <span className="noCropTitle">
+                      내 작물을 선택하시면 매일 업데이트되는 시세확인, 일정 및
+                      일지관리를 할 수 있어요.
+                    </span>
+                  )}
+                </PreviousMyCrops>
+              </CropsContent>
+            </TitleAndCrops>
+          </CropsWrap>
+          <AreaWrap>
+            <TitleAndArea>
+              <SmallTitleArea>시세지역</SmallTitleArea>
+
+              <Area>
+                {userInfo?.countryCode ? (
+                  <>
+                    {userInfo?.countryCode === 1101 && "서울(도매)"}
+                    {userInfo?.countryCode === 2100 && "부산(도매)"}
+                    {userInfo?.countryCode === 2200 && "대구(도매)"}
+                    {userInfo?.countryCode === 2300 && "인천(소매)"}
+                    {userInfo?.countryCode === 2401 && "광주(도매)"}
+                    {userInfo?.countryCode === 2501 && "대전(도매)"}
+                    {userInfo?.countryCode === 2601 && "울산(소매)"}
+                    {userInfo?.countryCode === 3111 && "수원(소매)"}
+                    {userInfo?.countryCode === 3211 && "춘천(소매)"}
+                    {userInfo?.countryCode === 3311 && "청주(소매)"}
+                    {userInfo?.countryCode === 3511 && "전주(소매)"}
+                    {userInfo?.countryCode === 3711 && "포항(소매)"}
+                    {userInfo?.countryCode === 3911 && "제주(소매)"}
+                    {userInfo?.countryCode === 3113 && "의정부(소매)"}
+                    {userInfo?.countryCode === 3613 && "순천(소매)"}
+                    {userInfo?.countryCode === 3714 && "안동(소매)"}
+                    {userInfo?.countryCode === 3814 && "창원(소매)"}
+                  </>
+                ) : (
+                  <option value="">
+                    지역을 선택하시면 매일 업데이트되는 지역 시세를 알 수
+                    있어요.
+                  </option>
+                )}
+              </Area>
+            </TitleAndArea>
+          </AreaWrap>
+        </BottomWrap>
       </ContentWrap>
     </Wrap>
   );
@@ -226,44 +228,6 @@ const EditNicknameWrap = styled.span`
   border: none;
 `;
 
-const EditBtn = styled.button`
-  font-size: 11px;
-  margin: 10px;
-  padding: 5px 15px;
-  border: 1px solid #a4a4a4;
-  border-radius: 3px;
-  margin-right: 30px;
-  background-color: transparent;
-  cursor: pointer;
-  color: #a4a4a4;
-  &:hover {
-    border: 1.5px solid #a4a4a4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-    color: #a4a4a4;
-  }
-`;
-
-const ImageBtn = styled.input`
-  display: none;
-`;
-
-const Label = styled.label`
-  margin-top: 20px;
-  margin-left: 30px;
-  width: 70px;
-  font-size: 11px;
-  color: #616161;
-  background-color: transparent;
-  border: 1px solid #bfbfbf;
-  padding: 4px 10px;
-  border-radius: 8px;
-  text-align: center;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
 const Line = styled.hr`
   margin-top: 30px;
   margin-bottom: 30px;
@@ -274,6 +238,7 @@ const Line = styled.hr`
 `;
 
 const SmallTitle = styled.span`
+  padding-right: 24px;
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
@@ -282,11 +247,11 @@ const SmallTitle = styled.span`
   }
 `;
 
-const BottomWrap = styled.div``;
+const BottomWrap = styled.div`
+  margin-left: 20px;
+`;
 
 const AddressWrap = styled.div`
-  margin-left: 20px;
-  margin-right: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -298,8 +263,8 @@ const TitleAndAddress = styled.div`
   align-items: center;
 `;
 
-const PrevAddress = styled.button`
-  margin-left: 100px;
+const PrevAddress = styled.div`
+  margin-left: 30px;
   font-size: 14px;
   border: none;
   background-color: transparent;
@@ -309,23 +274,9 @@ const PrevAddress = styled.button`
   }
 `;
 
-const EditAddressBtn = styled.button`
-  font-size: 11px;
-  padding: 4px 10px;
-  border: 1px solid #bfbfbf;
-  border-radius: 6px;
-  background-color: transparent;
-  cursor: pointer;
-  color: #616161;
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 const CropsWrap = styled.div`
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-right: 27px;
+  margin-top: 28px;
+  /* margin-left: 12px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -337,11 +288,12 @@ const CropsWrap = styled.div`
 
 const TitleAndCrops = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const SmallTitleCrops = styled.span`
-  width: 55px;
+  padding-right: 9px;
   font-size: 14px;
   color: #02113b;
   font-weight: 700;
@@ -353,12 +305,10 @@ const SmallTitleCrops = styled.span`
 
 const PreviousMyCrops = styled.div`
   text-align: start;
-  margin-left: 88px;
-
   width: auto;
-
   .noCropTitle {
     font-size: 14px;
+    flex-wrap: wrap;
   }
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
@@ -384,26 +334,12 @@ const PreviousCropsList = styled.div`
   }
 `;
 
-const CropsContent = styled.div``;
-
-const EditCropsBtn = styled.button`
-  font-size: 11px;
-  border: 1px solid #a4a4a4;
-  border-radius: 3px;
-  background-color: transparent;
-  cursor: pointer;
-  color: #a4a4a4;
-  &:hover {
-    border: 1.5px solid #a4a4a4;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
-    color: #a4a4a4;
-  }
+const CropsContent = styled.div`
+  margin-left: 30px;
 `;
 
 const AreaWrap = styled.div`
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-right: 27px;
+  margin-top: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -426,7 +362,7 @@ const SmallTitleArea = styled.div`
 
 const Area = styled.div`
   font-size: 14px;
-  margin-left: 78px;
+  margin-left: 30px;
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
   }
@@ -437,4 +373,4 @@ const BtnWrap = styled.div``;
 const Button = styled.button``;
 const Text = styled.p``;
 
-export default EditMemberInfo;
+export default MemberInfo;

@@ -21,17 +21,22 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
   const cropName =
     selectedCrops === 21 ? null : selectedCrops?.label.split(" ")[1];
 
-  // 날짜 리스트
-  const day =
-    marketPriceData[1] !== undefined
-      ? marketPriceData[1].dateList.map((date) => {
-          return moment(date).format("YYYY");
-        })
-      : marketPriceData[1] !== undefined
-      ? marketPriceData[0].dateList.map((date) => {
-          return moment(date).format("YYYY");
-        })
-      : null;
+  // x축 연도 리스트 만들기
+  let day = new Date();
+  const today = new Date();
+  const myYearList = Array.from([day, day, day, day, day], (x) =>
+    x.setYear(x.getFullYear() - 1)
+  );
+  const newYearDateList = [];
+  const newMyYearList = myYearList.map((list) => {
+    return newYearDateList.push(moment(list).format("YYYY"));
+  });
+  let now = new Date();
+  const year = moment(today).format("YYYY");
+  newYearDateList.unshift(String(now.getFullYear() - 1));
+  newYearDateList.unshift(year);
+  const yearDate = newYearDateList.reverse();
+
   // 소매 가격리스트
   const retailSalePriceList = marketPriceData[1]?.priceList.map((price) => {
     return Number(uncomma(price));
@@ -136,7 +141,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
             state?.series[seriesIndex]?.name +
             '<span class="date-label">' +
             " " +
-            day[dataPointIndex] +
+            yearDate[dataPointIndex] +
             "</span>" +
             "</span>" +
             "</div>" +
@@ -154,7 +159,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
         },
       },
       xaxis: {
-        categories: day,
+        categories: yearDate,
         labels: {
           formatter: function (value) {
             return value;
@@ -210,8 +215,8 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
             ) : null}
           </ChartBox>
           <XasisWrap>
-            {day &&
-              day.map((data, id) => {
+            {yearDate &&
+              yearDate.map((data, id) => {
                 return <Xasis key={id}>{data}</Xasis>;
               })}
           </XasisWrap>

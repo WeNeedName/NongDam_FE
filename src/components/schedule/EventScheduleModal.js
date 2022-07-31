@@ -206,19 +206,13 @@ const EventScheduleModal = ({
                       selected={startTime}
                       onChange={(date) => {
                         setStartTime(date);
-                        // inputRef.current.focus({
-                        //   cursor: "end",
-                        // });
                       }}
                       showTimeSelect
-                      //오늘보다 이전 날짜는 선택 못하게
                       dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
                       locale={ko} // 한글로 변경
-
-                      //inline//달력 보이게
                     />
                   ) : (
-                    <StartTime>{startTimeLoadFormat}</StartTime>
+                    <LoadStart>{startTimeLoadFormat}</LoadStart>
                   )}
                 </Start>
                 <End>
@@ -245,7 +239,7 @@ const EventScheduleModal = ({
                       )}
                     </>
                   ) : (
-                    <EndTime>{endTimeLoadFormat}</EndTime>
+                    <LoadEnd>{endTimeLoadFormat}</LoadEnd>
                   )}
                 </End>
               </TimeWrap>
@@ -363,20 +357,21 @@ min-width : 300px;
 height : auto;
 background-color: white;
 border-radius: 10px;
-padding-top : 30px;
-padding-left : 30px;
-padding-bottom: 20px;
+padding-top : 23px;
+padding-left : 20px;
+padding-bottom: 23px;
 padding-right : 15px;
   @media only screen and (max-width: 760px) {
-    width: 80%;
-    padding: 20px;
+    width: 70%;
+    padding: 30px;
   }
 `;
 
 const WrapWrap = styled.div`
   width: auto;
   @media only screen and (max-width: 760px) {
-    width: 100%;
+    width: 95%;
+    justify-content: flex-start;
   }
 `;
 const TotalTitle = styled.label`
@@ -386,6 +381,10 @@ const TotalTitle = styled.label`
   text-align: left;
   align-items: start;
   margin-bottom: 10px;
+  margin-left: 6px;
+  @media only screen and (max-width: 760px) {
+    margin: 0px;
+  }
 `;
 const Wrap = styled.div`
   width: 100%;
@@ -398,15 +397,23 @@ const Wrap = styled.div`
   border-radius: 20px;
   position: relative;
   @media only screen and (max-width: 760px) {
+    width: 97%;
     display: flex;
     flex-direction: column;
-    padding-left: 10px;
+    justify-content: flex-start;
+    margin: 0px;
   }
 `;
 const LeftWrap = styled.div`
   flex-direction: column;
   min-width: 150px;
-  margin-right: 70px;
+  margin-right: 30px;
+  @media only screen and (max-width: 760px) {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 0px;
+    width: 100%;
+  }
 `;
 
 const CropWrap = styled.div`
@@ -418,25 +425,35 @@ const CropWrap = styled.div`
   flex-wrap: wrap;
 
   @media only Screen and (max-width: 760px) {
-    margin-left: -40px;
     margin-top: 20px;
+    margin-bottom: 5px;
+    justify-content: flex-start;
   }
 `;
-
 const SmallTitle = styled.span`
   font-size: 16px;
   font-weight: 700;
 `;
-const Label = styled.label`
-  font-size: 18px;
-`;
+
 const CropEditWrap = styled.div`
   display: flex;
   max-width: 300px;
   margin-top: 5px;
   margin-bottom: 25px;
   flex-wrap: wrap;
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 `;
+
+const Label = styled.label`
+  font-size: 18px;
+`;
+
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
@@ -474,7 +491,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const CropLoadWrap = styled.div`
+  min-width: 200px;
   display: flex;
+  margin-bottom: 0px;
+  min-width: 200px;
 `;
 
 const CropName = styled.p`
@@ -487,13 +507,21 @@ const CropName = styled.p`
   border-radius: 10px;
   margin-top: 5px;
 `;
-const Content = styled.p``;
 
 const TimeWrap = styled.div`
   flex-direction: column;
   margin-bottom: 15px;
+
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+    margin-bottom: 0px;
+  }
+`;
+
+const Start = styled.div`
+  margin-bottom: 5px;
   .startDatePicker {
-    width: 58%;
+    width: 61%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 30px;
@@ -507,9 +535,34 @@ const TimeWrap = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
+    @media only Screen and (max-width: 760px) {
+      margin-top: 5px;
+      margin-bottom: 0px;
+    }
   }
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 5px;
+  }
+`;
+
+const LoadStart = styled.div`
+  font-size: 16px;
+  background-color: transparent;
+  color: #02113b;
+  border: none;
+  margin-bottom: 30px;
+  :focus {
+    outline: none;
+  }
+  @media only Screen and (max-width: 760px) {
+    margin-bottom: 17px;
+  }
+`;
+
+const End = styled.div`
+  margin-bottom: 5px;
   .endDatePicker {
-    width: 58%;
+    width: 61%;
     font-size: 16px;
     margin-top: 5px;
     text-align: center;
@@ -522,46 +575,59 @@ const TimeWrap = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
+    @media only Screen and (max-width: 760px) {
+      justify-content: flex-start;
+      margin-top: 5px;
+      margin-bottom: 0px;
+    }
+  }
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 10px;
   }
 `;
-const StartTime = styled.div`
-  font-size: 16px;
-  background-color: transparent;
-  color: #02113b;
-  border: none;
-  margin-bottom: 30px;
-  :focus {
-    outline: none;
-  }
-`;
-const EndTime = styled.div`
-  font-size: 16px;
-  background-color: transparent;
-  color: #02113b;
-  border: none;
-  :focus {
-    outline: none;
-  }
-`;
+
 const ErrorMsg = styled.span`
   text-align: left;
   margin-top: 3px;
   font-size: 11px;
   color: #ec0000;
 `;
-const Start = styled.div`
-  margin-bottom: 5px;
+
+const LoadEnd = styled.div`
+  font-size: 16px;
+  background-color: transparent;
+  color: #02113b;
+  border: none;
+  :focus {
+    outline: none;
+  }
 `;
 
-const End = styled.div`
-  margin-bottom: 5px;
+const RightWrap = styled.div`
+  @media only screen and (max-width: 760px) {
+    justify-content: flex-start;
+    margin: 0px;
+    width: 100%;
+  }
 `;
-const RightWrap = styled.div``;
-const WorkWrap = styled.div``;
+const WorkWrap = styled.div`
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-left: 0px;
+  }
+`;
 const WorkSelectBoxWrap = styled.div`
   margin-top: 5px;
   margin-bottom: 13px;
   display: flex;
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 7px;
+    margin-bottom: 9px;
+  }
 `;
 const LabelWork = styled.label``;
 const FormCheckTextWork = styled.span`
@@ -599,6 +665,9 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
 const MemoWrap = styled.div`
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 760px) {
+    margin-top: 20px;
+  }
 `;
 
 const InputMemo = styled.textarea`
@@ -613,7 +682,6 @@ const InputMemo = styled.textarea`
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
-
   resize: none;
   &::placeholder {
     color: #ddd;
@@ -622,6 +690,11 @@ const InputMemo = styled.textarea`
   &:focus {
     outline: none;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 10px;
   }
 `;
 
@@ -640,26 +713,34 @@ const WorkContent = styled.div`
   padding: 10px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
 `;
 
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 15px;
+  margin-top: 35px;
   margin-right: 1px;
+  @media only screen and (max-width: 760px) {
+    justify-content: flex-end;
+    margin-top: 8px;
+    width: 107%;
+  }
 `;
 const EditBtn = styled.button`
-  background-color: #22631c;
+  background-color: #318f27;
   color: #ffffff;
   border-radius: 8px;
   border: none;
   margin-left: 10px;
   padding: 4px 15px;
   cursor: pointer;
-  border: 1px solid #22631c;
 
   &:hover {
-    opacity: 0.7;
+    background-color: #22631c;
   }
 `;
 
@@ -674,24 +755,6 @@ const Btn = styled.button`
   &:hover {
     opacity: 0.7;
   }
-`;
-
-const Category = styled.span`
-  font-size: 24px;
-`;
-
-const Price = styled.span`
-  font-size: 30px;
-`;
-
-const SDatePicker = styled(DatePicker)`
-  width: 180px;
-  height: 26px;
-  border-radius: 10px;
-  border: 1px solid black;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
 `;
 
 export default EventScheduleModal;
