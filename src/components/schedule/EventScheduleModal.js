@@ -239,7 +239,7 @@ const EventScheduleModal = ({
                       )}
                     </>
                   ) : (
-                    <LoadEnd>{endTimeLoadFormat}</LoadEnd>
+                    <EndTime>{endTimeLoadFormat}</EndTime>
                   )}
                 </End>
               </TimeWrap>
@@ -293,6 +293,7 @@ const EventScheduleModal = ({
                     <MemoWrap>
                       <SmallTitle>작업 내용</SmallTitle>
                       <InputMemo
+                        maxLength="100"
                         ref={memoRef}
                         defaultValue={schedule.toDo}
                         onChange={(e) => setToDo(e.target.value)}
@@ -301,12 +302,12 @@ const EventScheduleModal = ({
                     </MemoWrap>
                   </>
                 ) : (
-                  <WorkContentLoadWrap>
+                  <MemoWrap>
                     <SmallTitle>작업 내용</SmallTitle>
                     {schedule.toDo !== "" ? (
                       <WorkContent>{schedule.toDo}</WorkContent>
                     ) : null}
-                  </WorkContentLoadWrap>
+                  </MemoWrap>
                 )}
               </WorkWrap>
 
@@ -353,17 +354,14 @@ const EventScheduleModal = ({
   );
 };
 const StyledModal = Modal.styled`
-min-width : 300px;
-height : auto;
-background-color: white;
-border-radius: 10px;
-padding-top : 23px;
-padding-left : 20px;
-padding-bottom: 23px;
-padding-right : 15px;
+  min-width : 560px;
+  height : auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 30px 20px 20px;
   @media only screen and (max-width: 760px) {
+    min-width : 340px;
     width: 70%;
-    padding: 30px;
   }
 `;
 
@@ -374,14 +372,15 @@ const WrapWrap = styled.div`
     justify-content: flex-start;
   }
 `;
+
 const TotalTitle = styled.label`
   font-size: 27px;
   font-weight: 700;
   display: flex;
   text-align: left;
   align-items: start;
+  margin-left: 5px;
   margin-bottom: 10px;
-  margin-left: 6px;
   @media only screen and (max-width: 760px) {
     margin: 0px;
   }
@@ -390,8 +389,8 @@ const Wrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  /* justify-content: space-between; */
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
   margin: 10px;
   background-color: white;
   border-radius: 20px;
@@ -407,7 +406,7 @@ const Wrap = styled.div`
 const LeftWrap = styled.div`
   flex-direction: column;
   min-width: 150px;
-  margin-right: 30px;
+  margin-right: 70px;
   @media only screen and (max-width: 760px) {
     display: flex;
     justify-content: flex-start;
@@ -419,34 +418,20 @@ const LeftWrap = styled.div`
 const CropWrap = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 150px;
   max-width: 300px;
-  margin-top: 10px;
-  margin-bottom: 0px;
   flex-wrap: wrap;
-
   @media only Screen and (max-width: 760px) {
     margin-top: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     justify-content: flex-start;
   }
 `;
+
 const SmallTitle = styled.span`
   font-size: 16px;
   font-weight: 700;
-`;
-
-const CropEditWrap = styled.div`
-  display: flex;
-  max-width: 300px;
-  margin-top: 5px;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
   @media only Screen and (max-width: 760px) {
-    justify-content: flex-start;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    flex-wrap: wrap;
-    width: 100%;
   }
 `;
 
@@ -454,10 +439,29 @@ const Label = styled.label`
   font-size: 18px;
 `;
 
+const CropEditWrap = styled.div`
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+    margin: 0px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+`;
+
+const EditStart = styled.div`
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+  }
+`;
+
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
-  font-size: 12px;
+  font-size: 14px;
   padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
@@ -466,13 +470,17 @@ const FormCheckText = styled.span`
   justify-content: center;
   align-items: center;
   text-align: center;
-
-  margin: 4px 6px 4px 0px;
   cursor: pointer;
   color: #ccc;
+  margin: 4px 6px 4px 0px;
   &:hover {
     color: black;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -491,8 +499,8 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 `;
 
 const CropLoadWrap = styled.div`
-  min-width: 200px;
   display: flex;
+  position: relative;
   margin-bottom: 0px;
   min-width: 200px;
 `;
@@ -502,30 +510,26 @@ const CropName = styled.p`
   height: auto;
   text-align: center;
   padding: 4px 13px;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;
-  margin-top: 5px;
+  margin-top: 8px;
+  font-size: 14px;
+  @media only Screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-top: 10px;
+  }
 `;
 
 const TimeWrap = styled.div`
   flex-direction: column;
+  width: auto;
   margin-bottom: 15px;
-
-  @media only Screen and (max-width: 760px) {
-    justify-content: flex-start;
-    margin-bottom: 0px;
-  }
-`;
-
-const Start = styled.div`
-  margin-bottom: 5px;
   .startDatePicker {
-    width: 61%;
+    width: 100%;
     font-size: 16px;
     margin-top: 5px;
-    margin-bottom: 30px;
-    text-align: center;
+    margin-bottom: 20px;
     background-color: transparent;
     color: black;
     border: none;
@@ -536,12 +540,39 @@ const Start = styled.div`
       border-bottom: 1px solid black;
     }
     @media only Screen and (max-width: 760px) {
-      margin-top: 5px;
+      width: 65%;
+      font-size: 18px;
+      justify-content: flex-start;
+      margin-top: 10px;
       margin-bottom: 0px;
     }
   }
-  @media only screen and (max-width: 760px) {
-    margin-bottom: 5px;
+  .endDatePicker {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 40px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #bfbfbf;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
+    @media only Screen and (max-width: 760px) {
+      width: 65%;
+      justify-content: flex-start;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+  }
+  @media only Screen and (max-width: 760px) {
+    justify-content: flex-start;
+
+    margin-bottom: 0px;
   }
 `;
 
@@ -549,51 +580,21 @@ const LoadStart = styled.div`
   font-size: 16px;
   background-color: transparent;
   color: #02113b;
+  margin-bottom: 15px;
   border: none;
-  margin-bottom: 30px;
   :focus {
     outline: none;
   }
-  @media only Screen and (max-width: 760px) {
-    margin-bottom: 17px;
-  }
-`;
-
-const End = styled.div`
-  margin-bottom: 5px;
-  .endDatePicker {
-    width: 61%;
-    font-size: 16px;
-    margin-top: 5px;
-    text-align: center;
-    background-color: transparent;
-    color: black;
-    border: none;
-    cursor: pointer;
-    border-bottom: 1px solid #bfbfbf;
-    &:focus {
-      outline: none;
-      border-bottom: 1px solid black;
-    }
-    @media only Screen and (max-width: 760px) {
-      justify-content: flex-start;
-      margin-top: 5px;
-      margin-bottom: 0px;
-    }
-  }
   @media only screen and (max-width: 760px) {
-    margin-bottom: 10px;
   }
 `;
 
-const ErrorMsg = styled.span`
-  text-align: left;
-  margin-top: 3px;
-  font-size: 11px;
-  color: #ec0000;
+const EditEnd = styled.div`
+  @media only screen and (max-width: 760px) {
+    margin: 0px;
+  }
 `;
-
-const LoadEnd = styled.div`
+const EndTime = styled.div`
   font-size: 16px;
   background-color: transparent;
   color: #02113b;
@@ -601,16 +602,40 @@ const LoadEnd = styled.div`
   :focus {
     outline: none;
   }
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 20px;
+  }
+`;
+const End = styled.div`
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 10px;
+  }
+`;
+const ErrorMsg = styled.span`
+  text-align: left;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #ec0000;
+`;
+const Start = styled.div`
+  margin-bottom: 5px;
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const RightWrap = styled.div`
+  margin-left: 25px;
+  margin-right: 10px;
   @media only screen and (max-width: 760px) {
     justify-content: flex-start;
     margin: 0px;
     width: 100%;
   }
 `;
+
 const WorkWrap = styled.div`
+  margin-left: -69px;
   @media only screen and (max-width: 760px) {
     width: 100%;
     justify-content: flex-start;
@@ -618,6 +643,14 @@ const WorkWrap = styled.div`
     margin-left: 0px;
   }
 `;
+const EditWork = styled.div`
+  @media only screen and (max-width: 760px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+`;
+
 const WorkSelectBoxWrap = styled.div`
   margin-top: 5px;
   margin-bottom: 13px;
@@ -629,7 +662,9 @@ const WorkSelectBoxWrap = styled.div`
     margin-bottom: 9px;
   }
 `;
+
 const LabelWork = styled.label``;
+
 const FormCheckTextWork = styled.span`
   width: auto;
   height: auto;
@@ -641,11 +676,17 @@ const FormCheckTextWork = styled.span`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+  font-size: 14px;
+  margin-top: 4px;
   cursor: pointer;
   color: #ccc;
   &:hover {
     color: black;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -665,15 +706,17 @@ const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
 const MemoWrap = styled.div`
   display: flex;
   flex-direction: column;
+  width: auto;
   @media only screen and (max-width: 760px) {
     margin-top: 20px;
   }
 `;
 
 const InputMemo = styled.textarea`
+  /* max-width: 400px; */
   min-width: 250px;
   height: auto;
-  font-size: 15px;
+  font-size: 16px;
   color: #616161;
   padding-top: 10px;
   padding-right: 10px;
@@ -682,6 +725,7 @@ const InputMemo = styled.textarea`
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
+
   resize: none;
   &::placeholder {
     color: #ddd;
@@ -695,16 +739,16 @@ const InputMemo = styled.textarea`
     justify-content: flex-start;
     width: 100%;
     margin-top: 10px;
+    font-size: 18px;
   }
 `;
-
-const WorkContentLoadWrap = styled.div`
-  /* width: 100%;
-  height: 60%; */
+const WorkLoadWrap = styled.div`
+  @media only screen and (max-width: 760px) {
+    justify-content: flex-start;
+  }
 `;
-
 const WorkContent = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   color: #616161;
   max-width: 350px;
   min-width: 250px;
@@ -722,7 +766,7 @@ const WorkContent = styled.div`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 35px;
+  margin-top: 12px;
   margin-right: 1px;
   @media only screen and (max-width: 760px) {
     justify-content: flex-end;
@@ -731,29 +775,32 @@ const BtnWrap = styled.div`
   }
 `;
 const EditBtn = styled.button`
+  font-size: 14px;
   background-color: #318f27;
   color: #ffffff;
   border-radius: 8px;
   border: none;
   margin-left: 10px;
-  padding: 4px 15px;
+  padding: 6px 15px;
   cursor: pointer;
-
   &:hover {
     background-color: #22631c;
   }
 `;
 
 const Btn = styled.button`
+  font-size: 14px;
   background-color: transparent;
   color: #616161;
   border-radius: 8px;
   border: 1px solid #bfbfbf;
   margin-left: 10px;
-  padding: 4px 10px;
+  padding: 6px 15px;
   cursor: pointer;
   &:hover {
     opacity: 0.7;
+  }
+  @media only screen and (max-width: 760px) {
   }
 `;
 
