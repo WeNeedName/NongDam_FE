@@ -273,17 +273,25 @@ const TopWrap = styled.div`
   .title {
     font-weight: 700;
     font-size: 30px;
-    color: #318f27;
+    color: #55a349;
     margin-bottom: 40px;
   }
   .slogan {
     font-weight: 700;
     font-size: 20px;
+    @media only screen and (max-width: 760px) {
+      font-size: 22px;
+    }
   }
   .desc {
-    font-size: 13px;
-    margin-bottom: 20px;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 28px;
     color: #666666;
+    @media only screen and (max-width: 760px) {
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
   }
 `;
 
@@ -297,6 +305,8 @@ const InputBoxesWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px;
+  /* justify-content: center; */
+  align-items: center;
 `;
 
 const EmailWrap = styled.div`
@@ -319,9 +329,15 @@ const InputWrap = styled.div`
 
 const LabelEmail = styled.label`
   /* margin-right: 219px; */
+  width: 80px;
   margin-bottom: 5px;
   text-align: left;
   color: rgb(${(props) => (props.EmailErr ? "255, 119, 119" : "41, 41, 41")});
+  font-size: 14px;
+
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const EmailInputBox = styled.input`
@@ -330,10 +346,14 @@ const EmailInputBox = styled.input`
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
+  font-size: 14px;
   :focus {
     outline: none;
     border: 2px solid
       ${(props) => (props.userIdErr ? "rgb(255, 119, 119)" : "#55a349")};
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
   }
 `;
 
@@ -355,6 +375,7 @@ const SelectEM = styled.select`
   resize: none;
   padding: 4px 8px;
   border: 1px solid #999999;
+  font-size: 14px;
   &::placeholder {
     color: #424242;
   }
@@ -362,23 +383,29 @@ const SelectEM = styled.select`
     outline: none;
     border: 2px solid #55a349;
   }
-  /* border-color: rgb(
-    ${(props) => (props.userIdError ? "255, 119, 119" : "219, 219, 219")}
-  ); */
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const EmailErr = styled.div`
   /* margin-right: 103px; */
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
   color: #ec0000;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const EmailOk = styled.div`
   /* margin-right: 103px; */
   text-align: left;
-  font-size: 11px;
+  font-size: 12px;
   color: #0a9c19;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const InputBox = styled.input`
@@ -387,10 +414,15 @@ const InputBox = styled.input`
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
+  font-size: 14px;
+
   :focus {
     outline: none;
     border: 2px solid
       ${(props) => (props.pwCheckErr ? "rgb(255, 119, 119)" : "#55a349")};
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
   }
 `;
 
@@ -400,23 +432,15 @@ const InputBoxPw = styled.input`
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
+  font-size: 14px;
+
   :focus {
     outline: none;
     border: 2px solid
       ${(props) => (props.pwErr ? "rgb(255, 119, 119)" : "#55a349")};
   }
-`;
-
-const InputBoxE = styled.input`
-  width: 240px;
-  height: 30px;
-  border: 1px solid #999999;
-  border-radius: 5px;
-  padding: 5px;
-  :focus {
-    outline: none;
-    border: 2px solid
-      ${(props) => (props.pwErr ? "rgb(255, 119, 119)" : "#55a349")};
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
   }
 `;
 
@@ -424,30 +448,43 @@ const LabelPw = styled.label`
   text-align: left;
   /* margin-right: 215px; */
   margin-bottom: 5px;
+  font-size: 14px;
   color: rgb(${(props) => (props.PwErr ? "255, 119, 119" : "41, 41, 41")});
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const InfoPw = styled.div`
-  margin-right: 57px;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 12px;
   color: #666666;
+  text-align: left;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const PwErr = styled.div`
   /* margin-right: 30px; */
   text-align: left;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 12px;
   color: #ec0000;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const PwOk = styled.div`
   /* margin-right: 145px; */
   text-align: left;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 12px;
   color: #0a9c19;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const LabelPC = styled.label`
@@ -455,46 +492,60 @@ const LabelPC = styled.label`
   text-align: left;
   margin-bottom: 5px;
   color: rgb(${(props) => (props.PwCheckErr ? "255, 119, 119" : "41, 41, 41")});
+  font-size: 14px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const PwCheckErr = styled.div`
   /* margin-right: 120px; */
   text-align: left;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 12px;
   color: #ec0000;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const InfoPc = styled.div`
   text-align: left;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 12px;
   color: #666666;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const PwCheckOk = styled.div`
   text-align: left;
   margin-top: 3px;
-  font-size: 11px;
+  font-size: 12px;
   color: #0a9c19;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const LabelName = styled.label`
-  /* margin-right: 230px; */
   text-align: left;
   margin-bottom: 5px;
-  // color: rgb(
-  //   ${(props) => (props.NameErr ? "255, 119, 119" : "41, 41, 41")}
-  // );
+  font-size: 14px;
+
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const LabelNickname = styled.label`
   text-align: left;
-  /* margin-right: 220px; */
   margin-bottom: 5px;
-  // color: rgb(
-  //   ${(props) => (props.NicknameErr ? "255, 119, 119" : "41, 41, 41")}
-  // );
+  font-size: 14px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -506,18 +557,25 @@ const BtnWrap = styled.div`
 `;
 
 const Info = styled.span`
-  font-size: 11px;
+  font-size: 12px;
   margin-bottom: 10px;
   color: #666666;
+  @media only screen and (max-width: 760px) {
+    width: 260px;
+    font-size: 14px;
+  }
 `;
 
 const InfoLink = styled.span`
-  font-size: 11px;
+  font-size: 12px;
   margin-bottom: 6px;
   color: #666666;
   font-weight: 500;
   text-decoration: underline;
   cursor: pointer;
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const SignUpBtn = styled.button`
