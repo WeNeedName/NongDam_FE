@@ -42,9 +42,9 @@ const PopupPostCode = ({
     marginLeft: "42%",
     width: "400px",
     height: "45%",
-
     zIndex: 1,
     border: "0.5px #ddd solid",
+    boxShadow: "20px 20px 20px rgba(0, 0, 0, 0.25)",
   };
 
   return (
@@ -60,6 +60,12 @@ const Wrap = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
+  @media only screen and (max-width: 760px) {
+    top: 620px;
+    padding-right: 70%;
+    left: -65%;
+    z-index: 10;
+  }
 `;
 
 const ModalBackground = styled.div``;

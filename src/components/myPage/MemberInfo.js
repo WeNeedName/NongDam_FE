@@ -10,7 +10,6 @@ import PopupDom from "./PopupDom";
 import PopupPostCode from "./PopupPostCode";
 import MyCrops from "./MyCrops";
 import axios from "axios";
-import { SubmitBtn, CancelBtn } from "../../elements/Buttons";
 
 const MemberInfo = () => {
   const navigate = useNavigate();
@@ -75,9 +74,7 @@ const MemberInfo = () => {
                 {userInfo?.address !== "" ? (
                   userInfo?.address
                 ) : (
-                  <span>
-                    주소를 입력하시면 실시간 날씨정보를 확인하실 수 있어요.
-                  </span>
+                  <span>주소를 등록해주세요</span>
                 )}
               </PrevAddress>
             </TitleAndAddress>
@@ -99,10 +96,7 @@ const MemberInfo = () => {
                       })}
                     </>
                   ) : (
-                    <span className="noCropTitle">
-                      내 작물을 선택하시면 매일 업데이트되는 시세확인, 일정 및
-                      일지관리를 할 수 있어요.
-                    </span>
+                    <span className="noCropTitle">작물을 등록해주세요</span>
                   )}
                 </PreviousMyCrops>
               </CropsContent>
@@ -134,14 +128,18 @@ const MemberInfo = () => {
                     {userInfo?.countryCode === 3814 && "창원(소매)"}
                   </>
                 ) : (
-                  <option value="">
-                    지역을 선택하시면 매일 업데이트되는 지역 시세를 알 수
-                    있어요.
-                  </option>
+                  <option value="">시세가 궁금한 지역을 등록해주세요</option>
                 )}
               </Area>
             </TitleAndArea>
           </AreaWrap>
+          <SubmitBtn
+            onClick={() => {
+              navigate("/mypage/editmemberinfo");
+            }}
+          >
+            수정하기
+          </SubmitBtn>
         </BottomWrap>
       </ContentWrap>
     </Wrap>
@@ -165,7 +163,6 @@ const Wrap = styled.div`
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     margin-left: -20px;
-    margin-bottom: 60px;
   }
 `;
 
@@ -216,7 +213,7 @@ const Names = styled.div`
 
   .userEmail {
     margin-left: 20px;
-    font-size: 11px;
+    font-size: 14px;
   }
 `;
 
@@ -239,12 +236,10 @@ const Line = styled.hr`
 
 const SmallTitle = styled.span`
   padding-right: 24px;
-  font-size: 14px;
+  font-size: 16px;
   color: #02113b;
   font-weight: 700;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
-  }
+  width: 40px;
 `;
 
 const BottomWrap = styled.div`
@@ -265,10 +260,11 @@ const TitleAndAddress = styled.div`
 
 const PrevAddress = styled.div`
   margin-left: 30px;
-  font-size: 14px;
+  font-size: 16px;
   border: none;
   background-color: transparent;
   color: #02113b;
+  text-align: left;
   @media only screen and (max-width: 760px) {
     margin-left: 40px;
   }
@@ -294,13 +290,10 @@ const TitleAndCrops = styled.div`
 
 const SmallTitleCrops = styled.span`
   padding-right: 9px;
-  font-size: 14px;
+  font-size: 16px;
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
-  }
 `;
 
 const PreviousMyCrops = styled.div`
@@ -311,7 +304,6 @@ const PreviousMyCrops = styled.div`
     flex-wrap: wrap;
   }
   @media only screen and (max-width: 760px) {
-    margin-left: 30px;
     width: 200px;
   }
 `;
@@ -322,9 +314,9 @@ const PreviousCropsList = styled.div`
   display: inline-block;
   flex-wrap: wrap;
   border: 1px solid #bfbfbf;
-  padding: 4px 8px;
+  padding: 6px 10px;
   color: #616161;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 10px;
   margin-right: 5px;
   margin-bottom: 3px;
@@ -351,26 +343,34 @@ const TitleAndArea = styled.div`
 `;
 
 const SmallTitleArea = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
-  }
 `;
 
 const Area = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 30px;
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
   }
 `;
 
-const BtnWrap = styled.div``;
+export const SubmitBtn = styled.button`
+  margin-top: 40px;
+  font-size: 16px;
+  color: white;
+  background-color: #55a349;
+  border: 1px solid #55a349;
+  padding: 6px 14px;
+  border-radius: 8px;
 
-const Button = styled.button``;
-const Text = styled.p``;
+  cursor: pointer;
+  &:hover {
+    background: #22631c;
+    border: 1px solid #22631c;
+  }
+`;
 
 export default MemberInfo;

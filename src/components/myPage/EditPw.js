@@ -25,6 +25,7 @@ const EditPw = () => {
 
     if (!newPwErr || e.target.value === newPwErr) setNewPwCheckErr(false);
     else setNewPwCheckErr(true);
+
     setNewPw(e.target.value);
   };
 
@@ -149,6 +150,9 @@ const Title = styled.div`
 `;
 const EditPwWrap = styled.div`
   margin-top: 70px;
+  @media only screen and (max-width: 760px) {
+    margin-top: 30px;
+  }
 `;
 const PwInputBox = styled.input`
   border: 1px solid #999999;
@@ -160,15 +164,17 @@ const PwInputBox = styled.input`
   margin-top: 5px;
   :focus {
     outline: none;
+    border: 2px solid #55a349;
   }
 `;
 const SmallTitle = styled.div`
-  font-size: 13px;
+  font-size: 16px;
 `;
 
 const NewPwErr = styled.div`
   margin-top: 6px;
   color: #666666;
+  font-size: 14px;
 `;
 
 const EachBoxWrap = styled.div`
@@ -179,11 +185,11 @@ const Submit = styled.button``;
 
 export const SubmitBtn = styled.button`
   margin-top: 20px;
-  /* font-size: 11px; */
+  font-size: 14px;
   color: white;
   background-color: #55a349;
   border: 1px solid #55a349;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 8px;
   margin-left: 18px;
   cursor: pointer;
