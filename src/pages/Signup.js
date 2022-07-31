@@ -258,7 +258,7 @@ const ContainerWrap = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-top: 60px;
+  margin-top: 90px;
 `;
 
 const Container = styled.div`
@@ -592,7 +592,8 @@ const SignUpBtn = styled.button`
   border: none;
   size: 11px;
   margin: 10px;
-  margin-bottom: 60px;
+  margin-bottom: 90px;
+  font-size: 14px;
 
   cursor: pointer;
   &:hover {
@@ -601,6 +602,9 @@ const SignUpBtn = styled.button`
   &:disabled {
     opacity: 0.3;
     cursor: default;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
   }
 `;
 

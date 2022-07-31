@@ -158,6 +158,10 @@ const StyledModal = Modal.styled`
   background-color: white;
   border-radius: 10px;
   padding: 30px;
+  @media only screen and (max-width: 760px) {
+    width: 340px;
+  }
+
 `;
 
 const TitleWrap = styled.span`

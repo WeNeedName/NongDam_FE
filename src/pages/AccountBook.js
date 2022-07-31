@@ -189,6 +189,7 @@ const AddAccountBtn = styled.button`
   }
   @media only screen and (max-width: 760px) {
     right: 16px;
+    top: 30px;
   }
 `;
 
