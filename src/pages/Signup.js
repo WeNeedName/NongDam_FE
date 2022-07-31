@@ -592,7 +592,7 @@ const SignUpBtn = styled.button`
   border: none;
   size: 11px;
   margin: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 
   cursor: pointer;
   &:hover {
