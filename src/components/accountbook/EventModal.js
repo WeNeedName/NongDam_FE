@@ -234,7 +234,7 @@ const WhereToUseType = styled.div`
 `;
 
 const MemoT = styled.span`
-  width: 186px;
+  width: 176px;
   font-size: 12px;
   margin-left: 8px;
   text-overflow: ellipsis;

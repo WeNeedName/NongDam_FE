@@ -451,7 +451,7 @@ const Price = styled.span`
 
 const Memo = styled.span`
   width: 100%;
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 6px;
 `;
 
