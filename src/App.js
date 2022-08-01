@@ -20,6 +20,7 @@ import Schedule from "./pages/Schedule";
 import WorkLog from "./pages/WorkLog";
 import WirteWorkLog from "./pages/WriteWorkLog";
 import DetailWorkLog from "./pages/DetailWorkLog";
+import NotFound from "./components/NotFound";
 
 function App() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ function App() {
         <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/code/auth" element={<OauthFilter />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );
