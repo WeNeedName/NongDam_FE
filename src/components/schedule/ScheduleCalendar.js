@@ -118,12 +118,14 @@ const ScheduleCalendar = () => {
         <Calendar
           events={scheduleList.map((list, id) => {
             // 여기에 달력 모달 내용 삽입
+            const startTimeFormat = list.startTime.replace(/-/g, "/");
+            const endTimeFormat = list.endTime.replace(/-/g, "/");
             <div key={id} />;
             return {
               title: list.toDo,
               allDay: false,
-              start: new Date(list.startTime),
-              end: new Date(list.endTime),
+              start: new Date(startTimeFormat),
+              end: new Date(endTimeFormat),
               crop: list.crop,
             };
           })}
