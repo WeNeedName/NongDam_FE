@@ -24,7 +24,7 @@ const TotalHarvestChart = ({ salesData }) => {
     allDataListSort[0]?.length >= 2
       ? Math.pow(10, String(largestNumberWon).length - 1)
       : 1;
-  const mathRound = Math.ceil(largestNumberWon / mathPow) * mathPow;
+  const mathRound = Math.round(largestNumberWon / mathPow) * mathPow;
   const range = (start, stop, step) =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
       Math.round(start + i * step)
