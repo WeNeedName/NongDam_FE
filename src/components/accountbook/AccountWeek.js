@@ -158,7 +158,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
           {currentAccount_list !== undefined &&
           currentAccount_list.length === 0 ? (
             <NoticeWrap>
-              <NoticeT>최근 거래내역이 없습니다.</NoticeT>
+              <NoticeT>최근 거래내역이 없습니다</NoticeT>
             </NoticeWrap>
           ) : null}
           {currentAccount_list !== undefined && checkedInputs === "전체"
