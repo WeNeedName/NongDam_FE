@@ -15,7 +15,6 @@ const TodayNews = () => {
     dispatch(loadTodayNewsDB());
   }, []);
 
-  console.log(TodayNewsData);
   return (
     <Wrap>
       {is_loaded ? (
