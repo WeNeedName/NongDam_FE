@@ -155,6 +155,12 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
       </CategoryWrap>
       <>
         <AccountBoxWrap scrollPosition={scrollPosition}>
+          {currentAccount_list !== undefined &&
+          currentAccount_list.length === 0 ? (
+            <NoticeWrap>
+              <NoticeT>최근 거래내역이 없습니다.</NoticeT>
+            </NoticeWrap>
+          ) : null}
           {currentAccount_list !== undefined && checkedInputs === "전체"
             ? currentAccount_list.map((list, accountId) => {
                 return (
@@ -366,6 +372,19 @@ const ShowMoreBtn = styled.div`
   margin: 4px 8px;
   @media only screen and (max-width: 760px) {
     font-size: 13px;
+  }
+`;
+
+const NoticeWrap = styled.div`
+  margin-top: 10px;
+`;
+
+const NoticeT = styled.span`
+  font-size: 14px;
+  color: #8e8f93;
+  padding-top: 20px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
   }
 `;
 
