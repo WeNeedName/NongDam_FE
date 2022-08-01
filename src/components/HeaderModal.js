@@ -79,6 +79,10 @@ const StyledModal = styled(ReactModal)`
     top: 10%;
     right: 5%;
   }
+  @media only screen and (max-width: 760px) {
+    top: 90px;
+    right: 5%;
+  }
 `;
 
 const MenuWrap = styled.span`
