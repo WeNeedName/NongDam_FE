@@ -334,9 +334,11 @@ const StyledModal = Modal.styled`
   border-radius: 10px;
   padding: 20px 30px 20px 20px;
   @media only screen and (max-width: 760px) {
+    margin-top: 30px;
     min-width : 340px;
     width: 70%;
-  height: ${({ openEdit }) => (openEdit ? "680px" : "520px")}
+    
+  height: ${({ openEdit }) => (openEdit ? "710px" : "520px")}
 };
 `;
 
