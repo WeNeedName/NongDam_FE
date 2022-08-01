@@ -140,12 +140,19 @@ const TopWrap = styled.div`
   .slogan {
     font-weight: 700;
     font-size: 20px;
+    @media only screen and (max-width: 760px) {
+      font-size: 22px;
+    }
   }
   .desc {
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 20px;
     margin-bottom: 28px;
     color: #666666;
+    @media only screen and (max-width: 760px) {
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
   }
 `;
 
@@ -166,6 +173,7 @@ const InputBoxes = styled.form`
     transform: translate(-100px, -15px);
     z-index: 1;
     color: #8b95a1;
+    margin-bottom: 6px;
   }
   .pwIcon {
     position: absolute;
@@ -195,6 +203,14 @@ const IdInput = styled.input`
   ::placeholder {
     font-size: 12px;
   }
+  @media only screen and (max-width: 760px) {
+    height: 36px;
+
+    ::placeholder {
+      font-size: 14px;
+    }
+    font-size: 14px;
+  }
 `;
 const PwInput = styled.input`
   width: 200px;
@@ -212,6 +228,13 @@ const PwInput = styled.input`
   }
   ::placeholder {
     font-size: 12px;
+  }
+  @media only screen and (max-width: 760px) {
+    height: 36px;
+    ::placeholder {
+      font-size: 14px;
+    }
+    font-size: 14px;
   }
 `;
 
@@ -235,6 +258,7 @@ const LoginBtn = styled.button`
   size: 11px;
   margin-top: 13px;
   margin-bottom: 5px;
+  font-size: 14px;
 
   cursor: pointer;
   &:hover {
@@ -243,6 +267,10 @@ const LoginBtn = styled.button`
   &:disabled {
     opacity: 1;
     cursor: default;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-top: 20px;
   }
 `;
 const SocialBtn = styled.img`
@@ -256,6 +284,10 @@ const SocialBtn = styled.img`
 `;
 const ToSignUp = styled.div`
   margin-top: 30px;
+  font-size: 14px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const ToSignUpBtn = styled.span`

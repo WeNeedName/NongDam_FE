@@ -228,6 +228,9 @@ const Wrap = styled.div`
   flex-direction: column;
   position: relative;
   margin-bottom: ${({ crops }) => (crops === 0 ? "300px" : "0px")};
+  @media only screen and (max-width: 760px) {
+    margin-bottom: 100px;
+  }
 `;
 
 const BodyWrap = styled.div`

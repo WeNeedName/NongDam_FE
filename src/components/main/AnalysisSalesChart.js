@@ -50,11 +50,11 @@ const AnalysisSalesChart = ({ salesData }) => {
     Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
       Math.round(start + i * step)
     );
-  const yaxis =
+  let yaxis =
     allDataListSort[0] !== "0" && mathRound <= 1
       ? ["1", "0"]
       : allDataListSort[0] !== "0"
-      ? range(smallestNumberWon, mathRound, mathRound / 4).reverse()
+      ? range(smallestNumberWon, mathRound, mathRound / 3).reverse()
       : ["0", "0", "0", "0", "0"];
 
   // 2. 수확량 차트 state.series 값 배열
@@ -435,8 +435,10 @@ const NoticeT = styled.span`
   align-items: center;
   font-weight: 600;
   font-size: 14px;
-  line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -447,9 +449,14 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: #1aacff;
   font-size: 12px;
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

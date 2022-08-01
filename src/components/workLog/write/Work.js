@@ -26,10 +26,8 @@ const Work = (props) => {
   useEffect(() => {
     dispatch(getInfoDB());
   }, []);
-  const myCropsList = useSelector((state) => {
-    console.log(state);
-    state.user?.crops;
-  });
+
+  const userInfo = useSelector((state) => state.users.user);
 
   const changeRadioCrops = (e) => {
     if (e.target.checked) {
@@ -47,7 +45,7 @@ const Work = (props) => {
     e.target.value = uncomma(e.target.value);
     props.setWorkTime(e.target.value);
   }
-
+  console.log(userInfo.crops);
   return (
     <TodoContentWrap>
       <TitleInput
@@ -61,8 +59,8 @@ const Work = (props) => {
       <CategoryBigWrap>
         <SmallTitle>작물</SmallTitle>
         <CategoryWrap>
-          {myCropsList !== undefined ? (
-            myCropsList.map((list) => {
+          {userInfo.crops !== undefined && userInfo.crops.length !== 0 ? (
+            userInfo.crops.map((list) => {
               return (
                 <Label key={list.id}>
                   <FormCheckLeft
@@ -78,16 +76,14 @@ const Work = (props) => {
             })
           ) : (
             <NoCropWrap>
-              <NoCropMsg>
-                내 작물을 등록해주세요
-                <NoticeBtn
-                  onClick={() => {
-                    navigate("/mypage/editmemberinfo");
-                  }}
-                >
-                  등록하러 가기
-                </NoticeBtn>
-              </NoCropMsg>
+              <NoticeT>작물을 등록해주세요 </NoticeT>
+              <NoticeBtn
+                onClick={() => {
+                  navigate("/mypage/editmemberinfo");
+                }}
+              >
+                등록하러 가기
+              </NoticeBtn>
             </NoCropWrap>
           )}
         </CategoryWrap>
@@ -216,30 +212,37 @@ const Label = styled.label``;
 const NoCropWrap = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
-const NoCropMsg = styled.span`
+const NoticeT = styled.span`
   display: flex;
-  text-align: center;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
-  line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
   padding: 8px 18px;
-  margin-top: 4px;
   background-color: transparent;
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: 14px;
+  margin-top: 4px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+    text-decoration: underline;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+    text-decoration: underline;
   }
 `;
 

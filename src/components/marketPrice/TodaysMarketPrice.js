@@ -74,7 +74,7 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
           {userInfo?.countryCode === 0 ? (
             <NoticeWrap>
               <NoticeT>
-                지금 지역을 등록하고
+                지금 시세지역과 작물을 등록하고
                 <br />내 작물의 시세를 확인해보세요!
               </NoticeT>
               <NoticeBtn
@@ -101,36 +101,39 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
             </NoticeWrap>
           ) : null}
           <Title>📈 오늘의 시세</Title>
-          <SubTitle>내 농장작물의 오늘 시세를 알아보세요.</SubTitle>
+          <SubTitle>내 농장작물의 오늘 시세를 알아보세요</SubTitle>
           <Region>
             {marketName !== undefined
               ? marketName + " " + "도소매시장"
               : "서울 도소매시장"}
           </Region>
           <SelecWrap>
-            <StyledSelect
-              name="crops"
-              placeholder={"작물을 검색해보세요"}
-              options={
-                userInfo !== null
-                  ? userInfo.crops.map((crops) => {
-                      return {
-                        label: "[" + crops.type + "]" + " " + crops.name,
-                        value: crops.id,
-                      };
-                    })
-                  : cropsData.map((crops) => {
-                      return {
-                        label: "[" + crops.type + "]" + " " + crops.name,
-                        value: crops.id,
-                      };
-                    })
-              }
-              classNamePrefix="react-select"
-              onChange={(value) => {
-                setSelectedCrops(value);
-              }}
-            />
+            {userInfo?.countryCode !== 0 && userInfo?.crops.length !== 0 ? (
+              <StyledSelect
+                name="crops"
+                placeholder={"작물을 검색해보세요"}
+                options={
+                  userInfo !== null
+                    ? userInfo.crops.map((crops) => {
+                        return {
+                          label: "[" + crops.type + "]" + " " + crops.name,
+                          value: crops.id,
+                        };
+                      })
+                    : cropsData.map((crops) => {
+                        return {
+                          label: "[" + crops.type + "]" + " " + crops.name,
+                          value: crops.id,
+                        };
+                      })
+                }
+                classNamePrefix="react-select"
+                onChange={(value) => {
+                  setSelectedCrops(value);
+                }}
+              />
+            ) : null}
+
             <RadioWrap>
               <InputWrap>
                 <input
@@ -164,35 +167,39 @@ const TodaysMarketPrice = ({ cropsData, setSalePrice }) => {
             조회하기
           </SearchBtn>
           <Hr />
-          <BottomWrap>
-            <CategoryTWrap>
-              <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
-              <DateT>
-                {TodaymarketPriceData.latestDate !== ""
-                  ? moment(TodaymarketPriceData?.latestDate).format(
-                      "YYYY.MM.DD"
-                    ) +
-                    " " +
-                    "기준"
-                  : null}
-              </DateT>
-            </CategoryTWrap>
+          {userInfo?.countryCode !== 0 && userInfo?.crops.length !== 0 && (
+            <BottomWrap>
+              <CategoryTWrap>
+                <CategoryT> {TodaymarketPriceData.crop} </CategoryT>
+                <DateT>
+                  {TodaymarketPriceData.latestDate !== ""
+                    ? moment(TodaymarketPriceData?.latestDate).format(
+                        "YYYY.MM.DD"
+                      ) +
+                      " " +
+                      "기준"
+                    : null}
+                </DateT>
+              </CategoryTWrap>
 
-            {TodaymarketPriceData.latestDate !== "" ? (
-              <>
-                <PriceWrap>
-                  <TodayPrice>
-                    {comma(TodaymarketPriceData?.latestDatePrice)}
-                  </TodayPrice>
-                  <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
-                </PriceWrap>
-              </>
-            ) : (
-              <NotFoundNoticeWrap>
-                <NotFoundNotice>최근 조사된 데이터가 없습니다.</NotFoundNotice>
-              </NotFoundNoticeWrap>
-            )}
-          </BottomWrap>
+              {TodaymarketPriceData.latestDate !== "" ? (
+                <>
+                  <PriceWrap>
+                    <TodayPrice>
+                      {comma(TodaymarketPriceData?.latestDatePrice)}
+                    </TodayPrice>
+                    <TodayPriceT>원/{TodaymarketPriceData?.unit}</TodayPriceT>
+                  </PriceWrap>
+                </>
+              ) : (
+                <NotFoundNoticeWrap>
+                  <NotFoundNotice>
+                    최근 조사된 데이터가 없습니다.
+                  </NotFoundNotice>
+                </NotFoundNoticeWrap>
+              )}
+            </BottomWrap>
+          )}
         </>
       ) : (
         <>
@@ -240,6 +247,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
+    height: 340px;
   }
 `;
 const Title = styled.span`
@@ -250,37 +258,42 @@ const Title = styled.span`
 `;
 
 const Region = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  margin: 10px 0px;
+  margin: 16px 0px 10px 0px;
 `;
 
 const SubTitle = styled.span`
-  margin: 4px 0px;
-  font-size: 12px;
+  margin: 4px 0px 6px 0px;
+  font-size: 14px;
 `;
 
 const StyledSelect = styled(Select)`
-  width: 200px;
+  width: 180px;
   height: 30px;
   margin: 0px 0px 20px 0px;
+  font-size: 14px;
   @media only screen and (max-width: 1220px) {
-    width: 160px;
+    width: 180px;
   }
 `;
 
 const SearchBtn = styled.button`
-  width: 66px;
-  height: 28px;
-  font-size: 12px;
+  width: 70px;
+  height: 32px;
+  font-size: 14px;
   color: #616161;
   padding: 4px;
   background: #ffffff;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
+
   &:hover {
     color: black;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 6px;
   }
 `;
 
@@ -324,7 +337,7 @@ const CategoryTWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
 `;
 
 const DateT = styled.span`
@@ -393,8 +406,25 @@ const InputWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0px 0px 0px 6px;
+  margin: 0px 0px 0px 0px;
   margin-bottom: 14px;
+  margin-top: 4px;
+  input {
+    color: black;
+    background-color: black;
+  }
+  input:select {
+    color: black;
+    background-color: black;
+  }
+  label {
+    font-size: 14px;
+    margin-right: 8px;
+    @media only screen and (max-width: 760px) {
+      font-size: 14px;
+      /* margin-right: 8px; */
+    }
+  }
 `;
 
 const NotFoundNoticeWrap = styled.div`
@@ -408,18 +438,20 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 20px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeWrap = styled.div`
   width: 100%;
-  height: 83%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 1) 0%,
@@ -440,6 +472,9 @@ const NoticeT = styled.span`
   font-size: 14px;
   line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -450,9 +485,14 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: #1aacff;
   font-size: 12px;
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

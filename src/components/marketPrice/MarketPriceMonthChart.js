@@ -18,16 +18,21 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
     return str.replace(/[^\d]+/g, "");
   }
 
-  const day =
-    marketPriceData[1] !== undefined
-      ? marketPriceData[1].dateList.map((date) => {
-          return moment(date).format("YY.MM");
-        })
-      : marketPriceData[1] !== undefined
-      ? marketPriceData[0].dateList.map((date) => {
-          return moment(date).format("YY.MM");
-        })
-      : null;
+  // x축 월 리스트 만들기
+  const today = new Date();
+  const month = moment(today).format("YY.MM");
+  let day = new Date();
+  const myDateList = Array.from([day, day, day, day, day, day], (x) =>
+    x.setMonth(x.getMonth() - 2)
+  );
+
+  const newMonthDateList = [];
+  const newMyDateList = myDateList.map((list) => {
+    newMonthDateList.push(moment(list).format("YY.MM"));
+  });
+
+  newMonthDateList.unshift(month);
+  const monthDate = newMonthDateList.reverse();
 
   const retailSalePriceList = marketPriceData[1]?.priceList.map((price) => {
     return Number(uncomma(price));
@@ -137,7 +142,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
             state?.series[seriesIndex]?.name +
             '<span class="date-label">' +
             " " +
-            day[dataPointIndex] +
+            monthDate[dataPointIndex] +
             "</span>" +
             "</span>" +
             "</div>" +
@@ -155,7 +160,7 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
         },
       },
       xaxis: {
-        categories: day,
+        categories: monthDate,
         labels: {
           formatter: function (value) {
             return value;
@@ -211,8 +216,8 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
             ) : null}
           </ChartBox>
           <XasisWrap>
-            {day &&
-              day.map((data, id) => {
+            {monthDate &&
+              monthDate.map((data, id) => {
                 return <Xasis key={id}>{data}</Xasis>;
               })}
           </XasisWrap>
@@ -247,7 +252,7 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
-  font-size: 11px;
+  font-size: 12px;
   color: #666666;
 `;
 
@@ -256,7 +261,6 @@ const YasisLabelBox = styled.div`
   background-color: #ffffff;
   /* border: 1px solid #e3e3e3; */
   border-radius: 4px;
-  padding: 4px;
   position: absolute;
   right: -20px;
   top: -34px;
@@ -283,8 +287,8 @@ const YasisColorTipA = styled.div`
   background: #7ee3ab;
   margin-right: 6px;
   @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
 `;
 
@@ -295,13 +299,14 @@ const YasisColorTipB = styled.div`
   margin-right: 6px;
   margin-left: 10px;
   @media only screen and (max-width: 760px) {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
+    margin-left: 0px;
   }
 `;
 
 const YasisLabel = styled.span`
-  font-size: 11px;
+  font-size: 12px;
   color: #666666;
 `;
 

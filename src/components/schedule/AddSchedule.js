@@ -5,16 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { addScheduleDB } from "../../redux/modules/schedule";
-import MyDatePickerS from "./MyDatePickerS";
-//달력
 
+//달력
 import DatePicker, { registerLocale } from "react-datepicker";
 import "../../react-datepickerSchedule.css";
 import { ko } from "date-fns/esm/locale";
 import moment, { months } from "moment";
 const _ = require("lodash");
-
-import Swal from "sweetalert2";
+// 이미지
+import CancelIcon from "../../images/cancelIcon.png";
 
 const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const navigate = useNavigate();
@@ -66,38 +65,9 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm");
   const endDateFormat = moment(endDate).format("YYYY-MM-DD HH:mm");
 
-  const [noCrop, setNoCrop] = useState();
   const goMyPage = () => {
     navigate("/mypage/editmemberinfo");
   };
-  // const MyContainer = ({ className, children }) => {
-  //   return (
-  //     <div style={{ padding: "px", background: "#216ba5", color: "#fff" }}>
-  //       <CalendarContainer className={className}>
-  //         <div style={{ background: "#f0f0f0" }}>
-  //           What is your favorite day?
-  //         </div>
-  //         <div style={{ position: "relative" }}>{children}</div>
-  //       </CalendarContainer>
-  //     </div>
-  //   );
-  // };
-
-  // const years = _.range(1990, getYear(new Date()) + 1, 1);
-  // const months = [
-  //   "1월",
-  //   "2월",
-  //   "3월",
-  //   "4월",
-  //   "5월",
-  //   "6월",
-  //   "7월",
-  //   "8월",
-  //   "9월",
-  //   "10월",
-  //   "11월",
-  //   "12월",
-  // ];
 
   return (
     <>
@@ -121,7 +91,11 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
           onEscapeKeydown={toggleModal}
         >
           <WrapWrap>
-            <TotalTitle>일정 기록하기</TotalTitle>
+            <TitleWrap>
+              <TotalTitle>일정 기록하기</TotalTitle>
+              <CancelBtnA src={CancelIcon} alt="닫기" onClick={toggleModal} />
+            </TitleWrap>
+
             <Wrap>
               <ContentWrapL className="left">
                 <CropWrap>
@@ -278,9 +252,11 @@ padding-top : 24px;
 padding-left : 30px;
 padding-bottom: 30px;
 padding-right : 30px;
+z-index: 1000;
   @media only screen and (max-width: 760px) {
     width: 80%;
-    padding: 20px;
+    height: 600px;
+    padding: 40px 40px;
   }
 `;
 
@@ -326,6 +302,14 @@ const WrapWrap = styled.div`
     width: 100%;
   }
 `;
+
+const TitleWrap = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const TotalTitle = styled.label`
   font-size: 27px;
   font-weight: 700;
@@ -334,6 +318,12 @@ const TotalTitle = styled.label`
   align-items: start;
   margin-bottom: 10px;
 `;
+
+const CancelBtnA = styled.img`
+  width: 18px;
+  cursor: pointer;
+`;
+
 const Wrap = styled.div`
   width: auto;
   height: 100%;
@@ -350,6 +340,7 @@ const Wrap = styled.div`
     align-items: flex-start;
   }
 `;
+
 const ContentWrapL = styled.div`
   flex-direction: column;
   max-width: 300px;
@@ -357,6 +348,7 @@ const ContentWrapL = styled.div`
     justify-content: flex-start;
   }
 `;
+
 const ContentWrapR = styled.div`
   @media only Screen and (max-width: 760px) {
     justify-content: flex-start;
@@ -398,7 +390,7 @@ const CalendarContainer = styled.div``;
 const StartDate = styled.div`
   margin-bottom: 10px;
   .startDatePicker {
-    width: 55%;
+    width: 70%;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
@@ -410,30 +402,13 @@ const StartDate = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
+    @media only Screen and (max-width: 760px) {
+      width: 65%;
+    }
   }
   @media only Screen and (max-width: 760px) {
     margin-bottom: 30px;
   }
-  /* .react-datepicker__day-name {
-    width: 28px;
-  }
-  .custom-datepicker {
-    border: 1px solid blue;
-  }
-  .custom-day {
-    width: 28px;
-    height: 28px;
-    line-height: 1.8;
-    text-align: center;
-  }
-  .gray-day {
-    color: #aba8b9;
-  }
-  .selected-day {
-    background: #2e1c8b;
-    border-radius: 50%;
-    font-weight: 700;
-  } */
 `;
 
 const InputDate = styled.span`
@@ -443,7 +418,7 @@ const InputDate = styled.span`
 const EndDate = styled.div`
   margin-top: 15px;
   .endDatePicker {
-    width: 55%;
+    width: 70%;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
@@ -454,6 +429,9 @@ const EndDate = styled.div`
     &:focus {
       outline: none;
       border-bottom: 1px solid black;
+    }
+    @media only Screen and (max-width: 760px) {
+      width: 65%;
     }
   }
 

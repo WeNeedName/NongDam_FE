@@ -72,14 +72,15 @@ const MyCountryCode = ({ setCountryCode, previousCountryCode, userInfo }) => {
 
 const Container = styled.div`
   .react-select {
-    width: 300px;
+    width: 400px;
     text-align: left;
-    margin-left: 70px;
+    margin-left: 60px;
     margin-top: 10px;
     border-radius: 10px;
+    font-size: 14px;
     @media only screen and (max-width: 760px) {
       width: 200px;
-      margin-left: 30px;
+      margin-left: 20px;
     }
   }
 `;

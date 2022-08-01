@@ -34,8 +34,6 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
     return { innerWidth, innerHeight };
   }
 
-  // const [checkedInputs, setCheckedInputs] = useState("month");
-
   const userInfo = useSelector((state) => state.users.user);
   // const marketName = userInfo?.address.split(" ")[0];
   const AllmarketPriceData = useSelector(
@@ -80,6 +78,7 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
       newMonthDateList.push(moment(list).format("YYYY.MM"));
     else newMonthDateList.push(moment(list).format("YY.MM"));
   });
+
   newMonthDateList.unshift(month);
   const monthDate = newMonthDateList.reverse();
 
@@ -97,6 +96,7 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
   newYearDateList.unshift(year);
   const yearDate = newYearDateList.reverse();
 
+  // 더미데이터
   const data = { id: 0, name: "", category: "", type: "" };
   const usersNewCropList = [];
   userInfo !== undefined &&
@@ -598,7 +598,7 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.div`
   color: #6f6f6f;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const NotFoundWrap = styled.div`

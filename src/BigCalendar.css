@@ -54,6 +54,11 @@ button.rbc-input::-moz-focus-inner {
   white-space: nowrap;
 }
 
+.rbc-event-content:hover {
+opacity: 1;
+font-weight: 600;
+}
+
 .rbc-rtl {
   direction: rtl;
 }
@@ -109,7 +114,7 @@ button.rbc-input::-moz-focus-inner {
    -ms-user-select: none;
        user-select: none;
   -webkit-user-select: none;
-  z-index: 4;
+  /* z-index: 4; */
 }
 
 .rbc-row-content-scrollable {
@@ -326,7 +331,7 @@ button.rbc-input::-moz-focus-inner {
 /* 이벤트 2개 이상일 때  */
 .rbc-show-more {
   background-color: rgba(255, 255, 255, 0.3);
-  z-index: 4;
+  /* z-index: 4; */
   font-weight: bold;
   font-size: 85%;
   height: auto;
@@ -440,7 +445,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-overlay {
   position: absolute;
-  z-index: 5;
+  /* z-index: 5; */
   border: 1px solid #e5e5e5;
   background-color: #fff;
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
@@ -624,7 +629,7 @@ button.rbc-input::-moz-focus-inner {
   left: 0;
   background-color: white;
   border-right: 1px solid #ddd;
-  z-index: 10;
+  /* z-index: 10; */
   margin-right: -1px;
 }
 .rbc-time-view-resources .rbc-time-header {
@@ -672,7 +677,7 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-slot-selection {
-  z-index: 10;
+  /* z-index: 10; */
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
@@ -716,7 +721,7 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-time-view .rbc-allday-events {
   position: relative;
-  z-index: 4;
+  /* z-index: 4; */
 }
 .rbc-time-view .rbc-row {
   -webkit-box-sizing: border-box;
@@ -815,7 +820,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-current-time-indicator {
   position: absolute;
-  z-index: 3;
+  /* z-index: 3; */
   left: 0;
   right: 0;
   height: 1px;

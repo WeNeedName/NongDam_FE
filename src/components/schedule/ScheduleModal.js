@@ -117,6 +117,7 @@ const ScheduleModal = ({
       isOpen={isOpen}
       onBackgroundClick={toggleModal}
       onEscapeKeydown={toggleModal}
+      openEdit={openEdit}
     >
       <WrapWrap>
         {openEdit ? (
@@ -281,7 +282,6 @@ const ScheduleModal = ({
                 </WorkLoadWrap>
               )}
             </WorkWrap>
-
             <BtnWrap>
               {openEdit ? (
                 <>
@@ -304,21 +304,7 @@ const ScheduleModal = ({
               ) : (
                 <div>
                   <Btn onClick={toggleEditModal}>수정하기</Btn>
-                  <Btn
-                    onClick={deleteSchedule}
-
-                    // {() => {
-                    //   const result = window.confirm(
-                    //     "삭제하시겠습니까? 삭제한 내역은 되돌릴 수 없습니다."
-                    //   );
-                    //   if (result) {
-                    //     dispatch(deleteScheduleDB(schedule.id));
-                    //     toggleModal();
-                    //   }
-                    // }}
-                  >
-                    삭제하기
-                  </Btn>
+                  <Btn onClick={deleteSchedule}>삭제하기</Btn>
                   <Btn onClick={toggleModal}>닫기</Btn>
                 </div>
               )}
@@ -331,19 +317,16 @@ const ScheduleModal = ({
 };
 
 const StyledModal = Modal.styled`
-  
-  min-width : 300px;
+  min-width : 560px;
   height : auto;
   background-color: white;
   border-radius: 10px;
-  padding-top : 15px;
-  padding-left : 17px;
-  padding-bottom: 5px;
-  padding-right : 10px;
+  padding: 20px 30px 20px 20px;
   @media only screen and (max-width: 760px) {
+    min-width : 340px;
     width: 70%;
-    padding: 30px;
-  }
+  height: ${({ openEdit }) => (openEdit ? "680px" : "520px")}
+};
 `;
 
 const WrapWrap = styled.div`
@@ -370,7 +353,8 @@ const Wrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
   margin: 10px;
   background-color: white;
   border-radius: 20px;
@@ -400,7 +384,6 @@ const CropWrap = styled.div`
   flex-direction: column;
   min-width: 150px;
   max-width: 300px;
-  margin-top: 10px;
   flex-wrap: wrap;
   @media only Screen and (max-width: 760px) {
     margin-top: 20px;
@@ -442,7 +425,7 @@ const EditStart = styled.div`
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
-  font-size: 12px;
+  font-size: 14px;
   padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
@@ -457,6 +440,11 @@ const FormCheckText = styled.span`
   &:hover {
     color: black;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -486,7 +474,7 @@ const CropName = styled.p`
   height: auto;
   text-align: center;
   padding: 4px 13px;
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
@@ -497,7 +485,7 @@ const TimeWrap = styled.div`
   width: auto;
   margin-bottom: 15px;
   .startDatePicker {
-    width: 55%;
+    width: 100%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 35px;
@@ -511,13 +499,15 @@ const TimeWrap = styled.div`
       border-bottom: 1px solid black;
     }
     @media only Screen and (max-width: 760px) {
+      width: 65%;
+      font-size: 18px;
       justify-content: flex-start;
-      margin-top: 5px;
+      margin-top: 10px;
       margin-bottom: 0px;
     }
   }
   .endDatePicker {
-    width: 55%;
+    width: 100%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 40px;
@@ -531,9 +521,11 @@ const TimeWrap = styled.div`
       border-bottom: 1px solid black;
     }
     @media only Screen and (max-width: 760px) {
+      width: 65%;
       justify-content: flex-start;
-      margin-top: 5px;
-      margin-bottom: 0px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
     }
   }
   @media only Screen and (max-width: 760px) {
@@ -643,11 +635,17 @@ const FormCheckTextWork = styled.span`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+  font-size: 14px;
+  margin-top: 4px;
   cursor: pointer;
   color: #ccc;
   &:hover {
     color: black;
     border: 1px solid black;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -677,7 +675,7 @@ const InputMemo = styled.textarea`
   /* max-width: 400px; */
   min-width: 250px;
   height: auto;
-  font-size: 15px;
+  font-size: 16px;
   color: #616161;
   padding-top: 10px;
   padding-right: 10px;
@@ -700,6 +698,7 @@ const InputMemo = styled.textarea`
     justify-content: flex-start;
     width: 100%;
     margin-top: 10px;
+    font-size: 18px;
   }
 `;
 const WorkLoadWrap = styled.div`
@@ -708,7 +707,7 @@ const WorkLoadWrap = styled.div`
   }
 `;
 const WorkContent = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   color: #616161;
   max-width: 350px;
   min-width: 250px;
@@ -726,7 +725,7 @@ const WorkContent = styled.div`
 const BtnWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 5px;
+  margin-top: 12px;
   margin-right: 1px;
   @media only screen and (max-width: 760px) {
     justify-content: flex-end;
@@ -735,12 +734,13 @@ const BtnWrap = styled.div`
   }
 `;
 const EditBtn = styled.button`
+  font-size: 14px;
   background-color: #318f27;
   color: #ffffff;
   border-radius: 8px;
   border: none;
   margin-left: 10px;
-  padding: 4px 15px;
+  padding: 6px 15px;
   cursor: pointer;
   &:hover {
     background-color: #22631c;
@@ -748,12 +748,13 @@ const EditBtn = styled.button`
 `;
 
 const Btn = styled.button`
+  font-size: 14px;
   background-color: transparent;
   color: #616161;
   border-radius: 8px;
   border: 1px solid #bfbfbf;
   margin-left: 10px;
-  padding: 4px 10px;
+  padding: 6px 15px;
   cursor: pointer;
   &:hover {
     opacity: 0.7;

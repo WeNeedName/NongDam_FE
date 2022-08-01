@@ -23,35 +23,45 @@ const TotalHarvest = ({
     }
   };
 
+  const allDataList = [];
+  totalHarvestData.datas !== undefined &&
+    totalHarvestData.datas.map((list, idx) => {
+      return allDataList.push(...list.data);
+    });
+  const allDataListSort = allDataList.sort((a, b) => b - a);
+
   return (
     <>
       <Wrap>
         <Title>수확량</Title>
         {is_loaded ? (
           <>
-            <CategoryWrap>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="month"
-                  name="totalHarvestCategory"
-                  onChange={changeRadio}
-                  value={harvestCaterory}
-                  defaultChecked
-                />
-                <FormCheckText>월별</FormCheckText>
-              </Label>
-              <Label>
-                <FormCheckLeft
-                  type="radio"
-                  id="year"
-                  name="totalHarvestCategory"
-                  onChange={changeRadio}
-                  value={harvestCaterory}
-                />
-                <FormCheckText>연도별</FormCheckText>
-              </Label>
-            </CategoryWrap>
+            {allDataListSort.length !== 0 && allDataListSort[0] !== "0" ? (
+              <CategoryWrap>
+                <Label>
+                  <FormCheckLeft
+                    type="radio"
+                    id="month"
+                    name="totalHarvestCategory"
+                    onChange={changeRadio}
+                    value={harvestCaterory}
+                    defaultChecked
+                  />
+                  <FormCheckText>월별</FormCheckText>
+                </Label>
+                <Label>
+                  <FormCheckLeft
+                    type="radio"
+                    id="year"
+                    name="totalHarvestCategory"
+                    onChange={changeRadio}
+                    value={harvestCaterory}
+                  />
+                  <FormCheckText>연도별</FormCheckText>
+                </Label>
+              </CategoryWrap>
+            ) : null}
+
             {harvestCaterory === "month" && (
               <TotalHarvestChart totalHarvestData={totalHarvestData} />
             )}

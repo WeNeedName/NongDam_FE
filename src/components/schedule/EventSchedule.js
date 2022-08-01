@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const eventStyleGetter = (event, start, end, isSelected) => {
-  //   console.log(event);
-
   function getRandomColor() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
   }
@@ -18,21 +16,16 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     "#99cd89",
     "#bcdeb0",
   ];
-  const emptyArray = [];
 
   const pickedGreen = greenColorArray.splice(
     Math.floor(Math.random() * greenColorArray.length),
     1
   )[0];
-  emptyArray.push(pickedGreen);
-
-  // var movenum = allnum.splice(Math.floor(Math.random() * allnum.length), 1)[0];
-  // newnum.push(movenum);
 
   const style = {
     borderRadius: "0px",
     opacity: 1.0,
-    height: "19px",
+    height: "22px",
     border: "0px",
     display: "block",
     // marginTop: "0.3px",
@@ -40,7 +33,8 @@ const eventStyleGetter = (event, start, end, isSelected) => {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: pickedGreen,
-    fontSize: "11px",
+    fontSize: "12px",
+    marginTop: "1px",
     color: "#ffffff",
     border: "0.5px solid #ffffff",
     "&:hover, &:focus": {

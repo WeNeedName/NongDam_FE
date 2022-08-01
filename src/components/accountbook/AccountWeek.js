@@ -299,6 +299,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
             month={month}
             ExpenseSum={ExpenseSum}
             IncomeSum={IncomeSum}
+            yearMonth={yearMonth}
           />
         )}
       </>
@@ -330,7 +331,7 @@ const MonthAccountBox = styled.div`
   position: relative;
   @media only screen and (max-width: 760px) {
     max-width: 760px;
-    width: 95%;
+    width: 96%;
   }
 `;
 
@@ -376,10 +377,10 @@ const CategoryA = styled.div`
   padding: 2px 10px 4px 10px;
   background: #d7edf9;
   border-radius: 100px;
-  font-size: 8px;
+  font-size: 12px;
   color: #39a4e0;
   @media only screen and (max-width: 760px) {
-    font-size: 12px;
+    font-size: 16px;
   }
 `;
 
@@ -391,10 +392,10 @@ const CategoryB = styled.div`
   padding: 2px 10px 4px 10px;
   background: #facccc;
   border-radius: 100px;
-  font-size: 8px;
+  font-size: 12px;
   color: #ec4646;
   @media only screen and (max-width: 760px) {
-    font-size: 12px;
+    font-size: 16px;
   }
 `;
 
@@ -417,12 +418,17 @@ const FormCheckText = styled.span`
   height: 16px;
   margin-right: 8px;
   margin-bottom: 14px;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
   color: black;
   &:hover {
     font-weight: 700;
     border: 1px solid #02113b;
+  }
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    padding: 6px 15px 8px 15px;
+    margin-right: 12px;
   }
 `;
 
@@ -490,8 +496,11 @@ const AccountBox = styled.div`
 `;
 
 const Day = styled.span`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
+  @media only screen and (max-width: 760px) {
+    font-size: 22px;
+  }
 `;
 
 const BoxTopWrap = styled.span`
@@ -509,8 +518,11 @@ const Category = styled.span`
   margin-left: 10px;
   background: ${(props) => (props.category === "수입" ? "#d7edf9" : "#FACCCC")};
   border-radius: 100px;
-  font-size: 8px;
+  font-size: 11px;
   color: ${(props) => (props.category === "수입" ? "#39a4e0" : "#EC4646")};
+  @media only screen and (max-width: 760px) {
+    font-size: 14px;
+  }
 `;
 
 const PriceNum = styled.span`
@@ -520,10 +532,13 @@ const PriceNum = styled.span`
   flex-direction: row;
   justify-content: flex-end;
   margin-right: 10px;
+  @media only screen and (max-width: 760px) {
+    font-size: 24px;
+  }
 `;
 
 const WhereTo = styled.span`
-  font-size: 12px;
+  font-size: 14px;
   color: #02113b;
   margin: 8px 0px;
 `;
@@ -537,7 +552,7 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #bfbfbf;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 4px;
   color: #616161;
 `;

@@ -63,7 +63,7 @@ const MarketPriceCard = ({ cropsData }) => {
             </NoticeWrap>
           )}
           <CategoryT>📈 작물 조회</CategoryT>
-          <SubTitle>궁금한 작물의 시세를 알아보세요.</SubTitle>
+          <SubTitle>궁금한 작물의 시세를 알아보세요</SubTitle>
           <Region>
             {marketName !== undefined
               ? marketName + " " + "도소매시장"
@@ -163,14 +163,14 @@ const Wrap = styled.div`
 `;
 
 const Region = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  margin: 10px 0px;
+  margin: 16px 0px 10px 0px;
 `;
 
 const SubTitle = styled.span`
-  font-size: 12px;
-  margin: 4px 0px;
+  font-size: 14px;
+  margin: 4px 0px 6px 0px;
 `;
 
 const CategoryChartWrap = styled.div`
@@ -202,7 +202,7 @@ const FormCheckText = styled.span`
   width: auto;
   height: 26px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 24px;
   margin-right: 4px;
   background: transparent;
@@ -233,9 +233,10 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const Label = styled.label``;
 
 const StyledSelect = styled(Select)`
-  width: 200px;
+  width: 180px;
   height: 30px;
   margin: 0px 0px 20px 0px;
+  font-size: 14px;
 `;
 
 const NoticeWrap = styled.div`
@@ -264,8 +265,10 @@ const NoticeT = styled.span`
   align-items: center;
   font-weight: 600;
   font-size: 14px;
-  line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -276,9 +279,14 @@ const NoticeBtn = styled.button`
   border-radius: 4px;
   color: #1aacff;
   font-size: 12px;
+  margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

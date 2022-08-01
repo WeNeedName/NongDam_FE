@@ -312,8 +312,10 @@ const NoticeT = styled.span`
   align-items: center;
   font-weight: 600;
   font-size: 14px;
-  line-height: 24px;
   text-align: center;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+  }
 `;
 
 const NoticeBtn = styled.button`
@@ -328,6 +330,10 @@ const NoticeBtn = styled.button`
   cursor: pointer;
   &:hover {
     font-weight: 600;
+  }
+  @media only screen and (max-width: 760px) {
+    margin-top: 8px;
+    font-size: 14px;
   }
 `;
 

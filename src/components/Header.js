@@ -120,14 +120,14 @@ const Haeder = ({ currentPage }) => {
             )}
           </ProfileWrap>
         </Nav>
+        {isOpen && (
+          <HeaderModal
+            isOpen={isOpen}
+            toggleModal={toggleModal}
+            userInfo={userInfo}
+          />
+        )}
       </Wrap>
-      {isOpen && (
-        <HeaderModal
-          isOpen={isOpen}
-          toggleModal={toggleModal}
-          userInfo={userInfo}
-        />
-      )}
     </>
   );
 };
@@ -137,7 +137,7 @@ const Wrap = styled.div`
   height: 80px;
   background: #ffffff;
   box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.08);
-  z-index: 10000;
+  z-index: 1000;
   display: grid;
   grid-template-columns: 1fr repeat(3, 25.5%) 1fr;
   /* grid-column: 1 / 6;
@@ -213,14 +213,14 @@ const CategoryWrap = styled.div`
 `;
 
 const FormCheckText = styled.span`
-  margin-right: 50px;
+  margin-right: 60px;
   cursor: pointer;
   font-size: 16px;
-  color: ${(props) => (props.currentPage === props.id ? " #333333" : " #666")};
-  font-weight: ${(props) => (props.currentPage === props.id ? 500 : 400)};
+  color: ${(props) => (props.currentPage === props.id ? "#333" : " #666")};
+  font-weight: ${(props) => (props.currentPage === props.id ? 600 : 400)};
   &:hover {
-    font-weight: 500;
-    color: #333333;
+    font-weight: 600;
+    color: #333;
   }
   @media only screen and (max-width: 760px) {
     display: none;

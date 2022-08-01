@@ -54,18 +54,20 @@ const Schedule = () => {
 
   return (
     <>
+      {!isOpen && <Header currentPage="schedule" />}
       <Wrap>
-        <Header currentPage="schedule" />
         <>
           <CalendarWrap>
             <ScheduleCalendar userInfo={userInfo} />
-            <AddScheduleBtn
-              onClick={() => {
-                toggleModal();
-              }}
-            >
-              + 기록하기
-            </AddScheduleBtn>
+            {userInfo?.crops.length !== 0 && (
+              <AddScheduleBtn
+                onClick={() => {
+                  toggleModal();
+                }}
+              >
+                + 기록하기
+              </AddScheduleBtn>
+            )}
           </CalendarWrap>
           <CurrentListWrap>
             <ScheduleWeek />
@@ -88,7 +90,7 @@ const Schedule = () => {
               <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
             </Info>
           ) : null}
-          <FooterNav currentPage="schedule" />
+          {!isOpen && <FooterNav currentPage="schedule" />}
         </>
       </Wrap>
       <Footer currentpage="schedule" />
@@ -164,20 +166,24 @@ const AddScheduleBtn = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 4px 15px;
+  padding: 10px 18px;
   width: auto;
   height: 26px;
-  background: #318f27;
+  background: #55a349;
   border: none;
   border-radius: 50px;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   position: absolute;
   top: 36px;
   right: 30px;
   cursor: pointer;
   &:hover {
     background-color: #22631c;
+  }
+  @media only screen and (max-width: 760px) {
+    right: 16px;
+    top: 30px;
   }
 `;
 

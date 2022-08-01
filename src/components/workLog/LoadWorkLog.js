@@ -192,10 +192,12 @@ const SearchByDateBtn = styled.button`
 `;
 
 const WriteBtn = styled.button`
-  padding: 4px 15px;
+  padding: 4px 18px;
   border-radius: 100px;
   color: #ffffff;
   background-color: #55a349;
+  font-size: 14px;
+
   border: 1px solid #55a349;
   cursor: pointer;
   &:hover {

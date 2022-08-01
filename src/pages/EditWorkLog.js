@@ -716,7 +716,7 @@ const Product = styled.input`
     border: 1px solid #02113b;
   }
   @media only screen and (max-width: 760px) {
-    width: 60px;
+    width: 130px;
   }
 `;
 
@@ -742,10 +742,16 @@ const Fertilizer = styled.div`
   margin-right: 40px;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 760px) {
+    margin-right: 20px;
+  }
 `;
 
 const Chemical = styled.div`
   margin-right: 25px;
+  @media only screen and (max-width: 760px) {
+    margin-right: 0px;
+  }
 `;
 
 const TypeTitle = styled.span`
@@ -784,7 +790,7 @@ const Quantity = styled.input`
     border: 1px solid #02113b;
   }
   @media only screen and (max-width: 760px) {
-    width: 20px;
+    width: 60px;
   }
 `;
 

@@ -200,7 +200,7 @@ const Hr = styled.div`
   margin-left: -20px;
   padding-right: 40px;
   border-bottom: 0.5px solid #dddddd;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 `;
 
 const ContentsWrap = styled.div`
@@ -209,7 +209,7 @@ const ContentsWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 12px 0px 0px 0px;
+  margin: 16px 0px 16px 0px;
 `;
 
 const TextWrap = styled.div`
@@ -238,17 +238,18 @@ const ContentsT = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
-  @media only screen and (max-width: 1220px) {
-    width: ${(props) => (props.imageURL === "" ? "80%" : "230px")};
+  @media only screen and (max-width: 1550px) {
+    width: ${(props) => (props.imageURL === "" ? "80%" : "220px")};
   }
   @media only screen and (max-width: 760px) {
-    width: ${(props) => (props.imageURL === "" ? "90%" : "290px")};
+    width: ${(props) => (props.imageURL === "" ? "90%" : "200px")};
+    font-size: 15px;
   }
 `;
 
 const ContentsTInfo = styled.div`
   font-weight: 400;
-  font-size: 11px;
+  font-size: 12px;
 `;
 
 const ImageContent = styled.div`
@@ -267,8 +268,8 @@ const ImageContent = styled.div`
     padding-bottom: 22%;
   }
   @media only screen and (max-width: 760px) {
-    width: 24%;
-    padding-bottom: 18%;
+    width: 30%;
+    padding-bottom: 22%;
   }
 `;
 
