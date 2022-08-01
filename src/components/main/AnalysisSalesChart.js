@@ -56,7 +56,6 @@ const AnalysisSalesChart = ({ salesData }) => {
       : allDataListSort[0] !== "0"
       ? range(smallestNumberWon, mathRound, mathRound / 3).reverse()
       : ["0", "0", "0", "0", "0"];
-  yaxis[2] = 0;
 
   // 2. 수확량 차트 state.series 값 배열
   const seriesList =

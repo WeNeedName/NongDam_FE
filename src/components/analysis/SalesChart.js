@@ -36,8 +36,6 @@ const TotalHarvestChart = ({ salesData }) => {
       ? range(smallestNumberWon, mathRound, mathRound / 3).reverse()
       : ["0", "0", "0", "0", "0"];
 
-  yaxis[2] = 0;
-
   // 2. 차트 state.series 값 배열
   const seriesList =
     salesData.datas !== undefined &&
