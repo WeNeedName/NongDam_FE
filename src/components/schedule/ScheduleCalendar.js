@@ -48,7 +48,6 @@ const ScheduleCalendar = () => {
     const { innerWidth, innerHeight } = window;
     return { innerWidth, innerHeight };
   }
-
   return (
     <>
       {userInfo?.crops.length === 0 ? (
@@ -84,13 +83,15 @@ const ScheduleCalendar = () => {
       {windowSize.innerWidth > 760 && (
         <Calendar
           events={scheduleList.map((list, id) => {
+            const startTimeFormat = list.startTime.replace(/-/g, "/");
+            const endTimeFormat = list.endTime.replace(/-/g, "/");
             // 여기에 달력 모달 내용 삽입
-            <div key={id} />;
+            // <div key={id} />;
             return {
               title: list.toDo,
               allDay: false,
-              start: new Date(list.startTime),
-              end: new Date(list.endTime),
+              start: new Date(startTimeFormat),
+              end: new Date(endTimeFormat),
               crop: list.crop,
             };
           })}
@@ -217,15 +218,15 @@ const MonthChangeBtn = styled.div`
   background-color: transparent;
   position: absolute;
   /* left: 75%; */
-  right: 120px;
+  right: 140px;
   top: 35px;
   cursor: pointer;
   &:hover {
     opacity: 0.7;
   }
   @media only screen and (max-width: 760px) {
-    left: 74%;
-    top: 11%;
+    width: 40px;
+    transform: translate(20px, -5px);
   }
 `;
 
