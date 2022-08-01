@@ -29,7 +29,6 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   const memoRef = useRef();
 
   const onChangeEndDate = (date) => {
-    console.log(date);
     if (startDate >= date) {
       setDateErr(true);
     } else {
@@ -128,33 +127,40 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                           className="startDatePicker"
                           selected={startDate}
                           onChange={(date) => setStartDate(date)}
+                          selectsStart
                           showTimeSelect
+                          startDate={startDate}
+                          endDate={endDate}
                           dateFormat="yyyy.MM.dd HH:mm" // 시간 포맷 변경
                           locale={ko}
                         />
                       </div>
                     </StartDate>
+
+                    <EndDate>
+                      <SmallTitle className="endDate">종료</SmallTitle>
+                      <DatePicker
+                        className="endDatePicker"
+                        selected={endDate}
+                        startDate={startDate}
+                        endDate={endDate}
+                        selectsEnd
+                        onChange={(date) => {
+                          onChangeEndDate(date);
+                          setEndDate(date);
+                        }}
+                        showTimeSelect
+                        minDate={new Date(startDate)} //시작일보다 이전 날짜는 선택 못하게
+                        dateFormat="yyyy.MM.dd HH:mm"
+                        locale={ko} // 한글로 변경
+                      />
+                    </EndDate>
+                    {dateErr === true && (
+                      <ErrorMsg>
+                        종료시간을 시작시간보다 늦게 지정해주세요
+                      </ErrorMsg>
+                    )}
                   </div>
-                  <EndDate>
-                    <SmallTitle className="endDate">종료</SmallTitle>
-                    <DatePicker
-                      className="endDatePicker"
-                      selected={endDate}
-                      onChange={(date) => {
-                        onChangeEndDate(date);
-                        setEndDate(date);
-                      }}
-                      showTimeSelect
-                      minDate={new Date(startDate)} //시작일보다 이전 날짜는 선택 못하게
-                      dateFormat="yyyy.MM.dd HH:mm"
-                      locale={ko} // 한글로 변경
-                    />
-                  </EndDate>
-                  {dateErr === true && (
-                    <ErrorMsg>
-                      종료시간을 시작시간보다 늦게 지정해주세요
-                    </ErrorMsg>
-                  )}
                 </div>
               </ContentWrapL>
               <ContentWrapR className="right">
@@ -365,9 +371,11 @@ const TodoContent = styled.div`
 
 const CropWrap = styled.div`
   display: flex;
+  width: 240px;
   flex-direction: column;
   margin-top: 10px;
   margin-bottom: 5px;
+  margin-right: 20px;
   flex-wrap: wrap;
   @media only Screen and (max-width: 760px) {
     margin-right: 20px;
@@ -390,7 +398,7 @@ const CalendarContainer = styled.div``;
 const StartDate = styled.div`
   margin-bottom: 10px;
   .startDatePicker {
-    width: 70%;
+    width: 65%;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;
@@ -398,6 +406,7 @@ const StartDate = styled.div`
     border: none;
     cursor: pointer;
     border-bottom: 1px solid #bfbfbf;
+    flex-wrap: wrap;
     &:focus {
       outline: none;
       border-bottom: 1px solid black;
@@ -418,7 +427,7 @@ const InputDate = styled.span`
 const EndDate = styled.div`
   margin-top: 15px;
   .endDatePicker {
-    width: 70%;
+    width: 65%;
     font-size: 20px;
     margin-top: 5px;
     background-color: transparent;

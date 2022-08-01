@@ -29,14 +29,20 @@ const ScheduleModal = ({
   const schedule = currentScheduleList?.find((list) => list.id === scheduleId);
   const myCropsList = useSelector((state) => state.users.user?.crops);
   const yearMonth = useSelector((state) => state.account.yearMonth);
-
+  console.log(schedule);
   const [openEdit, setOpenEdit] = useState(false);
-  const [startTime, setStartTime] = useState(new Date(schedule.startTime));
-  const [endTime, setEndTime] = useState(new Date(schedule.endTime));
-  const [toDo, setToDo] = useState(schedule.toDo);
 
-  const [newCrop, setNewCrop] = useState("");
-  //const [cropToDo, setCropToDo] = useState("")
+  //new Date에 인자로 들어갈 날짜 형식의 -를 /로 변경
+  const firstStartTime = schedule.startTime;
+  const startTimeNewDateFormat = firstStartTime.replace(/-/g, "/");
+
+  const firstEndTime = schedule.endTime;
+  const endTimeNewDateFormat = firstEndTime.replace(/-/g, "/");
+
+  const [startTime, setStartTime] = useState(new Date(startTimeNewDateFormat));
+  const [endTime, setEndTime] = useState(new Date(endTimeNewDateFormat));
+
+  const [toDo, setToDo] = useState(schedule.toDo);
   const [checkedInputs, setCheckedInputs] = useState("");
   const [checkedWork, setCheckedWork] = useState("");
   const [checkedCrops, setCheckedCrops] = useState(schedule.cropId);
@@ -68,8 +74,8 @@ const ScheduleModal = ({
     const id = schedule.id;
     const data = {
       cropId: checkedCrops,
-      startTime: startTimeFormat,
-      endTime: endTimeFormat,
+      startTime: startTimeFormatServer,
+      endTime: endTimeFormatServer,
       toDo: toDo,
     };
 
@@ -105,12 +111,17 @@ const ScheduleModal = ({
     });
   };
 
-  const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm");
-  const endTimeFormat = moment(endTime).format("YYYY-MM-DD HH:mm");
+  const startTimeFormatServer = moment(startTime).format("YYYY-MM-DD HH:mm");
+  const endTimeFormatServer = moment(endTime).format("YYYY-MM-DD HH:mm");
   const startTimeLoadFormat = moment(startTime).format(
-    "yyyy년 MM월 DD일 HH:mm"
+    "YYYY년 MM월 DD일 HH:mm"
   );
   const endTimeLoadFormat = moment(endTime).format("yyyy년 MM월 DD일 HH:mm");
+
+  //방법1
+  // const startTimeLoadFormatForIos = moment(startTimeFormatServer).format(
+  //   "YYYY년 MM월 DD일 HH:mm"
+  // );
 
   return (
     <StyledModal
@@ -177,9 +188,6 @@ const ScheduleModal = ({
                       selected={startTime}
                       onChange={(date) => {
                         setStartTime(date);
-                        // inputRef.current.focus({
-                        //   cursor: "end",
-                        // });
                       }}
                       showTimeSelect
                       dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
@@ -201,7 +209,10 @@ const ScheduleModal = ({
                         onChangeEndDate(date);
                         setEndTime(date);
                       }}
+                      startDate={startTime}
+                      endDate={endTime}
                       showTimeSelect
+                      selectsEnd
                       minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
                       dateFormat="yyyy년 MM월 dd일 HH:mm"
                       locale={ko} // 한글로 변경
@@ -485,7 +496,7 @@ const TimeWrap = styled.div`
   width: auto;
   margin-bottom: 15px;
   .startDatePicker {
-    width: 100%;
+    width: 60%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 35px;
@@ -507,7 +518,7 @@ const TimeWrap = styled.div`
     }
   }
   .endDatePicker {
-    width: 100%;
+    width: 60%;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 40px;

@@ -42,16 +42,17 @@ const EventScheduleModal = ({
       list.startTime === startTimeEventFormat && list.toDo === eventInfo.title
   );
   const myCropsList = useSelector((state) => state.users.user?.crops);
-
   const [openEdit, setOpenEdit] = useState(false);
 
-  const [startTime, setStartTime] = useState(new Date(schedule?.startTime));
-  const [endTime, setEndTime] = useState(new Date(schedule?.endTime));
-  const [toDo, setToDo] = useState(schedule?.toDo);
+  //new Date에 인자로 들어갈 날짜 형식의 -를 /로 변경
+  const firstStartTime = schedule.startTime;
+  const startTimeNewDateFormat = firstStartTime.replace(/-/g, "/");
+  const firstEndTime = schedule.endTime;
+  const endTimeNewDateFormat = firstEndTime.replace(/-/g, "/");
 
-  const [newCrop, setNewCrop] = useState("");
-  const [cropToDo, setCropToDo] = useState("");
-  const [checkedInputs, setCheckedInputs] = useState("");
+  const [startTime, setStartTime] = useState(new Date(startTimeNewDateFormat));
+  const [endTime, setEndTime] = useState(new Date(endTimeNewDateFormat));
+  const [toDo, setToDo] = useState(schedule?.toDo);
   const [checkedWork, setCheckedWork] = useState("");
   const [checkedCrops, setCheckedCrops] = useState(schedule?.cropId);
   const [dateErr, setDateErr] = useState(false);
@@ -226,7 +227,10 @@ const EventScheduleModal = ({
                           onChangeEndDate(date);
                           setEndTime(date);
                         }}
+                        startDate={startTime}
+                        endDate={endTime}
                         showTimeSelect
+                        selectsEnd
                         minDate={startTime} //오늘보다 이전 날짜는 선택 못하게
                         dateFormat="yyyy년 MM월 dd일 HH:mm"
                         locale={ko} // 한글로 변경
@@ -526,7 +530,7 @@ const TimeWrap = styled.div`
   width: auto;
   margin-bottom: 15px;
   .startDatePicker {
-    width: 100%;
+    width: 190px;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 20px;
@@ -548,7 +552,7 @@ const TimeWrap = styled.div`
     }
   }
   .endDatePicker {
-    width: 100%;
+    width: 190px;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 40px;
@@ -607,6 +611,9 @@ const EndTime = styled.div`
   }
 `;
 const End = styled.div`
+  .endDatePicker {
+    width: 63%;
+  }
   @media only screen and (max-width: 760px) {
     margin-bottom: 10px;
   }
