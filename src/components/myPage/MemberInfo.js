@@ -259,14 +259,15 @@ const TitleAndAddress = styled.div`
 `;
 
 const PrevAddress = styled.div`
-  margin-left: 30px;
+  margin-left: 24px;
   font-size: 16px;
   border: none;
   background-color: transparent;
   color: #02113b;
   text-align: left;
   @media only screen and (max-width: 760px) {
-    margin-left: 40px;
+    font-size: 16px;
+    margin-left: 24px;
   }
 `;
 
@@ -300,8 +301,11 @@ const PreviousMyCrops = styled.div`
   text-align: start;
   width: auto;
   .noCropTitle {
-    font-size: 14px;
+    font-size: 16px;
     flex-wrap: wrap;
+    @media only screen and (max-width: 760px) {
+      font-size: 16px;
+    }
   }
   @media only screen and (max-width: 760px) {
     width: 200px;
