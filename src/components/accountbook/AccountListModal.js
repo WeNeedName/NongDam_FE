@@ -25,6 +25,7 @@ const AccountListModal = ({
   accountList,
   ExpenseSum,
   IncomeSum,
+  yearMonth,
 }) => {
   // 장부내역 상세 모달 열기
   const [accountOpen, setAccountOpen] = useState(false);
@@ -41,7 +42,16 @@ const AccountListModal = ({
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
 
-  const reverseList = accountList !== undefined && [...accountList].reverse();
+  const filterMonth =
+    accountList &&
+    accountList.filter(
+      (v) =>
+        (v =
+          moment(v.date).format("YYYY-MM") ===
+          yearMonth?.year + "-" + yearMonth?.month)
+    );
+
+  const reverseList = filterMonth !== undefined && [...filterMonth].reverse();
   // 같은 날짜끼리 묶어주기
   let mappedData = new Map();
   reverseList !== undefined &&
@@ -72,7 +82,7 @@ const AccountListModal = ({
       </TitleWrap>
 
       <TopWrap>
-        <ListNum>총 {accountList.length}건</ListNum>
+        <ListNum>총 {filterMonth.length}건</ListNum>
         <PriceSumWrap>
           {isOpenList > 0 && (
             <PriceSumNumIn>+ {comma(IncomeSum)}원</PriceSumNumIn>
@@ -84,7 +94,7 @@ const AccountListModal = ({
         </PriceSumWrap>
       </TopWrap>
 
-      {accountList.length > 0 ? (
+      {filterMonth.length > 0 ? (
         <BodyWrap>
           {mappedData &&
             [...mappedData].map((list, idx) => {

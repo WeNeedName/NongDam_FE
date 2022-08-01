@@ -299,6 +299,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
             month={month}
             ExpenseSum={ExpenseSum}
             IncomeSum={IncomeSum}
+            yearMonth={yearMonth}
           />
         )}
       </>
