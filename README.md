@@ -155,7 +155,7 @@
 <h4>FE</h4>
  <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 페이지네이션</a><br/>
  <a href="https://www.notion.so/throttle-f4adb557f7c34fb1b2b650ef33389073" > 👉 스와이프 throttle로 렌더링 제어하기</a><br/>
- <a href=" https://tukkit.notion.site/safari-ios-Invalid-date-2520f1123c7b4f8f864e38a14f793377" > 📅 safari(ios)에서 날짜 Invalid date로 나오는 현상</a><br/>
+ <a href="https://tukkit.notion.site/safari-ios-Invalid-date-2520f1123c7b4f8f864e38a14f793377" > 📅 safari(ios)에서 날짜 Invalid date로 나오는 현상</a><br/>
 
  <h4>BE</h4>
 <a href="https://www.notion.so/BackEnd-TroubleShooting-Cache-56f5d95764af4b80a9818352013cc307"> 👨‍🔧 Redis</a><br />
