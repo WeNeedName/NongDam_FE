@@ -92,7 +92,6 @@ export const getScheduleListDB = (date) => {
         dispatch(getScheduleList(response.data));
       })
       .catch((error) => {
-        //window.alert("월별 스케줄을 불러오는 중에 오류가 발생했습니다.");
         console.log(error);
       });
   };
@@ -101,10 +100,8 @@ export const getScheduleListDB = (date) => {
 //스케줄 수정하기
 export const editScheduleDB = (id, data, yearMonth) => async (dispatch) => {
   try {
-    //console.log("스케줄 수정 준비", id, data);
     await apis.editSchedule(id, data);
     apis.loadSchedule(yearMonth).then((response) => {
-      //dispatch(getSchedule(response.data));
       dispatch(getScheduleList(response.data));
       Swal.fire({
         title: "수정이 완료되었습니다.",
@@ -114,7 +111,6 @@ export const editScheduleDB = (id, data, yearMonth) => async (dispatch) => {
         color: "#black",
         padding: "10px",
         width: "400px",
-        // height: "200px",
       });
     });
 
@@ -144,7 +140,6 @@ export const deleteScheduleDB = (id) => async (dispatch) => {
     await apis.deleteSchedule(id);
     dispatch(deleteSchedule(id));
   } catch (err) {
-    //window.alert("일정 삭제 중에 오류가 발생했습니다")
     console.log(err);
   }
 };
@@ -160,7 +155,6 @@ export default handleActions(
   {
     [GET_YEAR_MONTH]: (state, { payload }) =>
       produce(state, (draft) => {
-        // console.log(payload);
         draft.yearMonth = payload.data;
       }),
 

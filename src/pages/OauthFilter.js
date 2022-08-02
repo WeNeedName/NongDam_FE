@@ -10,13 +10,6 @@ const OauthFilter = () => {
   const getParameter = (key) => {
     return new URLSearchParams(window.location.search).get(key);
   };
-  // const getUserToken=(code)=>{
-  //     getAccessToken(code).then(response=>{
-  //         let accssToken = response.data.access_token
-  //         console.log(accssToken);
-  //         getUserInfo(accssToken);
-  //     });
-  // }
   let memberParam = getParameter("code");
 
   useEffect(() => {

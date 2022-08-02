@@ -50,7 +50,6 @@ const Signup = () => {
   const pwcheckText = pwCheckRef.current.value;
 
   const [pwCheckErr, setPwCheckErr] = useState(false);
-  console.log(pwcheckText, pw);
   const onChangePwCheck = (e) => {
     if (pwcheckText !== "" && pwcheckText === pw) setPwCheckErr(false);
     else setPwCheckErr(true);
@@ -82,8 +81,6 @@ const Signup = () => {
   useEffect(() => {
     emailRef.current.focus();
   }, []);
-
-  console.log(pwcheckText, pw);
 
   return (
     <ContainerWrap>
