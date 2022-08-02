@@ -68,16 +68,21 @@
 
 <h3>Front-End </h3>
 <div>
-<img src="https://img.shields.io/badge/Visual Studio Code-007ACC.svg?&style=for-the-badge&logo=Visual Studio Code&logoColor=white">
+
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
 <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
+<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> 
 <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
+<img src="https://img.shields.io/badge/axios-764ABC?style=for-the-badge&logo=axios&logoColor=white">
+	
 </div>
 <div>
-<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> 
+
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> 
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> 
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"> 
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> 	
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
 </div>
 
 <h3>Back-End </h3>
@@ -151,6 +156,20 @@
     </table>
 
 <br/><br/>
+	
+<h2>📚 주요 라이브러리</h2>
+react-redux 6.3.0<br/>
+react-actions 2.6.5<br/>
+react-thunk 2.4.1<br/>
+react-router-dom 6.3.0<br/>
+Styled-components 5.3.5<br/>
+jwt-decode 3.1.2<br/>
+axios 0.27.2<br/>
+react-big-calendar 0.40.2<br/>
+react-apexcharts 1.4.0<br/>
+	
+<br/><br/>
+	
 <h2>🔥 이슈 및 트러블슈팅</h2>
 <h4>FE</h4>
  <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 페이지네이션</a><br/>
