@@ -41,7 +41,7 @@
 <br/>
 <span>102개 작물 中 검색 조회, 사용자 작물의 당일 시세 조회, 예상 판매 금액 조회
 </span>
- [open api](https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2)
+<a href='https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2' target='_blank'>open api</a>
  <br/><br/>
  <a href='https://ifh.cc/v-tZR1nt' target='_blank'><img src='https://ifh.cc/g/tZR1nt.png' border='0'></a>
 <br/><br/><br/>
