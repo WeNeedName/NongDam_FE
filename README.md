@@ -5,11 +5,20 @@
 
 <br/>
 
-<span>농담은 <strong>귀농한 청년</strong> 혹은 <strong>농장 관리자</strong>에게 
+<span>농담은 <strong>귀농한 청년</strong> 혹은 <strong>농장 관리자</strong>에게 <br/>
 농장 운영에 필요한 데이터를 모아 제공하고 <br/>
 누적된 <strong>농장데이터 통계 분석</strong>으로 생산성을 높여주는 서비스입니다.</span>
 
 <br/><br/>
+
+<br/><br/>
+
+<h2>🩻 Service Architecture</h2>
+<br/><br/>
+<a href='https://ifh.cc/v-8HHVWl' target='_blank'><img src='https://ifh.cc/g/8HHVWl.png' border='0'></a>
+<br/><br/><br/>
+<a href='https://ifh.cc/v-OBHYzW' target='_blank'><img src='https://ifh.cc/g/OBHYzW.png' border='0'></a>
+<br/><br/><br/>
 
 <h2>서비스 핵심기능</h2>
 
@@ -53,13 +62,6 @@
 <span>농작업 노하우, 회고 기록 및 관리</span>
 <br/><br/>
 <a href='https://ifh.cc/v-X0z8ng' target='_blank'><img src='https://ifh.cc/g/X0z8ng.jpg' border='0'></a>
-<br/><br/><br/>
-
-<h2>🩻 Service Architecture</h2>
-<br/><br/>
-<a href='https://ifh.cc/v-8HHVWl' target='_blank'><img src='https://ifh.cc/g/8HHVWl.png' border='0'></a>
-<br/><br/>
-<a href='https://ifh.cc/v-OBHYzW' target='_blank'><img src='https://ifh.cc/g/OBHYzW.png' border='0'></a>
 <br/><br/><br/>
 
 <h2>🛠 Tech & Platfrom</h2>
