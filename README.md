@@ -214,7 +214,7 @@ react-calendar, react-datepicker 는 날짜 선택 혹은 등록된 일정의 �
 	
 <h2>🔥 이슈 및 트러블슈팅</h2>
 <h4>FE</h4>
- <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 페이지네이션</a><br/>
+ <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 상태관리</a><br/>
  <a href="https://www.notion.so/throttle-f4adb557f7c34fb1b2b650ef33389073" > 👉 throttle로 렌더링 제어</a><br/>
  <a href="https://tukkit.notion.site/safari-ios-Invalid-date-2520f1123c7b4f8f864e38a14f793377" > 📅 safari(ios)에서의 Invalid date</a><br/>
 
