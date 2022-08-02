@@ -59,7 +59,7 @@
 <br/><br/>
 <a href='https://ifh.cc/v-8HHVWl' target='_blank'><img src='https://ifh.cc/g/8HHVWl.png' border='0'></a>
 <br/><br/>
-<a href='https://ifh.cc/v-fcFoq6' target='_blank'><img src='https://ifh.cc/g/fcFoq6.jpg' border='0'></a>
+<a href='https://ifh.cc/v-OBHYzW' target='_blank'><img src='https://ifh.cc/g/OBHYzW.png' border='0'></a>
 <br/><br/><br/>
 
 <h2>🛠 Tech & Platfrom</h2>
