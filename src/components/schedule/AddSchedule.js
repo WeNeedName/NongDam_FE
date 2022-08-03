@@ -28,6 +28,14 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
 
   const memoRef = useRef();
 
+  const onChangeStartDate = (date) => {
+    if (date > endDate) {
+      setDateErr(true);
+    } else {
+      setDateErr(false);
+    }
+  };
+
   const onChangeEndDate = (date) => {
     if (startDate >= date) {
       setDateErr(true);
@@ -35,9 +43,9 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
       setDateErr(false);
     }
   };
+
   const changeRadioWork = (e) => {
     if (e.target.checked) {
-      setMemo(e.target.id);
       memoRef.current.value = e.target.id;
     }
   };
@@ -49,16 +57,24 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
   };
 
   const addSchedule = async () => {
-    await dispatch(
-      addScheduleDB({
-        cropId: checkedCrops,
-        startTime: startDateFormat,
-        endTime: endDateFormat,
-        toDo: memo,
-      })
-    ).then((res) => {
-      toggleModal();
-    });
+    if (!checkedCrops) {
+      window.alert("작물을 선택해주세요");
+    } else if (!startDate || !endDate || dateErr) {
+      window.alert("올바른 날짜를 선택해주세요");
+    } else if (!memoRef.current.value) {
+      window.alert("작업내용을 입력해주세요");
+    } else {
+      await dispatch(
+        addScheduleDB({
+          cropId: checkedCrops,
+          startTime: startDateFormat,
+          endTime: endDateFormat,
+          toDo: memoRef.current.value,
+        })
+      ).then((res) => {
+        toggleModal();
+      });
+    }
   };
 
   const startDateFormat = moment(startDate).format("YYYY-MM-DD HH:mm");
@@ -126,7 +142,10 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                         <DatePicker
                           className="startDatePicker"
                           selected={startDate}
-                          onChange={(date) => setStartDate(date)}
+                          onChange={(date) => {
+                            onChangeStartDate(date);
+                            setStartDate(date);
+                          }}
                           selectsStart
                           showTimeSelect
                           startDate={startDate}
@@ -135,6 +154,11 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                           locale={ko}
                         />
                       </div>
+                      {dateErr === true && (
+                        <ErrorMsg>
+                          시작일을 종료일보다 빠르게 지정해주세요
+                        </ErrorMsg>
+                      )}
                     </StartDate>
 
                     <EndDate>
@@ -154,12 +178,12 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                         dateFormat="yyyy.MM.dd HH:mm"
                         locale={ko} // 한글로 변경
                       />
+                      {dateErr === true && (
+                        <ErrorMsg>
+                          종료일을 시작일보다 늦게 지정해주세요
+                        </ErrorMsg>
+                      )}
                     </EndDate>
-                    {dateErr === true && (
-                      <ErrorMsg>
-                        종료시간을 시작시간보다 늦게 지정해주세요
-                      </ErrorMsg>
-                    )}
                   </div>
                 </div>
               </ContentWrapL>
@@ -197,27 +221,11 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                       />
                       <FormCheckTextWork>수확</FormCheckTextWork>
                     </LabelWork>
-                    {/* <LabelWork>
-                  <FormCheckLeftWork
-                    type="radio"
-                    id="기타"
-                    name="radioButtonWork"
-                    onChange={changeRadioWorkNone}
-                    value={checkedInputs}/> 
-                    <FormCheckTextWork>기타</FormCheckTextWork>
-                  </LabelWork> */}
                   </WorkSelectBoxWrap>
                 </WorkWrap>
                 <CategoryBigWrap>
                   <SmallTitle className="todo">작업내용</SmallTitle>
-                  <TodoInput
-                    type="text"
-                    ref={memoRef}
-                    // defaultValue={memo}
-                    onChange={(e) => {
-                      setMemo(e.target.value);
-                    }}
-                  />
+                  <TodoInput type="text" ref={memoRef} maxLength="100" />
                 </CategoryBigWrap>
               </ContentWrapR>
             </Wrap>
@@ -226,11 +234,15 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                 onClick={() => {
                   addSchedule();
                 }}
-                disabled={
-                  !checkedCrops || !startDate || !endDate || !memo || dateErr
-                    ? true
-                    : false
-                }
+                // disabled={
+                //   !checkedCrops ||
+                //   !startDate ||
+                //   !endDate ||
+                //   !memoRef.current.value ||
+                //   dateErr
+                //     ? true
+                //     : false
+                // }
               >
                 작성완료
               </DoneBtn>
@@ -264,6 +276,19 @@ z-index: 1000;
     height: 600px;
     padding: 40px 40px;
   }
+  @media only screen and (max-width: 414px) {
+    top: 100px;
+    margin-top : 60px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    padding-top : 30px;
+    padding-left : 30px;
+    padding-bottom: 30px;
+    padding-right : 25px;
+    height: auto;
+    }
 `;
 
 const NoCropStyledModal = Modal.styled`
@@ -353,13 +378,20 @@ const ContentWrapL = styled.div`
   @media only Screen and (max-width: 760px) {
     justify-content: flex-start;
   }
+  @media only Screen and (max-width: 414px) {
+    margin-right: 20px;
+    width: 100%;
+  }
 `;
 
 const ContentWrapR = styled.div`
   @media only Screen and (max-width: 760px) {
     justify-content: flex-start;
-
     margin-top: 20px;
+  }
+  @media only Screen and (max-width: 414px) {
+    justify-content: flex-start;
+    margin-top: 10px;
   }
 `;
 
@@ -380,12 +412,15 @@ const CropWrap = styled.div`
   @media only Screen and (max-width: 760px) {
     margin-right: 20px;
   }
+  @media only Screen and (max-width: 414px) {
+    width: 100%;
+  }
 `;
 
 const SmallTitle = styled.label`
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 `;
 const CropSelectBoxWrap = styled.div`
   display: flex;
@@ -414,9 +449,15 @@ const StartDate = styled.div`
     @media only Screen and (max-width: 760px) {
       width: 65%;
     }
+    @media only Screen and (max-width: 414px) {
+      width: 57%;
+    }
   }
   @media only Screen and (max-width: 760px) {
     margin-bottom: 30px;
+  }
+  @media only Screen and (max-width: 414px) {
+    margin-bottom: 10px;
   }
 `;
 
@@ -442,9 +483,14 @@ const EndDate = styled.div`
     @media only Screen and (max-width: 760px) {
       width: 65%;
     }
+    @media only Screen and (max-width: 414px) {
+      width: 57%;
+    }
   }
-
   @media only Screen and (max-width: 760px) {
+    margin-bottom: 10px;
+  }
+  @media only Screen and (max-width: 414px) {
     margin-bottom: 10px;
   }
 `;
@@ -511,6 +557,9 @@ const FormCheckTextWork = styled.span`
     color: black;
     border: 1px solid black;
   }
+  @media only Screen and (max-width: 414px) {
+    margin-right: 5px;
+  }
 `;
 
 const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
@@ -546,6 +595,9 @@ const WorkWrap = styled.div`
   @media only Screen and (max-width: 760px) {
     margin-right: 0px;
   }
+  @media only Screen and (max-width: 414px) {
+    margin-bottom: 15px;
+  }
 `;
 
 const WorkSelectBoxWrap = styled.div`
@@ -569,6 +621,9 @@ const TodoInput = styled.textarea`
     outline: none;
     border: 1px solid black;
   }
+  @media only Screen and (max-width: 414px) {
+    width: 295px;
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -580,13 +635,17 @@ const BtnWrap = styled.div`
     margin-top: 20px;
     justify-content: flex-start;
   }
+  @media only Screen and (max-width: 414px) {
+    margin-top: 10px;
+    justify-content: flex-end;
+  }
 `;
 
 const DoneBtn = styled.button`
   font-size: 11px;
   width: 70px;
   height: 30px;
-  background-color: #22631c;
+  background-color: #55a349;
   color: white;
   border: none;
   border-radius: 8px;
@@ -594,7 +653,7 @@ const DoneBtn = styled.button`
   cursor: pointer;
 
   &:hover {
-    opacity: 0.7;
+    background-color: #22631c;
   }
   &:disabled {
     opacity: 0.3;
