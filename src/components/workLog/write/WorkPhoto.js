@@ -45,9 +45,7 @@ const WorkPhoto = ({
     const files = e.target.files;
     if (files && files[0]) {
       const originalImage = files[0];
-      console.log(originalImage);
       const compressedImageFile = await compressImage(originalImage);
-      console.log(compressedImageFile);
       setImages(compressedImageFile);
     }
   };

@@ -85,7 +85,7 @@ const boxFadeC = keyframes`
 `;
 
 const Wrap = styled.div`
-  height: 80vh;
+  height: 100vh;
   margin-top: 100px;
   margin-bottom: 50px;
 

@@ -25,7 +25,7 @@ const EventScheduleModal = ({
   const dispatch = useDispatch();
   const ref = useRef();
   const inputRef = useRef();
-  const memoRef = useRef();
+  const memoRef = useRef("");
 
   const currentScheduleList = useSelector(
     (state) => state.schedule.currentSchedule
@@ -60,8 +60,15 @@ const EventScheduleModal = ({
     setOpenEdit(!openEdit);
   }
 
+  const onChangeStartDate = (date) => {
+    if (date > endTime) {
+      setDateErr(true);
+    } else {
+      setDateErr(false);
+    }
+  };
+
   const onChangeEndDate = (date) => {
-    console.log(date);
     if (startTime > date) {
       setDateErr(true);
     } else {
@@ -75,7 +82,6 @@ const EventScheduleModal = ({
   };
   const changeRadioWork = (e) => {
     if (e.target.checked) {
-      setToDo(e.target.id);
       memoRef.current.value = e.target.id;
     }
   };
@@ -114,17 +120,24 @@ const EventScheduleModal = ({
   };
 
   const editSchedule = () => {
-    const id = schedule.id;
-    const data = {
-      cropId: checkedCrops,
-      startTime: startTimeFormat,
-      endTime: endTimeFormat,
-      toDo: toDo,
-    };
-
-    dispatch(editScheduleDB(id, data, yearMonth)).then(() => {
-      toggleModal();
-    });
+    if (!checkedCrops) {
+      window.alert("작물을 선택해주세요");
+    } else if (!startTimeFormat || !endTimeFormat || dateErr) {
+      window.alert("올바른 날짜를 선택해주세요");
+    } else if (!memoRef.current.value) {
+      window.alert("작업내용을 입력해주세요");
+    } else {
+      const id = schedule.id;
+      const data = {
+        cropId: checkedCrops,
+        startTime: startTimeFormat,
+        endTime: endTimeFormat,
+        toDo: memoRef.current.value,
+      };
+      dispatch(editScheduleDB(id, data, yearMonth)).then(() => {
+        toggleModal();
+      });
+    }
   };
 
   const startTimeFormat = moment(startTime).format("YYYY-MM-DD HH:mm");
@@ -202,16 +215,24 @@ const EventScheduleModal = ({
                 <Start>
                   <SmallTitle>시작</SmallTitle>
                   {openEdit ? (
-                    <DatePicker
-                      className="startDatePicker"
-                      selected={startTime}
-                      onChange={(date) => {
-                        setStartTime(date);
-                      }}
-                      showTimeSelect
-                      dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
-                      locale={ko} // 한글로 변경
-                    />
+                    <EditStart>
+                      <DatePicker
+                        className="startDatePicker"
+                        selected={startTime}
+                        onChange={(date) => {
+                          onChangeStartDate(date);
+                          setStartTime(date);
+                        }}
+                        showTimeSelect
+                        dateFormat="yyyy년 MM월 dd일 HH:mm" // 시간 포맷 변경
+                        locale={ko} // 한글로 변경
+                      />
+                      {dateErr === true && (
+                        <ErrorMsg>
+                          시작일을 종료일보다 빠르게 지정해주세요
+                        </ErrorMsg>
+                      )}
+                    </EditStart>
                   ) : (
                     <LoadStart>{startTimeLoadFormat}</LoadStart>
                   )}
@@ -219,7 +240,7 @@ const EventScheduleModal = ({
                 <End>
                   <SmallTitle>종료</SmallTitle>
                   {openEdit ? (
-                    <>
+                    <EditEnd>
                       <DatePicker
                         className="endDatePicker"
                         selected={endTime}
@@ -238,10 +259,10 @@ const EventScheduleModal = ({
                       />
                       {dateErr === true && (
                         <ErrorMsg>
-                          종료시간은 시작시간보다 빠르게 지정할 수 없습니다.
+                          종료일을 시작일보다 늦게 지정해주세요
                         </ErrorMsg>
                       )}
-                    </>
+                    </EditEnd>
                   ) : (
                     <EndTime>{endTimeLoadFormat}</EndTime>
                   )}
@@ -300,7 +321,6 @@ const EventScheduleModal = ({
                         maxLength="100"
                         ref={memoRef}
                         defaultValue={schedule.toDo}
-                        onChange={(e) => setToDo(e.target.value)}
                         placeholder="메모를 입력해주세요"
                       />
                     </MemoWrap>
@@ -367,6 +387,16 @@ const StyledModal = Modal.styled`
     min-width : 340px;
     width: 70%;
   }
+  @media only screen and (max-width: 414px) {
+    top: 100px;
+    margin-top : 60px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: ${({ openEdit }) => (openEdit ? "90px" : "60px")};
+    // max-height: ${({ openEdit }) => (openEdit ? "650px" : "470px")}
+    padding: 20px;
+    };
 `;
 
 const WrapWrap = styled.div`
@@ -375,6 +405,9 @@ const WrapWrap = styled.div`
     width: 95%;
     justify-content: flex-start;
   }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+  } ;
 `;
 
 const TotalTitle = styled.label`
@@ -410,7 +443,9 @@ const Wrap = styled.div`
 const LeftWrap = styled.div`
   flex-direction: column;
   min-width: 150px;
-  margin-right: 70px;
+  max-width: 300px;
+  margin-right: 40px;
+
   @media only screen and (max-width: 760px) {
     display: flex;
     justify-content: flex-start;
@@ -430,6 +465,11 @@ const CropWrap = styled.div`
     margin-bottom: 10px;
     justify-content: flex-start;
   }
+  @media only Screen and (max-width: 414px) {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    justify-content: flex-start;
+  }
 `;
 
 const SmallTitle = styled.span`
@@ -445,6 +485,7 @@ const Label = styled.label`
 
 const CropEditWrap = styled.div`
   display: flex;
+  width: 300px;
   margin-top: 5px;
   margin-bottom: 25px;
   flex-wrap: wrap;
@@ -454,9 +495,17 @@ const CropEditWrap = styled.div`
     flex-wrap: wrap;
     width: 100%;
   }
+  @media only Screen and (max-width: 414px) {
+    justify-content: flex-start;
+    margin-top: 5px;
+    margin-right: 3px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+  }
 `;
 
 const EditStart = styled.div`
+  margin-bottom: 20px;
   @media only Screen and (max-width: 760px) {
     justify-content: flex-start;
   }
@@ -485,6 +534,11 @@ const FormCheckText = styled.span`
     font-size: 16px;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+  @media only Screen and (max-width: 414px) {
+    font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 3px;
   }
 `;
 
@@ -519,21 +573,21 @@ const CropName = styled.p`
   border-radius: 10px;
   margin-top: 8px;
   font-size: 14px;
-  @media only Screen and (max-width: 760px) {
-    font-size: 16px;
-    margin-top: 10px;
+  @media only Screen and (max-width: 414px) {
+    font-size: 14px;
+    margin-top: 5px;
   }
 `;
 
 const TimeWrap = styled.div`
   flex-direction: column;
-  width: auto;
+  min-width: 150px;
   margin-bottom: 15px;
   .startDatePicker {
     width: 190px;
     font-size: 16px;
     margin-top: 5px;
-    margin-bottom: 20px;
+
     background-color: transparent;
     color: black;
     border: none;
@@ -550,12 +604,17 @@ const TimeWrap = styled.div`
       margin-top: 10px;
       margin-bottom: 0px;
     }
+    @media only Screen and (max-width: 414px) {
+      width: 60%;
+      font-size: 16px;
+      margin-top: 3px;
+      margin-bottom: 0px;
+    }
   }
   .endDatePicker {
     width: 190px;
     font-size: 16px;
     margin-top: 5px;
-    margin-bottom: 40px;
     background-color: transparent;
     color: black;
     border: none;
@@ -572,10 +631,15 @@ const TimeWrap = styled.div`
       margin-bottom: 10px;
       font-size: 18px;
     }
+    @media only Screen and (max-width: 414px) {
+      width: 60%;
+      font-size: 16px;
+      margin-top: 3px;
+      margin-bottom: 0px;
+    }
   }
   @media only Screen and (max-width: 760px) {
     justify-content: flex-start;
-
     margin-bottom: 0px;
   }
 `;
@@ -609,13 +673,17 @@ const EndTime = styled.div`
   @media only screen and (max-width: 760px) {
     margin-bottom: 20px;
   }
-`;
-const End = styled.div`
-  .endDatePicker {
-    width: 63%;
+  @media only screen and (max-width: 414px) {
+    margin-bottom: 10px;
   }
+`;
+
+const End = styled.div`
   @media only screen and (max-width: 760px) {
     margin-bottom: 10px;
+  }
+  @media only screen and (max-width: 414px) {
+    margin-bottom: 0px;
   }
 `;
 const ErrorMsg = styled.span`
@@ -624,10 +692,21 @@ const ErrorMsg = styled.span`
   font-size: 11px;
   color: #ec0000;
 `;
+
+const ErrorMsg2 = styled.span`
+  text-align: left;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #ec0000;
+`;
+
 const Start = styled.div`
   margin-bottom: 5px;
   @media only screen and (max-width: 760px) {
     margin-bottom: 20px;
+  }
+  @media only screen and (max-width: 414px) {
+    margin-bottom: 5px;
   }
 `;
 
@@ -656,6 +735,11 @@ const EditWork = styled.div`
     justify-content: flex-start;
     margin-bottom: 20px;
   }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 0px;
+  }
 `;
 
 const WorkSelectBoxWrap = styled.div`
@@ -667,6 +751,12 @@ const WorkSelectBoxWrap = styled.div`
     justify-content: flex-start;
     margin-top: 7px;
     margin-bottom: 9px;
+  }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 3px;
+    margin-bottom: 5px;
   }
 `;
 
@@ -695,6 +785,12 @@ const FormCheckTextWork = styled.span`
     font-size: 16px;
     margin-bottom: 10px;
   }
+  @media only Screen and (max-width: 414px) {
+    font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 5px;
+  }
 `;
 
 const FormCheckLeftWork = styled.input.attrs({ type: "radio" })`
@@ -716,6 +812,9 @@ const MemoWrap = styled.div`
   width: auto;
   @media only screen and (max-width: 760px) {
     margin-top: 20px;
+  }
+  @media only screen and (max-width: 414px) {
+    margin-top: 10px;
   }
 `;
 
@@ -748,6 +847,16 @@ const InputMemo = styled.textarea`
     margin-top: 10px;
     font-size: 18px;
   }
+  @media only screen and (max-width: 414px) {
+    justify-content: flex-start;
+    width: 98%;
+    margin-top: 5px;
+    font-size: 14px;
+    padding-top: 7px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-bottom: 100px;
+  }
 `;
 const WorkLoadWrap = styled.div`
   @media only screen and (max-width: 760px) {
@@ -768,6 +877,16 @@ const WorkContent = styled.div`
     width: 100%;
     justify-content: flex-start;
   }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    height: 80%;
+    justify-content: flex-start;
+    font-size: 14px;
+    padding-top: 7px;
+    padding-right: 0px;
+    padding-left: 7px;
+    padding-bottom: 10px;
+  }
 `;
 
 const BtnWrap = styled.div`
@@ -780,6 +899,12 @@ const BtnWrap = styled.div`
     margin-top: 8px;
     width: 107%;
   }
+  @media only screen and (max-width: 414px) {
+    width: 103%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 0px;
+  } ;
 `;
 const EditBtn = styled.button`
   font-size: 14px;
@@ -793,6 +918,11 @@ const EditBtn = styled.button`
   &:hover {
     background-color: #22631c;
   }
+  @media only screen and (max-width: 414px) {
+    padding: 6px 10px;
+    margin-left: 3px;
+    font-size: 13px;
+  } ;
 `;
 
 const Btn = styled.button`
@@ -809,6 +939,11 @@ const Btn = styled.button`
   }
   @media only screen and (max-width: 760px) {
   }
+  @media only screen and (max-width: 414px) {
+    font-size: 13px;
+    padding: 6px 8px;
+    margin-left: 5px;
+  } ;
 `;
 
 export default EventScheduleModal;

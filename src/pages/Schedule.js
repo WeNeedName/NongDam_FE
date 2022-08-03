@@ -38,6 +38,7 @@ const Schedule = () => {
   function toggleModal(id) {
     setOpen(!isOpen);
   }
+
   //유저 정보 받아오기
   useEffect(() => {
     dispatch(getInfoDB());
@@ -139,6 +140,12 @@ const Wrap = styled.div`
     grid-template-columns: 1fr 95% 1fr;
     grid-template-rows: 70px minmax(610px, 700px) 1fr;
   }
+  @media only screen and (max-width: 414px) {
+    width: 100vw;
+    column-gap: 0px;
+    grid-template-columns: 30px 77% 30px;
+    grid-template-rows: 70px minmax(510px, 750px) 1fr;
+  }
 `;
 
 const CalendarWrap = styled.div`
@@ -153,6 +160,15 @@ const CalendarWrap = styled.div`
   @media only screen and (max-width: 760px) {
     padding: 20px 10px 20px 10px;
     grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    margin-top: 10px;
+    border-radius: 0px;
+    width: 100%;
+    margin-left: -10px;
+  }
+  @media only screen and (max-width: 414px) {
+    padding: 10px 10px 10px 10px;
+    grid-column: 1 / 4;
     grid-row: 2 / 3;
     margin-top: 10px;
     border-radius: 0px;

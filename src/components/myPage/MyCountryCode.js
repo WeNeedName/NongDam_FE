@@ -61,7 +61,6 @@ const MyCountryCode = ({ setCountryCode, previousCountryCode, userInfo }) => {
         options={options}
         placeholder="지역을 검색해주세요"
         onChange={(value) => {
-          console.log(value.value);
           setCountryCode(value.value);
         }}
         classNamePrefix="select"

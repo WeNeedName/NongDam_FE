@@ -28,7 +28,7 @@ const ScheduleWeek = () => {
   const currentScheduleList = useSelector(
     (state) => state.schedule.currentSchedule
   );
-
+  console.log(currentScheduleList);
   return (
     <Wrap>
       <Title>이번 주 할 일</Title>
@@ -82,6 +82,9 @@ const Wrap = styled.div`
     padding: 30px 0px;
     margin-right: 20px;
   }
+  @media only screen and (max-width: 414px) {
+    padding: 20px 0px;
+  }
 `;
 const Title = styled.div`
   font-size: 24px;
@@ -114,6 +117,11 @@ const ScheduleBoxWrap = styled.div`
     width: 100%;
     margin-bottom: 60px;
   }
+  @media only screen and (max-width: 414px) {
+    width: 110%;
+    padding-right: 0px;
+    margin-bottom: 60px;
+  }
 `;
 
 const ScheduleBox = styled.div`
@@ -130,6 +138,10 @@ const ScheduleBox = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   @media only screen and (max-width: 760px) {
     width: 95%;
+  }
+  @media only screen and (max-width: 414px) {
+    width: 85%;
+    border-radius: 10px;
   }
 `;
 

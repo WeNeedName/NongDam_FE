@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -108,6 +108,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   const numberTime = Number(newWorkTime);
   const numberCrop = Number(newCrop);
   const numberHarvest = Number(newHarvest);
+  const toDoRef = useRef("");
 
   const editWorkLogDB = async (event) => {
     if (!newTitle) {
@@ -118,14 +119,14 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
       window.alert("날짜를 선택해주세요.");
     } else if (!newWorkTime) {
       window.alert("작업시간을 입력해주세요.");
-    } else if (!newMemo) {
+    } else if (toDoRef.current.value === "") {
       window.alert("작업 내용을 입력해주세요.");
     } else {
       const data = {
         title: newTitle.length < 1 ? previousTitle : newTitle,
         crop: numberCrop === 0 ? previousCrop : numberCrop,
         date: myNewDate.length < 1 ? previousDate : dateFormat,
-        memo: newMemo.length < 1 ? previousMemo : newMemo,
+        memo: toDoRef.current.value,
         workTime: newWorkTime.length < 1 ? previousWorkTime : newWorkTime,
         subMaterial: newSubMaterial,
         harvest: newHarvest === undefined ? previousHarvest : newHarvest,
@@ -499,9 +500,10 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
           <SmallTitle className="todo">작업내용</SmallTitle>
           <WorkInput
             type="text"
-            onChange={(e) => {
-              setNewMemo(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   setNewMemo(e.target.value);
+            // }}
+            ref={toDoRef}
             defaultValue={workLogOne.memo}
           />
         </WorkWrap>
