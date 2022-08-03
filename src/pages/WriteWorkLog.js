@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import styled, { keyframes } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -32,6 +32,8 @@ const WriteWorkLog = () => {
   const [date, setDate] = useState(new Date());
   const [workTime, setWorkTime] = useState("");
   const [memo, setMemo] = useState("");
+  const toDoRef = useRef("");
+  // let toDoContent = toDoRef.current.value;
 
   const [type0, setType0] = useState(0);
   const [product0, setProduct0] = useState("");
@@ -67,8 +69,6 @@ const WriteWorkLog = () => {
   const numberHarvest = Number(harvest);
   const [message, setMessage] = useState(false);
 
-  console.log(images);
-
   const addWorkLog = async (event) => {
     if (!title) {
       window.alert("제목을 입력해주세요.");
@@ -78,14 +78,14 @@ const WriteWorkLog = () => {
       window.alert("날짜를 선택해주세요.");
     } else if (!workTime) {
       window.alert("작업시간을 입력해주세요.");
-    } else if (!memo) {
+    } else if (toDoRef.current.value === "") {
       window.alert("작업 내용을 입력해주세요.");
     } else {
       const data = {
         title: title,
         crop: numberCrop,
         date: dateFormat,
-        memo: memo,
+        memo: toDoRef.current.value,
         workTime: numberTime,
         subMaterial: subMaterial,
         harvest: numberHarvest,
@@ -122,17 +122,6 @@ const WriteWorkLog = () => {
       });
     }
   };
-  console.log(
-    title,
-    numberCrop,
-    dateFormat,
-    memo,
-    subMaterial,
-    harvest,
-    images,
-    workTime
-  );
-
   return (
     <>
       <Header currentPage="workLog" />
@@ -144,7 +133,6 @@ const WriteWorkLog = () => {
               setTitle={setTitle}
               setCrop={setCrop}
               setDate={setDate}
-              setMemo={setMemo}
               setWorkTime={setWorkTime}
             />
 
@@ -174,9 +162,10 @@ const WriteWorkLog = () => {
               <TodoInput
                 type="text"
                 maxLength="500"
-                onChange={(e) => {
-                  setMemo(e.target.value);
-                }}
+                ref={toDoRef}
+                // onChange={(e) => {
+                //   setMemo(e.target.value);
+                // }}
               />
             </CategoryBigWrap>
             <WorkPhoto setImages={setImages} />

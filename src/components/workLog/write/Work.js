@@ -59,8 +59,8 @@ const Work = (props) => {
       <CategoryBigWrap>
         <SmallTitle>작물</SmallTitle>
         <CategoryWrap>
-          {userInfo.crops !== undefined && userInfo.crops.length !== 0 ? (
-            userInfo.crops.map((list) => {
+          {userInfo?.crops !== undefined && userInfo.crops.length !== 0 ? (
+            userInfo?.crops.map((list) => {
               return (
                 <Label key={list.id}>
                   <FormCheckLeft
