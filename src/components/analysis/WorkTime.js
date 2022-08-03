@@ -58,7 +58,7 @@ const WorkTime = ({ workTimeData }) => {
     const { innerWidth, innerHeight } = window;
     return { innerWidth, innerHeight };
   }
-  console.log(rateData);
+
   return (
     <>
       <Wrap>

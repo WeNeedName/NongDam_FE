@@ -33,7 +33,6 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
   });
   let now = new Date();
   const year = moment(today).format("YYYY");
-  newYearDateList.unshift(String(now.getFullYear() - 1));
   newYearDateList.unshift(year);
   const yearDate = newYearDateList.reverse();
 
@@ -131,7 +130,6 @@ const MarketPriceChart = ({ marketPriceData, selectedCrops }) => {
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          console.log(comma(series[seriesIndex][dataPointIndex]));
           return (
             '<div class="tooltip-box">' +
             '<div class="line-B">' +

@@ -200,7 +200,6 @@ const Hr = styled.div`
   margin-left: -20px;
   padding-right: 40px;
   border-bottom: 0.5px solid #dddddd;
-  /* margin-top: 10px; */
 `;
 
 const ContentsWrap = styled.div`
@@ -228,7 +227,7 @@ const InfoWrap = styled.div`
 `;
 
 const ContentsT = styled.div`
-  width: ${(props) => (props.imageURL === "" ? "300px" : "300px")};
+  width: ${(props) => (props.imageURL === "" ? "480px" : "300px")};
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
@@ -239,7 +238,7 @@ const ContentsT = styled.div`
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
   @media only screen and (max-width: 1550px) {
-    width: ${(props) => (props.imageURL === "" ? "80%" : "220px")};
+    width: ${(props) => (props.imageURL === "" ? "90%" : "220px")};
   }
   @media only screen and (max-width: 760px) {
     width: ${(props) => (props.imageURL === "" ? "90%" : "200px")};

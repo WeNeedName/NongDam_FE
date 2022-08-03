@@ -270,7 +270,8 @@ const PrevAddress = styled.span`
   flex-wrap: wrap;
 
   @media only screen and (max-width: 760px) {
-    margin-left: 40px;
+    font-size: 16px;
+    margin-left: 24px;
   }
 `;
 
@@ -308,8 +309,11 @@ const PreviousMyCrops = styled.div`
   text-align: left;
   flex-wrap: wrap;
   .noCropTitle {
-    font-size: 14px;
+    font-size: 16px;
     flex-wrap: wrap;
+    @media only screen and (max-width: 760px) {
+      font-size: 16px;
+    }
   }
   @media only screen and (max-width: 760px) {
     width: 200px;

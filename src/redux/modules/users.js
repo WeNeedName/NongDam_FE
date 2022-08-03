@@ -176,8 +176,23 @@ export const kakaoLogInDB = (data) => {
       .catch((err) => {
         console.log(err);
         let code = err.response.status;
-        if (code == 403) sessionStorage.removeItem("jwtToken");
-        else
+        if (code == 403) {
+          sessionStorage.removeItem("jwtToken");
+          Swal.fire({
+            title: err.response.data.msg,
+            icon: "warning",
+            showConfirmButton: true,
+            confirmButtonColor: "#55A349",
+            cancelButtonColor: "#ddd",
+            confirmButtonText: "확인",
+            cancelButtonText: "취소",
+            color: "#black",
+            padding: "20px",
+            width: "400px",
+            height: "200px",
+            fontWeight: "400px",
+          });
+        } else
           Swal.fire({
             title: err.response.data.msg,
             icon: "warning",
