@@ -190,17 +190,6 @@ const DetailWorkLog = ({}) => {
               </WorkContent>
             </WorkWrap>
             <Hr />
-            {workLogOne.pre && (
-              <PreContentBox
-                onClick={() => {
-                  navigate(`/worklog/detail/${workLogOne?.pre?.id}`);
-                }}
-              >
-                <PreT>이전 일지</PreT>
-                <PreTitle>{workLogOne.pre.title}</PreTitle>
-              </PreContentBox>
-            )}
-
             {workLogOne.next && (
               <PreContentBox
                 onClick={() => {
@@ -209,6 +198,16 @@ const DetailWorkLog = ({}) => {
               >
                 <PreT>다음 일지</PreT>
                 <PreTitle>{workLogOne.next.title}</PreTitle>
+              </PreContentBox>
+            )}
+            {workLogOne.pre && (
+              <PreContentBox
+                onClick={() => {
+                  navigate(`/worklog/detail/${workLogOne?.pre?.id}`);
+                }}
+              >
+                <PreT>이전 일지</PreT>
+                <PreTitle>{workLogOne.pre.title}</PreTitle>
               </PreContentBox>
             )}
           </ContentWrap>

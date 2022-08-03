@@ -10,6 +10,7 @@ const OauthFilter = () => {
   const getParameter = (key) => {
     return new URLSearchParams(window.location.search).get(key);
   };
+
   let memberParam = getParameter("code");
 
   useEffect(() => {

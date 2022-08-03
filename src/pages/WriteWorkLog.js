@@ -122,6 +122,7 @@ const WriteWorkLog = () => {
       });
     }
   };
+
   return (
     <>
       <Header currentPage="workLog" />
