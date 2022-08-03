@@ -21,7 +21,6 @@ const Record = (props) => {
     props.setHarvest(e.target.value);
   };
 
-  //console.log(hRecord)
   return (
     <RecordContentWrap>
       <SmallTitle>수확량</SmallTitle>

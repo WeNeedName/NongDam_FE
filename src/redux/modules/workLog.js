@@ -95,7 +95,6 @@ export default handleActions(
 
     [DELETE_WORKLOG]: (state, { payload }) =>
       produce(state, (draft) => {
-        console.log(payload, state);
         draft.workLogList = draft.workLogList.filter((workLog) => {
           Number(workLog.id) !== Number(payload.id);
         });
