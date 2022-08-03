@@ -29,7 +29,7 @@ const ScheduleModal = ({
   const schedule = currentScheduleList?.find((list) => list.id === scheduleId);
   const myCropsList = useSelector((state) => state.users.user?.crops);
   const yearMonth = useSelector((state) => state.account.yearMonth);
-  console.log(schedule);
+
   const [openEdit, setOpenEdit] = useState(false);
 
   //new Date에 인자로 들어갈 날짜 형식의 -를 /로 변경

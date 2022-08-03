@@ -45,7 +45,7 @@ const Work = (props) => {
     e.target.value = uncomma(e.target.value);
     props.setWorkTime(e.target.value);
   }
-  console.log(userInfo.crops);
+
   return (
     <TodoContentWrap>
       <TitleInput

@@ -61,7 +61,6 @@ const EventScheduleModal = ({
   }
 
   const onChangeEndDate = (date) => {
-    console.log(date);
     if (startTime > date) {
       setDateErr(true);
     } else {

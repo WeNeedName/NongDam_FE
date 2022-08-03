@@ -11,7 +11,6 @@ const PopupPostCode = ({
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
 
   const handleModalClose = (e) => {
-    console.log(modalCloseRef.current, e.target);
     if (isPopupOpen === true && modalCloseRef.current !== e.target) {
       setIsPopupOpen(false);
     }

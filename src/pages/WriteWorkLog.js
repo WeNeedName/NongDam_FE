@@ -67,8 +67,6 @@ const WriteWorkLog = () => {
   const numberHarvest = Number(harvest);
   const [message, setMessage] = useState(false);
 
-  console.log(images);
-
   const addWorkLog = async (event) => {
     if (!title) {
       window.alert("제목을 입력해주세요.");
@@ -122,16 +120,6 @@ const WriteWorkLog = () => {
       });
     }
   };
-  console.log(
-    title,
-    numberCrop,
-    dateFormat,
-    memo,
-    subMaterial,
-    harvest,
-    images,
-    workTime
-  );
 
   return (
     <>

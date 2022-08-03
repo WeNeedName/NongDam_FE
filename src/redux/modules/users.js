@@ -231,7 +231,6 @@ export const editPwDB = (pw) => {
     await apis
       .editPw(pw)
       .then((res) => {
-        console.log(res);
         Swal.fire({
           title: "변경이 완료되었습니다.",
           icon: "success",

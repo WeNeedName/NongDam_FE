@@ -250,6 +250,9 @@ const WeatherT = styled.span`
   font-size: 14px;
   line-height: 28px;
   margin-left: -8px;
+  @media only screen and (max-width: 1550px) {
+    font-size: 13px;
+  }
 `;
 
 const Icon = styled.div`
