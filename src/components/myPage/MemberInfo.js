@@ -235,11 +235,12 @@ const Line = styled.hr`
 `;
 
 const SmallTitle = styled.span`
-  padding-right: 24px;
+  /* padding-right: 24px; */
+
   font-size: 16px;
   color: #02113b;
   font-weight: 700;
-  width: 40px;
+  text-align: left;
 `;
 
 const BottomWrap = styled.div`
@@ -248,8 +249,9 @@ const BottomWrap = styled.div`
 
 const AddressWrap = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  width: 664px;
 `;
 
 const TitleAndAddress = styled.div`
@@ -258,13 +260,15 @@ const TitleAndAddress = styled.div`
   align-items: center;
 `;
 
-const PrevAddress = styled.div`
-  margin-left: 24px;
+const PrevAddress = styled.span`
   font-size: 16px;
+  margin-left: 60px;
   border: none;
   background-color: transparent;
   color: #02113b;
   text-align: left;
+  flex-wrap: wrap;
+
   @media only screen and (max-width: 760px) {
     font-size: 16px;
     margin-left: 24px;
@@ -272,6 +276,7 @@ const PrevAddress = styled.div`
 `;
 
 const CropsWrap = styled.div`
+  width: 664px;
   margin-top: 28px;
   /* margin-left: 12px; */
   display: flex;
@@ -290,16 +295,19 @@ const TitleAndCrops = styled.div`
 `;
 
 const SmallTitleCrops = styled.span`
-  padding-right: 9px;
+  /* padding-right: 19px; */
   font-size: 16px;
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  text-align: left;
+  width: 60px;
 `;
 
 const PreviousMyCrops = styled.div`
-  text-align: start;
-  width: auto;
+  width: 550px;
+  text-align: left;
+  flex-wrap: wrap;
   .noCropTitle {
     font-size: 16px;
     flex-wrap: wrap;
@@ -323,8 +331,8 @@ const PreviousCropsList = styled.div`
   font-size: 14px;
   border-radius: 10px;
   margin-right: 5px;
-  margin-bottom: 3px;
-  flex-wrap: wrap;
+  margin-bottom: 6px;
+  /* flex-wrap: wrap; */
   @media only screen and (max-width: 760px) {
     margin-bottom: 6px;
   }
@@ -346,7 +354,7 @@ const TitleAndArea = styled.div`
   text-align: center;
 `;
 
-const SmallTitleArea = styled.div`
+const SmallTitleArea = styled.span`
   font-size: 16px;
   color: #02113b;
   font-weight: 700;

@@ -130,7 +130,7 @@ const EditMemberInfo = () => {
           countryCode === undefined ? previousCountryCodeNumber : countryCode,
         crops: sendCrop,
       };
-      console.log(data);
+
       let frm = new FormData();
       frm.append("data", JSON.stringify(data));
       if (profileImg === "") {
@@ -138,7 +138,6 @@ const EditMemberInfo = () => {
       } else {
         frm.append("profileImage", profileImg);
       }
-      console.log(data);
       await axios({
         method: "put",
         url: `https://idontcare.shop/member`,
