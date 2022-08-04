@@ -120,8 +120,8 @@ const EditMemberInfo = () => {
 
   //서버 통신 부분
   const editInfo = async (event) => {
-    if (allCropList.length > 7) {
-      window.alert("내 작물은 최대 7개까지 선택하실 수 있습니다.");
+    if (allCropList.length > 6) {
+      window.alert("내 작물은 최대 6개까지 선택하실 수 있습니다.");
     } else {
       const data = {
         nickname: nickname === "" ? previousNickname : nickname,
