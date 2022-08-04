@@ -22,8 +22,8 @@ import FooterNav from "../components/FooterNav";
 import Footer from "../components/Footer";
 
 // 이미지
-import chickenIcon from "../images/chickenIcon.png";
-import presentIcon from "../images/presentIcon.png";
+import QuestionMark from "../images/QuestionMark.png";
+import ExclamationMark from "../images/ExclamationMark.png";
 import WIPIcon from "../images/WIPIcon.png";
 
 const Analysis = () => {
@@ -95,8 +95,8 @@ const Analysis = () => {
           <Icon
             onMouseOver={() => setIsHovering(true)}
             onMouseOut={() => setIsHovering(false)}
-            Image={presentIcon}
-            chickenIcon={chickenIcon}
+            Image={QuestionMark}
+            chickenIcon={ExclamationMark}
             onClick={() => {
               const openNewWindow = window.open("about:blank");
               openNewWindow.location.href =
@@ -105,7 +105,7 @@ const Analysis = () => {
           />
           {isHovering ? (
             <Info>
-              <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+              <Emoji>🧑‍🌾</Emoji> 농담이 처음이신가요?
             </Info>
           ) : null}
         </Wrap>
@@ -178,7 +178,7 @@ const BoxWrap = styled.div`
 `;
 
 const Info = styled.div`
-  width: 240px;
+  width: 220px;
   height: 60px;
   border-radius: 8px;
   position: absolute;
