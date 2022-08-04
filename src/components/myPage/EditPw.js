@@ -208,6 +208,9 @@ export const SubmitBtn = styled.button`
     border: 1px solid #22631c;
   }
   &:disabled {
+    background-color: #55a349;
+    border: 1px solid #55a349;
+    padding: 6px 12px;
     opacity: 0.3;
     cursor: default;
   }

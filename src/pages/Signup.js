@@ -584,7 +584,7 @@ const SignUpBtn = styled.button`
   justify-content: center;
   text-align: center;
   padding: 4px 13px;
-  background-color: #22631c;
+  background-color: #55a349;
   color: white;
   border-radius: 8px;
   border: none;
@@ -595,7 +595,8 @@ const SignUpBtn = styled.button`
 
   cursor: pointer;
   &:hover {
-    opacity: 0.7;
+    background: #22631c;
+    border: 1px solid #22631c;
   }
   &:disabled {
     opacity: 0.3;
