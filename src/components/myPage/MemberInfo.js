@@ -293,7 +293,8 @@ const PrevAddressWrap = styled.div`
   }
   @media only screen and (max-width: 414px) {
     font-size: 14px;
-    max-width: 250px;
+    margin-left: 30px;
+    width: 200px;
   }
 `;
 const PrevAddress = styled.p`
@@ -311,7 +312,6 @@ const PrevAddress = styled.p`
   }
   @media only screen and (max-width: 414px) {
     font-size: 14px;
-    max-width: 250px;
   }
 `;
 

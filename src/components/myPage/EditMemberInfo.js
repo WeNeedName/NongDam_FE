@@ -554,7 +554,7 @@ const AddressContent = styled.div`
     margin-left: 0px;
   }
   @media only screen and (max-width: 414px) {
-    width: auto;
+    width: 200px;
     margin-left: 0px;
     font-size: 14px;
   }
