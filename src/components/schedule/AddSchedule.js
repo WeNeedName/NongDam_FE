@@ -224,7 +224,10 @@ const AddSchedule = ({ isOpen, toggleModal, scheduleId }) => {
                   </WorkSelectBoxWrap>
                 </WorkWrap>
                 <CategoryBigWrap>
-                  <SmallTitle className="todo">작업내용</SmallTitle>
+                  <div className="memoTitleContent">
+                    <SmallTitle className="todo">작업내용</SmallTitle>
+                    <span>최대 100자</span>
+                  </div>
                   <TodoInput type="text" ref={memoRef} maxLength="100" />
                 </CategoryBigWrap>
               </ContentWrapR>
@@ -586,6 +589,17 @@ const CategoryBigWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
+  .memoTitleContent {
+    flex-direction: column;
+    margin-bottom: 6px;
+  }
+  span {
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    padding: 5px;
+  }
 `;
 
 const WorkWrap = styled.div`
