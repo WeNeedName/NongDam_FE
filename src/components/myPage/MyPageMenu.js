@@ -44,12 +44,21 @@ const MyPageMenu = () => {
   return (
     <Wrap>
       <ContentWrap>
-        <ProfileImg
-          onClick={() => {
-            goToMemberInfo();
-          }}
-          style={{ backgroundImage: `url(${userInfo?.profileImage})` }}
-        />
+        <LabelProfile>
+          <FormCheckLeftProfile
+            type="radio"
+            id="memberInfo"
+            name="radioButton"
+            onChange={changeRadio}
+            value={checked}
+          />
+          <ProfileImg
+            onClick={() => {
+              goToMemberInfo();
+            }}
+            style={{ backgroundImage: `url(${userInfo?.profileImage})` }}
+          />
+        </LabelProfile>
         <SmallInfo>
           <UserNickname>{userInfo?.nickname}</UserNickname>
           <UserEmail>{userInfo?.email}</UserEmail>
@@ -251,6 +260,15 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 
 const Label = styled.label`
   margin-bottom: 20px;
+`;
+const LabelProfile = styled.label`
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+`;
+
+const FormCheckLeftProfile = styled.input.attrs({ type: "radio" })`
+  display: none;
 `;
 
 export default MyPageMenu;
