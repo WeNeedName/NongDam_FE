@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,7 +7,7 @@ import { editPwDB } from "../../redux/modules/users";
 const EditPw = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const params = useParams();
+  const pwCheckRef = useRef("");
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [newPwCheck, setNewPwCheck] = useState("");
@@ -23,7 +23,8 @@ const EditPw = () => {
     if (!e.target.value || pwRegex.test(e.target.value)) setNewPwErr(false);
     else setNewPwErr(true);
 
-    if (!newPwErr || e.target.value === newPwErr) setNewPwCheckErr(false);
+    if (!newPwErr || e.target.value === pwCheckRef.current.value)
+      setNewPwCheckErr(false);
     else setNewPwCheckErr(true);
 
     setNewPw(e.target.value);
@@ -31,9 +32,9 @@ const EditPw = () => {
 
   //확인용 비밀번호 검사
   const onChangePwCheck = (e) => {
-    if (e.target.value === newPw) setNewPwCheckErr(false);
+    if (pwCheckRef.current.value === newPw) setNewPwCheckErr(false);
     else setNewPwCheckErr(true);
-    setNewPwCheck(e.target.value);
+    // setNewPwCheck(e.target.value);
   };
 
   const editMyPw = () => {
@@ -97,12 +98,14 @@ const EditPw = () => {
               type="password"
               autocomplete="new-password"
               autocapitalize="off"
+              ref={pwCheckRef}
             />
           </form>
 
-          {!newPwErr && newPwCheckErr && (
-            <NewPwErr>비밀번호가 일치하지 않습니다.</NewPwErr>
-          )}
+          {!pwCheckRef.current.value ||
+            (newPwCheckErr && (
+              <NewPwErr>비밀번호가 일치하지 않습니다.</NewPwErr>
+            ))}
         </EachBoxWrap>
         <SubmitBtn
           type="submit"
@@ -112,7 +115,7 @@ const EditPw = () => {
           disabled={
             !oldPw ||
             !newPw ||
-            !newPwCheck ||
+            !pwCheckRef.current.value ||
             newPwErr ||
             newPwErr2 ||
             newPwCheckErr
@@ -142,6 +145,12 @@ const Wrap = styled.div`
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     margin-left: -20px;
+  }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    padding: 20px;
+    grid-column: 2 / 3;
+    grid-row: 3 / 5;
   }
 `;
 const Title = styled.div`
@@ -191,9 +200,9 @@ export const SubmitBtn = styled.button`
   border: 1px solid #55a349;
   padding: 6px 12px;
   border-radius: 8px;
-  margin-left: 18px;
+
   cursor: pointer;
-  margin-left: 600px;
+
   &:hover {
     background: #22631c;
     border: 1px solid #22631c;

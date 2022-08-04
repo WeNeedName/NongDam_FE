@@ -292,7 +292,10 @@ const ScheduleModal = ({
                     </LabelWork>
                   </WorkSelectBoxWrap>
                   <MemoWrap>
-                    <SmallTitle>작업 내용</SmallTitle>
+                    <div className="memoTitleContent">
+                      <SmallTitle>작업 내용</SmallTitle>
+                      <span className="limitMsg">최대 100자</span>
+                    </div>
                     <InputMemo
                       ref={memoRef}
                       defaultValue={schedule.toDo}
@@ -778,6 +781,18 @@ const MemoWrap = styled.div`
   display: flex;
   flex-direction: column;
   width: auto;
+  .memoTitleContent {
+    flex-direction: column;
+    margin-bottom: 6px;
+  }
+  .limitMsg {
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    padding: 5px;
+  }
+
   @media only screen and (max-width: 760px) {
     margin-top: 20px;
   }

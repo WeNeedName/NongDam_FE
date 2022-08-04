@@ -126,7 +126,13 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    margin-left: 16px;
+    padding: 20px;
+  }
+  @media only screen and (max-width: 414px) {
+    width: 88%;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    padding: 20px;
   }
 `;
 
