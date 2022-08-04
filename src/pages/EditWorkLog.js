@@ -50,7 +50,9 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
   const [newTitle, setNewTitle] = useState(previousTitle);
   const [newCrop, setNewCrop] = useState(previousCrop);
   const [newCheckedCrop, setNewCheckedCrop] = useState(previousDate);
-  const [myNewDate, setMyNewDate] = useState(previousDate);
+
+  const [myNewDate, setMyNewDate] = useState(new Date(workLogOne.date));
+
   const [newWorkTime, setNewWorkTime] = useState(previousWorkTime);
   const [newMemo, setNewMemo] = useState(previousMemo);
   const [newHarvest, setNewHarvest] = useState();
@@ -236,7 +238,7 @@ const EditWorkLog = ({ workLogOne, isEdit }) => {
         <DatePickers>
           <DatePicker
             className="startDatePicker"
-            selected={new Date(workLogOne.date)}
+            selected={new Date(myNewDate)}
             // selected={props.workLogOne.date}
             onChange={(date) => {
               setMyNewDate(date);
