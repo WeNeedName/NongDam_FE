@@ -10,7 +10,7 @@ import "moment/locale/ko";
 
 const TotalHarvestChart = ({ totalHarvestData }) => {
   const navigate = useNavigate();
-
+  console.log(totalHarvestData);
   // y축 [0 - 사잇값 - 최댓값] 배열 만들기
   const allDataList = [];
   totalHarvestData.datas !== undefined &&

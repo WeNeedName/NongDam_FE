@@ -26,8 +26,9 @@ const TotalHarvestChart = ({ salesData }) => {
       : 1;
   const mathRound = Math.round(largestNumberWon / mathPow) * mathPow;
   const range = (start, stop, step) =>
-    Array.from({ length: (stop - start) / step + 1 }, (_, i) =>
-      Math.round(start + i * step)
+    Array.from(
+      { length: (stop - start) / step + 1 },
+      (_, i) => Math.ceil((start + i * step) / 10) * 10
     );
   let yaxis =
     allDataListSort[0] !== "0" && mathRound <= 1
@@ -35,7 +36,7 @@ const TotalHarvestChart = ({ salesData }) => {
       : allDataListSort[0] !== "0"
       ? range(smallestNumberWon, mathRound, mathRound / 3).reverse()
       : ["0", "0", "0", "0", "0"];
-
+  console.log(allDataListSort, yaxis);
   // 2. 차트 state.series 값 배열
   const seriesList =
     salesData.datas !== undefined &&
