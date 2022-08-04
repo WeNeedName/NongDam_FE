@@ -41,7 +41,7 @@ const EditMemberInfo = () => {
   const [crops, setCrops] = useState(); //새로 선택한 작물 id값(서버 통신용) [1]
   const [cropsObj, setCropsObj] = useState([]); //새로 선택한 작물 value, label값(작물 버튼 용)[{label: [type]name, value: id }]
   const [allCropList, setAllCropList] = useState([]); // 기존 작물 + 새로 선택한 작물
-
+  console.log(allCropList);
   // 기존 작물 전체 리스트
   const cropsArray = [];
   const cropTemp = myCropsList?.map((list, idx) => {
@@ -233,20 +233,21 @@ const EditMemberInfo = () => {
               주소검색
             </AddressBtn>
           </AddressRightWrap>
+          <div id="popupDom">
+            {/* 팝업 생성 기준 div */}
+            {isPopupOpen && (
+              <PopupDom>
+                <PopupPostCode
+                  modalCloseRef={modalCloseRef}
+                  isPopupOpen={isPopupOpen}
+                  setIsPopupOpen={setIsPopupOpen}
+                  setAddress={setAddress}
+                />
+              </PopupDom>
+            )}
+          </div>
         </AddressWrap>
-        <div id="popupDom">
-          {/* 팝업 생성 기준 div */}
-          {isPopupOpen && (
-            <PopupDom>
-              <PopupPostCode
-                modalCloseRef={modalCloseRef}
-                isPopupOpen={isPopupOpen}
-                setIsPopupOpen={setIsPopupOpen}
-                setAddress={setAddress}
-              />
-            </PopupDom>
-          )}
-        </div>
+
         <CropsWrap>
           <TitleAndCrops>
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
@@ -390,6 +391,12 @@ const Wrap = styled.div`
     margin-left: -20px;
     margin-bottom: 60px;
   }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    padding: 20px;
+    grid-column: 2 / 3;
+    grid-row: 3 / 5;
+  }
 `;
 
 const Title = styled.span`
@@ -513,6 +520,9 @@ const Line = styled.hr`
   border: solid 0.5px #d8d8d8;
   margin-left: 20px;
   padding-right: 40px;
+  @media only screen and (max-width: 414px) {
+    width: 75%;
+  }
 `;
 
 const SmallTitle = styled.span`
@@ -543,6 +553,11 @@ const AddressContent = styled.div`
     width: auto;
     margin-left: 0px;
   }
+  @media only screen and (max-width: 414px) {
+    width: 200px;
+    margin-left: 0px;
+    font-size: 14px;
+  }
 `;
 
 const AddressRightWrap = styled.div`
@@ -553,6 +568,9 @@ const AddressRightWrap = styled.div`
   text-align: left;
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
+  }
+  @media only screen and (max-width: 414px) {
+    margin-left: 50px;
   }
 `;
 
@@ -587,6 +605,8 @@ const CropsWrap = styled.div`
 const TitleAndCrops = styled.div`
   display: flex;
   align-items: flex-start;
+  text-align: center;
+  align-items: center;
 `;
 const SmallTitleCrops = styled.span`
   font-size: 16px;
@@ -606,6 +626,8 @@ const PrevAndNewCrops = styled.div`
   @media only screen and (max-width: 760px) {
     margin-left: 10px;
     width: 220px;
+  }
+  @media only screen and (max-width: 414px) {
   }
 `;
 
@@ -628,6 +650,10 @@ const CropsList = styled.div`
     font-weight: 500;
     border: 1px solid black;
   }
+  @media only screen and (max-width: 414px) {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
 `;
 
 const DeleteBtn = styled.button`
@@ -639,7 +665,11 @@ const DeleteBtn = styled.button`
   opacity: 1;
 `;
 
-const CropsContent = styled.div``;
+const CropsContent = styled.div`
+  @media only screen and (max-width: 414px) {
+    margin-left: 10px;
+  }
+`;
 
 const EditCropsBtn = styled.button`
   font-size: 11px;
@@ -672,9 +702,13 @@ const AreaWrap = styled.div`
   margin-left: 20px;
   margin-right: 27px;
   display: flex;
-
   justify-content: space-between;
   align-items: center;
+  @media only screen and (max-width: 414px) {
+    margin-left: 20px;
+    margin-right: 0px;
+    font-size: 14px;
+  }
 `;
 
 const CountryCodeContent = styled.div`
@@ -689,12 +723,17 @@ const CountryCodeContent = styled.div`
   @media only screen and (max-width: 760px) {
     margin-left: 20px;
   }
+  @media only screen and (max-width: 414px) {
+    margin-left: 20px;
+    font-size: 14px;
+  }
 `;
 
 const TitleAndArea = styled.div`
   display: flex;
-  align-items: flex-start;
+
   text-align: center;
+  align-items: center;
 `;
 
 const SmallTitleArea = styled.div`
@@ -705,6 +744,10 @@ const SmallTitleArea = styled.div`
   @media only screen and (max-width: 760px) {
     font-size: 16px;
     margin-top: -6px;
+  }
+  @media only screen and (max-width: 414px) {
+    line-height: 20px;
+    align-items: center;
   }
 `;
 const AreaBtn = styled.button`

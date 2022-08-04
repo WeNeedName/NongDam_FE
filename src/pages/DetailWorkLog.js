@@ -457,7 +457,9 @@ const PreContentBox = styled.div`
   flex-direction: row;
   cursor: pointer;
   margin: 8px 0px;
-  /* margin-left: 20px; */
+  &:hover {
+    font-weight: 500;
+  }
 `;
 
 const PreT = styled.span`

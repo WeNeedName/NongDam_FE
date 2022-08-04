@@ -33,6 +33,9 @@ const ScheduleWeek = () => {
     <Wrap>
       <Title>이번 주 할 일</Title>
       <ScheduleBoxWrap scrollPosition={scrollPosition}>
+        {currentScheduleList.length === 0 ? (
+          <NoScheduleMsg>이번 주 일정이 없습니다</NoScheduleMsg>
+        ) : null}
         {currentScheduleList !== undefined
           ? currentScheduleList.map((sList, scheduleId) => {
               return (
@@ -142,6 +145,15 @@ const ScheduleBox = styled.div`
   @media only screen and (max-width: 414px) {
     width: 85%;
     border-radius: 10px;
+  }
+`;
+
+const NoScheduleMsg = styled.span`
+  font-size: 14px;
+  color: #8e8f93;
+  padding-top: 20px;
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
   }
 `;
 
