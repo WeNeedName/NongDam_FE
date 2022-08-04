@@ -70,13 +70,13 @@ const MemberInfo = () => {
           <AddressWrap>
             <TitleAndAddress>
               <SmallTitle>주소</SmallTitle>
-              <PrevAddress>
+              <PrevAddressWrap>
                 {userInfo?.address !== "" ? (
-                  userInfo?.address
+                  <PrevAddress>{userInfo?.address}</PrevAddress>
                 ) : (
-                  <span>주소를 등록해주세요</span>
+                  <NoAddressMsg>주소를 등록해주세요</NoAddressMsg>
                 )}
-              </PrevAddress>
+              </PrevAddressWrap>
             </TitleAndAddress>
           </AddressWrap>
 
@@ -164,6 +164,12 @@ const Wrap = styled.div`
     grid-row: 3 / 4;
     margin-left: -20px;
   }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+    padding: 20px;
+    grid-column: 2 / 3;
+    grid-row: 3 / 5;
+  }
 `;
 
 const Title = styled.span`
@@ -232,15 +238,9 @@ const Line = styled.hr`
   border: solid 0.5px #d8d8d8;
   margin-left: 20px;
   padding-right: 40px;
-`;
-
-const SmallTitle = styled.span`
-  /* padding-right: 24px; */
-
-  font-size: 16px;
-  color: #02113b;
-  font-weight: 700;
-  text-align: left;
+  @media only screen and (max-width: 414px) {
+    width: 75%;
+  }
 `;
 
 const BottomWrap = styled.div`
@@ -252,15 +252,33 @@ const AddressWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 664px;
+  @media only screen and (max-width: 414px) {
+    width: 100%;
+  }
 `;
 
 const TitleAndAddress = styled.div`
   display: flex;
   text-align: center;
   align-items: center;
+  justify-content: space-between;
+  @media only screen and (max-width: 414px) {
+  }
 `;
 
-const PrevAddress = styled.span`
+const SmallTitle = styled.span`
+  /* padding-right: 24px; */
+  font-size: 16px;
+  color: #02113b;
+  font-weight: 700;
+  text-align: left;
+  flex-wrap: wrap;
+  @media only screen and (max-width: 414px) {
+    /* padding-right: 15px; */
+    width: 60px;
+  }
+`;
+const PrevAddressWrap = styled.div`
   font-size: 16px;
   margin-left: 60px;
   border: none;
@@ -271,7 +289,48 @@ const PrevAddress = styled.span`
 
   @media only screen and (max-width: 760px) {
     font-size: 16px;
+    max-width: 300px;
+  }
+  @media only screen and (max-width: 414px) {
+    font-size: 14px;
+    max-width: 250px;
+  }
+`;
+const PrevAddress = styled.p`
+  font-size: 16px;
+  margin-left: 0px;
+  border: none;
+  background-color: transparent;
+  color: #02113b;
+  text-align: left;
+  flex-wrap: wrap;
+
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
+    max-width: 300px;
+  }
+  @media only screen and (max-width: 414px) {
+    font-size: 14px;
+    max-width: 250px;
+  }
+`;
+
+const NoAddressMsg = styled.span`
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  color: #02113b;
+  text-align: left;
+  flex-wrap: wrap;
+
+  @media only screen and (max-width: 760px) {
+    font-size: 16px;
     margin-left: 24px;
+  }
+  @media only screen and (max-width: 414px) {
+    font-size: 14px;
+    max-width: 100px;
+    margin-left: 5px;
   }
 `;
 
@@ -284,6 +343,10 @@ const CropsWrap = styled.div`
   align-items: center;
   text-align: center;
   @media only screen and (max-width: 760px) {
+    margin-right: 0px;
+  }
+  @media only screen and (max-width: 414px) {
+    width: 100%;
     margin-right: 0px;
   }
 `;
@@ -314,6 +377,9 @@ const PreviousMyCrops = styled.div`
     @media only screen and (max-width: 760px) {
       font-size: 16px;
     }
+    @media only screen and (max-width: 414px) {
+      font-size: 14px;
+    }
   }
   @media only screen and (max-width: 760px) {
     width: 200px;
@@ -335,6 +401,10 @@ const PreviousCropsList = styled.div`
   /* flex-wrap: wrap; */
   @media only screen and (max-width: 760px) {
     margin-bottom: 6px;
+  }
+  @media only screen and (max-width: 414px) {
+    margin-bottom: 6px;
+    font-size: 13px;
   }
 `;
 
@@ -359,6 +429,9 @@ const SmallTitleArea = styled.span`
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
+  @media only screen and (max-width: 414px) {
+    line-height: 10px;
+  }
 `;
 
 const Area = styled.div`
@@ -366,6 +439,9 @@ const Area = styled.div`
   margin-left: 30px;
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
+  }
+  @media only screen and (max-width: 414px) {
+    font-size: 14px;
   }
 `;
 

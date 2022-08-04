@@ -85,17 +85,14 @@ const boxFadeC = keyframes`
 `;
 
 const Wrap = styled.div`
-  height: 100vh;
+  height: 80vh;
   margin-top: 100px;
   margin-bottom: 50px;
-
   display: grid;
   grid-auto-rows: auto;
-
   grid-template-columns: 1fr repeat(4, 18.75%) 1fr;
   justify-content: center;
   flex-flow: wrap;
-
   left: 0px;
   right: 0px;
   top: 0px;
@@ -109,6 +106,12 @@ const Wrap = styled.div`
   @media only screen and (max-width: 760px) {
     margin-top: 90px;
     grid-template-columns: 1fr 95% 1fr;
+    grid-template-rows: 0px repeat(2, auto) 0px;
+  }
+  @media only screen and (max-width: 414px) {
+    margin-top: 90px;
+    row-gap: 16px;
+    grid-template-columns: 30px 78% 30px;
     grid-template-rows: 0px repeat(2, auto) 0px;
   }
 `;

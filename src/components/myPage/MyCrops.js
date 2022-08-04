@@ -45,7 +45,6 @@ const MyCrops = ({ setCrops, setCropsObj, sendCrop }) => {
         onChange={(value) => {
           // if (!sendCrops)
           setCropsObj(value);
-
           // else {
           //   const arr = sendCrops.push(value);
           //   setSendCrops(arr);
@@ -69,16 +68,11 @@ const Container = styled.div`
     @media only screen and (max-width: 760px) {
       margin-left: 10px;
     }
+    @media only screen and (max-width: 414px) {
+      margin-left: 10px;
+      margin-top: 3px;
+    }
   }
-`;
-
-const Selec = styled.select`
-  width: 170px;
-  background-color: white;
-  height: 30px;
-
-  border: 1px solid black;
-  padding-left: 10px;
 `;
 
 export default MyCrops;
