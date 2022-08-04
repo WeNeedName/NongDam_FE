@@ -40,7 +40,7 @@ const MyCrops = ({ setCrops, setCropsObj, sendCrop }) => {
               })
             : null
         }
-        isOptionDisabled={() => sendCrop.length >= 7}
+        isOptionDisabled={() => sendCrop.length >= 6}
         placeholder="작물을 검색해주세요"
         onChange={(value) => {
           // if (!sendCrops)
