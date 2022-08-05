@@ -1,5 +1,5 @@
 import { React, useRef, useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Signup from "./Signup";
 import { logInDB } from "../redux/modules/users";
@@ -11,6 +11,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import { Translate } from "@mui/icons-material";
 
+// 이미지
+import QuestionMark from "../images/QuestionMark.png";
+import ExclamationMark from "../images/ExclamationMark.png";
 import nongdamLogo from "../images/nongdam_logo.png";
 
 const Login = () => {
@@ -21,6 +24,7 @@ const Login = () => {
   const [pw, setPw] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const dispatch = useDispatch();
   const userSignIn = useSelector((state) => state.users.users);
@@ -114,10 +118,47 @@ const Login = () => {
             회원가입
           </ToSignUpBtn>
         </ToSignUp>
+        <Icon
+          onMouseOver={() => setIsHovering(true)}
+          onMouseOut={() => setIsHovering(false)}
+          Image={QuestionMark}
+          chickenIcon={ExclamationMark}
+          onClick={() => {
+            const openNewWindow = window.open("about:blank");
+            openNewWindow.location.href =
+              "https://www.notion.so/68b8a2b03fc64ce18c36e90658786d8d";
+          }}
+        />
+        {isHovering ? (
+          <Info>
+            <Emoji>🧑‍🌾</Emoji> 농담이 처음이신가요?
+          </Info>
+        ) : null}
       </Container>
     </>
   );
 };
+
+const boxFade = keyframes`
+  0% {
+    transform: scale(1, 1);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+  }
+  100% {
+    transform: scale(1.2, 1.2);
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const boxFadeB = keyframes`
+  0% {
+  opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -297,6 +338,57 @@ const ToSignUpBtn = styled.span`
   &:hover {
     font-weight: 700;
   }
+`;
+
+const Info = styled.div`
+  width: 220px;
+  height: 60px;
+  border-radius: 8px;
+  position: absolute;
+  position: fixed;
+  right: 190px;
+  bottom: 100px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  animation: ${boxFadeB} 1s;
+  z-index: 1000;
+  @media only screen and (max-width: 760px) {
+    bottom: 120px;
+    right: 150px;
+  }
+`;
+
+const Icon = styled.div`
+  width: 80px;
+  height: 80px;
+  background-image: url(${(props) => props.Image});
+  background-position: center 30%;
+  background-size: cover;
+  position: fixed;
+  bottom: 90px;
+  right: 70px;
+  z-index: 110;
+  border-radius: 100px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+  &:hover {
+    animation: ${boxFade} 2s;
+    background-image: url(${(props) => props.chickenIcon});
+  }
+  @media only screen and (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const Emoji = styled.div`
+  font-size: 20px;
+  margin-right: 4px;
 `;
 
 export default Login;
