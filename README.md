@@ -1,4 +1,3 @@
-
 <h3>농장을 한 눈에 담다,</h3>
 <h1>농담 🧑‍🌾</h1>
 <img src="https://user-images.githubusercontent.com/94617638/182112917-fcbd84ad-a16f-402b-8d13-e9d9c5d530ff.png">  
@@ -9,7 +8,7 @@
 농장 운영에 필요한 데이터를 모아 제공하고 <br/>
 누적된 <strong>농장데이터 통계 분석</strong>으로 생산성을 높여주는 서비스입니다.</span>
 
-<br/><br/>
+ <a  href="https://nongdam.site" > 농담 둘러보기</a><br/>
 
 <br/><br/>
 
@@ -37,11 +36,11 @@
 <br/><br/><br/>
 
  <h3>📈 지역/작물별 도/소매 시세정보 제공</h3>
-<span>국내 17개 지역 中 사용자 희망 시세지역의 월별/연도별 도/소매 시세 정보</span>  
+<span>국내 17개 지역 中 사용자 희망 시세지역의 월별/연도별 도/소매 시세 정보</span>  <a href='https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2' target='_blank'>open api</a>
 <br/>
 <span>102개 작물 中 검색 조회, 사용자 작물의 당일 시세 조회, 예상 판매 금액 조회
 </span>
-<a href='https://www.kamis.or.kr/customer/reference/openapi_list.do?action=detail&boardno=2' target='_blank'>open api</a>
+ 
  <br/><br/>
  <a href='https://ifh.cc/v-tZR1nt' target='_blank'><img src='https://ifh.cc/g/tZR1nt.png' border='0'></a>
 <br/><br/><br/>
@@ -64,25 +63,27 @@
 <a href='https://ifh.cc/v-X0z8ng' target='_blank'><img src='https://ifh.cc/g/X0z8ng.jpg' border='0'></a>
 <br/><br/><br/>
 
+
+
 <h2>🛠 Tech & Platfrom</h2>
 
 <h3>Front-End </h3>
 <div>
-
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC.svg?&style=for-the-badge&logo=Visual Studio Code&logoColor=white">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
 <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white">
-<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> 
 <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white">
-<img src="https://img.shields.io/badge/axios-764ABC?style=for-the-badge&logo=axios&logoColor=white">
-	
 </div>
 <div>
-
+<img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> 
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> 
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> 
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"> 
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
-<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> 	
+</div>
+<div>
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=redux&logoColor=white"> 
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=redux&logoColor=white"> 
+
 </div>
 
 <h3>Back-End </h3>
@@ -156,7 +157,7 @@
     </table>
 
 <br/><br/>
-	
+
 <h2>📚 주요 라이브러리</h2>
 <table border="1">
 	<th width="12%">라이브러리명</th>
@@ -211,13 +212,12 @@ react-calendar, react-datepicker 는 날짜 선택 혹은 등록된 일정의 �
   </table>
 	
 <br/><br/>
-	
 <h2>🔥 이슈 및 트러블슈팅</h2>
 <h4>FE</h4>
  <a href="https://www.notion.so/ddef012e021b485a85f85440a5af15f7" > 📒 장부 월별 내역 상태관리</a><br/>
  <a href="https://www.notion.so/throttle-f4adb557f7c34fb1b2b650ef33389073" > 👉 throttle로 렌더링 제어</a><br/>
  <a href="https://tukkit.notion.site/safari-ios-Invalid-date-2520f1123c7b4f8f864e38a14f793377" > 📅 safari(ios)에서의 Invalid date</a><br/>
-
+	
  <h4>BE</h4>
 <a href="https://www.notion.so/BackEnd-TroubleShooting-Cache-56f5d95764af4b80a9818352013cc307"> 👨‍🔧 Redis</a><br />
 <a href="https://www.notion.so/BackEnd-TroubleShooting-dbe8df1e583b4c47bdf92e63a87a2313"> 🖥️ 서버 모니터링</a><br />
@@ -231,8 +231,7 @@ react-calendar, react-datepicker 는 날짜 선택 혹은 등록된 일정의 �
 
 
 <h3>🧑‍🔧 제작자 </h3>
-	
-<strong>FE</strong> 	손윤주, 김수진	<br/>
-<strong>BE</strong> 	백규현, 이병관, 이경동<br/>
-<strong>Designer</strong>	정기혁	
-<br/><br/>
+<a href='https://ifh.cc/v-s7Xkwy' target='_blank'><img src='https://ifh.cc/g/s7Xkwy.png' border='0'></a>
+
+
+
