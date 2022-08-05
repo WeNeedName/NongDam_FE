@@ -1,11 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpDB } from "../redux/modules/users";
 import { useNavigate } from "react-router-dom";
 import nongdamLogo from "../images/nongdam_logo.png";
 // alert 라이브러리
 import Swal from "sweetalert2";
+// 이미지
+import QuestionMark from "../images/QuestionMark.png";
+import ExclamationMark from "../images/ExclamationMark.png";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -24,6 +27,7 @@ const Signup = () => {
 
   //이메일 검사
   const [userIdErr, setUserIdErr] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const onChangeUserId = (e) => {
     const userIdRegex = /^[A-Za-z0-9+]{5,}$/;
@@ -201,7 +205,7 @@ const Signup = () => {
           </InputWrap>
         </InputBoxesWrap>
         <BtnWrap>
-          <Info>
+          <InfoBtn>
             회원가입 시{" "}
             <InfoLink
               onClick={() => {
@@ -223,7 +227,7 @@ const Signup = () => {
               개인정보취급방침
             </InfoLink>
             에 동의하는 것으로 간주됩니다.
-          </Info>
+          </InfoBtn>
           <SignUpBtn
             type="submit"
             onClick={() => {
@@ -244,9 +248,46 @@ const Signup = () => {
           </SignUpBtn>
         </BtnWrap>
       </Container>
+      <Icon
+        onMouseOver={() => setIsHovering(true)}
+        onMouseOut={() => setIsHovering(false)}
+        Image={QuestionMark}
+        chickenIcon={ExclamationMark}
+        onClick={() => {
+          const openNewWindow = window.open("about:blank");
+          openNewWindow.location.href =
+            "https://www.notion.so/68b8a2b03fc64ce18c36e90658786d8d";
+        }}
+      />
+      {isHovering ? (
+        <Info>
+          <Emoji>🧑‍🌾</Emoji> 농담이 처음이신가요?
+        </Info>
+      ) : null}
     </ContainerWrap>
   );
 };
+
+const boxFade = keyframes`
+  0% {
+    transform: scale(1, 1);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+  }
+  100% {
+    transform: scale(1.2, 1.2);
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const boxFadeB = keyframes`
+  0% {
+  opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const ContainerWrap = styled.div`
   width: 100%;
@@ -555,7 +596,7 @@ const BtnWrap = styled.div`
   margin-top: 16px;
 `;
 
-const Info = styled.span`
+const InfoBtn = styled.span`
   font-size: 12px;
   margin-bottom: 10px;
   color: #666666;
@@ -605,6 +646,57 @@ const SignUpBtn = styled.button`
   @media only screen and (max-width: 760px) {
     font-size: 16px;
   }
+`;
+
+const Info = styled.div`
+  width: 220px;
+  height: 60px;
+  border-radius: 8px;
+  position: absolute;
+  position: fixed;
+  right: 190px;
+  bottom: 100px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  animation: ${boxFadeB} 1s;
+  z-index: 1000;
+  @media only screen and (max-width: 760px) {
+    bottom: 120px;
+    right: 150px;
+  }
+`;
+
+const Icon = styled.div`
+  width: 80px;
+  height: 80px;
+  background-image: url(${(props) => props.Image});
+  background-position: center 30%;
+  background-size: cover;
+  position: fixed;
+  bottom: 90px;
+  right: 70px;
+  z-index: 110;
+  border-radius: 100px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+  &:hover {
+    animation: ${boxFade} 2s;
+    background-image: url(${(props) => props.chickenIcon});
+  }
+  @media only screen and (max-width: 760px) {
+    display: none;
+  }
+`;
+
+const Emoji = styled.div`
+  font-size: 20px;
+  margin-right: 4px;
 `;
 
 export default Signup;
