@@ -17,8 +17,8 @@ import withReactContent from "sweetalert2-react-content";
 import FooterNav from "../components/FooterNav";
 
 // 이미지
-import chickenIcon from "../images/chickenIcon.png";
-import presentIcon from "../images/presentIcon.png";
+import QuestionMark from "../images/QuestionMark.png";
+import ExclamationMark from "../images/ExclamationMark.png";
 
 const DetailWorkLog = ({}) => {
   const navigate = useNavigate();
@@ -190,17 +190,6 @@ const DetailWorkLog = ({}) => {
               </WorkContent>
             </WorkWrap>
             <Hr />
-            {workLogOne.pre && (
-              <PreContentBox
-                onClick={() => {
-                  navigate(`/worklog/detail/${workLogOne?.pre?.id}`);
-                }}
-              >
-                <PreT>이전 일지</PreT>
-                <PreTitle>{workLogOne.pre.title}</PreTitle>
-              </PreContentBox>
-            )}
-
             {workLogOne.next && (
               <PreContentBox
                 onClick={() => {
@@ -211,6 +200,16 @@ const DetailWorkLog = ({}) => {
                 <PreTitle>{workLogOne.next.title}</PreTitle>
               </PreContentBox>
             )}
+            {workLogOne.pre && (
+              <PreContentBox
+                onClick={() => {
+                  navigate(`/worklog/detail/${workLogOne?.pre?.id}`);
+                }}
+              >
+                <PreT>이전 일지</PreT>
+                <PreTitle>{workLogOne.pre.title}</PreTitle>
+              </PreContentBox>
+            )}
           </ContentWrap>
         </TotalWrap>
       ) : (
@@ -219,8 +218,8 @@ const DetailWorkLog = ({}) => {
       <Icon
         onMouseOver={() => setIsHovering(true)}
         onMouseOut={() => setIsHovering(false)}
-        Image={presentIcon}
-        chickenIcon={chickenIcon}
+        Image={QuestionMark}
+        chickenIcon={ExclamationMark}
         onClick={() => {
           const openNewWindow = window.open("about:blank");
           openNewWindow.location.href =
@@ -229,7 +228,7 @@ const DetailWorkLog = ({}) => {
       />
       {isHovering ? (
         <Info>
-          <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+          <Emoji>🧑‍🌾</Emoji> 농담이 처음이신가요?
         </Info>
       ) : null}
       <FooterNav currentPage="workLog" />
@@ -458,7 +457,9 @@ const PreContentBox = styled.div`
   flex-direction: row;
   cursor: pointer;
   margin: 8px 0px;
-  /* margin-left: 20px; */
+  &:hover {
+    font-weight: 500;
+  }
 `;
 
 const PreT = styled.span`
@@ -472,7 +473,7 @@ const PreTitle = styled.span`
 `;
 
 const Info = styled.div`
-  width: 240px;
+  width: 220px;
   height: 60px;
   border-radius: 8px;
   position: absolute;

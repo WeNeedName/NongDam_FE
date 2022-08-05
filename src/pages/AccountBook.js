@@ -14,8 +14,8 @@ import FooterNav from "../components/FooterNav";
 import Footer from "../components/Footer";
 
 // 이미지
-import chickenIcon from "../images/chickenIcon.png";
-import presentIcon from "../images/presentIcon.png";
+import QuestionMark from "../images/QuestionMark.png";
+import ExclamationMark from "../images/ExclamationMark.png";
 
 const AccountBook = () => {
   const dispatch = useDispatch();
@@ -74,8 +74,8 @@ const AccountBook = () => {
         <Icon
           onMouseOver={() => setIsHovering(true)}
           onMouseOut={() => setIsHovering(false)}
-          Image={presentIcon}
-          chickenIcon={chickenIcon}
+          Image={QuestionMark}
+          chickenIcon={ExclamationMark}
           onClick={() => {
             const openNewWindow = window.open("about:blank");
             openNewWindow.location.href =
@@ -85,7 +85,7 @@ const AccountBook = () => {
       </Wrap>
       {isHovering ? (
         <Info>
-          <Emoji>🥳 </Emoji> 설문조사 참여하고 치킨받기
+          <Emoji>🧑‍🌾</Emoji> 농담이 처음이신가요?
         </Info>
       ) : null}
       <FooterNav currentPage="accountbook" />
@@ -209,7 +209,7 @@ const AddAccountBtn = styled.button`
 `;
 
 const Info = styled.div`
-  width: 240px;
+  width: 220px;
   height: 60px;
   border-radius: 8px;
   position: absolute;
@@ -224,7 +224,7 @@ const Info = styled.div`
   align-items: center;
   justify-content: center;
   animation: ${boxFadeB} 1s;
-  z-index: 10;
+  z-index: 1000;
   @media only screen and (max-width: 760px) {
     bottom: 120px;
     right: 150px;

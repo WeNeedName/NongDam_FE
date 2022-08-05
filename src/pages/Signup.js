@@ -50,6 +50,7 @@ const Signup = () => {
   const pwcheckText = pwCheckRef.current.value;
 
   const [pwCheckErr, setPwCheckErr] = useState(false);
+
   const onChangePwCheck = (e) => {
     if (pwcheckText !== "" && pwcheckText === pw) setPwCheckErr(false);
     else setPwCheckErr(true);

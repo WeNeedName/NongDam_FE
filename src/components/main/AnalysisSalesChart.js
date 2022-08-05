@@ -261,7 +261,6 @@ const AnalysisSalesChart = ({ salesData }) => {
                     return <Xasis key={id}>{data}</Xasis>;
                   })
                 : salesData?.xlabel.map((data, id) => {
-                    console.log(data);
                     return (
                       <Xasis key={id}>{moment(data).format("YY.MM")}</Xasis>
                     );
