@@ -17,10 +17,11 @@
 <a href='https://ifh.cc/v-8HHVWl' target='_blank'><img src='https://ifh.cc/g/8HHVWl.png' border='0'></a>
 <br/><br/><br/>
 <a href='https://ifh.cc/v-OBHYzW' target='_blank'><img src='https://ifh.cc/g/OBHYzW.png' border='0'></a>
-<br/><br/><br/>
+<br/><br/>
 
 <h2>서비스 핵심기능</h2>
-
+<details>
+<summary>핵심기능</summary>
  <h3>📊 농장 관리 현황</h3>
  <span>올해 수입&지출 총계, 작업시간 통계 및 작년대비 상승/감소율 <br/>
 사용자 작물 월별/연도별 수확량 통계, 월별/연도별 매출, 비용, 순이익 통계<span/>
@@ -63,8 +64,8 @@
 <a href='https://ifh.cc/v-X0z8ng' target='_blank'><img src='https://ifh.cc/g/X0z8ng.jpg' border='0'></a>
 <br/><br/><br/>
 
-
-
+</details>
+<br/><br/>
 <h2>🛠 Tech & Platfrom</h2>
 
 <h3>Front-End </h3>
