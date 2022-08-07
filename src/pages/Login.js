@@ -18,12 +18,9 @@ import nongdamLogo from "../images/nongdam_logo.png";
 
 const Login = () => {
   const idRef = useRef();
-  const errRef = useRef();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
   const dispatch = useDispatch();

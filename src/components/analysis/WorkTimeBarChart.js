@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 
 const WorkTimeBarChart = ({ workTimeData }) => {
   const navigate = useNavigate();
-
+  console.log(workTimeData);
   // state.series 값 배열
   const seriesList =
     workTimeData.datas !== undefined &&

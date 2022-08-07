@@ -156,13 +156,6 @@ const MarketPrice = () => {
               onMouseLeave={onDragEnd}
               ref={scrollRef}
             >
-              {/* {scrollWidth !== null &&
-              scrollWidth > clientWidth + scrollLeft ? (
-                <>
-                  <GradationBox />
-                  <GradationBox />
-                </>
-              ) : null} */}
               <MyCropsMarketPriceCard checkedInputs={checkedInputs} />
             </MyCropsChartWrap>
           </Div>

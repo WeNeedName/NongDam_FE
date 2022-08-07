@@ -69,7 +69,7 @@ const AccountListModal = ({
       });
       mappedData.set(list.date, original);
     });
-
+  console.log(mappedData);
   return (
     <StyledModal
       isOpen={isOpenList}
