@@ -19,7 +19,7 @@ const WorkTime = ({ workTimeData }) => {
     dispatch(getRateDB());
   }, []);
 
-  const end = rateData.rate && rateData.rate;
+  const end = rateData?.rate;
   const start = 0;
   const duration = 1000;
 

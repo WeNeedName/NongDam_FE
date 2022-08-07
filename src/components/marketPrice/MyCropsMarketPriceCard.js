@@ -14,7 +14,6 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const MyCropsMarketPriceCard = ({ checkedInputs }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
@@ -71,6 +70,7 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
   const myDateList = Array.from([day, day, day, day, day, day], (x) =>
     x.setMonth(x.getMonth() - 2)
   );
+  console.log(myDateList);
 
   const newMonthDateList = [];
   const newMyDateList = myDateList.map((list) => {
