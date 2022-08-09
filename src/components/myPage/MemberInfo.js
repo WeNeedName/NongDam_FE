@@ -164,7 +164,7 @@ const Wrap = styled.div`
     grid-row: 3 / 4;
     margin-left: -20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
     padding: 20px;
     grid-column: 2 / 3;
@@ -219,7 +219,7 @@ const Names = styled.div`
 
   .userEmail {
     margin-left: 20px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -238,7 +238,7 @@ const Line = styled.hr`
   border: solid 0.5px #d8d8d8;
   margin-left: 20px;
   padding-right: 40px;
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 75%;
   }
 `;
@@ -252,7 +252,7 @@ const AddressWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 664px;
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
   }
 `;
@@ -262,24 +262,22 @@ const TitleAndAddress = styled.div`
   text-align: center;
   align-items: center;
   justify-content: space-between;
-  @media only screen and (max-width: 414px) {
-  }
 `;
 
 const SmallTitle = styled.span`
   /* padding-right: 24px; */
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #02113b;
   font-weight: 700;
   text-align: left;
   flex-wrap: wrap;
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     /* padding-right: 15px; */
     width: 60px;
   }
 `;
 const PrevAddressWrap = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   margin-left: 60px;
   border: none;
   background-color: transparent;
@@ -288,17 +286,17 @@ const PrevAddressWrap = styled.div`
   flex-wrap: wrap;
 
   @media only screen and (max-width: 760px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     max-width: 300px;
   }
-  @media only screen and (max-width: 414px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-left: 30px;
     width: 200px;
   }
 `;
 const PrevAddress = styled.p`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   margin-left: 0px;
   border: none;
   background-color: transparent;
@@ -307,16 +305,16 @@ const PrevAddress = styled.p`
   flex-wrap: wrap;
 
   @media only screen and (max-width: 760px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     max-width: 300px;
   }
-  @media only screen and (max-width: 414px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const NoAddressMsg = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   border: none;
   background-color: transparent;
   color: #02113b;
@@ -324,11 +322,11 @@ const NoAddressMsg = styled.span`
   flex-wrap: wrap;
 
   @media only screen and (max-width: 760px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-left: 24px;
   }
-  @media only screen and (max-width: 414px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     max-width: 100px;
     margin-left: 5px;
   }
@@ -337,7 +335,6 @@ const NoAddressMsg = styled.span`
 const CropsWrap = styled.div`
   width: 664px;
   margin-top: 28px;
-  /* margin-left: 12px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -345,7 +342,7 @@ const CropsWrap = styled.div`
   @media only screen and (max-width: 760px) {
     margin-right: 0px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
     margin-right: 0px;
   }
@@ -359,7 +356,7 @@ const TitleAndCrops = styled.div`
 
 const SmallTitleCrops = styled.span`
   /* padding-right: 19px; */
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
@@ -372,13 +369,13 @@ const PreviousMyCrops = styled.div`
   text-align: left;
   flex-wrap: wrap;
   .noCropTitle {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     flex-wrap: wrap;
     @media only screen and (max-width: 760px) {
-      font-size: 16px;
+      font-size: ${({ theme }) => theme.fontSizes.md};
     }
-    @media only screen and (max-width: 414px) {
-      font-size: 14px;
+    @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
     }
   }
   @media only screen and (max-width: 760px) {
@@ -394,7 +391,7 @@ const PreviousCropsList = styled.div`
   border: 1px solid #bfbfbf;
   padding: 6px 10px;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border-radius: 10px;
   margin-right: 5px;
   margin-bottom: 6px;
@@ -402,7 +399,7 @@ const PreviousCropsList = styled.div`
   @media only screen and (max-width: 760px) {
     margin-bottom: 6px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 6px;
     font-size: 13px;
   }
@@ -425,32 +422,32 @@ const TitleAndArea = styled.div`
 `;
 
 const SmallTitleArea = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     line-height: 10px;
   }
 `;
 
 const Area = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   margin-left: 30px;
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
   }
-  @media only screen and (max-width: 414px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 export const SubmitBtn = styled.button`
   margin-top: 40px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: white;
-  background-color: #55a349;
-  border: 1px solid #55a349;
+  background-color: ${({ theme }) => theme.colors.mainColor};
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
   padding: 6px 14px;
   border-radius: 8px;
 

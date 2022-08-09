@@ -207,14 +207,14 @@ const StyledModal = Modal.styled`
   background-color: white;
   border-radius: 10px;
   padding: 30px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 80%;
     padding: 20px;
   }
 `;
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
 `;
 
@@ -225,7 +225,7 @@ const ContentWrap = styled.span`
 `;
 
 const ContentLabel = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
   margin-bottom: 8px;
 `;
@@ -243,7 +243,7 @@ const PriceInput = styled.input`
 `;
 
 const WonT = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-left: 6px;
 `;
 
@@ -345,7 +345,7 @@ const BtnWrap = styled.div`
 const DoneBtn = styled.button`
   padding: 6px 16px;
   height: 26px;
-  background: #55a349;
+  background: ${({ theme }) => theme.colors.mainColor};
   border-radius: 6px;
   color: white;
   border: none;

@@ -274,7 +274,7 @@ const TotalWrap = styled.div`
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-bottom: 40px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 90%;
     margin-bottom: 110px;
     border-radius: 0px;
@@ -302,7 +302,7 @@ const GreyBtn = styled.button`
   &:hover {
     opacity: 0.7;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 46px;
     height: 24px;
     font-size: 11px;
@@ -320,7 +320,7 @@ const Title = styled.div`
   font-size: 36px;
   margin-bottom: 10px;
   margin-top: 10px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 4px;
@@ -331,8 +331,8 @@ const DateWrap = styled.div`
   display: flex;
   font-size: 20px;
   margin-bottom: 10px;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -340,8 +340,8 @@ const SmallTitle = styled.label`
   font-size: 18px;
   font-weight: 700;
   margin-right: 10px;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -371,7 +371,7 @@ const CropContent = styled.div`
   border-radius: 100px;
   border: 1px solid #bfbfbf;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 10px;
 `;
 
@@ -391,7 +391,7 @@ const WorkContent = styled.div`
   text-align: left;
   border: none;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 10px;
   white-space: pre-wrap;
 `;
@@ -419,10 +419,10 @@ const WorkingHour = styled.div`
 `;
 
 const Quantity = styled.div`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 5px;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
   }
 `;
 
@@ -435,7 +435,7 @@ const Images = styled.div`
   border-radius: 6px;
   background-position: center 30%;
   background-size: cover;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 100%;
     padding-bottom: 60%;
     padding-right: 20%;
@@ -463,13 +463,13 @@ const PreContentBox = styled.div`
 `;
 
 const PreT = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #878787;
   margin-right: 20px;
 `;
 
 const PreTitle = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const Info = styled.div`
@@ -489,7 +489,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
     display: none;
@@ -514,7 +514,7 @@ const Icon = styled.div`
     animation: ${boxFadeC} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 60px;
     height: 60px;
     bottom: 120px;
@@ -524,7 +524,7 @@ const Icon = styled.div`
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 

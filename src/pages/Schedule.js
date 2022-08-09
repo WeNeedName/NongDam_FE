@@ -136,11 +136,11 @@ const Wrap = styled.div`
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr minmax(600px, 720px) 24% 1fr;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-template-columns: 1fr 95% 1fr;
     grid-template-rows: 70px minmax(610px, 700px) 1fr;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100vw;
     column-gap: 0px;
     grid-template-columns: 30px 77% 30px;
@@ -157,7 +157,7 @@ const CalendarWrap = styled.div`
   grid-column: 2 / 3;
   grid-row: 2 / 3;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     padding: 20px 10px 20px 10px;
     grid-column: 2 / 3;
     grid-row: 2 / 3;
@@ -166,7 +166,7 @@ const CalendarWrap = styled.div`
     width: 100%;
     margin-left: -10px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     padding: 10px 10px 10px 10px;
     grid-column: 1 / 4;
     grid-row: 2 / 3;
@@ -185,11 +185,11 @@ const AddScheduleBtn = styled.button`
   padding: 10px 18px;
   width: auto;
   height: 26px;
-  background: #55a349;
+  background: ${({ theme }) => theme.colors.mainColor};
   border: none;
   border-radius: 50px;
   color: white;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   position: absolute;
   top: 36px;
   right: 30px;
@@ -197,7 +197,7 @@ const AddScheduleBtn = styled.button`
   &:hover {
     background-color: #22631c;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     right: 16px;
     top: 30px;
   }
@@ -207,7 +207,7 @@ const CurrentListWrap = styled.div`
   grid-column: 3 / 4;
   grid-row: 2 / 3;
   border-left: 1px solid #dddddd;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     border-left: none;
@@ -231,7 +231,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 10;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -255,13 +255,13 @@ const Icon = styled.div`
     animation: ${boxFadeC} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 

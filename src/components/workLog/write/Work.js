@@ -151,7 +151,7 @@ const TitleInput = styled.input`
   &::placeholder {
     color: #ccc;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
     font-size: 30px;
     margin-bottom: 4px;
@@ -161,8 +161,8 @@ const TitleInput = styled.input`
 const CategoryWrap = styled.div`
   display: flex;
   margin-top: 10px;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     flex-wrap: wrap;
   }
 `;
@@ -175,7 +175,7 @@ const SmallTitle = styled.label`
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   padding: 5px 11px;
   margin-top: 5px;
   border-radius: 15px;
@@ -220,10 +220,10 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -233,15 +233,15 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 4px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
     text-decoration: underline;
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     text-decoration: underline;
   }
 `;
@@ -268,13 +268,13 @@ const TimeContent = styled.div`
   display: flex;
   align-items: center;
   .inputTitle {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 const TimeInput = styled.input`
   width: 40px;
   padding: 4px 10px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: none;
   border-bottom: 1px solid #bfbfbf;
   margin-right: 6px;
@@ -289,14 +289,14 @@ const TodoInput = styled.textarea`
   width: 400px;
   height: 10em;
   resize: none;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: 1px solid #bfbfbf;
   margin-top: 5px;
   border-radius: 10px;
   padding: 8px;
   &::placeholder {
     color: #ddd;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

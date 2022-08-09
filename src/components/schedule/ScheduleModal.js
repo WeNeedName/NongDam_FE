@@ -360,7 +360,7 @@ const StyledModal = Modal.styled`
     width: 70%;
   max-height: ${({ openEdit }) => (openEdit ? "600px" : "520px")}
 };
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
   top: 100px;
   margin-top : 60px;
   border-radius: 10px;
@@ -378,7 +378,7 @@ const WrapWrap = styled.div`
     width: 95%;
     justify-content: flex-start;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
   } ;
 `;
@@ -439,7 +439,7 @@ const CropWrap = styled.div`
     margin-bottom: 10px;
     justify-content: flex-start;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-top: 20px;
     margin-bottom: 5px;
     justify-content: flex-start;
@@ -447,7 +447,7 @@ const CropWrap = styled.div`
 `;
 
 const SmallTitle = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
   @media only Screen and (max-width: 760px) {
   }
@@ -469,7 +469,7 @@ const CropEditWrap = styled.div`
     flex-wrap: wrap;
     width: 100%;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     justify-content: flex-start;
     margin-top: 5px;
     margin-right: 3px;
@@ -488,7 +488,7 @@ const EditStart = styled.div`
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   padding: 4px 13px;
   border-radius: 13px;
   background: transparent;
@@ -505,12 +505,12 @@ const FormCheckText = styled.span`
     border: 1px solid black;
   }
   @media only screen and (max-width: 760px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-top: 10px;
     margin-bottom: 10px;
   }
-  @media only Screen and (max-width: 414px) {
-    font-size: 12px;
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     margin-top: 3px;
     margin-bottom: 3px;
   }
@@ -542,12 +542,12 @@ const CropName = styled.p`
   height: auto;
   text-align: center;
   padding: 4px 13px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: 1px solid #bfbfbf;
   border-radius: 10px;
   margin-top: 5px;
-  @media only Screen and (max-width: 414px) {
-    font-size: 14px;
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-top: 5px;
   }
 `;
@@ -558,7 +558,7 @@ const TimeWrap = styled.div`
   margin-bottom: 15px;
   .startDatePicker {
     width: 60%;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-top: 5px;
     background-color: transparent;
     color: black;
@@ -576,16 +576,16 @@ const TimeWrap = styled.div`
       margin-top: 10px;
       margin-bottom: 0px;
     }
-    @media only Screen and (max-width: 414px) {
+    @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
       width: 60%;
-      font-size: 16px;
+      font-size: ${({ theme }) => theme.fontSizes.md};
       margin-top: 3px;
       margin-bottom: 0px;
     }
   }
   .endDatePicker {
     width: 60%;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-top: 5px;
     background-color: transparent;
     color: black;
@@ -603,9 +603,9 @@ const TimeWrap = styled.div`
       margin-bottom: 10px;
       font-size: 18px;
     }
-    @media only Screen and (max-width: 414px) {
+    @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
       width: 60%;
-      font-size: 16px;
+      font-size: ${({ theme }) => theme.fontSizes.md};
       margin-top: 3px;
       margin-bottom: 0px;
     }
@@ -617,7 +617,7 @@ const TimeWrap = styled.div`
 `;
 
 const LoadStart = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   background-color: transparent;
   color: #02113b;
   margin-bottom: 15px;
@@ -635,7 +635,7 @@ const EditEnd = styled.div`
   }
 `;
 const EndTime = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   background-color: transparent;
   color: #02113b;
   border: none;
@@ -645,7 +645,7 @@ const EndTime = styled.div`
   @media only screen and (max-width: 760px) {
     margin-bottom: 20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 10px;
   }
 `;
@@ -653,7 +653,7 @@ const End = styled.div`
   @media only screen and (max-width: 760px) {
     margin-bottom: 10px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 5px;
   }
 `;
@@ -676,7 +676,7 @@ const Start = styled.div`
   @media only screen and (max-width: 760px) {
     margin-bottom: 20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 5px;
   }
 `;
@@ -706,7 +706,7 @@ const EditWork = styled.div`
     justify-content: flex-start;
     margin-bottom: 20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
     justify-content: flex-start;
     margin-bottom: 0px;
@@ -723,7 +723,7 @@ const WorkSelectBoxWrap = styled.div`
     margin-top: 7px;
     margin-bottom: 9px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
     justify-content: flex-start;
     margin-top: 3px;
@@ -744,7 +744,7 @@ const FormCheckTextWork = styled.span`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 4px;
   cursor: pointer;
   color: #ccc;
@@ -753,11 +753,11 @@ const FormCheckTextWork = styled.span`
     border: 1px solid black;
   }
   @media only screen and (max-width: 760px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-bottom: 10px;
   }
-  @media only Screen and (max-width: 414px) {
-    font-size: 12px;
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     margin-top: 3px;
     margin-bottom: 3px;
     margin-right: 5px;
@@ -786,7 +786,7 @@ const MemoWrap = styled.div`
     margin-bottom: 6px;
   }
   .limitMsg {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     color: #ccc;
     margin-bottom: 3px;
     margin-left: 5px;
@@ -796,7 +796,7 @@ const MemoWrap = styled.div`
   @media only screen and (max-width: 760px) {
     margin-top: 20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-top: 10px;
   }
 `;
@@ -805,7 +805,7 @@ const InputMemo = styled.textarea`
   /* max-width: 400px; */
   min-width: 250px;
   height: auto;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #616161;
   padding-top: 10px;
   padding-right: 10px;
@@ -817,7 +817,7 @@ const InputMemo = styled.textarea`
   resize: none;
   &::placeholder {
     color: #ddd;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
   &:focus {
     outline: none;
@@ -829,11 +829,11 @@ const InputMemo = styled.textarea`
     margin-top: 10px;
     font-size: 18px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     justify-content: flex-start;
     width: 98%;
     margin-top: 5px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     padding-top: 7px;
     padding-right: 7px;
     padding-left: 7px;
@@ -844,12 +844,12 @@ const WorkLoadWrap = styled.div`
   @media only screen and (max-width: 760px) {
     justify-content: flex-start;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     justify-content: flex-start;
   }
 `;
 const WorkContent = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #616161;
   max-width: 350px;
   min-width: 250px;
@@ -862,11 +862,11 @@ const WorkContent = styled.div`
     width: 100%;
     justify-content: flex-start;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
     height: 80%;
     justify-content: flex-start;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     padding-top: 7px;
     padding-right: 0px;
     padding-left: 7px;
@@ -884,7 +884,7 @@ const BtnWrap = styled.div`
     margin-top: 8px;
     width: 107%;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 103%;
     display: flex;
     justify-content: flex-end;
@@ -892,7 +892,7 @@ const BtnWrap = styled.div`
   } ;
 `;
 const EditBtn = styled.button`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   background-color: #318f27;
   color: #ffffff;
   border-radius: 8px;
@@ -907,7 +907,7 @@ const EditBtn = styled.button`
     opacity: 0.3;
     cursor: default;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     padding: 6px 10px;
     margin-left: 3px;
     font-size: 13px;
@@ -915,7 +915,7 @@ const EditBtn = styled.button`
 `;
 
 const Btn = styled.button`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   background-color: transparent;
   color: #616161;
   border-radius: 8px;
@@ -929,14 +929,14 @@ const Btn = styled.button`
   }
   @media only screen and (max-width: 760px) {
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     font-size: 13px;
     padding: 6px 8px;
     margin-left: 5px;
   } ;
 `;
 const EditBtnWrap = styled.div`
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     display: flex;
     justify-content: flex-end;
     margin-top: 0px;
@@ -944,7 +944,7 @@ const EditBtnWrap = styled.div`
 `;
 
 const LoadBtnWrap = styled.div`
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     display: flex;
     justify-content: flex-end;
   } ;

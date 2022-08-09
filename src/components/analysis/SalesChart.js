@@ -274,7 +274,7 @@ const ChartWrap = styled.div`
   cursor: pointer;
   margin-top: 12px;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-bottom: 10px;
     min-height: 140px;
   }
@@ -319,7 +319,7 @@ const YasisLabelBox = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: auto;
     margin: 6px 10px;
   }
@@ -353,7 +353,7 @@ const YasisColorTip = styled.div`
 
   margin-left: 4px;
   margin-right: 4px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 4px;
     height: 4px;
   }
@@ -409,7 +409,7 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
 `;
@@ -421,7 +421,7 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   cursor: pointer;
   &:hover {
     font-weight: 600;

@@ -374,10 +374,10 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -388,15 +388,15 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

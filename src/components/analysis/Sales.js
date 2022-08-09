@@ -80,14 +80,14 @@ const Wrap = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   padding: 20px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 5 / 6;
   }
 `;
 
 const Title = styled.span`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
 `;
 
@@ -101,7 +101,7 @@ const FormCheckText = styled.span`
   width: auto;
   height: 26px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: 24px;
   margin-right: 4px;
   background: transparent;

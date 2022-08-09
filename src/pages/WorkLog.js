@@ -104,7 +104,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -128,13 +128,13 @@ const Icon = styled.div`
     animation: ${boxFadeC} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 

@@ -130,7 +130,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, 27.5%) 1fr;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-template-columns: 1fr 90% 1fr;
     grid-template-rows: 80px repeat(12, auto) 50px;
   }
@@ -153,7 +153,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -177,13 +177,13 @@ const Icon = styled.div`
     animation: ${boxFade} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 

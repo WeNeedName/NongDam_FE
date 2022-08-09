@@ -245,7 +245,7 @@ const TotalTitle = styled.div`
   font-size: 24px;
   font-weight: 700;
   align-self: flex-start;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 24px;
     margin-left: 10px;
   }
@@ -267,8 +267,8 @@ const Wrap = styled.div`
   margin-bottom: 60px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-bottom: 110px;
     border-radius: 0px;
   }
@@ -285,7 +285,7 @@ const MemoTitleWrap = styled.div`
   flex-direction: row;
   align-items: flex-end;
   span {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     color: #ccc;
     margin-left: 12px;
     margin-bottom: 2px;
@@ -305,7 +305,7 @@ const SmallTitle = styled.label`
 
 const BtnWrap = styled.div`
   align-self: flex-end;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 20px;
   }
 `;
@@ -314,9 +314,9 @@ const DoneBtn = styled.button`
   margin-right: 10px;
   width: 80px;
   height: 30px;
-  background-color: #55a349;
+  background-color: ${({ theme }) => theme.colors.mainColor};
   color: white;
-  border: 1px solid #55a349;
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 8px;
   cursor: pointer;
   &:hover {
@@ -342,7 +342,7 @@ const TodoInput = styled.textarea`
   width: 95%;
   height: 200px;
   resize: none;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: 1px solid #bfbfbf;
   margin-top: 5px;
   border-radius: 10px;
@@ -352,13 +352,13 @@ const TodoInput = styled.textarea`
   resize: none;
   &::placeholder {
     color: #ddd;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
   &:focus {
     outline: none;
     border: 1px solid black;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 90%;
   }
 `;
@@ -380,7 +380,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -404,13 +404,13 @@ const Icon = styled.div`
     animation: ${boxFadeC} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 

@@ -313,23 +313,23 @@ const TopWrap = styled.div`
   .title {
     font-weight: 700;
     font-size: 30px;
-    color: #55a349;
+    color: ${({ theme }) => theme.colors.mainColor};
     margin-bottom: 40px;
   }
   .slogan {
     font-weight: 700;
     font-size: 20px;
-    @media only screen and (max-width: 760px) {
+    @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
       font-size: 22px;
     }
   }
   .desc {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-top: 20px;
     margin-bottom: 28px;
     color: #666666;
-    @media only screen and (max-width: 760px) {
-      font-size: 16px;
+    @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+      font-size: ${({ theme }) => theme.fontSizes.md};
       margin-bottom: 40px;
     }
   }
@@ -373,10 +373,10 @@ const LabelEmail = styled.label`
   margin-bottom: 5px;
   text-align: left;
   color: rgb(${(props) => (props.EmailErr ? "255, 119, 119" : "41, 41, 41")});
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -386,14 +386,14 @@ const EmailInputBox = styled.input`
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   :focus {
     outline: none;
     border: 2px solid
       ${(props) => (props.userIdErr ? "rgb(255, 119, 119)" : "#55a349")};
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -415,36 +415,36 @@ const SelectEM = styled.select`
   resize: none;
   padding: 4px 8px;
   border: 1px solid #999999;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   &::placeholder {
     color: #424242;
   }
   &:focus {
     outline: none;
-    border: 2px solid #55a349;
+    border: 2px solid ${({ theme }) => theme.colors.mainColor};
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
 const EmailErr = styled.div`
   /* margin-right: 103px; */
   text-align: left;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #ec0000;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const EmailOk = styled.div`
   /* margin-right: 103px; */
   text-align: left;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #0a9c19;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -454,15 +454,15 @@ const InputBox = styled.input`
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 
   :focus {
     outline: none;
     border: 2px solid
       ${(props) => (props.pwCheckErr ? "rgb(255, 119, 119)" : "#55a349")};
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -472,15 +472,15 @@ const InputBoxPw = styled.input`
   border: 1px solid #999999;
   border-radius: 5px;
   padding: 5px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 
   :focus {
     outline: none;
     border: 2px solid
       ${(props) => (props.pwErr ? "rgb(255, 119, 119)" : "#55a349")};
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -488,20 +488,20 @@ const LabelPw = styled.label`
   text-align: left;
   /* margin-right: 215px; */
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: rgb(${(props) => (props.PwErr ? "255, 119, 119" : "41, 41, 41")});
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
 const InfoPw = styled.div`
   margin-top: 3px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #666666;
   text-align: left;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -509,10 +509,10 @@ const PwErr = styled.div`
   /* margin-right: 30px; */
   text-align: left;
   margin-top: 3px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #ec0000;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -520,10 +520,10 @@ const PwOk = styled.div`
   /* margin-right: 145px; */
   text-align: left;
   margin-top: 3px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #0a9c19;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -532,9 +532,9 @@ const LabelPC = styled.label`
   text-align: left;
   margin-bottom: 5px;
   color: rgb(${(props) => (props.PwCheckErr ? "255, 119, 119" : "41, 41, 41")});
-  font-size: 14px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -542,49 +542,49 @@ const PwCheckErr = styled.div`
   /* margin-right: 120px; */
   text-align: left;
   margin-top: 3px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #ec0000;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const InfoPc = styled.div`
   text-align: left;
   margin-top: 3px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #666666;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const PwCheckOk = styled.div`
   text-align: left;
   margin-top: 3px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #0a9c19;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const LabelName = styled.label`
   text-align: left;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
 const LabelNickname = styled.label`
   text-align: left;
   margin-bottom: 5px;
-  font-size: 14px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -593,28 +593,28 @@ const BtnWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
+  margin-top: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const InfoBtn = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 10px;
   color: #666666;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 260px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const InfoLink = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 6px;
   color: #666666;
   font-weight: 500;
   text-decoration: underline;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -625,14 +625,14 @@ const SignUpBtn = styled.button`
   justify-content: center;
   text-align: center;
   padding: 4px 13px;
-  background-color: #55a349;
+  background-color: ${({ theme }) => theme.colors.mainColor};
   color: white;
   border-radius: 8px;
   border: none;
   size: 11px;
   margin: 10px;
   margin-bottom: 90px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 
   cursor: pointer;
   &:hover {
@@ -643,8 +643,8 @@ const SignUpBtn = styled.button`
     opacity: 0.3;
     cursor: default;
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -665,7 +665,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -689,13 +689,13 @@ const Icon = styled.div`
     animation: ${boxFade} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 
