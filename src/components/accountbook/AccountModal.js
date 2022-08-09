@@ -332,7 +332,7 @@ width: 90%;
 background-color: white;
 border-radius: 10px;
 padding: 30px;
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
   width: 80%;
   padding: 20px;
 }
@@ -363,14 +363,14 @@ const PriceInput = styled.input`
   border-radius: 6px;
   border: none;
   padding-left: 10px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   &:focus {
     outline: 0.5px solid #bfbfbf;
   }
 `;
 
 const WonT = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   margin-left: 6px;
 `;
 
@@ -386,7 +386,7 @@ const ContentWrap = styled.span`
 `;
 
 const ContentLabel = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
   margin-bottom: 8px;
 `;
@@ -440,19 +440,19 @@ const Selec = styled.select`
   border-radius: 10px;
   border: 1px solid #bfbfbf;
   padding-left: 10px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   &:focus {
     outline: 0.5px solid #bfbfbf;
   }
 `;
 
 const Price = styled.span`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
 `;
 
 const Memo = styled.span`
   width: 100%;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-left: 6px;
 `;
 
@@ -461,9 +461,9 @@ const MemoInput = styled.textarea`
   border-radius: 6px;
   height: 60px;
   padding: 6px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   &::placeholder {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
   &:focus {
     outline: 0.5px solid #bfbfbf;
@@ -493,7 +493,7 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #bfbfbf;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 4px;
   color: #616161;
 `;
@@ -526,10 +526,10 @@ const BtnWrap = styled.div`
 const DoneBtn = styled.button`
   padding: 6px 16px;
   height: 30px;
-  background: #55a349;
+  background: ${({ theme }) => theme.colors.mainColor};
   border-radius: 6px;
   color: white;
-  border: 1px solid #55a349;
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
   font-size: 13px;
   cursor: pointer;
   &:hover {
@@ -549,9 +549,9 @@ const ModifiBtn = styled.button`
   font-size: 13px;
   cursor: pointer;
   &:hover {
-    background: #55a349;
+    background: ${({ theme }) => theme.colors.mainColor};
     color: white;
-    border: 1px solid #55a349;
+    border: 1px solid ${({ theme }) => theme.colors.mainColor};
   }
 `;
 

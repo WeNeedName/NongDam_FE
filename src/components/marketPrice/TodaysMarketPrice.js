@@ -244,7 +244,7 @@ const Wrap = styled.div`
   grid-column: 3 / 4;
   grid-row: 1 / 2;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     height: 340px;
@@ -252,13 +252,13 @@ const Wrap = styled.div`
 `;
 const Title = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
   margin-bottom: 10px;
 `;
 
 const Region = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
   margin: 16px 0px 10px 0px;
 `;
@@ -292,7 +292,7 @@ const SearchBtn = styled.button`
     color: black;
     border: 1px solid black;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 6px;
   }
 `;
@@ -337,11 +337,11 @@ const CategoryTWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const DateT = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #6f6f6f;
   margin-left: 10px;
 `;
@@ -360,7 +360,7 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   width: 40px;
   height: 18px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   padding-bottom: 4px;
   border-radius: 100px;
   background: transparent;
@@ -418,12 +418,8 @@ const InputWrap = styled.div`
     background-color: black;
   }
   label {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-right: 8px;
-    @media only screen and (max-width: 760px) {
-      font-size: 14px;
-      /* margin-right: 8px; */
-    }
   }
 `;
 
@@ -431,17 +427,17 @@ const NotFoundNoticeWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     height: 80px;
   }
 `;
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 20px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -469,11 +465,11 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -490,9 +486,9 @@ const NoticeBtn = styled.button`
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

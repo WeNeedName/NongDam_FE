@@ -315,7 +315,7 @@ const AccountWeek = ({ currentAccount_list, accountList, yearMonth }) => {
 
 const Wrap = styled.div`
   padding: 30px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     padding: 30px 0px;
     margin-right: 20px;
   }
@@ -335,7 +335,7 @@ const MonthAccountBox = styled.div`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     max-width: 760px;
     width: 96%;
   }
@@ -354,7 +354,7 @@ const BodyWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 4px 0px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin: 8px 0px;
   }
 `;
@@ -370,7 +370,7 @@ const ShowMoreBtn = styled.div`
   color: #8e8f93;
   cursor: pointer;
   margin: 4px 8px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 13px;
   }
 `;
@@ -380,11 +380,11 @@ const NoticeWrap = styled.div`
 `;
 
 const NoticeT = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #8e8f93;
   padding-top: 20px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -396,10 +396,10 @@ const CategoryA = styled.div`
   padding: 2px 10px 4px 10px;
   background: #d7edf9;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #39a4e0;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -411,10 +411,10 @@ const CategoryB = styled.div`
   padding: 2px 10px 4px 10px;
   background: #facccc;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #ec4646;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -437,15 +437,15 @@ const FormCheckText = styled.span`
   height: 16px;
   margin-right: 8px;
   margin-bottom: 14px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   cursor: pointer;
   color: black;
   &:hover {
     font-weight: 700;
     border: 1px solid #02113b;
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
     padding: 6px 15px 8px 15px;
     margin-right: 12px;
   }
@@ -490,7 +490,7 @@ const AccountBoxWrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-bottom: 60px;
   }
 `;
@@ -508,7 +508,7 @@ const AccountBox = styled.div`
   border-radius: 6px;
   margin: 0px 0px 10px 0px;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     max-width: 760px;
     width: 95%;
   }
@@ -517,7 +517,7 @@ const AccountBox = styled.div`
 const Day = styled.span`
   font-size: 18px;
   font-weight: bold;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 22px;
   }
 `;
@@ -539,25 +539,25 @@ const Category = styled.span`
   border-radius: 100px;
   font-size: 11px;
   color: ${(props) => (props.category === "수입" ? "#39a4e0" : "#EC4646")};
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const PriceNum = styled.span`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-right: 10px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 24px;
   }
 `;
 
 const WhereTo = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #02113b;
   margin: 8px 0px;
 `;
@@ -571,7 +571,7 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #bfbfbf;
   border-radius: 100px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-bottom: 4px;
   color: #616161;
 `;

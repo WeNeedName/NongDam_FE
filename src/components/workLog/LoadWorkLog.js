@@ -163,7 +163,7 @@ const Wrap = styled.div`
   justify-content: center;
   background-color: transparent;
   border-radius: 10px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
   }
 `;
@@ -195,23 +195,23 @@ const WriteBtn = styled.button`
   padding: 4px 18px;
   border-radius: 100px;
   color: #ffffff;
-  background-color: #55a349;
-  font-size: 14px;
+  background-color: ${({ theme }) => theme.colors.mainColor};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 
-  border: 1px solid #55a349;
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
   cursor: pointer;
   &:hover {
     background-color: #22631c;
     border: 1px solid #22631c;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-right: -10px;
   }
 `;
 
 const BoxWrap = styled.div`
   flex-wrap: wrap;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
   }
 `;
@@ -232,7 +232,7 @@ const WorkLogBox = styled.div`
   margin-bottom: 20px;
   animation: ${boxFade} 1s;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
   }
   &:hover {
@@ -257,7 +257,7 @@ const ShimmerWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
   }
 `;
@@ -277,15 +277,14 @@ const TimeContentWrap = styled.div`
 `;
 
 const DateContent = styled.div`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-right: 3px;
 `;
 
 const WorkContent = styled.div`
   /* width: ${(props) => (props.imageURL === "" ? "290px" : "200px")}; */
   width: 400px;
-
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   flex-direction: row;
   margin: 10px 0px;
   margin-right: 10px;
@@ -298,7 +297,7 @@ const WorkContent = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2; // 원하는 라인수
   -webkit-box-orient: vertical;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 90%;
   }
 `;
@@ -308,7 +307,7 @@ const CropContent = styled.div`
 
   border: 1px solid #bfbfbf;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   width: auto;
   height: auto;
   padding: 4px 12px;
@@ -355,7 +354,7 @@ const InfoWrap = styled.div`
   text-align: center;
   font-weight: 500;
   color: #b1b1b1;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   span {
     margin-bottom: 2px;
   }

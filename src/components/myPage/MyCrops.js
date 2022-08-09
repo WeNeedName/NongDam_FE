@@ -64,11 +64,11 @@ const Container = styled.div`
     margin-left: 60px;
     margin-top: 10px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     @media only screen and (max-width: 760px) {
       margin-left: 10px;
     }
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
       margin-left: 10px;
       margin-top: 3px;
     }

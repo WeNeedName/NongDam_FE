@@ -162,7 +162,7 @@ const Wrap = styled.div`
   background-color: #fff;
   position: relative;
 
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 2 / 5;
     height: 446px;
@@ -174,7 +174,7 @@ const ThumNailWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 30px;
   }
 `;
@@ -188,7 +188,7 @@ const ThumNail = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
 `;
 
@@ -219,7 +219,7 @@ const MiddleRightWrap = styled.div`
 
 const Region = styled.span`
   font-weight: 400;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: 24px;
   margin-bottom: 12px;
 `;
@@ -247,7 +247,7 @@ const Temp = styled.span`
 
 const WeatherT = styled.span`
   font-weight: 500;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 28px;
   margin-left: -8px;
   @media only screen and (max-width: 1550px) {
@@ -277,7 +277,7 @@ const InfoWrapRight = styled.div`
 `;
 
 const Info = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   color: #787c87;
   margin-bottom: 2px;
@@ -285,7 +285,7 @@ const Info = styled.span`
 
 const InfoNum = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   margin-left: 30px;
   color: #02113b;
@@ -295,7 +295,7 @@ const InfoNum = styled.span`
 const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     height: 290px;
   }
 `;
@@ -320,8 +320,8 @@ const FormCheckText = styled.span`
   color: black;
   &:hover {
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-right: 14px;
   }
 `;
@@ -366,11 +366,11 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -381,14 +381,14 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

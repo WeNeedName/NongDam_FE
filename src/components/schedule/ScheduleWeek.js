@@ -81,11 +81,11 @@ const ScheduleWeek = () => {
 
 const Wrap = styled.div`
   padding: 10px 30px 10px 25px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     padding: 30px 0px;
     margin-right: 20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     padding: 20px 0px;
   }
 `;
@@ -115,12 +115,12 @@ const ScheduleBoxWrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     max-width: 760px;
     width: 100%;
     margin-bottom: 60px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 110%;
     padding-right: 0px;
     margin-bottom: 60px;
@@ -139,21 +139,21 @@ const ScheduleBox = styled.div`
   margin: 10px 0px;
 
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 85%;
     border-radius: 10px;
   }
 `;
 
 const NoScheduleMsg = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #8e8f93;
   padding-top: 20px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -165,14 +165,14 @@ const TopWrap = styled.div`
   }
 `;
 const Todo = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
   color: #02113b;
   margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 22px;
   }
 `;
@@ -185,14 +185,14 @@ const TimeWrap = styled.div`
 const Date = styled.span`
   font-size: 15px;
   margin-right: 3px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 18px;
   }
 `;
 
 const Time = styled.span`
   font-size: 15px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     font-size: 18px;
   }
 `;
@@ -213,7 +213,7 @@ const Crop = styled.div`
   color: #616161;
   border-radius: 100px;
   margin-top: 4px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #616161;
 `;
 

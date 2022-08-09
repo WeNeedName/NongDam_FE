@@ -274,12 +274,12 @@ padding-left : 30px;
 padding-bottom: 30px;
 padding-right : 30px;
 z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 80%;
     height: 600px;
     padding: 40px 40px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     top: 100px;
     margin-top : 60px;
     border-radius: 10px;
@@ -300,7 +300,7 @@ const NoCropStyledModal = Modal.styled`
   background-color: white;
   border-radius: 10px;
   padding: 30px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 60%;
     padding: 20px;
   }
@@ -332,7 +332,7 @@ const GoToMyPage = styled.button`
 
 const WrapWrap = styled.div`
   width: auto;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 100%;
   }
 `;
@@ -367,7 +367,7 @@ const Wrap = styled.div`
   background-color: white;
   /* grid-auto-rows: auto;
   grid-template-columns: 1fr 1fr; */
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -378,21 +378,21 @@ const Wrap = styled.div`
 const ContentWrapL = styled.div`
   flex-direction: column;
   max-width: 300px;
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     justify-content: flex-start;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-right: 20px;
     width: 100%;
   }
 `;
 
 const ContentWrapR = styled.div`
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     justify-content: flex-start;
     margin-top: 20px;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     justify-content: flex-start;
     margin-top: 10px;
   }
@@ -412,10 +412,10 @@ const CropWrap = styled.div`
   margin-bottom: 5px;
   margin-right: 20px;
   flex-wrap: wrap;
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-right: 20px;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
   }
 `;
@@ -437,7 +437,7 @@ const StartDate = styled.div`
   margin-bottom: 10px;
   .startDatePicker {
     width: 65%;
-    font-size: 20px;
+    font-size: ${({ theme }) => theme.fontSizes.lg};
     margin-top: 5px;
     background-color: transparent;
     color: black;
@@ -449,17 +449,17 @@ const StartDate = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
-    @media only Screen and (max-width: 760px) {
+    @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
       width: 65%;
     }
-    @media only Screen and (max-width: 414px) {
+    @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
       width: 57%;
     }
   }
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-bottom: 30px;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 10px;
   }
 `;
@@ -472,7 +472,7 @@ const EndDate = styled.div`
   margin-top: 15px;
   .endDatePicker {
     width: 65%;
-    font-size: 20px;
+    font-size: ${({ theme }) => theme.fontSizes.lg};
     margin-top: 5px;
     background-color: transparent;
     color: black;
@@ -483,17 +483,17 @@ const EndDate = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
-    @media only Screen and (max-width: 760px) {
+    @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
       width: 65%;
     }
-    @media only Screen and (max-width: 414px) {
+    @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
       width: 57%;
     }
   }
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-bottom: 10px;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 10px;
   }
 `;
@@ -560,7 +560,7 @@ const FormCheckTextWork = styled.span`
     color: black;
     border: 1px solid black;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-right: 5px;
   }
 `;
@@ -594,7 +594,7 @@ const CategoryBigWrap = styled.div`
     margin-bottom: 6px;
   }
   span {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     color: #ccc;
     margin-bottom: 3px;
     margin-left: 5px;
@@ -606,10 +606,10 @@ const WorkWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-right: 0px;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-bottom: 15px;
   }
 `;
@@ -621,7 +621,7 @@ const WorkSelectBoxWrap = styled.div`
 const TodoInput = styled.textarea`
   width: 250px;
   height: 80px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   border: 1px solid #bfbfbf;
   padding: 10px;
   border-radius: 10px;
@@ -635,7 +635,7 @@ const TodoInput = styled.textarea`
     outline: none;
     border: 1px solid black;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 295px;
   }
 `;
@@ -645,11 +645,11 @@ const BtnWrap = styled.div`
   justify-content: flex-end;
   margin-right: 13px;
   margin-top: 10px;
-  @media only Screen and (max-width: 760px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 20px;
     justify-content: flex-start;
   }
-  @media only Screen and (max-width: 414px) {
+  @media only Screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     margin-top: 10px;
     justify-content: flex-end;
   }
@@ -659,7 +659,7 @@ const DoneBtn = styled.button`
   font-size: 11px;
   width: 70px;
   height: 30px;
-  background-color: #55a349;
+  background-color: ${({ theme }) => theme.colors.mainColor};
   color: white;
   border: none;
   border-radius: 8px;

@@ -134,7 +134,7 @@ const Wrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   } */
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 7 / 10;
   }
@@ -150,7 +150,7 @@ const BoxWrap = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
 `;
 
@@ -231,7 +231,7 @@ const ContentsT = styled.div`
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 500;
 
   display: -webkit-box;
@@ -240,7 +240,7 @@ const ContentsT = styled.div`
   @media only screen and (max-width: 1550px) {
     width: ${(props) => (props.imageURL === "" ? "90%" : "220px")};
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: ${(props) => (props.imageURL === "" ? "90%" : "200px")};
     font-size: 15px;
   }
@@ -248,7 +248,7 @@ const ContentsT = styled.div`
 
 const ContentsTInfo = styled.div`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
 `;
 
 const ImageContent = styled.div`
@@ -266,7 +266,7 @@ const ImageContent = styled.div`
     width: 28%;
     padding-bottom: 22%;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 30%;
     padding-bottom: 22%;
   }

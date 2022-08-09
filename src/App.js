@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
@@ -16,7 +16,7 @@ import Signup from "./pages/Signup";
 import MyPage from "./pages/MyPage";
 import OauthFilter from "./pages/OauthFilter";
 import Schedule from "./pages/Schedule";
-// import AddSchedule from "./components/schedule/AddSchedule";
+import theme from "./theme";
 import WorkLog from "./pages/WorkLog";
 import WirteWorkLog from "./pages/WriteWorkLog";
 import DetailWorkLog from "./pages/DetailWorkLog";
@@ -33,23 +33,25 @@ function App() {
 
   return (
     <>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/analysis" element={<Analysis />} />
-        <Route path="/accountbook" element={<AccountBook />} />
-        <Route path="/accountwrite" element={<AccountWrite />} />
-        <Route path="/marketprice" element={<MarketPrice />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/mypage/*" element={<MyPage />} />
-        <Route path="/worklog/" element={<WorkLog />} />
-        <Route path="/worklog/detail/:id" element={<DetailWorkLog />} />
-        <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/code/auth" element={<OauthFilter />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/analysis" element={<Analysis />} />
+          <Route path="/accountbook" element={<AccountBook />} />
+          <Route path="/accountwrite" element={<AccountWrite />} />
+          <Route path="/marketprice" element={<MarketPrice />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/mypage/*" element={<MyPage />} />
+          <Route path="/worklog/" element={<WorkLog />} />
+          <Route path="/worklog/detail/:id" element={<DetailWorkLog />} />
+          <Route path="/WriteWorkLog" element={<WirteWorkLog />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/code/auth" element={<OauthFilter />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </ThemeProvider>
     </>
   );
 }
@@ -61,7 +63,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-size: 85%;
-    background: #f5f5f5;
+    background: ${({ theme }) => theme.colors.BackgroundColor};
     ::-webkit-scrollbar {
     display: none;
   }

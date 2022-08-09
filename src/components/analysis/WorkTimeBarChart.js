@@ -302,7 +302,7 @@ const ChartWrap = styled.div`
   column-gap: 8px;
   cursor: pointer;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     min-height: 140px;
   }
 `;
@@ -382,7 +382,7 @@ const NoticeWrap = styled.div`
   left: 0;
   border-radius: 10px;
   margin-bottom: 8%;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: -20px;
   }
 `;
@@ -392,7 +392,7 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
 `;
@@ -404,7 +404,7 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   cursor: pointer;
   &:hover {
     font-weight: 600;

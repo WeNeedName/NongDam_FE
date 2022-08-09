@@ -180,7 +180,7 @@ const InputImageBoxEdit = styled.div`
   &:hover {
     opacity: 0.5;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 150px;
     height: 150px;
   }
@@ -217,7 +217,7 @@ const NewImagesPreview = styled.div`
   background-image: url(${(props) => props.profileImage});
   background-position: center 30%;
   background-size: cover;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 150px;
     height: 150px;
   }

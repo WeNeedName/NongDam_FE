@@ -41,7 +41,7 @@ const EditMemberInfo = () => {
   const [crops, setCrops] = useState(); //새로 선택한 작물 id값(서버 통신용) [1]
   const [cropsObj, setCropsObj] = useState([]); //새로 선택한 작물 value, label값(작물 버튼 용)[{label: [type]name, value: id }]
   const [allCropList, setAllCropList] = useState([]); // 기존 작물 + 새로 선택한 작물
-  console.log(allCropList);
+
   // 기존 작물 전체 리스트
   const cropsArray = [];
   const cropTemp = myCropsList?.map((list, idx) => {
@@ -120,8 +120,8 @@ const EditMemberInfo = () => {
 
   //서버 통신 부분
   const editInfo = async (event) => {
-    if (allCropList.length > 6) {
-      window.alert("내 작물은 최대 6개까지 선택하실 수 있습니다.");
+    if (allCropList.length > 7) {
+      window.alert("내 작물은 최대 7개까지 선택하실 수 있습니다.");
     } else {
       const data = {
         nickname: nickname === "" ? previousNickname : nickname,
@@ -130,7 +130,6 @@ const EditMemberInfo = () => {
           countryCode === undefined ? previousCountryCodeNumber : countryCode,
         crops: sendCrop,
       };
-
       let frm = new FormData();
       frm.append("data", JSON.stringify(data));
       if (profileImg === "") {
@@ -233,21 +232,20 @@ const EditMemberInfo = () => {
               주소검색
             </AddressBtn>
           </AddressRightWrap>
-          <div id="popupDom">
-            {/* 팝업 생성 기준 div */}
-            {isPopupOpen && (
-              <PopupDom>
-                <PopupPostCode
-                  modalCloseRef={modalCloseRef}
-                  isPopupOpen={isPopupOpen}
-                  setIsPopupOpen={setIsPopupOpen}
-                  setAddress={setAddress}
-                />
-              </PopupDom>
-            )}
-          </div>
         </AddressWrap>
-
+        <div id="popupDom">
+          {/* 팝업 생성 기준 div */}
+          {isPopupOpen && (
+            <PopupDom>
+              <PopupPostCode
+                modalCloseRef={modalCloseRef}
+                isPopupOpen={isPopupOpen}
+                setIsPopupOpen={setIsPopupOpen}
+                setAddress={setAddress}
+              />
+            </PopupDom>
+          )}
+        </div>
         <CropsWrap>
           <TitleAndCrops>
             <SmallTitleCrops> 내 작물</SmallTitleCrops>
@@ -391,12 +389,6 @@ const Wrap = styled.div`
     margin-left: -20px;
     margin-bottom: 60px;
   }
-  @media only screen and (max-width: 414px) {
-    width: 100%;
-    padding: 20px;
-    grid-column: 2 / 3;
-    grid-row: 3 / 5;
-  }
 `;
 
 const Title = styled.span`
@@ -462,7 +454,7 @@ const EditNicknameWrap = styled.input`
 `;
 
 const Email = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-left: 16px;
 `;
 
@@ -509,7 +501,7 @@ const Label = styled.label`
     opacity: 0.8;
   }
   @media only screen and (max-width: 760px) {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -520,14 +512,11 @@ const Line = styled.hr`
   border: solid 0.5px #d8d8d8;
   margin-left: 20px;
   padding-right: 40px;
-  @media only screen and (max-width: 414px) {
-    width: 75%;
-  }
 `;
 
 const SmallTitle = styled.span`
   min-width: 30px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #02113b;
   font-weight: 700;
 `;
@@ -553,11 +542,6 @@ const AddressContent = styled.div`
     width: auto;
     margin-left: 0px;
   }
-  @media only screen and (max-width: 414px) {
-    width: 200px;
-    margin-left: 0px;
-    font-size: 14px;
-  }
 `;
 
 const AddressRightWrap = styled.div`
@@ -569,13 +553,10 @@ const AddressRightWrap = styled.div`
   @media only screen and (max-width: 760px) {
     margin-left: 30px;
   }
-  @media only screen and (max-width: 414px) {
-    margin-left: 50px;
-  }
 `;
 
 const AddressBtn = styled.button`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   min-width: 70px;
   padding: 6px 12px;
   border: 1px solid #bfbfbf;
@@ -605,18 +586,13 @@ const CropsWrap = styled.div`
 const TitleAndCrops = styled.div`
   display: flex;
   align-items: flex-start;
-  text-align: center;
-  align-items: center;
 `;
 const SmallTitleCrops = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
   width: 70px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
-  }
 `;
 const PrevAndNewCrops = styled.div`
   margin-left: 60px;
@@ -626,8 +602,6 @@ const PrevAndNewCrops = styled.div`
   @media only screen and (max-width: 760px) {
     margin-left: 10px;
     width: 220px;
-  }
-  @media only screen and (max-width: 414px) {
   }
 `;
 
@@ -640,7 +614,7 @@ const CropsList = styled.div`
   padding: 5px 6px 5px 9px;
   background-color: white;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   cursor: pointer;
   border-radius: 8px;
   margin-right: 8px;
@@ -649,10 +623,6 @@ const CropsList = styled.div`
   &:hover {
     font-weight: 500;
     border: 1px solid black;
-  }
-  @media only screen and (max-width: 414px) {
-    font-size: 13px;
-    margin-bottom: 3px;
   }
 `;
 
@@ -665,11 +635,7 @@ const DeleteBtn = styled.button`
   opacity: 1;
 `;
 
-const CropsContent = styled.div`
-  @media only screen and (max-width: 414px) {
-    margin-left: 10px;
-  }
-`;
+const CropsContent = styled.div``;
 
 const EditCropsBtn = styled.button`
   font-size: 11px;
@@ -702,19 +668,15 @@ const AreaWrap = styled.div`
   margin-left: 20px;
   margin-right: 27px;
   display: flex;
+
   justify-content: space-between;
   align-items: center;
-  @media only screen and (max-width: 414px) {
-    margin-left: 20px;
-    margin-right: 0px;
-    font-size: 14px;
-  }
 `;
 
 const CountryCodeContent = styled.div`
   max-width: 420px;
   margin-left: 60px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   border: none;
   background-color: transparent;
   color: #02113b;
@@ -723,31 +685,22 @@ const CountryCodeContent = styled.div`
   @media only screen and (max-width: 760px) {
     margin-left: 20px;
   }
-  @media only screen and (max-width: 414px) {
-    margin-left: 20px;
-    font-size: 14px;
-  }
 `;
 
 const TitleAndArea = styled.div`
   display: flex;
-
+  align-items: flex-start;
   text-align: center;
-  align-items: center;
 `;
 
 const SmallTitleArea = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: #02113b;
   font-weight: 700;
   line-height: 40px;
   @media only screen and (max-width: 760px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-top: -6px;
-  }
-  @media only screen and (max-width: 414px) {
-    line-height: 20px;
-    align-items: center;
   }
 `;
 const AreaBtn = styled.button`

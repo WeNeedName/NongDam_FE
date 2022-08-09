@@ -146,7 +146,7 @@ const Wrap = styled.div`
     grid-row: 3 / 4;
     margin-left: -20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 100%;
     padding: 20px;
     grid-column: 2 / 3;
@@ -166,24 +166,24 @@ const EditPwWrap = styled.div`
 const PwInputBox = styled.input`
   border: 1px solid #999999;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   padding: 4px;
   width: 300px;
   height: 28px;
   margin-top: 5px;
   :focus {
     outline: none;
-    border: 2px solid #55a349;
+    border: 2px solid ${({ theme }) => theme.colors.mainColor};
   }
 `;
 const SmallTitle = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const NewPwErr = styled.div`
   margin-top: 6px;
   color: #666666;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const EachBoxWrap = styled.div`
@@ -194,10 +194,10 @@ const Submit = styled.button``;
 
 export const SubmitBtn = styled.button`
   margin-top: 20px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: white;
-  background-color: #55a349;
-  border: 1px solid #55a349;
+  background-color: ${({ theme }) => theme.colors.mainColor};
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
   padding: 6px 12px;
   border-radius: 8px;
 
@@ -208,8 +208,8 @@ export const SubmitBtn = styled.button`
     border: 1px solid #22631c;
   }
   &:disabled {
-    background-color: #55a349;
-    border: 1px solid #55a349;
+    background-color: ${({ theme }) => theme.colors.mainColor};
+    border: 1px solid ${({ theme }) => theme.colors.mainColor};
     padding: 6px 12px;
     opacity: 0.3;
     cursor: default;

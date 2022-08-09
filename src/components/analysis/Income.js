@@ -172,7 +172,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin: 20px 30px 20px 0px;
   }
 `;
@@ -191,7 +191,7 @@ const LabelTip = styled.div`
 `;
 
 const Label = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
 `;
 
 const Legend = styled.div`
@@ -201,9 +201,9 @@ const Legend = styled.div`
     font-size: 10.5px;
     margin: 2px;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     span {
-      font-size: 12px;
+      font-size: ${({ theme }) => theme.fontSizes.xs};
       margin: 2px;
     }
   }

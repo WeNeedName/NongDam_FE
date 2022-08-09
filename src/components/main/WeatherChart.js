@@ -109,7 +109,6 @@ const WeatherChart = (props) => {
           fontFamily: undefined,
         },
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-          console.log(series, seriesIndex, dataPointIndex);
           return (
             '<div class="tooltip-box">' +
             '<div class="line">' +
