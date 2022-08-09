@@ -111,7 +111,7 @@ const Wrap = styled.div`
   justify-content: center;
   display: none;
   border-top: 0.5px solid #ddd;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: block;
   }
 `;

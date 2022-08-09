@@ -252,7 +252,7 @@ const XasisWrap = styled.div`
 `;
 
 const Xasis = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #666666;
 `;
 
@@ -269,7 +269,7 @@ const YasisLabelBox = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 100px;
     margin: 6px 10px;
   }
@@ -286,7 +286,7 @@ const YasisColorTipA = styled.div`
   height: 3px;
   background: #7ee3ab;
   margin-right: 6px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 6px;
     height: 6px;
   }
@@ -298,7 +298,7 @@ const YasisColorTipB = styled.div`
   background: #7eb3e3;
   margin-right: 6px;
   margin-left: 10px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 6px;
     height: 6px;
     margin-left: 0px;
@@ -306,7 +306,7 @@ const YasisColorTipB = styled.div`
 `;
 
 const YasisLabel = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #666666;
 `;
 

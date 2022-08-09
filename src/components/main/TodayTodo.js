@@ -111,7 +111,7 @@ const Wrap = styled.div`
   grid-row: 6 / 8;
   padding: 16px 16px;
   background-color: #fff;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 5 / 7;
     height: 200px;
@@ -127,24 +127,24 @@ const TopWrap = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
 `;
 
 const ShowMoreBtn = styled.span`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: 24px;
   color: #8e8f93;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
 const Guide = styled.div`
   height: 90%;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #bbb;
   display: flex;
   flex-direction: column;
@@ -171,19 +171,19 @@ const Hr = styled.div`
 
 const ScheduleContent = styled.span`
   font-weight: 700;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 14px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
 const ScheduleTime = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 4px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 

@@ -69,7 +69,7 @@ const AccountListModal = ({
       });
       mappedData.set(list.date, original);
     });
-  console.log(mappedData);
+
   return (
     <StyledModal
       isOpen={isOpenList}
@@ -177,7 +177,7 @@ const StyledModal = Modal.styled`
   border-radius: 10px;
   padding: 30px; 
   z-index: 100;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     border-radius: 0px;
     width: 330px;
     margin: 20px 0px;
@@ -294,16 +294,16 @@ const WhereToUseType = styled.div`
   background: transparent;
   border: 1px solid #616161;
   border-radius: 100px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #616161;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
 const MemoT = styled.span`
   width: 186px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-left: 8px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -314,7 +314,7 @@ const MemoT = styled.span`
 `;
 
 const Price = styled.span`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   color: ${(props) => (props.category === "수입" ? "#2399DC" : "#EB3333")};
 `;
 
@@ -328,7 +328,7 @@ const NoticeWrap = styled.div`
 
 const NoticeT = styled.span`
   color: #6f6f6f;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
 `;
 
 export default AccountListModal;

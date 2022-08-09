@@ -101,7 +101,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     padding: 20px 20px 30px 20px;
     grid-column: 2 / 3;
     grid-row: 3 / 4;

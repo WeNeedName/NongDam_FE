@@ -158,7 +158,7 @@ const StyledModal = Modal.styled`
   background-color: white;
   border-radius: 10px;
   padding: 30px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     border-radius: 0px;
     width: 330px;
     margin: 20px 0px;
@@ -266,8 +266,8 @@ const WhereToUseType = styled.div`
   border-radius: 100px;
   font-size: 14px;
   color: #616161;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 

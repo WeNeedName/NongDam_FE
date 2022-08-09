@@ -205,7 +205,7 @@ const Wrap = styled.div`
   grid-column: 3 / 5;
   grid-row: 5 / 8;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 10 / 12;
     padding: 20px 20px 20px 20px;
@@ -222,14 +222,14 @@ const TopWrap = styled.div`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
   margin-bottom: 4px;
 `;
 
 const ShowMoreBtn = styled.span`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: 24px;
   color: #8e8f93;
   cursor: pointer;
@@ -239,7 +239,7 @@ const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
   margin: 10px 0px 16px 0px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     padding-bottom: 10px;
   }
 `;
@@ -280,7 +280,7 @@ const Label = styled.label``;
 const ChartWrap = styled.div`
   width: 100%;
   height: 70%;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 20px;
   }
 `;
@@ -311,10 +311,10 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -325,15 +325,15 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -344,7 +344,7 @@ const BodyWrap = styled.div`
   justify-content: space-around;
   margin-top: 50px;
   margin-right: 20px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;

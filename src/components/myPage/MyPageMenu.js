@@ -137,7 +137,7 @@ const Wrap = styled.div`
     grid-row: 2 / 3;
     padding: 20px;
   }
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.mobile}) {
     width: 88%;
     grid-column: 2 / 3;
     grid-row: 2 / 3;

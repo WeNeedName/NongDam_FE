@@ -156,20 +156,20 @@ const Wrap = styled.div`
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
   }
 `;
 
 const Region = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   font-weight: 700;
   margin: 16px 0px 10px 0px;
 `;
 
 const SubTitle = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin: 4px 0px 6px 0px;
 `;
 
@@ -179,14 +179,14 @@ const CategoryChartWrap = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   /* margin-left: 60px; */
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 100%;
   }
 `;
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
   margin-bottom: 10px;
 `;
@@ -236,7 +236,7 @@ const StyledSelect = styled(Select)`
   width: 180px;
   height: 30px;
   margin: 0px 0px 20px 0px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const NoticeWrap = styled.div`
@@ -264,10 +264,10 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -278,15 +278,15 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

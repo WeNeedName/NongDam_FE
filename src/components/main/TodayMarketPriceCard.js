@@ -243,7 +243,7 @@ const Wrap = styled.div`
   grid-column: 3 / 4;
   grid-row: 2 / 5;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     height: 340px;
     grid-column: 2 / 3;
     grid-row: 10 / 11;
@@ -260,7 +260,7 @@ const TopWrap = styled.div`
 
 const ShowMoreBtn = styled.span`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: 24px;
   color: #8e8f93;
   cursor: pointer;
@@ -268,31 +268,31 @@ const ShowMoreBtn = styled.span`
 
 const Title = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
   margin-bottom: 4px;
 `;
 
 const Region = styled.div`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 700;
   margin: 10px 0px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
     margin-top: 20px;
   }
 `;
 
 const SubTitle = styled.span`
   margin: 4px 0px 6px 0px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const StyledSelect = styled(Select)`
   width: 180px;
   height: 30px;
   margin: 0px 0px 20px 0px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   @media only screen and (max-width: 1220px) {
     width: 180px;
   }
@@ -301,7 +301,7 @@ const StyledSelect = styled(Select)`
 const SearchBtn = styled.button`
   width: 70px;
   height: 32px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #616161;
   padding: 4px;
   background: #ffffff;
@@ -312,7 +312,7 @@ const SearchBtn = styled.button`
     color: black;
     border: 1px solid black;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 6px;
   }
 `;
@@ -343,7 +343,7 @@ const TodayPrice = styled.span`
 
 const TodayPriceT = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-left: 4px;
 `;
 
@@ -357,11 +357,11 @@ const CategoryTWrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const DateT = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   color: #6f6f6f;
   margin-left: 10px;
 `;
@@ -380,7 +380,7 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   width: 40px;
   height: 18px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   padding-bottom: 4px;
   border-radius: 100px;
   background: transparent;
@@ -434,12 +434,8 @@ const InputWrap = styled.div`
     background-color: black;
   }
   label {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-right: 0px;
-    @media only screen and (max-width: 760px) {
-      font-size: 14px;
-      /* margin-right: 8px; */
-    }
   }
 `;
 
@@ -447,17 +443,17 @@ const NotFoundNoticeWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     height: 80px;
   }
 `;
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 20px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -485,11 +481,11 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -500,15 +496,15 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

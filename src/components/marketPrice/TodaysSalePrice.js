@@ -136,7 +136,7 @@ const Wrap = styled.div`
   grid-column: 4 / 5;
   grid-row: 1 / 2;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 4 / 5;
     height: 300px;
@@ -145,14 +145,14 @@ const Wrap = styled.div`
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   line-height: 10px;
   margin-bottom: 10px;
 `;
 
 const Info = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin: 4px 0px 6px 0px;
 `;
 
@@ -165,7 +165,7 @@ const SumWrap = styled.div`
 
 const TodayPriceSumT = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-left: 4px;
   align-self: flex-end;
   margin-bottom: 8px;
@@ -196,7 +196,7 @@ const BottomWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     height: 80px;
   }
 `;
@@ -218,10 +218,10 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.span`
   color: #787c87;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 20px;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -250,11 +250,11 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
-  @media only screen and (max-width: 760px) {
-    font-size: 16px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.md};
   }
 `;
 
@@ -265,15 +265,15 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 1px;
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 

@@ -533,7 +533,7 @@ const TotalWrap = styled.div`
   justify-content: center;
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 90%;
     border-radius: 0px;
     margin-bottom: 100px;
@@ -543,14 +543,14 @@ const TotalWrap = styled.div`
 const TopWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const MTopWrap = styled.div`
   display: none;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: block;
   }
 `;
@@ -572,7 +572,7 @@ const TitleInput = styled.input`
   &::placeholder {
     color: #ccc;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 95%;
     font-size: 30px;
     margin-top: 30px;
@@ -582,7 +582,7 @@ const TitleInput = styled.input`
 
 const BtnWrap = styled.div`
   display: flex;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     position: absolute;
     right: 20px;
   }
@@ -595,9 +595,9 @@ const EditBtn = styled.button`
   height: 30px;
   padding: 4px 10px;
 
-  background-color: #55a349;
+  background-color: ${({ theme }) => theme.colors.mainColor};
   color: white;
-  border: 1px solid #55a349;
+  border: 1px solid ${({ theme }) => theme.colors.mainColor};
   border-radius: 8px;
   &:hover {
     background: #22631c;
@@ -610,7 +610,7 @@ const CancelBtn = styled.button`
   align-items: center;
   width: 50px;
   height: 30px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   padding: 4px 10px;
   margin-left: 10px;
   background-color: transparent;
@@ -632,8 +632,8 @@ const SmallTitle = styled.label`
   font-size: 18px;
   font-weight: 700;
   margin-right: 10px;
-  @media only screen and (max-width: 760px) {
-    font-size: 14px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
 `;
 
@@ -647,7 +647,7 @@ const ProductWrap = styled.div`
 const FormCheckText = styled.span`
   width: auto;
   height: auto;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   padding: 5px 11px;
   margin-top: 5px;
   border-radius: 15px;
@@ -663,8 +663,8 @@ const FormCheckText = styled.span`
     color: black;
     border: 1px solid black;
   }
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
   }
 `;
 
@@ -673,8 +673,8 @@ const CategoryWrap = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 10px;
-  @media only screen and (max-width: 760px) {
-    font-size: 12px;
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
     flex-wrap: wrap;
   }
 `;
@@ -696,20 +696,20 @@ const FormCheckLeft = styled.input.attrs({ type: "radio" })`
 const QuantityWrap = styled.div`
   display: flex;
   margin-top: 30px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const MobileQuantityWrap = styled.div`
   display: none;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: block;
   }
 `;
 
 const Product = styled.input`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   width: 130px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
@@ -719,7 +719,7 @@ const Product = styled.input`
     outline: none;
     border: 1px solid #02113b;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 130px;
   }
 `;
@@ -730,14 +730,14 @@ const ContentWrap = styled.div`
 
 const SubMaterialWrap = styled.div`
   display: flex;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const MSubMaterialWrap = styled.div`
   display: none;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: block;
   }
 `;
@@ -746,14 +746,14 @@ const Fertilizer = styled.div`
   margin-right: 40px;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-right: 20px;
   }
 `;
 
 const Chemical = styled.div`
   margin-right: 25px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-right: 0px;
   }
 `;
@@ -784,7 +784,7 @@ const UseQuantity = styled.input`
 `;
 
 const Quantity = styled.input`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   width: 60px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
@@ -793,7 +793,7 @@ const Quantity = styled.input`
     outline: none;
     border: 1px solid #02113b;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 60px;
   }
 `;
@@ -822,14 +822,14 @@ const HarvestWrap = styled.div`
   margin-right: 40px;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const MHarvestWrap = styled.div`
   display: none;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: block;
     margin-top: 30px;
   }
@@ -839,7 +839,7 @@ const HarvestQuantity = styled.input`
   width: 60px;
   height: 20px;
   padding: 4px 10px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   margin-right: 6px;
@@ -860,7 +860,7 @@ const WorkInput = styled.textarea`
   width: 95%;
   height: 200px;
   resize: none;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: 1px solid #bfbfbf;
   margin-top: 5px;
   border-radius: 10px;
@@ -870,7 +870,7 @@ const WorkInput = styled.textarea`
   resize: none;
   &::placeholder {
     color: #ddd;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
   }
   &:focus {
     outline: none;
@@ -893,7 +893,7 @@ const DatePickers = styled.div`
       outline: none;
       border-bottom: 1px solid black;
     }
-    @media only screen and (max-width: 760px) {
+    @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
       font-size: 20px;
       width: 100px;
     }
@@ -909,7 +909,7 @@ const WorkContent = styled.div`
   text-align: left;
   border: 1px solid #bfbfbf;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 5px;
 `;
 
@@ -921,7 +921,7 @@ const WorkingHour = styled.div`
 
 const MWorkingHour = styled.div`
   display: none;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: block;
     margin: 30px 0px;
   }
@@ -930,7 +930,7 @@ const MWorkingHour = styled.div`
 const HourQuantity = styled.input`
   width: 40px;
   padding: 4px 10px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: none;
   border-bottom: 1px solid #bfbfbf;
   margin-right: 6px;
@@ -939,7 +939,7 @@ const HourQuantity = styled.input`
     outline: none;
     border-bottom: 1px solid black;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 16px;
   }
 `;

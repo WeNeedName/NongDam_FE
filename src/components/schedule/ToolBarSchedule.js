@@ -65,7 +65,7 @@ const YearMonthTitle = styled.span`
 const Btn = styled.button`
   width: 20px;
   height: 20px;
-  background: #55a349;
+  background: ${({ theme }) => theme.colors.mainColor};
   border: none;
   border-radius: 100%;
   position: relative;

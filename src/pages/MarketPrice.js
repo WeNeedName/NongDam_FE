@@ -221,7 +221,7 @@ const Wrap = styled.div`
   flex-direction: column;
   position: relative;
   margin-bottom: ${({ crops }) => (crops === 0 ? "300px" : "0px")};
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-bottom: 100px;
   }
 `;
@@ -239,17 +239,17 @@ const BodyWrap = styled.div`
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, minmax(26%, 27%)) 1fr;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-template-columns: 1fr 90% 1fr;
   }
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: 700;
   margin: 30px 0px 10px 0px;
   margin-left: 11.5%;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-left: 5%;
   }
 `;
@@ -259,7 +259,7 @@ const CategoryWrap = styled.div`
   flex-direction: row;
   margin: 10px 0px 20px 0px;
   margin-left: 11.5%;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-left: 5%;
   }
 `;
@@ -267,7 +267,7 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   padding: 2px 10px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   line-height: 24px;
   margin-right: 4px;
   background: transparent;
@@ -315,7 +315,7 @@ const GradationBox = styled.div`
   /* background: linear-gradient(to right, transparent, white); */
   /* background-image: url("https://s3.ap-northeast-2.amazonaws.com/engmemo.shop/13.+%E1%84%82%E1%85%A9%E1%86%BC%E1%84%8C%E1%85%A1%E1%86%BC%E1%84%80%E1%85%AA%E1%86%AB%E1%84%85%E1%85%B5%E1%84%92%E1%85%A7%E1%86%AB%E1%84%92%E1%85%AA%E1%86%BC+%E2%80%93+2.png"); */
   background: linear-gradient(to right, transparent, #fff);
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 0px;
   }
   @media only screen and (scroll-right: 0px) {
@@ -340,7 +340,7 @@ const MyCropsChartWrap = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     padding-left: 5%;
   }
 `;
@@ -366,7 +366,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -390,13 +390,13 @@ const Icon = styled.div`
     animation: ${boxFadeC} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 

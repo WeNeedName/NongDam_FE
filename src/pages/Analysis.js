@@ -157,7 +157,7 @@ const Wrap = styled.div`
   column-gap: 16px;
   background: #f5f5f5;
   margin-bottom: 20px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-template-columns: 1fr 90% 1fr;
     grid-template-rows: 80px repeat(6, auto) 0px;
     margin-bottom: 70px;
@@ -194,7 +194,7 @@ const Info = styled.div`
   justify-content: center;
   animation: ${boxFadeB} 1s;
   z-index: 1000;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     bottom: 120px;
     right: 150px;
   }
@@ -218,13 +218,13 @@ const Icon = styled.div`
     animation: ${boxFadeC} 2s;
     background-image: url(${(props) => props.chickenIcon});
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;
 
 const Emoji = styled.div`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   margin-right: 4px;
 `;
 
@@ -243,14 +243,14 @@ const WIPIconS = styled.img`
 `;
 
 const InfoT = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #a3a3a3;
   font-weight: 500;
   margin: 1px 0px;
 `;
 
 const InfoT2 = styled.span`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: #a3a3a3;
   font-weight: 400;
   margin: 1px 0px;
