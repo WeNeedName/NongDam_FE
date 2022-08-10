@@ -48,7 +48,7 @@ const RecordContentWrap = styled.div`
   width: 93%;
   background-color: #fff;
   margin-top: 20px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 30px;
   }
 `;
@@ -69,7 +69,7 @@ const InputBox = styled.input`
   width: 100px;
   height: 20px;
   padding: 4px 10px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   border: 1px solid #bfbfbf;
   border-radius: 6px;
   margin-right: 6px;
@@ -82,7 +82,7 @@ const InnerSet = styled.div`
   display: flex;
   align-items: center;
   .kg {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     color: #616161;
   }
 `;

@@ -49,7 +49,7 @@ const Wrap = styled.div`
   left: 0;
   grid-column: 1 / 6;
   grid-row: 10 / 12;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;

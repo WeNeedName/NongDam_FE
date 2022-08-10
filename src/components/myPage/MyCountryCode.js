@@ -76,7 +76,7 @@ const Container = styled.div`
     margin-left: 60px;
     margin-top: 10px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
     @media only screen and (max-width: 760px) {
       width: 200px;
       margin-left: 20px;

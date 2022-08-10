@@ -188,7 +188,7 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: 28px;
   text-align: center;
 `;
@@ -200,7 +200,7 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-bottom: 1px;
   cursor: pointer;
   &:hover {
@@ -216,7 +216,7 @@ const MonthChangeBtn = styled.div`
   padding-right: 13px;
   padding-left: 13px;
   color: #616161;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   background-color: transparent;
   position: absolute;
   /* left: 75%; */
@@ -226,7 +226,7 @@ const MonthChangeBtn = styled.div`
   &:hover {
     opacity: 0.7;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 40px;
     transform: translate(20px, -5px);
   }

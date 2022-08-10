@@ -79,7 +79,7 @@ const StyledModal = styled(ReactModal)`
     top: 10%;
     right: 5%;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     top: 90px;
     right: 5%;
   }
@@ -91,12 +91,12 @@ const MenuWrap = styled.span`
 `;
 
 const Nickname = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   margin-bottom: 4px;
 `;
 
 const Email = styled.span`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   margin-bottom: 20px;
   color: #bbb;
 `;
@@ -104,7 +104,7 @@ const Email = styled.span`
 const Menu = styled.span`
   width: 100%;
   height: auto;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   margin-bottom: 14px;
   &:hover {
     font-weight: 500;

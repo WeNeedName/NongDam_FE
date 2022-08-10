@@ -66,7 +66,7 @@ const Logo = styled.img`
 
 const Info = styled.div`
   height: 100vh;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.lg};
   font-weight: bold;
   display: flex;
   flex-direction: column;
@@ -91,7 +91,7 @@ const Wrap = styled.div`
 const Err = styled.span`
   font-size: 100px;
   font-weight: bold;
-  color: #55a349;
+  color: ${({ theme }) => theme.colors.mainColor};
 `;
 
 const ErrMessage = styled.span`
@@ -103,13 +103,13 @@ const ErrMessage = styled.span`
 `;
 
 const ErrMessageSub = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: 24px;
   font-weight: 400;
 `;
 
 const ErrMessageSub2 = styled.span`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   line-height: 24px;
   font-weight: 400;
   position: relative;
@@ -117,11 +117,9 @@ const ErrMessageSub2 = styled.span`
 `;
 
 const HomeBtn = styled.button`
-  /* width: 120px;
-  height: 30px; */
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   margin-top: 10px;
-  background: #55a349;
+  background: ${({ theme }) => theme.colors.mainColor};
   border-radius: 6px;
   color: white;
   padding: 10px 18px;

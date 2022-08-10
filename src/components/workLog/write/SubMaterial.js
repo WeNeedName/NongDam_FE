@@ -165,7 +165,7 @@ const TabsWrap = styled.div`
 const InputBoxes = styled.div``;
 
 const Product = styled.input`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   width: 380px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
@@ -175,7 +175,7 @@ const Product = styled.input`
     outline: none;
     border: 1px solid #02113b;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 280px;
   }
 `;
@@ -183,7 +183,7 @@ const Product = styled.input`
 const QuantityMeasure = styled.div``;
 
 const Quantity = styled.input`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   width: 140px;
   border: 1px solid #bfbfbf;
   border-radius: 6px;
@@ -212,10 +212,10 @@ const Measure = styled.select`
 
 const STabs = styled(Tabs)`
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   width: 400px;
   /* width: 50%; */
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 300px;
   }
 `;
@@ -260,7 +260,7 @@ const STabPanel = styled(TabPanel)`
   &.is-selected {
     display: block;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 300px;
   }
 `;

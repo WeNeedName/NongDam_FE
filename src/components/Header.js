@@ -148,7 +148,7 @@ const Wrap = styled.div`
   @media only screen and (max-width: 1220px) {
     grid-template-columns: 1fr repeat(3, 28%) 1fr;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 1 / 4;
     grid-row: 1 / 2;
   }
@@ -175,15 +175,10 @@ const Logo = styled.img`
   width: 90px;
   margin-right: 40px;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 70px;
     height: auto;
   }
-`;
-
-const Menu = styled.span`
-  margin-right: 30px;
-  font-size: 12px;
 `;
 
 const UserProfile = styled.div`
@@ -195,7 +190,7 @@ const UserProfile = styled.div`
   /* background-image: url(https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164422528068537909.jpeg?gif=1&w=1080); */
   background-position: center 30%;
   background-size: cover;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 40px;
     height: 40px;
   }
@@ -215,14 +210,14 @@ const CategoryWrap = styled.div`
 const FormCheckText = styled.span`
   margin-right: 60px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
   color: ${(props) => (props.currentPage === props.id ? "#333" : " #666")};
   font-weight: ${(props) => (props.currentPage === props.id ? 600 : 400)};
   &:hover {
     font-weight: 600;
     color: #333;
   }
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     display: none;
   }
 `;

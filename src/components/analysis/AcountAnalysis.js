@@ -121,7 +121,7 @@ const Wrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     min-height: 320px;
@@ -166,7 +166,7 @@ const BodyWrap = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     flex-direction: column;
     justify-content: flex-start;
     margin-top: 20px;
@@ -198,7 +198,7 @@ const NoticeT = styled.span`
   flex-direction: column;
   align-items: center;
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   line-height: 24px;
   text-align: center;
 `;
@@ -210,7 +210,7 @@ const NoticeBtn = styled.button`
   border: none;
   border-radius: 4px;
   color: #1aacff;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.xs};
   cursor: pointer;
   &:hover {
     font-weight: 600;
@@ -220,7 +220,7 @@ const NoticeBtn = styled.button`
 const CircleWrap = styled.div`
   display: flex;
   flex-direction: row;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     margin-top: 20px;
   }
 `;

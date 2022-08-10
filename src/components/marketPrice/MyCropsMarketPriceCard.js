@@ -14,7 +14,6 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const MyCropsMarketPriceCard = ({ checkedInputs }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
@@ -229,10 +228,6 @@ const MyCropsMarketPriceCard = ({ checkedInputs }) => {
                 monthState?.series[seriesIndex]?.name +
                 '<span class="date-label">' +
                 " " +
-                // checkedInputs ===
-                // "month"
-                // ? monthDate[dataPointIndex]
-                // : yearDate[dataPointIndex] +
                 "</span>" +
                 "</span>" +
                 "</div>" +
@@ -414,7 +409,7 @@ const Wrap = styled.div`
   background-color: #fff;
   margin-right: 20px;
   cursor: pointer;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 340px;
   }
 `;
@@ -424,7 +419,7 @@ const EndWrap = styled.div`
   height: 100%;
   border: none;
   background-color: #f5f5f5;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 7%;
   }
 `;
@@ -456,14 +451,14 @@ const CategoryChartWrap = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   /* margin-left: 60px; */
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 100%;
   }
 `;
 
 const CategoryT = styled.span`
   font-weight: 700;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSizes.md};
 `;
 
 const FormCheckText = styled.span`
@@ -548,7 +543,7 @@ const YasisLabelBox = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 100px;
     margin: 6px 10px;
   }
@@ -565,7 +560,7 @@ const YasisColorTipA = styled.div`
   height: 3px;
   background: #7ee3ab;
   margin-right: 6px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 4px;
     height: 4px;
   }
@@ -577,7 +572,7 @@ const YasisColorTipB = styled.div`
   background: #7eb3e3;
   margin-right: 6px;
   margin-left: 10px;
-  @media only screen and (max-width: 760px) {
+  @media only screen and (max-width: ${({ theme }) => theme.device.tablet}) {
     width: 4px;
     height: 4px;
   }
@@ -598,7 +593,7 @@ const NotFoundNoticeWrap = styled.div`
 
 const NotFoundNotice = styled.div`
   color: #6f6f6f;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
 const NotFoundWrap = styled.div`
